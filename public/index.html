@@ -169,6 +169,18 @@ nav{position:sticky;top:0;z-index:1000;background:rgba(242,237,228,0.96);backdro
 .gps-hint{font-size:10px;color:var(--stone);line-height:1.5;}
 .gps-btn{width:100%;padding:10px;background:var(--amber);color:var(--white);font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:.08em;border:none;border-radius:2px;cursor:pointer;transition:background .15s;}
 .gps-btn:hover{background:var(--amber2);}
+.gps-fmt-toggle{display:flex;border:1px solid var(--rule);border-radius:2px;overflow:hidden;margin-bottom:10px;}
+.gps-fmt-btn{flex:1;padding:5px 8px;background:var(--white);border:none;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:.1em;color:var(--stone);cursor:pointer;transition:background .15s,color .15s;}
+.gps-fmt-btn.on{background:var(--ink);color:var(--white);}
+.gps-fmt-panel{display:none;}.gps-fmt-panel.on{display:block;}
+.dms-row{display:flex;gap:6px;align-items:flex-end;margin-bottom:8px;}
+.dms-field{display:flex;flex-direction:column;flex:2;}
+.dms-field.sm{flex:1.2;}
+.dms-field.xs{flex:0.8;}
+.dms-field label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--stone);margin-bottom:4px;display:block;}
+.dms-sep{font-size:14px;font-weight:600;color:var(--stone);padding-bottom:9px;line-height:1;}
+.dms-dir{width:100%;padding:9px 6px;background:var(--white);border:1px solid var(--rule);border-radius:2px;font-size:12px;font-family:'DM Sans',sans-serif;color:var(--ink);outline:none;appearance:none;-webkit-appearance:none;cursor:pointer;}
+.dms-dir:focus{border-color:var(--ink);}
 /* search */
 .flabel{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--stone);margin-bottom:6px;display:block;}
 .swrap{position:relative;}
@@ -810,16 +822,48 @@ select.fi{cursor:pointer;}
         <div class="search-mode" id="mode-gps">
           <label class="flabel">Coordonnées GPS</label>
           <div class="gps-wrap">
-            <div class="gps-row">
-              <div class="gps-field">
-                <label>Latitude</label>
-                <input class="gps-inp" id="gps-lat" type="number" step="0.000001" min="44" max="63" placeholder="Ex: 46.8123"/>
-              </div>
-              <div class="gps-field">
-                <label>Longitude</label>
-                <input class="gps-inp" id="gps-lon" type="number" step="0.000001" min="-80" max="-57" placeholder="Ex: -71.2456"/>
+            <!-- Format toggle -->
+            <div class="gps-fmt-toggle">
+              <button class="gps-fmt-btn on" id="fmt-dd" onclick="setGpsFmt('dd')">Décimal (DD)</button>
+              <button class="gps-fmt-btn" id="fmt-dms" onclick="setGpsFmt('dms')">Deg Min Sec (DMS)</button>
+            </div>
+
+            <!-- Panel DD -->
+            <div class="gps-fmt-panel on" id="panel-dd">
+              <div class="gps-row">
+                <div class="gps-field">
+                  <label>Latitude</label>
+                  <input class="gps-inp" id="gps-lat" type="number" step="0.000001" min="44" max="63" placeholder="Ex: 46.8123"/>
+                </div>
+                <div class="gps-field">
+                  <label>Longitude</label>
+                  <input class="gps-inp" id="gps-lon" type="number" step="0.000001" min="-80" max="-57" placeholder="Ex: -71.2456"/>
+                </div>
               </div>
             </div>
+
+            <!-- Panel DMS -->
+            <div class="gps-fmt-panel" id="panel-dms">
+              <div class="dms-row">
+                <div class="dms-field sm"><label>Lat °</label><input class="gps-inp" id="dms-lat-d" type="number" min="44" max="63" placeholder="46"/></div>
+                <span class="dms-sep">°</span>
+                <div class="dms-field sm"><label>Min ′</label><input class="gps-inp" id="dms-lat-m" type="number" min="0" max="59" placeholder="48"/></div>
+                <span class="dms-sep">′</span>
+                <div class="dms-field"><label>Sec ″</label><input class="gps-inp" id="dms-lat-s" type="number" min="0" max="59.9" step="0.1" placeholder="44"/></div>
+                <span class="dms-sep">″</span>
+                <div class="dms-field xs"><label>Dir</label><select class="dms-dir" id="dms-lat-dir"><option>N</option><option>S</option></select></div>
+              </div>
+              <div class="dms-row">
+                <div class="dms-field sm"><label>Lon °</label><input class="gps-inp" id="dms-lon-d" type="number" min="57" max="80" placeholder="71"/></div>
+                <span class="dms-sep">°</span>
+                <div class="dms-field sm"><label>Min ′</label><input class="gps-inp" id="dms-lon-m" type="number" min="0" max="59" placeholder="14"/></div>
+                <span class="dms-sep">′</span>
+                <div class="dms-field"><label>Sec ″</label><input class="gps-inp" id="dms-lon-s" type="number" min="0" max="59.9" step="0.1" placeholder="44"/></div>
+                <span class="dms-sep">″</span>
+                <div class="dms-field xs"><label>Dir</label><select class="dms-dir" id="dms-lon-dir"><option>O</option><option>E</option></select></div>
+              </div>
+            </div>
+
             <p class="gps-hint">Pour un chantier sans adresse: routes, ponts, barrages, sites en construction.</p>
             <button class="gps-btn" onclick="doGpsSearch()">Analyser ces coordonnées</button>
           </div>
@@ -1572,10 +1616,38 @@ function setSearchMode(mode) {
   if (mode === 'addr') closeSugg();
 }
 
+let gpsFmt = 'dd';
+function setGpsFmt(fmt) {
+  gpsFmt = fmt;
+  document.getElementById('fmt-dd').classList.toggle('on', fmt === 'dd');
+  document.getElementById('fmt-dms').classList.toggle('on', fmt === 'dms');
+  document.getElementById('panel-dd').classList.toggle('on', fmt === 'dd');
+  document.getElementById('panel-dms').classList.toggle('on', fmt === 'dms');
+}
+function dmsToDecimal(deg, min, sec, dir) {
+  const d = Math.abs(parseInt(deg)||0) + (parseInt(min)||0)/60 + (parseFloat(sec)||0)/3600;
+  return (dir === 'S' || dir === 'O' || dir === 'W') ? -d : d;
+}
 function doGpsSearch() {
-  const lat = parseFloat(document.getElementById('gps-lat').value);
-  const lon = parseFloat(document.getElementById('gps-lon').value);
-  if (isNaN(lat) || isNaN(lon)) { showToast('Entrez des coordonnées valides (ex: 46.8123, -71.2456)', ''); return; }
+  let lat, lon;
+  if (gpsFmt === 'dd') {
+    lat = parseFloat(document.getElementById('gps-lat').value);
+    lon = parseFloat(document.getElementById('gps-lon').value);
+    if (isNaN(lat) || isNaN(lon)) { showToast('Entrez des coordonnées valides (ex: 46.8123, -71.2456)', ''); return; }
+  } else {
+    const ld = document.getElementById('dms-lat-d').value;
+    const lm = document.getElementById('dms-lat-m').value;
+    const ls = document.getElementById('dms-lat-s').value;
+    const ldir = document.getElementById('dms-lat-dir').value;
+    const od = document.getElementById('dms-lon-d').value;
+    const om = document.getElementById('dms-lon-m').value;
+    const os = document.getElementById('dms-lon-s').value;
+    const odir = document.getElementById('dms-lon-dir').value;
+    if (!ld || !od) { showToast('Entrez les degrés de latitude et longitude', ''); return; }
+    lat = dmsToDecimal(ld, lm, ls, ldir);
+    lon = dmsToDecimal(od, om, os, odir);
+    if (odir === 'O') lon = -Math.abs(lon); // Quebec is always West
+  }
   if (lat < 44 || lat > 63 || lon < -80 || lon > -57) { showToast('Coordonnées hors du Québec — vérifiez les valeurs', ''); return; }
   analyzeLocation(lat, lon, `GPS ${lat.toFixed(5)}, ${lon.toFixed(5)}`);
 }
