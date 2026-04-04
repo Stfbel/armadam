@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Armadam — Batardeaux sur mesure</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{--navy:#0d1f2d;--steel:#1c3344;--slate:#2a4a5e;--ice:#5ba8cc;--icel:#a8d4e8;--cream:#f0ece4;--muted:#8aa0ae;--bd:rgba(91,168,204,0.18);--bds:rgba(91,168,204,0.35);}
+body{font-family:'Barlow',sans-serif;background:var(--navy);color:var(--cream);margin:0;}
+nav{display:flex;align-items:center;justify-content:space-between;padding:0 2rem;height:56px;background:rgba(13,31,45,0.98);border-bottom:0.5px solid var(--bd);position:sticky;top:0;z-index:100;}
+.nlogo{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:800;letter-spacing:0.05em;text-transform:uppercase;color:var(--cream);display:flex;align-items:center;gap:9px;cursor:pointer;}
+.nmark{width:30px;height:30px;background:var(--ice);display:flex;align-items:center;justify-content:center;clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);}
+.nacc{color:var(--ice);}
+.nlinks{display:flex;gap:2px;}
+.nl{padding:8px 13px;font-size:11px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);cursor:pointer;border-radius:3px;transition:color .15s;border:none;background:transparent;}
+.nl:hover,.nl.on{color:var(--ice);}
+.ncta{padding:8px 18px;background:var(--ice);color:var(--navy);font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;border-radius:3px;cursor:pointer;border:none;transition:background .15s;}
+.ncta:hover{background:var(--icel);}
+.pg{display:none;}.pg.on{display:block;}
+
+/* === HOME === */
+.hero{min-height:480px;position:relative;overflow:hidden;display:flex;flex-direction:column;}
+.hbg{position:absolute;inset:0;background:linear-gradient(135deg,rgba(91,168,204,0.07) 0%,transparent 55%);pointer-events:none;}
+.hgrid{position:absolute;inset:0;background-image:linear-gradient(rgba(91,168,204,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(91,168,204,0.05) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;}
+.hwaves{position:absolute;bottom:0;left:0;right:0;height:160px;overflow:hidden;opacity:0.2;}
+.wv{position:absolute;width:200%;height:72px;background:var(--ice);border-radius:50% 50% 0 0/72px 72px 0 0;animation:wvanim 9s ease-in-out infinite;}
+.wv:nth-child(2){height:54px;opacity:.6;animation-delay:-3.5s;animation-duration:11s;top:38px;}
+.wv:nth-child(3){height:44px;opacity:.4;animation-delay:-6s;animation-duration:13s;top:68px;}
+@keyframes wvanim{0%,100%{transform:translateX(-25%)}50%{transform:translateX(0%)}}
+.hcontent{position:relative;z-index:5;padding:3rem 2.5rem 2rem;flex:1;}
+.hbrow{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--ice);margin-bottom:0.9rem;display:flex;align-items:center;gap:8px;}
+.hbl{width:30px;height:1px;background:var(--ice);}
+.htitle{font-family:'Barlow Condensed',sans-serif;font-size:68px;font-weight:800;line-height:0.9;letter-spacing:-0.01em;text-transform:uppercase;color:var(--cream);margin-bottom:1.25rem;}
+.htitle .ac{color:var(--ice);display:block;}
+.hsub{font-size:15px;font-weight:300;color:var(--muted);line-height:1.65;max-width:500px;margin-bottom:2rem;}
+.hbtns{display:flex;gap:12px;}
+.hbp{padding:13px 28px;background:var(--ice);color:var(--navy);font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;border:none;border-radius:3px;cursor:pointer;transition:background .15s;}
+.hbp:hover{background:var(--icel);}
+.hbs{padding:13px 28px;background:transparent;color:var(--cream);font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;border:1px solid var(--bds);border-radius:3px;cursor:pointer;transition:border-color .15s,color .15s;}
+.hbs:hover{border-color:var(--ice);color:var(--ice);}
+.stats{display:flex;border-top:0.5px solid var(--bd);border-bottom:0.5px solid var(--bd);background:rgba(28,51,68,0.5);}
+.si{flex:1;padding:1rem 1.5rem;border-right:0.5px solid var(--bd);text-align:center;}
+.si:last-child{border-right:none;}
+.sn{font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:800;color:var(--ice);line-height:1;}
+.sl{font-size:9px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin-top:3px;}
+.psect{padding:2rem 2rem 1.5rem;}
+.psh{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:1.5rem;}
+.pst{font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:800;text-transform:uppercase;color:var(--cream);letter-spacing:0.02em;}
+.psl{font-size:10px;color:var(--ice);cursor:pointer;letter-spacing:0.06em;text-transform:uppercase;}
+.pgrid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;}
+.pc{background:var(--steel);border:0.5px solid var(--bd);border-radius:3px;overflow:hidden;cursor:pointer;transition:border-color .15s,transform .15s;}
+.pc:hover{border-color:var(--ice);transform:translateY(-2px);}
+.pcv{height:80px;background:var(--slate);display:flex;align-items:center;justify-content:center;}
+.pci{padding:10px 12px;}
+.pcn{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;text-transform:uppercase;color:var(--cream);margin-bottom:2px;}
+.pcd{font-size:9px;color:var(--ice);font-weight:500;margin-bottom:3px;}
+.pcp{font-size:12px;color:var(--cream);}
+.trust{padding:0 2rem 2rem;}
+.tbox{background:var(--steel);border:0.5px solid var(--bd);border-radius:4px;padding:1.5rem;display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;}
+.tt{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;color:var(--ice);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:5px;}
+.td{font-size:12px;color:var(--muted);line-height:1.65;}
+
+/* === RECO PAGE === */
+.rphead{padding:1.5rem 2rem 1rem;border-bottom:0.5px solid var(--bd);background:rgba(28,51,68,0.3);}
+.rpt{font-family:'Barlow Condensed',sans-serif;font-size:30px;font-weight:800;text-transform:uppercase;color:var(--cream);letter-spacing:0.02em;}
+.rps{font-size:12px;color:var(--muted);margin-top:3px;}
+.rplay{display:grid;grid-template-columns:320px 1fr;min-height:700px;}
+.rpsb{padding:1.25rem;border-right:0.5px solid var(--bd);display:flex;flex-direction:column;gap:14px;background:rgba(13,31,45,0.5);}
+.flbl{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--ice);margin-bottom:5px;}
+.awrap{position:relative;}
+.ainp{width:100%;padding:10px 12px 10px 34px;background:var(--steel);border:0.5px solid var(--bds);border-radius:3px;font-size:13px;font-family:'Barlow',sans-serif;color:var(--cream);outline:none;transition:border-color .15s;}
+.ainp::placeholder{color:var(--muted);}
+.ainp:focus{border-color:var(--ice);}
+.sico{position:absolute;left:10px;top:50%;transform:translateY(-50%);width:13px;height:13px;color:var(--muted);}
+.sugg{position:absolute;top:calc(100% + 3px);left:0;right:0;background:var(--steel);border:0.5px solid var(--bds);border-radius:3px;z-index:30;overflow:hidden;}
+.sitem{padding:9px 12px;font-size:12px;cursor:pointer;border-bottom:0.5px solid var(--bd);color:var(--cream);transition:background .1s;}
+.sitem:last-child{border-bottom:none;}
+.sitem:hover{background:var(--slate);}
+.scity{font-size:9px;color:var(--muted);margin-top:2px;}
+.ablock{background:var(--steel);border:0.5px solid var(--bd);border-radius:3px;padding:12px;}
+.albl{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:9px;}
+.mrow{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:0.5px solid rgba(91,168,204,0.1);font-size:12px;}
+.mrow:last-child{border-bottom:none;}
+.mlab{color:var(--muted);}
+.mval{font-weight:500;}
+.mval.d{color:#e07070;}.mval.w{color:#e0a050;}.mval.g{color:#70c080;}
+.dgauge{height:4px;background:rgba(91,168,204,0.15);border-radius:2px;margin-top:8px;overflow:hidden;}
+.dfill{height:100%;border-radius:2px;transition:width 1s cubic-bezier(.4,0,.2,1);}
+.rblock{border:1px solid var(--ice);border-radius:3px;padding:12px;background:rgba(91,168,204,0.05);}
+.rbadge{display:inline-block;background:var(--ice);color:var(--navy);font-family:'Barlow Condensed',sans-serif;font-size:8px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:2px 8px;border-radius:2px;margin-bottom:8px;}
+.rname{font-family:'Barlow Condensed',sans-serif;font-size:19px;font-weight:800;text-transform:uppercase;color:var(--cream);letter-spacing:0.02em;margin-bottom:3px;}
+.rdesc{font-size:11px;color:var(--muted);line-height:1.5;margin-bottom:10px;}
+.smini{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:10px;}
+.sm{background:var(--navy);border-radius:2px;padding:5px 8px;font-size:10px;}
+.sml{display:block;font-size:8px;color:var(--muted);margin-bottom:1px;}
+.smv{font-weight:500;color:var(--ice);}
+.prow{display:flex;align-items:baseline;gap:7px;margin-bottom:10px;}
+.pbig{font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:800;color:var(--ice);}
+.pnote{font-size:9px;color:var(--muted);}
+.bord{width:100%;padding:11px;background:var(--ice);color:var(--navy);font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;border:none;border-radius:2px;cursor:pointer;transition:background .15s;}
+.bord:hover{background:var(--icel);}
+.binst{width:100%;padding:9px;background:transparent;color:var(--muted);font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;border:0.5px solid var(--bds);border-radius:2px;cursor:pointer;margin-top:5px;transition:color .15s,border-color .15s;}
+.binst:hover{color:var(--ice);border-color:var(--ice);}
+.mzone{background:var(--slate);position:relative;overflow:hidden;}
+.lbar{height:2px;background:var(--bd);border-radius:1px;overflow:hidden;margin-top:7px;}
+.lfill{height:100%;background:var(--ice);border-radius:1px;width:0%;transition:width 1.3s ease;}
+.mleg{position:absolute;bottom:14px;right:14px;background:rgba(13,31,45,0.94);border:0.5px solid var(--bd);border-radius:3px;padding:9px 13px;font-size:10px;}
+.mlt{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:11px;color:var(--ice);margin-bottom:6px;letter-spacing:0.06em;text-transform:uppercase;}
+.mlr{display:flex;align-items:center;gap:7px;margin-bottom:3px;color:var(--muted);}
+.mls{width:17px;height:6px;border-radius:2px;}
+
+/* === PRODUITS === */
+.pphead{padding:1.5rem 2rem 1rem;border-bottom:0.5px solid var(--bd);}
+.pgbig{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;padding:2rem;}
+.bcard{background:var(--steel);border:0.5px solid var(--bd);border-radius:4px;overflow:hidden;transition:border-color .15s;}
+.bcard:hover{border-color:var(--ice);}
+.bcv{height:140px;display:flex;align-items:center;justify-content:center;background:rgba(28,51,68,0.8);}
+.bcb{padding:16px;}
+.bcn{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:800;text-transform:uppercase;color:var(--cream);letter-spacing:0.02em;margin-bottom:2px;}
+.bctag{display:inline-block;font-size:8px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;padding:2px 8px;border-radius:2px;margin-bottom:8px;}
+.tr{background:rgba(91,168,204,0.15);color:var(--ice);}.tc{background:rgba(200,90,42,0.2);color:#e08060;}.te{background:rgba(224,112,112,0.2);color:#e07070;}
+.bcd{font-size:12px;color:var(--muted);line-height:1.65;margin-bottom:12px;}
+.bcspecs{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-bottom:13px;}
+.bcs{background:var(--navy);border-radius:2px;padding:6px 8px;font-size:10px;}
+.bcsl{display:block;font-size:8px;color:var(--muted);margin-bottom:1px;}
+.bcsv{font-weight:500;color:var(--ice);}
+.bcprow{display:flex;align-items:baseline;gap:8px;margin-bottom:12px;}
+.bcpn{font-family:'Barlow Condensed',sans-serif;font-size:30px;font-weight:800;color:var(--ice);}
+.bcpnote{font-size:10px;color:var(--muted);}
+.badd{padding:10px 20px;background:var(--ice);color:var(--navy);font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;border:none;border-radius:2px;cursor:pointer;transition:background .15s;}
+.badd:hover{background:var(--icel);}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nlogo" onclick="sp('home')">
+    <div class="nmark">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1L13 4v6l-6 3L1 10V4z" fill="rgba(13,31,45,.6)" stroke="white" stroke-width=".7"/><path d="M4 7h6M7 4v6" stroke="white" stroke-width="1.1"/></svg>
+    </div>
+    ARMA<span class="nacc">DAM</span>
+  </div>
+  <div class="nlinks">
+    <button class="nl on" id="nl0" onclick="sp('home')">Accueil</button>
+    <button class="nl" id="nl1" onclick="sp('reco')">Analyse terrain</button>
+    <button class="nl" id="nl2" onclick="sp('prods')">Produits</button>
+    <button class="nl" id="nl3" onclick="alert('Formulaire de réservation installation — à intégrer')">Installation</button>
+  </div>
+  <button class="ncta" onclick="sp('reco')">Soumission gratuite</button>
+</nav>
+
+<!-- HOME -->
+<div class="pg on" id="pg-home">
+  <div class="hero">
+    <div class="hbg"></div><div class="hgrid"></div>
+    <div class="hwaves"><div class="wv"></div><div class="wv"></div><div class="wv"></div></div>
+    <div class="hcontent">
+      <div class="hbrow"><div class="hbl"></div>Protection contre les crues — Québec</div>
+      <div class="htitle">Batardeaux<br><span class="ac">sur mesure.</span></div>
+      <div class="hsub">Armadam conçoit, fabrique et installe des systèmes de protection contre les inondations pour le résidentiel et le commercial. Recommandation intelligente basée sur les cartes bathymétriques CEHQ.</div>
+      <div class="hbtns">
+        <button class="hbp" onclick="sp('reco')">Analyser mon terrain →</button>
+        <button class="hbs" onclick="sp('prods')">Voir les produits</button>
+      </div>
+    </div>
+  </div>
+  <div class="stats">
+    <div class="si"><div class="sn">1 200+</div><div class="sl">installations</div></div>
+    <div class="si"><div class="sn">4</div><div class="sl">gammes</div></div>
+    <div class="si"><div class="sn">48h</div><div class="sl">livraison</div></div>
+    <div class="si"><div class="sn">15 ans</div><div class="sl">garantie</div></div>
+  </div>
+  <div class="psect">
+    <div class="psh">
+      <div class="pst">Nos gammes</div>
+      <div class="psl" onclick="sp('prods')">Voir tout →</div>
+    </div>
+    <div class="pgrid4" id="hpgrid"></div>
+  </div>
+  <div class="trust">
+    <div class="tbox">
+      <div><div class="tt">Certifié CEHQ</div><div class="td">Tous nos produits sont homologués selon les normes du Centre d'expertise hydrique du Québec.</div></div>
+      <div><div class="tt">Fabriqué au Québec</div><div class="td">Aluminium aéronautique 6061-T6 et acier inoxydable 316. Assemblage 100% local.</div></div>
+      <div><div class="tt">Installation pro</div><div class="td">Équipe certifiée disponible dans les Laurentides, Montréal et Lanaudière.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- RECO -->
+<div class="pg" id="pg-reco">
+  <div class="rphead">
+    <div class="rpt">Analyse terrain — Recommandation intelligente</div>
+    <div class="rps">Entrez votre adresse pour analyser la bathymétrie locale et recevoir le batardeau adapté à votre risque réel</div>
+  </div>
+  <div class="rplay">
+    <div class="rpsb">
+      <div>
+        <div class="flbl">Votre adresse</div>
+        <div class="awrap">
+          <svg class="sico" viewBox="0 0 14 14" fill="none"><circle cx="5.5" cy="5.5" r="4" stroke="currentColor" stroke-width="1.1"/><path d="M9 9l3 3" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>
+          <input class="ainp" id="ainp" type="text" placeholder="Ex: 45 rue des Érables, Saint-Sauveur" autocomplete="off"/>
+          <div class="sugg" id="asugg" style="display:none;"></div>
+        </div>
+      </div>
+      <div id="rside">
+        <div style="height:540px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;">
+          <div style="font-size:36px;opacity:0.12;">🌊</div>
+          <div style="font-size:12px;color:var(--muted);text-align:center;line-height:1.65;max-width:200px;">Entrez votre adresse pour lancer l'analyse bathymétrique CEHQ</div>
+        </div>
+      </div>
+    </div>
+    <div id="rmap" class="mzone">
+      <div style="display:flex;align-items:center;justify-content:center;height:700px;flex-direction:column;gap:10px;">
+        <div style="font-size:42px;opacity:0.12;">🗺️</div>
+        <div style="font-size:13px;color:var(--muted);text-align:center;line-height:1.65;max-width:220px;">La carte bathymétrique apparaîtra ici après saisie de l'adresse</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PRODUITS -->
+<div class="pg" id="pg-prods">
+  <div class="pphead">
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:30px;font-weight:800;text-transform:uppercase;color:var(--cream);letter-spacing:0.02em;">Catalogue Armadam</div>
+    <div style="font-size:12px;color:var(--muted);margin-top:3px;">4 gammes — du résidentiel à la protection industrielle extrême</div>
+  </div>
+  <div class="pgbig" id="ppgrid"></div>
+</div>
+
+<script>
+const PRODS=[
+  {name:"AquaShield 90",badge:"Résidentiel",tc:"tr",desc:"Pour zones à risque modéré. Aluminium 6061-T6 3mm léger, installation en 45 min sans outil spécialisé.",dmin:0,dmax:1.2,specs:{Hauteur:"90 cm",Matériau:"Alu 6061",Poids:"12 kg/m",Install:"45 min"},price:"389",col:"#4a8fa8"},
+  {name:"FloodShield 150",badge:"Riverain",tc:"tr",desc:"Zones riveraines avec crues saisonnières. Certifié CEHQ, joints EPDM renforcés, ancrage rapide 4 points.",dmin:1.2,dmax:2.0,specs:{Hauteur:"150 cm",Matériau:"Alu 5mm+POM",Poids:"18 kg/m",Install:"90 min"},price:"689",col:"#3a7a94"},
+  {name:"HydroBarrier 200",badge:"Commercial",tc:"tc",desc:"Structure acier inox 316, modulaire, ancrage béton. Pour profondeurs 2 à 2.8m et usage commercial intensif.",dmin:2.0,dmax:2.8,specs:{Hauteur:"200 cm",Matériau:"Inox 316",Poids:"28 kg/m",Install:"3–4h"},price:"1 290",col:"#2d6a80"},
+  {name:"TitanWall 300",badge:"Extrême",tc:"te",desc:"Homologué crues centennales. Acier haute résistance, installation obligatoire par l'équipe Armadam certifiée.",dmin:2.8,dmax:99,specs:{Hauteur:"300 cm",Matériau:"Acier HR",Poids:"45 kg/m",Install:"Équipe pro"},price:"2 490",col:"#1d5570"},
+];
+const ADDRS=[
+  {label:"45 Rue des Érables, Saint-Sauveur, QC",city:"Laurentides · QC",depth:1.8,flood:"Élevé",zone:"Rivière du Nord — Zone riveraine",risk:82,type:"Résidentiel"},
+  {label:"120 Blvd Gouin Ouest, Montréal, QC",city:"Île de Montréal · QC",depth:2.4,flood:"Très élevé",zone:"Fleuve Saint-Laurent — Zone côtière",risk:94,type:"Résidentiel"},
+  {label:"380 Rue St-Paul, Vieux-Montréal, QC",city:"Île de Montréal · QC",depth:0.9,flood:"Modéré",zone:"Zone urbaine dense",risk:45,type:"Commercial"},
+  {label:"1200 Autoroute des Laurentides, Laval, QC",city:"Laval · QC",depth:1.3,flood:"Élevé",zone:"Rivière des Prairies — Zone industrielle",risk:68,type:"Commercial"},
+  {label:"55 Chemin du Lac Supérieur, Lac-Supérieur, QC",city:"Laurentides · QC",depth:3.1,flood:"Extrême",zone:"Lac Supérieur — Zone lacustre",risk:97,type:"Résidentiel"},
+];
+
+function getP(d){return PRODS.find(p=>d>=p.dmin&&d<p.dmax)||PRODS[3];}
+function rc(r){return r>=80?"d":r>=55?"w":"g";}
+function rcol(r){return r>=80?"#e07070":r>=55?"#e0a050":"#70c080";}
+
+function batSVG(col,dmax,w,h){
+  const frac=Math.min(1,(dmax>10?3.2:dmax)/3.5);
+  const bh=(h*0.4)+frac*(h*0.45);
+  const y0=h-bh;
+  return `<svg viewBox="0 0 ${w} ${h}" style="width:${w}px;height:${h}px;">
+    <rect x="${w*0.08}" y="${y0+bh*0.6}" width="${w*0.84}" height="${bh*0.4}" rx="2" fill="${col}" opacity=".75"/>
+    <rect x="${w*0.12}" y="${y0+bh*0.3}" width="${w*0.76}" height="${bh*0.35}" rx="2" fill="${col}" opacity=".9"/>
+    <rect x="${w*0.2}" y="${y0}" width="${w*0.09}" height="${bh}" rx="1.5" fill="${col}" opacity=".85"/>
+    <rect x="${w*0.71}" y="${y0}" width="${w*0.09}" height="${bh}" rx="1.5" fill="${col}" opacity=".85"/>
+    <line x1="${w*0.08}" y1="${h-2}" x2="${w*0.92}" y2="${h-2}" stroke="rgba(255,255,255,.2)" stroke-width="1.5"/>
+  </svg>`;
+}
+
+function sp(id){
+  document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.nl').forEach(l=>l.classList.remove('on'));
+  document.getElementById('pg-'+id).classList.add('on');
+  const m={home:0,reco:1,prods:2};
+  if(m[id]!==undefined)document.getElementById('nl'+m[id]).classList.add('on');
+  window.scrollTo(0,0);
+}
+
+// Build home grid
+document.getElementById('hpgrid').innerHTML=PRODS.map(p=>`
+  <div class="pc" onclick="sp('prods')">
+    <div class="pcv">${batSVG(p.col,p.dmax,90,72)}</div>
+    <div class="pci">
+      <div class="pcn">${p.name}</div>
+      <div class="pcd">jusqu'à ${p.dmax>10?"3m+":p.dmax+"m"}</div>
+      <div class="pcp">dès ${p.price} $</div>
+    </div>
+  </div>`).join('');
+
+// Build products page
+document.getElementById('ppgrid').innerHTML=PRODS.map(p=>`
+  <div class="bcard">
+    <div class="bcv">${batSVG(p.col,p.dmax,160,120)}</div>
+    <div class="bcb">
+      <div class="bctag ${p.tc}">${p.badge}</div>
+      <div class="bcn">${p.name}</div>
+      <div class="bcd">${p.desc}</div>
+      <div class="bcspecs">${Object.entries(p.specs).map(([k,v])=>`<div class="bcs"><span class="bcsl">${k}</span><span class="bcsv">${v}</span></div>`).join('')}</div>
+      <div class="bcprow"><div class="bcpn">${p.price} $</div><div class="bcpnote">/ module · livraison 48h</div></div>
+      <button class="badd" onclick="alert('Panier — intégration Stripe/Shopify à connecter')">Ajouter au panier →</button>
+    </div>
+  </div>`).join('');
+
+// Address autocomplete
+const ainp=document.getElementById('ainp');
+const asugg=document.getElementById('asugg');
+ainp.addEventListener('input',()=>{
+  const v=ainp.value.trim();
+  if(v.length<3){asugg.style.display='none';return;}
+  const m=ADDRS.filter(a=>a.label.toLowerCase().includes(v.toLowerCase()));
+  if(!m.length){asugg.style.display='none';return;}
+  asugg.innerHTML=m.map(a=>`<div class="sitem" onclick="selAddr(${ADDRS.indexOf(a)})"><div>${a.label}</div><div class="scity">${a.city}</div></div>`).join('');
+  asugg.style.display='block';
+});
+document.addEventListener('click',e=>{if(!e.target.closest('.awrap'))asugg.style.display='none';});
+
+function selAddr(i){
+  const s=ADDRS[i];
+  ainp.value=s.label;
+  asugg.style.display='none';
+  document.getElementById('rside').innerHTML=`
+    <div style="padding:6px 0;">
+      <div style="font-size:11px;color:var(--muted);margin-bottom:5px;">Consultation CEHQ · MELCCFP · Atlas hydroclimatique…</div>
+      <div class="lbar"><div class="lfill" id="lf"></div></div>
+      <div style="font-size:9px;color:var(--muted);margin-top:3px;opacity:.7;">Vérification des cartes de crue bathymétriques</div>
+    </div>`;
+  document.getElementById('rmap').innerHTML=`<div style="display:flex;align-items:center;justify-content:center;height:700px;color:var(--muted);font-size:13px;font-family:'Barlow',sans-serif;">Chargement de la carte…</div>`;
+  setTimeout(()=>{const l=document.getElementById('lf');if(l)l.style.width='100%';},60);
+  setTimeout(()=>showRes(s),1500);
+}
+
+function showRes(s){
+  const prod=getP(s.depth);
+  const rcc=rc(s.risk);
+  const rco=rcol(s.risk);
+  const dp=Math.min(100,(s.depth/3.5)*100).toFixed(0);
+  document.getElementById('rmap').innerHTML=makeMap(s,rco);
+  document.getElementById('rside').innerHTML=`
+    <div>
+      <div class="ablock">
+        <div class="albl">Analyse — ${s.zone}</div>
+        <div class="mrow"><span class="mlab">Profondeur estimée</span><span class="mval ${rcc}">${s.depth.toFixed(1)} m</span></div>
+        <div class="mrow"><span class="mlab">Niveau de risque</span><span class="mval ${rcc}">${s.flood}</span></div>
+        <div class="mrow"><span class="mlab">Type de propriété</span><span class="mval">${s.type}</span></div>
+        <div class="mrow"><span class="mlab">Score CEHQ</span><span class="mval ${rcc}">${s.risk}/100</span></div>
+        <div class="dgauge"><div class="dfill" id="df" style="width:0%;background:${rco};"></div></div>
+        <div style="font-size:8px;color:var(--muted);margin-top:4px;">Source: CEHQ · MELCCFP · Atlas hydroclimatique QC</div>
+      </div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--ice);margin:11px 0 5px;">Recommandation Armadam</div>
+      <div class="rblock">
+        <div class="rbadge">${prod.badge}</div>
+        <div class="rname">${prod.name}</div>
+        <div class="rdesc">${prod.desc}</div>
+        <div class="smini">${Object.entries(prod.specs).map(([k,v])=>`<div class="sm"><span class="sml">${k}</span><span class="smv">${v}</span></div>`).join('')}</div>
+        <div class="prow"><div class="pbig">${prod.price} $</div><div class="pnote">/ module · livraison incluse</div></div>
+        <button class="bord" onclick="alert('Redirection vers le panier — intégration e-commerce à connecter')">Commander maintenant →</button>
+        <button class="binst" onclick="alert('Formulaire de réservation installation — à intégrer')">Réserver l\'installation →</button>
+      </div>
+    </div>`;
+  setTimeout(()=>{const d=document.getElementById('df');if(d)d.style.width=dp+'%';},80);
+}
+
+function makeMap(s,rco){
+  return `<div style="position:relative;">
+    <svg viewBox="0 0 700 700" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:700px;">
+      <defs><pattern id="grd" width="30" height="30" patternUnits="userSpaceOnUse"><path d="M30 0L0 0 0 30" fill="none" stroke="rgba(91,168,204,0.07)" stroke-width=".5"/></pattern></defs>
+      <rect width="700" height="700" fill="#1c3a4a"/>
+      <ellipse cx="350" cy="350" rx="195" ry="138" fill="#1d5570" opacity=".9"/>
+      <ellipse cx="350" cy="350" rx="138" ry="94" fill="#2d6a80"/>
+      <ellipse cx="350" cy="350" rx="84" ry="55" fill="#3a7a94"/>
+      <ellipse cx="350" cy="350" rx="40" ry="26" fill="#4a8fa8"/>
+      <path d="M60 80 Q155 145 218 210 Q278 262 326 305" fill="none" stroke="#3a7a94" stroke-width="32" stroke-linecap="round"/>
+      <path d="M60 80 Q155 145 218 210 Q278 262 326 305" fill="none" stroke="#4a8fa8" stroke-width="16" stroke-linecap="round"/>
+      <path d="M374 398 Q438 448 508 500 Q595 548 680 565" fill="none" stroke="#3a7a94" stroke-width="36" stroke-linecap="round"/>
+      <path d="M374 398 Q438 448 508 500 Q595 548 680 565" fill="none" stroke="#4a8fa8" stroke-width="18" stroke-linecap="round"/>
+      <path d="M0 0 L130 0 L95 105 L54 186 L0 278Z" fill="#243520" opacity=".85"/>
+      <path d="M545 0 L700 0 L700 210 L618 154 L572 55Z" fill="#243520" opacity=".8"/>
+      <path d="M0 468 L55 420 L102 455 L60 540 L0 620Z" fill="#243520" opacity=".75"/>
+      <path d="M555 650 L700 598 L700 700 L520 700Z" fill="#243520" opacity=".7"/>
+      <ellipse cx="350" cy="350" rx="258" ry="178" fill="none" stroke="${rco}" stroke-width="1.8" stroke-dasharray="8,5" opacity=".7"/>
+      <ellipse cx="350" cy="350" rx="302" ry="214" fill="none" stroke="#e0a050" stroke-width="1.2" stroke-dasharray="5,7" opacity=".4"/>
+      <ellipse cx="350" cy="350" rx="258" ry="178" fill="${rco}" opacity=".07"/>
+      <line x1="152" y1="0" x2="116" y2="292" stroke="rgba(255,255,255,.18)" stroke-width="1.6"/>
+      <line x1="0" y1="420" x2="246" y2="398" stroke="rgba(255,255,255,.18)" stroke-width="1.6"/>
+      <line x1="448" y1="0" x2="482" y2="258" stroke="rgba(255,255,255,.14)" stroke-width="1.4"/>
+      <rect width="700" height="700" fill="url(#grd)"/>
+      <text x="350" y="328" text-anchor="middle" font-size="13" fill="rgba(168,212,232,.85)" font-family="Barlow Condensed,sans-serif" font-weight="600">${s.depth.toFixed(1)}m</text>
+      <text x="350" y="344" text-anchor="middle" font-size="10" fill="rgba(168,212,232,.4)" font-family="Barlow,sans-serif">profondeur estimée</text>
+      <circle cx="350" cy="350" r="20" fill="rgba(255,255,255,.1)"/>
+      <circle cx="350" cy="350" r="10" fill="${rco}"/>
+      <circle cx="350" cy="350" r="4.5" fill="white"/>
+      <circle cx="350" cy="350" r="16" fill="none" stroke="${rco}" stroke-width="2.5" opacity=".7">
+        <animate attributeName="r" values="10;26;10" dur="2.5s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values=".8;0;.8" dur="2.5s" repeatCount="indefinite"/>
+      </circle>
+      <rect x="186" y="370" width="328" height="42" rx="3" fill="rgba(13,31,45,.94)" stroke="rgba(91,168,204,.3)" stroke-width=".5"/>
+      <text x="350" y="386" text-anchor="middle" font-size="11" font-weight="600" fill="#a8d4e8" font-family="Barlow Condensed,sans-serif" letter-spacing=".04em">${s.label.split(',')[0].toUpperCase()}</text>
+      <text x="350" y="401" text-anchor="middle" font-size="10" fill="rgba(138,160,174,.8)" font-family="Barlow,sans-serif">${s.zone}</text>
+      <text x="24" y="32" font-size="12" fill="rgba(91,168,204,.7)" font-family="Barlow Condensed,sans-serif" font-weight="700">N ↑</text>
+      <line x1="20" y1="672" x2="90" y2="672" stroke="rgba(91,168,204,.5)" stroke-width="1.5"/>
+      <line x1="20" y1="668" x2="20" y2="676" stroke="rgba(91,168,204,.5)" stroke-width="1.5"/>
+      <line x1="90" y1="668" x2="90" y2="676" stroke="rgba(91,168,204,.5)" stroke-width="1.5"/>
+      <text x="55" y="665" text-anchor="middle" font-size="9" fill="rgba(91,168,204,.5)" font-family="Barlow,sans-serif">500m</text>
+      <text x="205" y="208" text-anchor="middle" font-size="10" fill="rgba(224,112,112,.82)" font-family="Barlow Condensed,sans-serif" font-weight="600">Zone 2 ans CEHQ</text>
+      <text x="138" y="185" text-anchor="middle" font-size="9" fill="rgba(224,160,80,.65)" font-family="Barlow,sans-serif">Zone 100 ans</text>
+    </svg>
+    <div class="mleg">
+      <div class="mlt">Profondeur d'inondation</div>
+      <div class="mlr"><div class="mls" style="background:#1d5570;"></div>+3m — extrême</div>
+      <div class="mlr"><div class="mls" style="background:#2d6a80;"></div>2–3m — très élevé</div>
+      <div class="mlr"><div class="mls" style="background:#3a7a94;"></div>1–2m — élevé</div>
+      <div class="mlr"><div class="mls" style="background:#4a8fa8;"></div>0–1m — modéré</div>
+      <div class="mlr" style="margin-top:4px;"><div class="mls" style="background:transparent;border:1px dashed #e07070;"></div>Zone 2 ans CEHQ</div>
+    </div>
+  </div>`;
+}
+</script>
+</body>
+</html>
