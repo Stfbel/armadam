@@ -28,7 +28,7 @@
   --water:#3B7EA1;
   --panel:#B0A89E;
 }
-html{scroll-behavior:smooth;overflow-x:hidden;}
+html{scroll-behavior:smooth;overflow-x:clip;}
 body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;}
 ::-webkit-scrollbar{width:3px;}
 ::-webkit-scrollbar-track{background:var(--bg2);}
@@ -233,6 +233,9 @@ nav{position:sticky;top:0;z-index:1000;background:rgba(242,237,228,0.96);backdro
 .cat-seg-hd p{font-size:12px;color:var(--stone);}
 .cat-seg-hd .seg-tag{background:var(--ink);color:var(--white);font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;padding:3px 10px;border-radius:2px;margin-left:auto;white-space:nowrap;}
 .cat-card{background:var(--white);display:flex;flex-direction:column;}
+.cat-desc{font-size:12px;color:var(--stone);line-height:1.75;margin-bottom:1.2rem;padding-bottom:1rem;border-bottom:1px solid var(--rule);}
+.cat-use{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:1.2rem;}
+.cat-use-tag{font-size:10px;font-weight:600;color:var(--ink2);background:var(--bg2);border:1px solid var(--rule);padding:3px 9px;border-radius:2px;}
 .cat-card-head{padding:2rem 2rem 1.5rem;border-bottom:1px solid var(--rule);position:relative;overflow:hidden;}
 .cat-card-head .cn{position:absolute;top:-10px;right:1.5rem;font-family:'Syne',sans-serif;font-size:80px;font-weight:800;color:var(--rule);line-height:1;pointer-events:none;}
 .cat-card-head .ctier{font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--amber);margin-bottom:6px;}
@@ -530,8 +533,9 @@ select.fi{cursor:pointer;}
   .part-form-wrap{padding:1.5rem 1rem 2.5rem;}
   .stats{grid-template-columns:1fr 1fr;gap:1px;}
   .prod-grid{grid-template-columns:1fr;}
-  .hero-left{padding:2.5rem 1.5rem 2rem;}
-  .hero-h1{font-size:clamp(36px,9vw,64px);line-height:1.05;}
+  .hero-left{padding:2rem 1.2rem 1.8rem;}
+  .hero-h1{font-size:clamp(30px,8vw,64px);line-height:1.05;}
+  .hero-kicker{font-size:9px;letter-spacing:.06em;white-space:normal;overflow-wrap:break-word;display:block;}
   .hero-sub{font-size:14px;}
   .hero-actions{flex-direction:column;}
   .hero-actions .btn-primary,.hero-actions .btn-ghost{width:100%;text-align:center;}
@@ -597,15 +601,15 @@ select.fi{cursor:pointer;}
       <button class="mm-close" onclick="toggleMobileMenu()">✕</button>
     </div>
     <div class="mm-links">
-      <div class="mm-link" onclick="showPage('home');toggleMobileMenu()">Accueil</div>
-      <div class="mm-link" onclick="showPage('terrain');toggleMobileMenu()">Analyse Terrain</div>
-      <div class="mm-link" onclick="showPage('catalogue');toggleMobileMenu()">Catalogue</div>
-      <div class="mm-link" onclick="showPage('config');toggleMobileMenu()">Configurateur</div>
-      <div class="mm-link" onclick="showPage('resa');toggleMobileMenu()">Réservation</div>
-      <div class="mm-link" onclick="showPage('apropos');toggleMobileMenu()">À propos</div>
-      <div class="mm-link" onclick="showPage('partenaires');toggleMobileMenu()">Partenaires</div>
+      <div class="mm-link" onclick="showPage('home')">Accueil</div>
+      <div class="mm-link" onclick="showPage('terrain')">Analyse Terrain</div>
+      <div class="mm-link" onclick="showPage('catalogue')">Catalogue</div>
+      <div class="mm-link" onclick="showPage('config')">Configurateur</div>
+      <div class="mm-link" onclick="showPage('resa')">Réservation</div>
+      <div class="mm-link" onclick="showPage('apropos')">À propos</div>
+      <div class="mm-link" onclick="showPage('partenaires')">Partenaires</div>
     </div>
-    <button class="mm-cta" onclick="showPage('resa');toggleMobileMenu()">Me protéger →</button>
+    <button class="mm-cta" onclick="showPage('resa')">Me protéger →</button>
   </div>
 </div>
 
@@ -880,23 +884,32 @@ select.fi{cursor:pointer;}
         <div class="cicon">
           <svg viewBox="0 0 64 64" fill="none" width="64" height="64"><rect x="8" y="36" width="48" height="20" rx="1" fill="#EAE4DA" stroke="#8C8680" stroke-width="1.5"/><rect x="14" y="26" width="36" height="12" rx="1" fill="#F2EDE4" stroke="#8C8680" stroke-width="1.5"/><line x1="18" y1="38" x2="18" y2="54" stroke="#D4751A" stroke-width="1.5" opacity=".6"/><line x1="32" y1="38" x2="32" y2="54" stroke="#D4751A" stroke-width="1.5" opacity=".6"/><line x1="46" y1="38" x2="46" y2="54" stroke="#D4751A" stroke-width="1.5" opacity=".6"/></svg>
         </div>
-        <div class="ctier">01 — Résidentiel Standard</div>
+        <div class="ctier">01 — Barrière résidentielle</div>
         <div class="cname">SENTINEL 120</div>
       </div>
       <div class="cat-card-body">
+        <p class="cat-desc">Barrière légère à déploiement autonome pour protéger les ouvertures résidentielles. Montants en aluminium extrudé + toile PVC souple mise en tension par barres de serrage. En place en 15 minutes sans outil — conçue pour être déployée seul, même sous stress, même la nuit avant une crue.</p>
+        <div class="cat-use">
+          <span class="cat-use-tag">Porte d'entrée</span>
+          <span class="cat-use-tag">Garage</span>
+          <span class="cat-use-tag">Accès de plain-pied</span>
+          <span class="cat-use-tag">Terrasse</span>
+        </div>
         <table class="cat-specs">
-          <tr><td>Structure</td><td>Cadre acier tubulaire (HSS 50×50×4)</td></tr>
-          <tr><td>Toile</td><td>PVC géotextile 600 g/m², anti-UV</td></tr>
-          <tr><td>Hauteur</td><td>1.2 m</td></tr>
-          <tr><td>Portée modulaire</td><td>1.0 – 3.0 m / portée</td></tr>
-          <tr><td>Étanchéité sol</td><td>Semelle EPDM double lèvre</td></tr>
-          <tr><td>Mise en place</td><td>2 pers. · 20 min · sans outil</td></tr>
-          <tr><td>Usage</td><td>Portes, garages, entrées résidentielles</td></tr>
-          <tr><td>Garantie</td><td>15 ans</td></tr>
+          <tr><td>Cadre porteur</td><td>Aluminium extrudé 6061-T6, montants + seuil</td></tr>
+          <tr><td>Toile</td><td>Bâche PVC souple 600 g/m², coutures thermo-soudées, anti-UV</td></tr>
+          <tr><td>Joint sol</td><td>Semelle EPDM 15 mm, compression par serrage</td></tr>
+          <tr><td>Joint latéral</td><td>Profilés caoutchouc + appui sur maçonnerie</td></tr>
+          <tr><td>Tension</td><td>Barres horizontales de serrage, sans outil</td></tr>
+          <tr><td>Hauteur</td><td>1.2 m (fixe)</td></tr>
+          <tr><td>Portée max.</td><td>3.0 m / battée</td></tr>
+          <tr><td>Pression de calcul</td><td>12 kPa (1.2 m colonne d'eau)</td></tr>
+          <tr><td>Déploiement</td><td>1-2 personnes · 10-15 min</td></tr>
+          <tr><td>Garantie</td><td>15 ans structure · 10 ans toile</td></tr>
         </table>
       </div>
       <div class="cat-foot">
-        <div class="cat-price">1 890 $ <small>/ portée</small></div>
+        <div class="cat-price">1 890 $ <small>/ battée</small></div>
         <button class="btn-add" onclick="addToCart('SENTINEL 120',1890,this)">
           <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
           Ajouter
@@ -910,23 +923,32 @@ select.fi{cursor:pointer;}
         <div class="cicon">
           <svg viewBox="0 0 64 64" fill="none" width="64" height="64"><rect x="6" y="28" width="52" height="28" rx="1" fill="#EAE4DA" stroke="#8C8680" stroke-width="1.5"/><rect x="12" y="16" width="40" height="14" rx="1" fill="#F2EDE4" stroke="#8C8680" stroke-width="1.5"/><rect x="6" y="10" width="52" height="8" rx="1" fill="#EAE4DA" stroke="#C8C0B4" stroke-width="1"/><line x1="18" y1="30" x2="18" y2="54" stroke="#D4751A" stroke-width="1.5" opacity=".5"/><line x1="32" y1="30" x2="32" y2="54" stroke="#D4751A" stroke-width="1.5" opacity=".5"/><line x1="46" y1="30" x2="46" y2="54" stroke="#D4751A" stroke-width="1.5" opacity=".5"/></svg>
         </div>
-        <div class="ctier">02 — Protection Riveraine</div>
+        <div class="ctier">02 — Périmètre résidentiel / riverain</div>
         <div class="cname">AQUASHIELD PRO</div>
       </div>
       <div class="cat-card-body">
+        <p class="cat-desc">Système de périmètre pour encercler l'intégralité d'une propriété riveraine. Montants en acier galvanisé ancrés tous les 1.5 m + toile PVC armée tendue par tendeurs à rochet. La semelle en néoprène s'adapte aux irrégularités du terrain — dalle, gravier, béton. Point critique : le joint au sol est la première ligne de défense, pas la toile.</p>
+        <div class="cat-use">
+          <span class="cat-use-tag">Périmètre maison</span>
+          <span class="cat-use-tag">Chalet riverain</span>
+          <span class="cat-use-tag">Cour inondable</span>
+          <span class="cat-use-tag">Condo rez-de-chaussée</span>
+        </div>
         <table class="cat-specs">
-          <tr><td>Structure</td><td>Cadre acier galvanisé (HSS 75×75×5)</td></tr>
-          <tr><td>Toile</td><td>PVC armé 900 g/m² + membrane d'étanchéité inférieure</td></tr>
-          <tr><td>Hauteur</td><td>2.0 m (modules 0.5 m empilables)</td></tr>
-          <tr><td>Portée modulaire</td><td>2.0 – 4.0 m / portée</td></tr>
-          <tr><td>Ancrage</td><td>Vis d'ancrage au sol incluses</td></tr>
-          <tr><td>Pression testée</td><td>2.0 m colonne d'eau (19.6 kPa)</td></tr>
-          <tr><td>Usage</td><td>Périmètre maison, chalet, cour inondable</td></tr>
-          <tr><td>Garantie</td><td>15 ans</td></tr>
+          <tr><td>Cadre porteur</td><td>Acier galvanisé à chaud HSS 60×60×4, espacés 1.5 m</td></tr>
+          <tr><td>Toile</td><td>PVC enduit 900 g/m², fibre polyester HT, coutures thermo-soudées</td></tr>
+          <tr><td>Joint sol</td><td>Semelle néoprène 100 mm, lestée eau ou masse béton</td></tr>
+          <tr><td>Joint latéral</td><td>Plaque boulonnée + EPDM continu sur montant</td></tr>
+          <tr><td>Tension</td><td>Tendeurs à rochet inox + barres de compression</td></tr>
+          <tr><td>Hauteur</td><td>1.2 m standard + extension 0.6 m = 2.0 m</td></tr>
+          <tr><td>Portée max.</td><td>3.0 m / portée (avec poteau intermédiaire)</td></tr>
+          <tr><td>Pression de calcul</td><td>19.6 kPa (2.0 m colonne d'eau)</td></tr>
+          <tr><td>Déploiement</td><td>3 personnes · 2-4 h (périmètre type)</td></tr>
+          <tr><td>Garantie</td><td>15 ans structure · 10 ans toile</td></tr>
         </table>
       </div>
       <div class="cat-foot">
-        <div class="cat-price">3 450 $ <small>/ module</small></div>
+        <div class="cat-price">3 450 $ <small>/ portée</small></div>
         <button class="btn-add" onclick="addToCart('AQUASHIELD PRO',3450,this)">
           <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
           Ajouter
@@ -947,19 +969,30 @@ select.fi{cursor:pointer;}
         <div class="cicon">
           <svg viewBox="0 0 64 64" fill="none" width="64" height="64"><rect x="4" y="20" width="56" height="36" rx="1" fill="#EAE4DA" stroke="#8C8680" stroke-width="1.5"/><rect x="8" y="10" width="48" height="12" rx="1" fill="#F2EDE4" stroke="#8C8680" stroke-width="1.5"/><rect x="4" y="6" width="56" height="6" rx="1" fill="#EAE4DA" stroke="#C8C0B4" stroke-width="1"/><path d="M4 34 L60 34 M4 46 L60 46" stroke="#C8C0B4" stroke-width=".8"/><path d="M16 20 L16 56 M32 20 L32 56 M48 20 L48 56" stroke="#D4751A" stroke-width="1.5" opacity=".4"/></svg>
         </div>
-        <div class="ctier">03 — Chantier de construction</div>
+        <div class="ctier">03 — Batardeau de chantier</div>
         <div class="cname">FORTRESS CHANTIER</div>
       </div>
       <div class="cat-card-body">
+        <p class="cat-desc">Batardeau modulaire acier + membrane pour l'assèchement de zones de travail en eau courante. Montants HSS galvanisés ancrés par pieux + membrane géosynthétique imperméable mise en tension par vérins mécaniques et câbles précontraints. Le joint de fond en mousse cellulaire fermée est ancré et comprimé mécaniquement — c'est lui qui détermine l'étanchéité du batardeau, pas la toile.</p>
+        <div class="cat-use">
+          <span class="cat-use-tag">Ponceaux</span>
+          <span class="cat-use-tag">Traversées de cours d'eau</span>
+          <span class="cat-use-tag">Chantiers routiers</span>
+          <span class="cat-use-tag">Petits ponts</span>
+          <span class="cat-use-tag">Accès en rivière</span>
+        </div>
         <table class="cat-specs">
-          <tr><td>Structure</td><td>Acier tubulaire structural HSS 100×100×6</td></tr>
-          <tr><td>Toile</td><td>Géotextile imperméable tissé, traction 80 kN/m</td></tr>
-          <tr><td>Hauteur</td><td>2.8 m (modules 0.5 m)</td></tr>
-          <tr><td>Portée</td><td>Jusqu'à 6.0 m / travée</td></tr>
-          <tr><td>Pression testée</td><td>2.8 m colonne d'eau (27.5 kPa)</td></tr>
-          <tr><td>Ancrage</td><td>Pieux tubulaires ou palplanches légères</td></tr>
-          <tr><td>Norme</td><td>ASTM A500 / CSA G40.21</td></tr>
-          <tr><td>Usage</td><td>Ponceaux, petits ponts, accès en rivière</td></tr>
+          <tr><td>Cadre porteur</td><td>Acier galvanisé à chaud HSS 100×100×6, espacés 1.5-2.0 m</td></tr>
+          <tr><td>Toile</td><td>Membrane géosynthétique imperméable (MGI) 1 000 g/m², traction ≥ 80 kN/m</td></tr>
+          <tr><td>Joint sol</td><td>Lisse de fond acier plat + mousse cellulaire fermée, ancrée par pieux</td></tr>
+          <tr><td>Joint latéral</td><td>Plaque de rive + joint hydrogonflant</td></tr>
+          <tr><td>Tension</td><td>Vérins mécaniques + câbles inox précontraints</td></tr>
+          <tr><td>Hauteur</td><td>Jusqu'à 2.8 m (modules 0.7 m empilables)</td></tr>
+          <tr><td>Portée max.</td><td>6.0 m / travée (poteau intermédiaire disponible)</td></tr>
+          <tr><td>Pression de calcul</td><td>27.5 kPa (2.8 m colonne d'eau)</td></tr>
+          <tr><td>Ancrage</td><td>Pieux tubulaires battus/vissés ou palplanches AZ légères</td></tr>
+          <tr><td>Normes</td><td>ASTM A500 Gr.C · CSA G40.21 350W</td></tr>
+          <tr><td>Déploiement</td><td>4-6 personnes · 1-2 jours</td></tr>
         </table>
       </div>
       <div class="cat-foot">
@@ -977,19 +1010,30 @@ select.fi{cursor:pointer;}
         <div class="cicon">
           <svg viewBox="0 0 64 64" fill="none" width="64" height="64"><rect x="2" y="10" width="60" height="48" rx="1" fill="#EAE4DA" stroke="#8C8680" stroke-width="1.5"/><rect x="2" y="4" width="60" height="8" rx="1" fill="#EAE4DA" stroke="#C8C0B4" stroke-width="1"/><path d="M2 24 L62 24 M2 38 L62 38 M2 52 L62 52" stroke="#C8C0B4" stroke-width=".8"/><path d="M16 10 L16 58 M32 10 L32 58 M48 10 L48 58" stroke="#D4751A" stroke-width="1.5" opacity=".4"/><rect x="0" y="2" width="64" height="5" rx="1" fill="rgba(212,117,26,0.25)" stroke="#D4751A" stroke-width="1.5"/></svg>
         </div>
-        <div class="ctier">04 — Protection Extrême</div>
+        <div class="ctier">04 — Infrastructure critique</div>
         <div class="cname">TITAN EXTREME</div>
       </div>
       <div class="cat-card-body">
+        <p class="cat-desc">Batardeau lourd pour infrastructures majeures en conditions aquatiques exigeantes. Cadre en acier structural S350W (profilés IPE/HEA) + toile industrielle PVC/PU à soudure haute fréquence, ou blindage acier selon les conditions. Chaque installation est précédée d'une étude géotechnique et d'un calcul structurale signé par ingénieur. La tension est appliquée par vérins hydrauliques et tirants précontraints — ce système ne tolère aucun compromis sur la tension uniforme.</p>
+        <div class="cat-use">
+          <span class="cat-use-tag">Ponts majeurs</span>
+          <span class="cat-use-tag">Barrages-réservoirs</span>
+          <span class="cat-use-tag">Hydro-Québec</span>
+          <span class="cat-use-tag">Pipelines sous-fluviaux</span>
+          <span class="cat-use-tag">Travaux sous-fluviaux</span>
+        </div>
         <table class="cat-specs">
-          <tr><td>Structure</td><td>Acier structural S355 (profilés HEA 200)</td></tr>
-          <tr><td>Toile</td><td>PVC renforcé 1 200 g/m² ou blindage acier option</td></tr>
+          <tr><td>Cadre porteur</td><td>Acier structural S350W (IPE 240 ou HEA 200), montants ≤ 1.5 m</td></tr>
+          <tr><td>Toile</td><td>Bâche PVC/PU armée 1 200-1 500 g/m², soudure HF, classe I2/W2 · OU blindage acier</td></tr>
+          <tr><td>Joint sol</td><td>Semelle béton + joint hydrogonflant · ou injection coulis si terrain irrégulier</td></tr>
+          <tr><td>Joint latéral</td><td>Plaque de rive soudée + joint labyrinthique</td></tr>
+          <tr><td>Tension</td><td>Vérins hydrauliques + tirants précontraints (calcul PE requis)</td></tr>
           <tr><td>Hauteur</td><td>3.5 m à 6.0 m+ (selon étude de site)</td></tr>
-          <tr><td>Portée</td><td>Sur mesure — jusqu'à 12 m / travée</td></tr>
-          <tr><td>Pression testée</td><td>Jusqu'à 3.5 m colonne d'eau (34 kPa)</td></tr>
-          <tr><td>Ancrage</td><td>Palplanches, pieux battus ou massifs béton</td></tr>
-          <tr><td>Certification</td><td>MDDELCC + approbation municipale incluse</td></tr>
-          <tr><td>Usage</td><td>Ponts majeurs, barrages, HQ, pipelines</td></tr>
+          <tr><td>Portée max.</td><td>12 m / travée · au-delà sur devis</td></tr>
+          <tr><td>Pression de calcul</td><td>≥ 34 kPa · jusqu'à 6.0 m colonne d'eau sur étude</td></tr>
+          <tr><td>Ancrage</td><td>Palplanches AZ/PU · pieux battus H · ou massifs béton armé</td></tr>
+          <tr><td>Certification</td><td>MDDELCC · calcul PE signé · permis chantier inclus</td></tr>
+          <tr><td>Déploiement</td><td>6-10 pers. + équipement lourd · 3-7 jours</td></tr>
         </table>
       </div>
       <div class="cat-foot">
@@ -1383,10 +1427,42 @@ let leafletMap = null;
 let leafletMarker = null;
 let currentReco = null;
 const PRODUCTS = [
-  {name:'SENTINEL 120',tier:'Résidentiel Standard',depth:'0 – 1.2 m',price:1890,modW:3,specs:{structure:'Acier HSS + toile PVC',hauteur:'1.2 m',portée:'1.0 – 3.0 m',étanchéité:'EPDM double lèvre',usage:'Portes · garages · entrées'}},
-  {name:'AQUASHIELD PRO',tier:'Protection Riveraine',depth:'1.2 – 2 m',price:3450,modW:4,specs:{structure:'Acier galv. + PVC armé 900 g/m²',hauteur:'2.0 m',portée:'2.0 – 4.0 m',ancrage:'Vis d\'ancrage incluses',usage:'Périmètre maison · chalet'}},
-  {name:'FORTRESS CHANTIER',tier:'Chantier de construction',depth:'2 – 2.8 m',price:6200,modW:6,specs:{structure:'HSS 100×100×6 + géotextile',hauteur:'2.8 m',portée:'jusqu\'à 6.0 m',pression:'27.5 kPa testée',usage:'Ponceaux · ponts · rivières'}},
-  {name:'TITAN EXTREME',tier:'Infrastructures critiques',depth:'2.8 m+',price:9800,modW:6,specs:{structure:'HEA 200 S355 + PVC 1 200 g/m²',hauteur:'3.5 – 6.0 m+',portée:'sur mesure / 12 m',pression:'34 kPa testée',usage:'Ponts · barrages · HQ · pipelines'}},
+  {name:'SENTINEL 120',tier:'Résidentiel Standard',depth:'0 – 1.2 m',price:1890,modW:3,specs:{
+    structure:'Alu 6061-T6 + toile PVC souple 600 g/m²',
+    hauteur:'1.2 m',
+    portée:'0.5 – 3.0 m / module',
+    étanchéité:'EPDM 15 mm lèvre compressée',
+    pression:'11.8 kPa (1.2 m col. eau)',
+    déploiement:'15 min · 1 personne · sans outil',
+    usage:'Portes · garages · fenêtres de sous-sol'
+  }},
+  {name:'AQUASHIELD PRO',tier:'Protection Riveraine',depth:'1.2 – 2 m',price:3450,modW:4,specs:{
+    structure:'HSS 60×60×4 galv. + PVC armé 900 g/m²',
+    hauteur:'2.0 m',
+    portée:'0.5 – 4.0 m / module',
+    étanchéité:'Néoprène 100 mm · tendeurs à rochet',
+    pression:'19.6 kPa (2.0 m col. eau)',
+    déploiement:'45 min · 2 personnes · ancrage sol',
+    usage:'Périmètre maison · chalet riverain · sous-sol'
+  }},
+  {name:'FORTRESS CHANTIER',tier:'Chantier de construction',depth:'2 – 2.8 m',price:6200,modW:6,specs:{
+    structure:'HSS 100×100×6 galv. + MGI 1 000 g/m²',
+    hauteur:'2.8 m',
+    portée:'jusqu\'à 6.0 m / module',
+    étanchéité:'Mousse cellulaire fermée + vérins mécaniques',
+    pression:'27.5 kPa testée (ASTM)',
+    déploiement:'2–4 h · équipe certifiée · pieux d\'ancrage',
+    usage:'Ponceaux · traversées · ponts routiers'
+  }},
+  {name:'TITAN EXTREME',tier:'Infrastructures critiques',depth:'2.8 m+',price:9800,modW:6,specs:{
+    structure:'IPE/HEA S350W + PVC/PU 1 200–1 500 g/m²',
+    hauteur:'3.5 – 6.0 m+ (sur mesure)',
+    portée:'sur mesure / portées ≥ 12 m',
+    étanchéité:'Vérins hydrauliques + tirants précontraints',
+    pression:'34 kPa+ · certification municipale',
+    déploiement:'Équipe Armadam obligatoire · PE requis',
+    usage:'Ponts majeurs · barrages · HQ · pipelines'
+  }},
 ];
 let selectedProdIdx = 0;
 
