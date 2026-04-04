@@ -1058,8 +1058,7 @@ function onAddrInput() {
 
 async function fetchSuggestions(q) {
   try {
-    const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(q)}&countrycodes=ca&format=json&limit=5&accept-language=fr&addressdetails=1`;
-    const res = await fetch(url);
+    const res = await fetch(`/api/geocode/search?q=${encodeURIComponent(q)}&limit=5`);
     if (!res.ok) throw new Error('API error');
     const data = await res.json();
     renderSuggestions(data);
@@ -1110,8 +1109,7 @@ async function doSearch() {
   btn.textContent = '…';
   btn.disabled = true;
   try {
-    const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(q)}&countrycodes=ca&format=json&limit=1&accept-language=fr`;
-    const res = await fetch(url);
+    const res = await fetch(`/api/geocode/search?q=${encodeURIComponent(q)}&limit=1`);
     if (!res.ok) throw new Error('API error');
     const data = await res.json();
     if (data.length) {
@@ -1288,6 +1286,12 @@ function openDevisModal() {
   ).join('');
   document.getElementById('modal-total').textContent = fmt(total);
   document.getElementById('devis-modal').classList.add('open');
+  // Enregistrer en arrière-plan
+  fetch('/api/devis', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ produit: prod.name, largeur: width, quantite: qty, installation: doInstall, livraison: doLiv, total }),
+  }).catch(() => {});
 }
 
 function closeDevisModal() {
@@ -1318,13 +1322,40 @@ function nextStep(n) {
   if (n === 3) renderCalendar();
 }
 
-function submitResa() {
-  const ref = Math.floor(100000 + Math.random() * 900000);
-  document.getElementById('confirm-ref').textContent = 'Référence #' + ref;
-  document.getElementById('step-3').classList.remove('on');
-  document.getElementById('step-confirm').classList.add('on');
-  document.getElementById('progress-bar').style.display = 'none';
-  showToast('Réservation confirmée — réf. #' + ref, 'success');
+async function submitResa() {
+  if (!selectedDate) { showToast('Veuillez choisir une date', ''); return; }
+  const btn = document.querySelector('.btn-submit');
+  btn.textContent = 'Envoi…'; btn.disabled = true;
+  try {
+    const urgence = document.querySelector('input[name="urgence"]:checked')?.value || 'standard';
+    const res = await fetch('/api/reservations', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        prenom: document.getElementById('r-prenom').value,
+        nom: document.getElementById('r-nom').value,
+        email: document.getElementById('r-email').value,
+        telephone: document.getElementById('r-tel').value,
+        adresse: document.getElementById('r-addr').value,
+        type: document.getElementById('r-type').value,
+        produit: document.getElementById('r-prod').value,
+        dimensions: document.getElementById('r-dims').value,
+        urgence,
+        date: selectedDate.toISOString().split('T')[0],
+      }),
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error);
+    document.getElementById('confirm-ref').textContent = 'Référence #' + data.ref;
+    document.getElementById('step-3').classList.remove('on');
+    document.getElementById('step-confirm').classList.add('on');
+    document.getElementById('progress-bar').style.display = 'none';
+    showToast('Réservation confirmée — réf. #' + data.ref, 'success');
+  } catch(e) {
+    showToast('Erreur lors de la réservation — réessayez', '');
+  } finally {
+    btn.textContent = 'Confirmer la réservation ✓'; btn.disabled = false;
+  }
 }
 
 // ── CALENDAR ────────────────────────────────────────────────────────────────
