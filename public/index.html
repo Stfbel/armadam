@@ -409,6 +409,41 @@ select.fi{cursor:pointer;}
 .toast.show{transform:translateY(0);opacity:1;}
 .toast.success{background:var(--ok);}
 
+/* ═══════════════════════════════════
+   PAGE 7 — PARTENAIRES
+═══════════════════════════════════ */
+.part-hd{padding:3rem 3.5rem 2rem;border-bottom:1px solid var(--rule);}
+.part-hd .kicker{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--amber);margin-bottom:12px;}
+.part-hd h1{font-family:'Syne',sans-serif;font-size:clamp(32px,4vw,52px);font-weight:800;line-height:.95;letter-spacing:-.01em;margin-bottom:1rem;}
+.part-hd h1 em{font-style:normal;color:var(--amber);}
+.part-hd p{font-size:15px;font-weight:300;color:var(--stone);line-height:1.75;max-width:600px;}
+.part-paths{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--rule);border:1px solid var(--rule);margin:2.5rem 3.5rem 0;}
+.part-path{background:var(--white);padding:2.5rem;}
+.part-path-tag{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;padding:3px 12px;border-radius:2px;display:inline-block;margin-bottom:1.5rem;}
+.part-path-tag.dep{background:var(--amber);color:var(--white);}
+.part-path-tag.ins{background:var(--ink);color:var(--white);}
+.part-path h2{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:var(--ink);margin-bottom:6px;}
+.part-path .sub{font-size:13px;color:var(--stone);margin-bottom:1.5rem;line-height:1.6;}
+.part-benefits{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:2rem;}
+.part-benefits li{display:flex;gap:10px;font-size:13px;color:var(--ink2);line-height:1.5;}
+.part-benefits li::before{content:'→';color:var(--amber);font-family:'Syne',sans-serif;font-weight:700;flex-shrink:0;margin-top:1px;}
+.part-reqs{background:var(--bg2);border:1px solid var(--rule);padding:14px 16px;margin-bottom:1.5rem;border-radius:2px;}
+.part-reqs-t{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--stone);margin-bottom:8px;}
+.part-reqs ul{list-style:none;display:flex;flex-direction:column;gap:5px;}
+.part-reqs ul li{font-size:12px;color:var(--stone);padding-left:12px;position:relative;}
+.part-reqs ul li::before{content:'·';position:absolute;left:0;color:var(--stone);}
+.part-form-wrap{padding:2.5rem 3.5rem 3.5rem;}
+.part-form-hd{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;margin-bottom:4px;}
+.part-form-hd em{font-style:normal;color:var(--amber);}
+.part-form-sub{font-size:13px;color:var(--stone);margin-bottom:2rem;}
+.part-form{background:var(--white);border:1px solid var(--rule);padding:2rem;}
+.part-type-sel{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:1.5rem;}
+.ptsel{padding:14px 16px;background:var(--bg);border:1.5px solid var(--rule);border-radius:2px;cursor:pointer;transition:all .15s;text-align:left;}
+.ptsel:hover{border-color:var(--stone-light);}
+.ptsel.on{border-color:var(--amber);background:var(--amber-pale);}
+.ptsel strong{display:block;font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--ink);margin-bottom:2px;}
+.ptsel span{font-size:11px;color:var(--stone);}
+
 /* leaflet overrides */
 .leaflet-container{background:#E8E2D8 !important;}
 .leaflet-popup-content-wrapper{background:var(--white);border:1px solid var(--rule);color:var(--ink);font-family:'DM Sans',sans-serif;border-radius:2px;box-shadow:0 8px 24px rgba(0,0,0,.15);}
@@ -428,6 +463,9 @@ select.fi{cursor:pointer;}
   #map{min-height:300px;}
   .gps-row{flex-direction:column;}
   .mode-toggle{font-size:9px;}
+  .part-paths{grid-template-columns:1fr;margin:2rem 1.5rem 0;}
+  .part-form-wrap{padding:2rem 1.5rem 3rem;}
+  .part-type-sel{grid-template-columns:1fr;}
 }
 @media(max-width:480px){
   nav{padding:0 1rem;}
@@ -438,6 +476,9 @@ select.fi{cursor:pointer;}
   .cat-hd{padding:1.5rem 1rem 0;}
   .cat-grid{margin:1.5rem 1rem 2rem;}
   .section,.trust,.cta-strip{padding-left:1rem;padding-right:1rem;}
+  .part-hd{padding:2rem 1rem 1.5rem;}
+  .part-paths{margin:1.5rem 1rem 0;}
+  .part-form-wrap{padding:1.5rem 1rem 2.5rem;}
   .stats{grid-template-columns:1fr 1fr;gap:1px;}
   .prod-grid{grid-template-columns:1fr;}
 }
@@ -468,6 +509,7 @@ select.fi{cursor:pointer;}
     <div class="ntab" onclick="showPage('config')" id="tab-config">Configurateur</div>
     <div class="ntab" onclick="showPage('resa')" id="tab-resa">Réservation</div>
     <div class="ntab" onclick="showPage('apropos')" id="tab-apropos">À propos</div>
+    <div class="ntab" onclick="showPage('partenaires')" id="tab-partenaires">Partenaires</div>
   </div>
   <div class="nright">
     <div class="ncart" onclick="showPage('config')">
@@ -900,10 +942,37 @@ select.fi{cursor:pointer;}
       </div>
 
       <div class="fblock">
-        <div class="fblock-label">Options</div>
+        <div class="fblock-label">Installation &amp; services</div>
         <div style="display:flex;flex-direction:column;gap:8px;">
           <label class="check-row"><input type="checkbox" id="opt-install" onchange="calcPrice()"/><div class="check-text"><strong>Installation professionnelle certifiée RBQ</strong><span>Pose complète par nos équipes — +25% du prix des modules</span></div></label>
           <label class="check-row"><input type="checkbox" id="opt-livraison" onchange="calcPrice()"/><div class="check-text"><strong>Livraison express 48h garantie</strong><span>Priorité d'expédition depuis nos entrepôts — +150 $</span></div></label>
+        </div>
+      </div>
+
+      <div class="fblock">
+        <div class="fblock-label">Systèmes complémentaires</div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <label class="check-row">
+            <input type="checkbox" id="opt-pompe" onchange="calcPrice()"/>
+            <div class="check-text">
+              <strong>Système de pompe submersible</strong>
+              <span>Évacuation automatique de l'eau accumulée — +450 $ / unité · Pompe 2" à 4", débit jusqu'à 800 L/min</span>
+            </div>
+          </label>
+          <label class="check-row">
+            <input type="checkbox" id="opt-surveillance" onchange="calcPrice()"/>
+            <div class="check-text">
+              <strong>Surveillance électronique 24h / cellulaire</strong>
+              <span>Capteurs de niveau d'eau + alertes SMS/appel en temps réel — +890 $ · Aucun Wi-Fi requis</span>
+            </div>
+          </label>
+          <label class="check-row">
+            <input type="checkbox" id="opt-generatrice" onchange="calcPrice()"/>
+            <div class="check-text">
+              <strong>Système de génératrice</strong>
+              <span>Alimentation de secours pour pompes et surveillance — +1 200 $ · 3 500 W, démarrage automatique</span>
+            </div>
+          </label>
         </div>
       </div>
     </div>
@@ -948,6 +1017,9 @@ select.fi{cursor:pointer;}
           <div class="sum-row"><span class="sum-rl">Modules × prix</span><span class="sum-rv" id="sum-base">—</span></div>
           <div class="sum-row" id="sum-install-row" style="display:none;"><span class="sum-rl">Installation (+25%)</span><span class="sum-rv" id="sum-install">—</span></div>
           <div class="sum-row" id="sum-liv-row" style="display:none;"><span class="sum-rl">Livraison express</span><span class="sum-rv">+150 $</span></div>
+          <div class="sum-row" id="sum-pompe-row" style="display:none;"><span class="sum-rl">Pompe submersible</span><span class="sum-rv">+450 $</span></div>
+          <div class="sum-row" id="sum-surv-row" style="display:none;"><span class="sum-rl">Surveillance 24h/cell.</span><span class="sum-rv">+890 $</span></div>
+          <div class="sum-row" id="sum-gen-row" style="display:none;"><span class="sum-rl">Génératrice 3 500 W</span><span class="sum-rv">+1 200 $</span></div>
         </div>
         <div class="sum-total"><span class="sum-tl">Total estimé</span><span class="sum-tv" id="sum-total">—</span></div>
       </div>
@@ -1096,6 +1168,114 @@ select.fi{cursor:pointer;}
   </div>
 </div>
 
+<!-- ═══════════════════════════════════
+     PAGE 7 — PARTENAIRES
+═══════════════════════════════════ -->
+<div class="pg" id="pg-partenaires">
+
+  <div class="part-hd">
+    <div class="kicker">Réseau de partenaires</div>
+    <h1>Rejoignez <em>Armadam</em></h1>
+    <p>Deux façons de faire partie du réseau : devenez dépositaire autorisé pour vendre nos systèmes dans votre région, ou devenez installateur certifié pour offrir l'installation professionnelle à vos clients.</p>
+  </div>
+
+  <!-- Two paths -->
+  <div class="part-paths">
+
+    <div class="part-path">
+      <div class="part-path-tag dep">Dépositaire autorisé</div>
+      <h2>Vendre les systèmes Armadam</h2>
+      <p class="sub">Vous êtes quincaillerie, fournisseur en matériaux de construction, ou distributeur régional ? Devenez le point de vente Armadam dans votre territoire — exclusivité de zone disponible.</p>
+      <ul class="part-benefits">
+        <li>Exclusivité territoriale selon votre zone de couverture</li>
+        <li>Marge distributeur compétitive sur tous les produits</li>
+        <li>Formation produits + matériel de vente fourni</li>
+        <li>Support technique et commercial d'Armadam</li>
+        <li>Stock consigné disponible pour les urgences</li>
+        <li>Accès au portail dépositaire (commandes, suivi, documentation)</li>
+      </ul>
+      <div class="part-reqs">
+        <div class="part-reqs-t">Critères d'admissibilité</div>
+        <ul>
+          <li>Entreprise établie au Québec, numéro TPS/TVQ actif</li>
+          <li>Local commercial ou entrepôt (min. 500 pi²)</li>
+          <li>Capacité de stocker et d'exposer les systèmes</li>
+          <li>Connaissance du milieu construction ou protection civile</li>
+        </ul>
+      </div>
+      <button class="btn-amber" onclick="selectPartType('depositaire')">Soumettre ma candidature →</button>
+    </div>
+
+    <div class="part-path">
+      <div class="part-path-tag ins">Installateur certifié</div>
+      <h2>Installer les systèmes Armadam</h2>
+      <p class="sub">Vous êtes entrepreneur général, électricien, plombier ou spécialiste en protection civile ? Obtenez la certification Armadam et offrez l'installation professionnelle à votre clientèle existante.</p>
+      <ul class="part-benefits">
+        <li>Certification officielle Armadam — reconnue RBQ</li>
+        <li>Formation technique complète sur site (2 jours)</li>
+        <li>Accès aux projets référés par Armadam dans votre région</li>
+        <li>Support technique 24h en saison de crue</li>
+        <li>Tarifs préférentiels sur les commandes de chantier</li>
+        <li>Inclusion dans le répertoire des installateurs certifiés</li>
+      </ul>
+      <div class="part-reqs">
+        <div class="part-reqs-t">Critères d'admissibilité</div>
+        <ul>
+          <li>Licence RBQ active (entrepreneur général ou spécialisé)</li>
+          <li>Assurance responsabilité civile minimum 2 M$</li>
+          <li>Équipe de minimum 2 personnes disponibles en urgence</li>
+          <li>Véhicule de chantier adapté au transport de matériel</li>
+        </ul>
+      </div>
+      <button class="btn-primary" onclick="selectPartType('installateur')">Soumettre ma candidature →</button>
+    </div>
+
+  </div>
+
+  <!-- Application form -->
+  <div class="part-form-wrap">
+    <div class="part-form-hd">Formulaire de <em>candidature</em></div>
+    <p class="part-form-sub">Remplissez ce formulaire. Notre équipe vous répond dans les 48 heures ouvrables.</p>
+    <div class="part-form">
+      <div style="margin-bottom:1.5rem;">
+        <div style="font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--stone);margin-bottom:10px;">Je soumets ma candidature comme :</div>
+        <div class="part-type-sel">
+          <button class="ptsel on" id="pt-dep" onclick="selectPartType('depositaire')">
+            <strong>Dépositaire autorisé</strong>
+            <span>Je veux vendre les systèmes</span>
+          </button>
+          <button class="ptsel" id="pt-ins" onclick="selectPartType('installateur')">
+            <strong>Installateur certifié</strong>
+            <span>Je veux installer les systèmes</span>
+          </button>
+        </div>
+      </div>
+      <div class="fgrid" style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
+        <div class="fg"><label class="flb">Prénom</label><input class="fi" id="pt-prenom" type="text" placeholder="Jean"/></div>
+        <div class="fg"><label class="flb">Nom</label><input class="fi" id="pt-nom" type="text" placeholder="Tremblay"/></div>
+      </div>
+      <div class="fgrid" style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
+        <div class="fg"><label class="flb">Courriel</label><input class="fi" id="pt-email" type="email" placeholder="jean@entreprise.com"/></div>
+        <div class="fg"><label class="flb">Téléphone</label><input class="fi" id="pt-tel" type="tel" placeholder="418 555-0000"/></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
+        <div class="fg"><label class="flb">Nom de l'entreprise</label><input class="fi" id="pt-cie" type="text" placeholder="Construction XYZ inc."/></div>
+        <div class="fg"><label class="flb">Ville / Région</label><input class="fi" id="pt-region" type="text" placeholder="Québec, Laurentides, etc."/></div>
+      </div>
+      <div style="margin-bottom:14px;">
+        <label class="flb">Numéro de licence RBQ (si applicable)</label>
+        <input class="fi" id="pt-rbq" type="text" placeholder="Ex: 1234-5678-01" style="max-width:300px;"/>
+      </div>
+      <div style="margin-bottom:1.5rem;">
+        <label class="flb">Décrivez votre activité et vos intérêts</label>
+        <textarea class="fi" id="pt-msg" rows="4" placeholder="Ex: Nous sommes entrepreneur général en construction résidentielle depuis 12 ans dans la région de Lanaudière. Nous avons plusieurs clients avec des propriétés riveraines exposées aux inondations…" style="resize:vertical;"></textarea>
+      </div>
+      <button class="btn-amber" onclick="submitPartForm()" style="min-width:220px;">Envoyer ma candidature →</button>
+    </div>
+  </div>
+
+</div>
+
 <!-- ═══ MODAL DEVIS ═══ -->
 <div class="modal-ov" id="devis-modal">
   <div class="modal">
@@ -1138,6 +1318,7 @@ function showPage(id) {
   if (id === 'config') { calcPrice(); drawCrossSection(); }
   if (id === 'resa') initCalendar();
   if (id === 'apropos') {} // static page
+  if (id === 'partenaires') {} // static page
 }
 
 // ── CART ──────────────────────────────────────────────────────────────────
@@ -1428,11 +1609,17 @@ function calcPrice() {
   const qty = parseInt(document.getElementById('cfg-qty').value) || 1;
   const doInstall = document.getElementById('opt-install').checked;
   const doLiv = document.getElementById('opt-livraison').checked;
+  const doPompe = document.getElementById('opt-pompe').checked;
+  const doSurv = document.getElementById('opt-surveillance').checked;
+  const doGen = document.getElementById('opt-generatrice').checked;
   const mods = Math.ceil(width / prod.modW) * qty;
   const base = mods * prod.price;
   const installCost = doInstall ? Math.round(base * 0.25) : 0;
   const livCost = doLiv ? 150 : 0;
-  const total = base + installCost + livCost;
+  const pompeCost = doPompe ? 450 : 0;
+  const survCost = doSurv ? 890 : 0;
+  const genCost = doGen ? 1200 : 0;
+  const total = base + installCost + livCost + pompeCost + survCost + genCost;
 
   document.getElementById('sum-prod').textContent = prod.name;
   document.getElementById('sum-mods').textContent = mods + ' module' + (mods > 1 ? 's' : '');
@@ -1441,6 +1628,9 @@ function calcPrice() {
   document.getElementById('sum-install-row').style.display = doInstall ? '' : 'none';
   if (doInstall) document.getElementById('sum-install').textContent = '+' + fmt(installCost);
   document.getElementById('sum-liv-row').style.display = doLiv ? '' : 'none';
+  document.getElementById('sum-pompe-row').style.display = doPompe ? '' : 'none';
+  document.getElementById('sum-surv-row').style.display = doSurv ? '' : 'none';
+  document.getElementById('sum-gen-row').style.display = doGen ? '' : 'none';
   document.getElementById('sum-total').textContent = fmt(total);
   drawCrossSection();
 }
@@ -1453,17 +1643,26 @@ function openDevisModal() {
   const qty = parseInt(document.getElementById('cfg-qty').value) || 1;
   const doInstall = document.getElementById('opt-install').checked;
   const doLiv = document.getElementById('opt-livraison').checked;
+  const doPompe = document.getElementById('opt-pompe').checked;
+  const doSurv = document.getElementById('opt-surveillance').checked;
+  const doGen = document.getElementById('opt-generatrice').checked;
   const mods = Math.ceil(width / prod.modW) * qty;
   const base = mods * prod.price;
   const installCost = doInstall ? Math.round(base * 0.25) : 0;
   const livCost = doLiv ? 150 : 0;
-  const total = base + installCost + livCost;
+  const pompeCost = doPompe ? 450 : 0;
+  const survCost = doSurv ? 890 : 0;
+  const genCost = doGen ? 1200 : 0;
+  const total = base + installCost + livCost + pompeCost + survCost + genCost;
 
   const rows = [
     ['Système', prod.name],['Largeur ouverture', width + ' m'],['Ouvertures', qty],
     ['Modules requis', mods],['Prix unitaire', fmt(prod.price)],['Sous-total modules', fmt(base)],
     doInstall ? ['Installation (+25%)', '+' + fmt(installCost)] : null,
-    doLiv ? ['Livraison express', '+' + fmt(livCost)] : null,
+    doLiv ? ['Livraison express 48h', '+' + fmt(livCost)] : null,
+    doPompe ? ['Pompe submersible', '+' + fmt(pompeCost)] : null,
+    doSurv ? ['Surveillance 24h/cellulaire', '+' + fmt(survCost)] : null,
+    doGen ? ['Génératrice 3 500 W', '+' + fmt(genCost)] : null,
   ].filter(Boolean);
 
   document.getElementById('modal-body').innerHTML = rows.map(([l,v]) =>
@@ -1471,7 +1670,7 @@ function openDevisModal() {
   document.getElementById('modal-total').textContent = fmt(total);
   document.getElementById('devis-modal').classList.add('open');
   fetch('/api/devis', {method:'POST',headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({produit:prod.name,largeur:width,quantite:qty,installation:doInstall,livraison:doLiv,total})
+    body:JSON.stringify({produit:prod.name,largeur:width,quantite:qty,installation:doInstall,livraison:doLiv,pompe:doPompe,surveillance:doSurv,generatrice:doGen,total})
   }).catch(()=>{});
 }
 
@@ -1567,6 +1766,42 @@ function showToast(msg, type) {
   const t = document.getElementById('toast');
   t.textContent = msg; t.className = 'toast' + (type?' '+type:''); t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// ── PARTENAIRES ────────────────────────────────────────────────────────────
+let partType = 'depositaire';
+
+function selectPartType(type) {
+  partType = type;
+  document.getElementById('pt-dep').classList.toggle('on', type === 'depositaire');
+  document.getElementById('pt-ins').classList.toggle('on', type === 'installateur');
+  // Scroll to form
+  document.querySelector('.part-form-wrap').scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+async function submitPartForm() {
+  const prenom = document.getElementById('pt-prenom').value.trim();
+  const nom = document.getElementById('pt-nom').value.trim();
+  const email = document.getElementById('pt-email').value.trim();
+  const tel = document.getElementById('pt-tel').value.trim();
+  const cie = document.getElementById('pt-cie').value.trim();
+  const region = document.getElementById('pt-region').value.trim();
+  const msg = document.getElementById('pt-msg').value.trim();
+  if (!prenom || !nom || !email || !cie) { showToast('Veuillez remplir les champs obligatoires', ''); return; }
+  const btn = document.querySelector('#pg-partenaires .btn-amber');
+  btn.textContent = 'Envoi…'; btn.disabled = true;
+  try {
+    await fetch('/api/devis', {method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({type:'partenaire', partType, prenom, nom, email, tel, cie, region,
+        rbq: document.getElementById('pt-rbq').value.trim(), message: msg})
+    });
+    showToast('Candidature reçue — nous vous répondons dans 48h', 'success');
+    btn.textContent = '✓ Candidature envoyée';
+    ['pt-prenom','pt-nom','pt-email','pt-tel','pt-cie','pt-region','pt-rbq','pt-msg'].forEach(id => document.getElementById(id).value = '');
+  } catch(e) {
+    showToast('Erreur d\'envoi — réessayez ou contactez-nous directement', '');
+    btn.textContent = 'Envoyer ma candidature →'; btn.disabled = false;
+  }
 }
 
 // ── INIT ──────────────────────────────────────────────────────────────────
