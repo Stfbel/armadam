@@ -5,402 +5,396 @@
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>ARMADAM — Batardeaux sur mesure au Québec</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;500;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
 :root{
-  --navy:#0d1f2d;
-  --navy2:#0a1820;
-  --steel:#1c3344;
-  --steel2:#243d52;
-  --slate:#2a4a5e;
-  --ice:#5ba8cc;
-  --icel:#a8d4e8;
-  --iceld:#3d8aad;
-  --cream:#f0ece4;
-  --cream2:#c8c4bc;
-  --muted:#7a9aae;
-  --danger:#e05c5c;
-  --warn:#e0a050;
-  --ok:#5cc080;
-  --bd:rgba(91,168,204,0.14);
-  --bds:rgba(91,168,204,0.3);
-  --bdb:rgba(91,168,204,0.5);
+  --bg:#F2EDE4;
+  --bg2:#EAE4DA;
+  --ink:#1E1C18;
+  --ink2:#3A3830;
+  --amber:#D4751A;
+  --amber2:#E88A30;
+  --amber-pale:#FDF0E4;
+  --stone:#8C8680;
+  --stone-light:#C8C0B4;
+  --rule:#DDD8D0;
+  --white:#FDFAF6;
+  --ok:#2D7A4F;
+  --warn:#C4892A;
+  --danger:#C44A2A;
+  --water:#3B7EA1;
+  --panel:#B0A89E;
 }
 html{scroll-behavior:smooth;}
-body{font-family:'Barlow',sans-serif;background:var(--navy);color:var(--cream);min-height:100vh;overflow-x:hidden;}
-
-/* ── SCROLLBAR ── */
-::-webkit-scrollbar{width:4px;}
-::-webkit-scrollbar-track{background:var(--navy2);}
-::-webkit-scrollbar-thumb{background:var(--slate);border-radius:2px;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;overflow-x:hidden;}
+::-webkit-scrollbar{width:3px;}
+::-webkit-scrollbar-track{background:var(--bg2);}
+::-webkit-scrollbar-thumb{background:var(--stone-light);}
 
 /* ── NAV ── */
-nav{position:sticky;top:0;z-index:1000;background:rgba(10,24,32,0.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;padding:0 2rem;height:58px;}
-.nlogo{display:flex;align-items:center;gap:10px;cursor:pointer;text-decoration:none;}
-.nmark{width:34px;height:34px;background:var(--ice);clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .2s;}
-.nmark svg{width:16px;height:16px;fill:var(--navy);}
-.nlogo:hover .nmark{background:var(--icel);}
-.nwordmark{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:900;letter-spacing:0.12em;text-transform:uppercase;color:var(--cream);}
-.nwordmark span{color:var(--ice);}
-.ntabs{display:flex;gap:0;}
-.ntab{padding:0 14px;height:58px;display:flex;align-items:center;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;transition:color .15s,border-color .15s;white-space:nowrap;}
-.ntab:hover{color:var(--cream);}
-.ntab.on{color:var(--ice);border-bottom-color:var(--ice);}
-.nright{display:flex;align-items:center;gap:12px;}
-.ncart{position:relative;padding:8px;cursor:pointer;color:var(--muted);transition:color .15s;}
-.ncart:hover{color:var(--ice);}
-.ncart svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;}
-.ncart-badge{position:absolute;top:4px;right:4px;background:var(--ice);color:var(--navy);font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:800;min-width:15px;height:15px;border-radius:8px;display:none;align-items:center;justify-content:center;padding:0 3px;}
+nav{position:sticky;top:0;z-index:1000;background:rgba(242,237,228,0.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;height:60px;}
+.nlogo{display:flex;align-items:center;gap:12px;cursor:pointer;text-decoration:none;}
+.nwordmark{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;letter-spacing:0.05em;color:var(--ink);}
+.nwordmark em{font-style:normal;color:var(--amber);}
+.ntabs{display:flex;}
+.ntab{padding:0 16px;height:60px;display:flex;align-items:center;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:var(--stone);cursor:pointer;border-bottom:2px solid transparent;transition:color .15s,border-color .15s;white-space:nowrap;}
+.ntab:hover{color:var(--ink);}
+.ntab.on{color:var(--ink);border-bottom-color:var(--amber);}
+.nright{display:flex;align-items:center;gap:10px;}
+.ncart{position:relative;width:38px;height:38px;display:flex;align-items:center;justify-content:center;cursor:pointer;border:1px solid var(--rule);border-radius:2px;transition:border-color .15s;}
+.ncart:hover{border-color:var(--stone);}
+.ncart svg{width:16px;height:16px;fill:none;stroke:var(--ink);stroke-width:1.8;}
+.ncart-badge{position:absolute;top:-5px;right:-5px;background:var(--amber);color:var(--white);font-family:'Syne',sans-serif;font-size:9px;font-weight:700;min-width:16px;height:16px;border-radius:8px;display:none;align-items:center;justify-content:center;padding:0 3px;}
 .ncart-badge.show{display:flex;}
-.ndevis{padding:9px 20px;background:var(--ice);color:var(--navy);font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;border:none;border-radius:2px;cursor:pointer;transition:background .15s;}
-.ndevis:hover{background:var(--icel);}
+.ndevis{padding:10px 22px;background:var(--ink);color:var(--white);font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.04em;border:none;border-radius:2px;cursor:pointer;transition:background .15s;}
+.ndevis:hover{background:var(--amber);}
 
 /* ── PAGES ── */
-.pg{display:none;animation:pgIn .3s ease;}
+.pg{display:none;animation:fadeUp .25s ease;}
 .pg.on{display:block;}
-@keyframes pgIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
 
 /* ═══════════════════════════════════
    PAGE 1 — ACCUEIL
 ═══════════════════════════════════ */
-.hero{position:relative;min-height:520px;overflow:hidden;display:flex;flex-direction:column;background:linear-gradient(160deg,var(--navy2) 0%,var(--navy) 60%,#0d2535 100%);}
-.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(91,168,204,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(91,168,204,0.04) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;}
-.hero-glow{position:absolute;top:-100px;right:-100px;width:500px;height:500px;background:radial-gradient(circle,rgba(91,168,204,0.08) 0%,transparent 70%);pointer-events:none;}
-.hero-content{position:relative;z-index:5;padding:3.5rem 2.5rem 2rem;flex:1;}
-.hero-eyebrow{display:flex;align-items:center;gap:10px;font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.25em;text-transform:uppercase;color:var(--ice);margin-bottom:1.2rem;}
-.hero-eyebrow-line{width:36px;height:1px;background:var(--ice);}
-.hero-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(52px,8vw,88px);font-weight:900;line-height:0.88;letter-spacing:-0.01em;text-transform:uppercase;color:var(--cream);margin-bottom:0.5rem;}
-.hero-title .hl{color:var(--ice);display:block;}
-.hero-title .hl2{color:var(--cream2);font-size:0.55em;font-weight:400;display:block;letter-spacing:0.08em;margin-top:0.3em;}
-.hero-sub{font-size:15px;font-weight:300;color:var(--muted);line-height:1.7;max-width:480px;margin:1.5rem 0 2rem;}
-.hero-btns{display:flex;gap:14px;flex-wrap:wrap;}
-.btn-primary{padding:13px 30px;background:var(--ice);color:var(--navy);font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;border:none;border-radius:2px;cursor:pointer;transition:background .15s,transform .1s;}
-.btn-primary:hover{background:var(--icel);transform:translateY(-1px);}
-.btn-secondary{padding:13px 30px;background:transparent;color:var(--cream);font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;border:1px solid var(--bds);border-radius:2px;cursor:pointer;transition:border-color .15s,color .15s;}
-.btn-secondary:hover{border-color:var(--ice);color:var(--ice);}
-.hero-waves{position:absolute;bottom:0;left:0;right:0;height:120px;overflow:hidden;}
-.hero-waves svg{position:absolute;bottom:0;width:200%;animation:wave 10s linear infinite;}
-.hero-waves svg:nth-child(2){opacity:.5;animation-duration:15s;animation-direction:reverse;}
-@keyframes wave{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+.hero{min-height:560px;display:grid;grid-template-columns:1fr 400px;border-bottom:1px solid var(--rule);overflow:hidden;position:relative;}
+.hero-left{padding:4rem 3rem 3rem 3.5rem;display:flex;flex-direction:column;justify-content:center;border-right:1px solid var(--rule);}
+.hero-kicker{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:500;color:var(--stone);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:2rem;}
+.hero-kicker::before{content:'';width:24px;height:1px;background:var(--amber);}
+.hero-h1{font-family:'Syne',sans-serif;font-size:clamp(56px,6vw,84px);font-weight:800;line-height:0.92;letter-spacing:-0.02em;color:var(--ink);margin-bottom:1.8rem;}
+.hero-h1 .orange{color:var(--amber);}
+.hero-h1 .light{font-weight:400;color:var(--stone);}
+.hero-sub{font-size:15px;font-weight:300;color:var(--stone);line-height:1.75;max-width:440px;margin-bottom:2.5rem;}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;}
+.btn-primary{padding:14px 32px;background:var(--ink);color:var(--white);font-family:'Syne',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.04em;border:none;border-radius:2px;cursor:pointer;transition:background .15s;}
+.btn-primary:hover{background:var(--amber);}
+.btn-ghost{padding:14px 32px;background:transparent;color:var(--ink);font-family:'Syne',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.04em;border:1.5px solid var(--rule);border-radius:2px;cursor:pointer;transition:border-color .15s,color .15s;}
+.btn-ghost:hover{border-color:var(--ink);}
 
-/* Stats bar */
-.stats-bar{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--bd);background:rgba(28,51,68,0.6);}
-.stat-item{padding:1.1rem 1.5rem;border-right:1px solid var(--bd);text-align:center;}
-.stat-item:last-child{border-right:none;}
-.stat-num{font-family:'Barlow Condensed',sans-serif;font-size:30px;font-weight:900;color:var(--ice);line-height:1;}
-.stat-label{font-size:9px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:0.12em;margin-top:4px;}
+/* Hero right — water visualizer */
+.hero-right{position:relative;background:var(--bg2);display:flex;align-items:flex-end;justify-content:center;overflow:hidden;}
+.hero-diagram{position:relative;width:100%;height:100%;min-height:560px;}
+.hero-diagram svg{position:absolute;bottom:0;left:0;right:0;width:100%;height:100%;}
+.hero-water{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(59,126,161,0.7),rgba(91,168,204,0.3));animation:waterRise 2.5s cubic-bezier(.4,0,.2,1) forwards,waterFlow 4s ease-in-out infinite 2.5s;}
+@keyframes waterRise{from{height:0;}to{height:62%;}}
+@keyframes waterFlow{0%,100%{transform:scaleY(1);}50%{transform:scaleY(1.02);}}
+.hero-barrier{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:80px;background:linear-gradient(to top,var(--panel),#CAC4BC);border-top:3px solid var(--amber);animation:barrierRise 1.8s cubic-bezier(.4,0,.2,1) .3s both;}
+@keyframes barrierRise{from{height:0;}to{height:58%;}}
+.hero-label{position:absolute;top:2rem;right:2rem;font-family:'Syne',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--stone);writing-mode:vertical-rl;opacity:.5;}
 
-/* Products preview */
-.section{padding:2.5rem 2.5rem 2rem;}
-.section-header{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:1.8rem;}
-.section-title{font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:800;text-transform:uppercase;letter-spacing:0.04em;color:var(--cream);}
-.section-title span{color:var(--ice);}
-.section-link{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--ice);cursor:pointer;display:flex;align-items:center;gap:5px;border:none;background:none;}
-.section-link:hover{color:var(--icel);}
-.prod-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
-.prod-card{background:var(--steel);border:1px solid var(--bd);border-radius:3px;overflow:hidden;cursor:pointer;transition:border-color .2s,transform .2s;position:relative;}
-.prod-card:hover{border-color:var(--bdb);transform:translateY(-3px);}
-.prod-card-vis{height:90px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
-.prod-card-vis svg{width:52px;height:52px;opacity:.9;}
-.prod-card-body{padding:12px 14px;}
-.prod-tier{font-family:'Barlow Condensed',sans-serif;font-size:8px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--ice);margin-bottom:4px;}
-.prod-name{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:800;text-transform:uppercase;color:var(--cream);margin-bottom:3px;}
-.prod-depth{font-size:10px;color:var(--muted);margin-bottom:8px;}
-.prod-price{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;color:var(--cream);}
-.prod-price small{font-size:10px;color:var(--muted);font-weight:400;}
+/* Stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--rule);}
+.stat{padding:1.5rem 2rem;border-right:1px solid var(--rule);position:relative;}
+.stat:last-child{border-right:none;}
+.stat-n{font-family:'Syne',sans-serif;font-size:36px;font-weight:800;color:var(--ink);line-height:1;}
+.stat-n span{color:var(--amber);}
+.stat-l{font-size:11px;font-weight:400;color:var(--stone);margin-top:5px;line-height:1.4;}
 
-/* Trust section */
-.trust-section{padding:0 2.5rem 3rem;}
-.trust-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;border:1px solid var(--bd);border-radius:4px;overflow:hidden;}
-.trust-item{background:var(--steel);padding:1.5rem;border-right:1px solid var(--bd);}
-.trust-item:last-child{border-right:none;}
-.trust-icon{width:36px;height:36px;background:rgba(91,168,204,0.1);border-radius:2px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;}
-.trust-icon svg{width:18px;height:18px;fill:var(--ice);}
-.trust-title{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--ice);margin-bottom:6px;}
-.trust-desc{font-size:12px;color:var(--muted);line-height:1.65;}
+/* Products section */
+.section{padding:3rem 3.5rem;}
+.sec-hd{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:2.5rem;padding-bottom:1rem;border-bottom:1px solid var(--rule);}
+.sec-t{font-family:'Syne',sans-serif;font-size:22px;font-weight:700;color:var(--ink);}
+.sec-link{font-size:12px;font-weight:500;color:var(--stone);cursor:pointer;background:none;border:none;transition:color .15s;}
+.sec-link:hover{color:var(--amber);}
+.prod-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);}
+.prod-card{background:var(--white);padding:1.5rem;cursor:pointer;transition:background .15s;position:relative;overflow:hidden;}
+.prod-card:hover{background:var(--amber-pale);}
+.prod-card::after{content:'';position:absolute;top:0;left:0;width:3px;height:0;background:var(--amber);transition:height .2s;}
+.prod-card:hover::after{height:100%;}
+.pc-num{font-family:'Syne',sans-serif;font-size:11px;font-weight:600;color:var(--stone-light);letter-spacing:0.1em;margin-bottom:1rem;}
+.pc-icon{margin-bottom:1rem;}
+.pc-icon svg{width:48px;height:48px;}
+.pc-tier{font-size:10px;font-weight:600;color:var(--amber);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:4px;}
+.pc-name{font-family:'Syne',sans-serif;font-size:17px;font-weight:700;color:var(--ink);margin-bottom:4px;}
+.pc-depth{font-size:12px;color:var(--stone);margin-bottom:1rem;}
+.pc-price{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;color:var(--ink);}
+.pc-price small{font-size:11px;font-weight:400;color:var(--stone);}
 
-/* CTA banner */
-.cta-banner{margin:0 2.5rem 3rem;background:linear-gradient(135deg,var(--steel) 0%,var(--slate) 100%);border:1px solid var(--bds);border-radius:4px;padding:2rem 2.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;}
-.cta-text h3{font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:800;text-transform:uppercase;color:var(--cream);margin-bottom:6px;}
-.cta-text p{font-size:13px;color:var(--muted);}
+/* Trust */
+.trust{padding:0 3.5rem 3rem;}
+.trust-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);}
+.trust-item{background:var(--white);padding:2rem;}
+.trust-num{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;color:var(--stone-light);letter-spacing:.15em;margin-bottom:1rem;}
+.trust-t{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--ink);margin-bottom:8px;}
+.trust-d{font-size:13px;color:var(--stone);line-height:1.7;}
+
+/* CTA strip */
+.cta-strip{margin:0 3.5rem 3rem;background:var(--ink);padding:2.5rem 3rem;display:flex;align-items:center;justify-content:space-between;gap:2rem;}
+.cta-strip h3{font-family:'Syne',sans-serif;font-size:24px;font-weight:700;color:var(--white);margin-bottom:5px;}
+.cta-strip p{font-size:13px;color:rgba(255,255,255,.5);}
+.btn-amber{padding:14px 32px;background:var(--amber);color:var(--white);font-family:'Syne',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.04em;border:none;border-radius:2px;cursor:pointer;white-space:nowrap;transition:background .15s;}
+.btn-amber:hover{background:var(--amber2);}
 
 /* ═══════════════════════════════════
    PAGE 2 — ANALYSE TERRAIN
 ═══════════════════════════════════ */
-.terrain-head{padding:1.5rem 2.5rem 1.2rem;border-bottom:1px solid var(--bd);}
-.terrain-head h1{font-family:'Barlow Condensed',sans-serif;font-size:32px;font-weight:800;text-transform:uppercase;letter-spacing:0.03em;}
-.terrain-head p{font-size:13px;color:var(--muted);margin-top:4px;}
-.terrain-layout{display:grid;grid-template-columns:340px 1fr;min-height:calc(100vh - 150px);}
-.terrain-sidebar{padding:1.5rem;border-right:1px solid var(--bd);background:rgba(10,24,32,0.5);display:flex;flex-direction:column;gap:16px;overflow-y:auto;}
-.terrain-map{position:relative;background:var(--steel2);}
+.terrain-hd{padding:2rem 3.5rem 1.5rem;border-bottom:1px solid var(--rule);}
+.terrain-hd h1{font-family:'Syne',sans-serif;font-size:28px;font-weight:700;}
+.terrain-hd h1 em{font-style:normal;color:var(--amber);}
+.terrain-hd p{font-size:13px;color:var(--stone);margin-top:4px;}
+.terrain-layout{display:grid;grid-template-columns:360px 1fr;min-height:calc(100vh - 148px);}
+.terrain-sb{padding:1.5rem;border-right:1px solid var(--rule);overflow-y:auto;display:flex;flex-direction:column;gap:14px;}
+.terrain-map-wrap{position:relative;}
 #map{height:100%;min-height:500px;}
+.map-ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:var(--stone-light);background:var(--bg2);}
+.map-ph svg{width:40px;height:40px;opacity:.4;}
+.map-ph p{font-size:13px;}
 
-/* Search */
-.search-label{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--ice);margin-bottom:6px;display:block;}
-.search-wrap{position:relative;}
-.search-inp{width:100%;padding:10px 12px 10px 36px;background:var(--steel);border:1px solid var(--bds);border-radius:3px;font-size:13px;font-family:'Barlow',sans-serif;color:var(--cream);outline:none;transition:border-color .15s;}
-.search-inp::placeholder{color:var(--muted);}
-.search-inp:focus{border-color:var(--ice);}
-.search-ico{position:absolute;left:11px;top:50%;transform:translateY(-50%);width:14px;height:14px;fill:none;stroke:var(--muted);stroke-width:2;}
-.search-btn{position:absolute;right:6px;top:50%;transform:translateY(-50%);padding:5px 12px;background:var(--ice);color:var(--navy);font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;border:none;border-radius:2px;cursor:pointer;transition:background .15s;}
-.search-btn:hover{background:var(--icel);}
-.suggestions{position:absolute;top:calc(100% + 3px);left:0;right:0;background:var(--steel);border:1px solid var(--bds);border-radius:3px;z-index:500;display:none;}
-.suggestions.open{display:block;}
-.sugg-item{padding:9px 12px;font-size:12px;cursor:pointer;border-bottom:1px solid var(--bd);color:var(--cream);transition:background .1s;}
+/* search */
+.flabel{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--stone);margin-bottom:6px;display:block;}
+.swrap{position:relative;}
+.sinp{width:100%;padding:10px 80px 10px 36px;background:var(--white);border:1px solid var(--rule);border-radius:2px;font-size:13px;font-family:'DM Sans',sans-serif;color:var(--ink);outline:none;transition:border-color .15s;}
+.sinp:focus{border-color:var(--ink);}
+.sinp::placeholder{color:var(--stone-light);}
+.sico{position:absolute;left:11px;top:50%;transform:translateY(-50%);width:14px;height:14px;fill:none;stroke:var(--stone);stroke-width:2;}
+.sbtn{position:absolute;right:5px;top:50%;transform:translateY(-50%);padding:5px 12px;background:var(--amber);color:var(--white);font-family:'Syne',sans-serif;font-size:10px;font-weight:700;border:none;border-radius:2px;cursor:pointer;transition:background .15s;}
+.sbtn:hover{background:var(--amber2);}
+.sbtn:disabled{background:var(--stone-light);cursor:default;}
+.suggs{position:absolute;top:calc(100% + 2px);left:0;right:0;background:var(--white);border:1px solid var(--rule);border-radius:2px;z-index:500;display:none;box-shadow:0 8px 24px rgba(0,0,0,.08);}
+.suggs.open{display:block;}
+.sugg-item{padding:10px 12px;font-size:13px;cursor:pointer;border-bottom:1px solid var(--rule);transition:background .1s;}
 .sugg-item:last-child{border-bottom:none;}
-.sugg-item:hover{background:var(--slate);}
-.sugg-name{font-weight:500;}
-.sugg-sub{font-size:10px;color:var(--muted);margin-top:2px;}
+.sugg-item:hover{background:var(--bg2);}
+.sugg-name{font-weight:500;color:var(--ink);}
+.sugg-sub{font-size:11px;color:var(--stone);margin-top:1px;}
 
-/* Analysis result */
-.analysis-box{background:var(--steel);border:1px solid var(--bd);border-radius:3px;padding:14px;display:none;}
-.analysis-box.show{display:block;}
-.abox-title{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;}
-.arow{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid rgba(91,168,204,0.08);font-size:12px;}
-.arow:last-child{border-bottom:none;}
-.arow-label{color:var(--muted);}
-.arow-val{font-weight:500;}
-.arow-val.danger{color:var(--danger);}
-.arow-val.warn{color:var(--warn);}
-.arow-val.ok{color:var(--ok);}
+/* analysis result */
+.abox{background:var(--white);border:1px solid var(--rule);border-radius:2px;padding:14px;display:none;}
+.abox.show{display:block;}
+.abox-t{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--stone);margin-bottom:12px;}
+.arow{display:flex;justify-content:space-between;align-items:baseline;padding:5px 0;border-bottom:1px solid var(--rule);font-size:12px;}
+.arow:last-of-type{border-bottom:none;}
+.ar-l{color:var(--stone);}
+.ar-v{font-weight:600;}
+.ar-v.ok{color:var(--ok);}
+.ar-v.warn{color:var(--warn);}
+.ar-v.danger{color:var(--danger);}
 
-/* Depth gauge */
-.depth-gauge-wrap{margin-top:12px;}
-.depth-gauge-label{display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-bottom:5px;}
-.depth-gauge-track{height:6px;background:rgba(91,168,204,0.1);border-radius:3px;overflow:hidden;}
-.depth-gauge-fill{height:100%;border-radius:3px;transition:width 1.2s cubic-bezier(.4,0,.2,1),background .5s;}
+/* depth gauge — vertical dramatic fill */
+.depth-gauge{margin-top:14px;display:flex;gap:12px;align-items:flex-end;}
+.dg-track{width:12px;height:120px;background:var(--rule);border-radius:6px;overflow:hidden;position:relative;flex-shrink:0;}
+.dg-fill{position:absolute;bottom:0;width:100%;border-radius:6px;transition:height 1.2s cubic-bezier(.4,0,.2,1),background .5s;}
+.dg-labels{display:flex;flex-direction:column;justify-content:space-between;height:120px;font-size:10px;color:var(--stone);}
 
-/* Recommendation card */
-.reco-card{background:rgba(91,168,204,0.05);border:1px solid var(--ice);border-radius:3px;padding:14px;display:none;}
+/* recommendation card */
+.reco-card{background:var(--amber-pale);border:1.5px solid var(--amber);border-radius:2px;padding:14px;display:none;}
 .reco-card.show{display:block;}
-.reco-badge{display:inline-block;background:var(--ice);color:var(--navy);font-family:'Barlow Condensed',sans-serif;font-size:8px;font-weight:800;letter-spacing:0.15em;text-transform:uppercase;padding:3px 10px;border-radius:2px;margin-bottom:10px;}
-.reco-name{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:900;text-transform:uppercase;color:var(--cream);margin-bottom:4px;}
-.reco-desc{font-size:11px;color:var(--muted);line-height:1.55;margin-bottom:12px;}
-.reco-specs{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:12px;}
-.rspec{background:var(--navy);border-radius:2px;padding:6px 8px;}
-.rspec-label{font-size:8px;color:var(--muted);display:block;margin-bottom:2px;text-transform:uppercase;letter-spacing:0.1em;}
-.rspec-val{font-size:11px;font-weight:600;color:var(--ice);}
-.reco-price{font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:800;color:var(--cream);margin-bottom:12px;}
-.reco-price small{font-size:12px;font-weight:400;color:var(--muted);}
-.reco-cta{width:100%;padding:11px;background:var(--ice);color:var(--navy);font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;border:none;border-radius:2px;cursor:pointer;transition:background .15s;}
-.reco-cta:hover{background:var(--icel);}
-
-/* Map placeholder */
-.map-placeholder{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:var(--muted);}
-.map-placeholder svg{width:48px;height:48px;opacity:.3;fill:var(--ice);}
-.map-placeholder p{font-size:13px;}
+.reco-badge{display:inline-block;background:var(--amber);color:var(--white);font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:3px 10px;border-radius:2px;margin-bottom:10px;}
+.reco-name{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--ink);margin-bottom:4px;}
+.reco-desc{font-size:11px;color:var(--stone);line-height:1.6;margin-bottom:12px;}
+.reco-specs{display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-bottom:12px;}
+.rs{background:var(--white);padding:6px 8px;border-radius:1px;}
+.rs-l{font-size:8px;color:var(--stone);text-transform:uppercase;letter-spacing:.1em;display:block;margin-bottom:1px;}
+.rs-v{font-size:11px;font-weight:600;color:var(--amber);}
+.reco-price{font-family:'Syne',sans-serif;font-size:24px;font-weight:800;color:var(--ink);margin-bottom:12px;}
+.reco-price small{font-size:12px;font-weight:400;color:var(--stone);}
+.reco-cta{width:100%;padding:11px;background:var(--ink);color:var(--white);font-family:'Syne',sans-serif;font-size:12px;font-weight:700;border:none;border-radius:2px;cursor:pointer;transition:background .15s;}
+.reco-cta:hover{background:var(--amber);}
 
 /* ═══════════════════════════════════
    PAGE 3 — CATALOGUE
 ═══════════════════════════════════ */
-.catalogue-head{padding:2rem 2.5rem 0;}
-.cat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;padding:2rem 2.5rem 3rem;}
-.cat-card{background:var(--steel);border:1px solid var(--bd);border-radius:4px;overflow:hidden;transition:border-color .2s,transform .2s;}
-.cat-card:hover{border-color:var(--bdb);transform:translateY(-2px);}
-.cat-card-header{padding:2rem;position:relative;overflow:hidden;min-height:140px;display:flex;align-items:flex-end;}
-.cat-card-header::before{content:'';position:absolute;inset:0;}
-.cat-card-num{position:absolute;top:1rem;right:1.5rem;font-family:'Barlow Condensed',sans-serif;font-size:64px;font-weight:900;opacity:.06;color:var(--ice);line-height:1;}
-.cat-card-icon{position:absolute;top:50%;right:2rem;transform:translateY(-50%);}
-.cat-card-icon svg{width:70px;height:70px;}
-.cat-card-info{position:relative;z-index:2;}
-.cat-card-tier{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;margin-bottom:4px;}
-.cat-card-name{font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:900;text-transform:uppercase;color:var(--cream);line-height:1;}
-.cat-card-body{padding:1.5rem 2rem;}
+.cat-hd{padding:2.5rem 3.5rem 0;}
+.cat-hd h1{font-family:'Syne',sans-serif;font-size:28px;font-weight:700;margin-bottom:4px;}
+.cat-hd h1 em{font-style:normal;color:var(--amber);}
+.cat-hd p{font-size:13px;color:var(--stone);}
+.cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--rule);border:1px solid var(--rule);margin:2rem 3.5rem 3rem;}
+.cat-card{background:var(--white);display:flex;flex-direction:column;}
+.cat-card-head{padding:2rem 2rem 1.5rem;border-bottom:1px solid var(--rule);position:relative;overflow:hidden;}
+.cat-card-head .cn{position:absolute;top:-10px;right:1.5rem;font-family:'Syne',sans-serif;font-size:80px;font-weight:800;color:var(--rule);line-height:1;pointer-events:none;}
+.cat-card-head .ctier{font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--amber);margin-bottom:6px;}
+.cat-card-head .cname{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;color:var(--ink);}
+.cat-card-head .cicon{position:absolute;right:2rem;top:50%;transform:translateY(-50%);}
+.cat-card-body{padding:1.5rem 2rem;flex:1;}
 .cat-specs{width:100%;border-collapse:collapse;margin-bottom:1.5rem;}
-.cat-specs tr{border-bottom:1px solid rgba(91,168,204,0.08);}
+.cat-specs tr{border-bottom:1px solid var(--rule);}
 .cat-specs tr:last-child{border-bottom:none;}
-.cat-specs td{padding:6px 0;font-size:12px;}
-.cat-specs td:first-child{color:var(--muted);width:50%;}
-.cat-specs td:last-child{font-weight:500;color:var(--cream);}
-.cat-footer{display:flex;align-items:center;justify-content:space-between;padding-top:1.2rem;border-top:1px solid var(--bd);}
-.cat-price{font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:800;color:var(--cream);}
-.cat-price small{font-size:12px;font-weight:400;color:var(--muted);}
-.btn-cart{padding:11px 22px;background:var(--ice);color:var(--navy);font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;border:none;border-radius:2px;cursor:pointer;transition:background .15s,transform .1s;display:flex;align-items:center;gap:7px;}
-.btn-cart:hover{background:var(--icel);transform:translateY(-1px);}
-.btn-cart svg{width:13px;height:13px;fill:none;stroke:var(--navy);stroke-width:2.5;}
-.btn-cart.added{background:var(--ok);color:#fff;}
-.btn-cart.added svg{stroke:#fff;}
-
-/* product visuals */
-.cat-c1 .cat-card-header{background:linear-gradient(135deg,#162b3a 0%,#1a3546 100%);}
-.cat-c1 .cat-card-tier{color:#70c0e0;}
-.cat-c2 .cat-card-header{background:linear-gradient(135deg,#1a2d3e 0%,#1e3d52 100%);}
-.cat-c2 .cat-card-tier{color:var(--icel);}
-.cat-c3 .cat-card-header{background:linear-gradient(135deg,#1c2e3a 0%,#243544 100%);}
-.cat-c3 .cat-card-tier{color:#a8c8d8;}
-.cat-c4 .cat-card-header{background:linear-gradient(135deg,#1a2535 0%,#202f40 100%);}
-.cat-c4 .cat-card-tier{color:var(--cream2);}
+.cat-specs td{padding:7px 0;font-size:12px;}
+.cat-specs td:first-child{color:var(--stone);width:50%;}
+.cat-specs td:last-child{font-weight:500;}
+.cat-foot{display:flex;align-items:center;justify-content:space-between;padding:1.5rem 2rem;border-top:1px solid var(--rule);}
+.cat-price{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;}
+.cat-price small{font-size:11px;font-weight:400;color:var(--stone);}
+.btn-add{padding:11px 22px;background:var(--ink);color:var(--white);font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:.04em;border:none;border-radius:2px;cursor:pointer;transition:background .15s;display:flex;align-items:center;gap:7px;}
+.btn-add:hover{background:var(--amber);}
+.btn-add svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:2;}
+.btn-add.added{background:var(--ok);}
 
 /* ═══════════════════════════════════
    PAGE 4 — CONFIGURATEUR
 ═══════════════════════════════════ */
-.config-layout{display:grid;grid-template-columns:1fr 380px;min-height:calc(100vh - 58px);gap:0;}
-.config-main{padding:2.5rem;border-right:1px solid var(--bd);}
-.config-sidebar{padding:2rem;background:rgba(10,24,32,0.4);}
-.config-title{font-family:'Barlow Condensed',sans-serif;font-size:32px;font-weight:800;text-transform:uppercase;margin-bottom:2rem;}
-.config-title span{color:var(--ice);}
-
-/* form blocks */
-.fblock{margin-bottom:2rem;}
-.fblock-title{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--ice);margin-bottom:12px;display:flex;align-items:center;gap:8px;}
-.fblock-title::after{content:'';flex:1;height:1px;background:var(--bd);}
-.prod-selector{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;}
-.psel{padding:14px;background:var(--steel);border:1px solid var(--bd);border-radius:3px;cursor:pointer;transition:border-color .15s,background .15s;}
-.psel:hover{border-color:var(--bds);}
-.psel.on{border-color:var(--ice);background:rgba(91,168,204,0.08);}
-.psel-name{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;text-transform:uppercase;color:var(--cream);}
-.psel-sub{font-size:10px;color:var(--muted);margin-top:2px;}
-
+.config-layout{display:grid;grid-template-columns:1fr 420px;min-height:calc(100vh - 60px);}
+.config-main{padding:2.5rem 3rem;border-right:1px solid var(--rule);}
+.config-title{font-family:'Syne',sans-serif;font-size:28px;font-weight:700;margin-bottom:2.5rem;}
+.config-title em{font-style:normal;color:var(--amber);}
+.fblock{margin-bottom:2.5rem;}
+.fblock-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--stone);margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.fblock-label::after{content:'';flex:1;height:1px;background:var(--rule);}
+.psel-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;}
+.psel{padding:14px;background:var(--white);border:1.5px solid var(--rule);border-radius:2px;cursor:pointer;transition:border-color .15s,background .15s;}
+.psel:hover{border-color:var(--stone-light);}
+.psel.on{border-color:var(--amber);background:var(--amber-pale);}
+.psel-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--ink);}
+.psel-sub{font-size:11px;color:var(--stone);margin-top:2px;}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-.form-group{display:flex;flex-direction:column;gap:6px;}
-.form-label{font-size:11px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;}
-.form-inp{padding:10px 12px;background:var(--steel);border:1px solid var(--bds);border-radius:3px;font-size:14px;font-family:'Barlow',sans-serif;color:var(--cream);outline:none;transition:border-color .15s;width:100%;}
-.form-inp:focus{border-color:var(--ice);}
-.form-inp::placeholder{color:var(--muted);}
-select.form-inp{cursor:pointer;}
-.form-inp option{background:var(--steel);}
+.fgroup{display:flex;flex-direction:column;gap:6px;}
+.flbl{font-size:11px;font-weight:500;color:var(--stone);}
+.finput{padding:10px 12px;background:var(--white);border:1px solid var(--rule);border-radius:2px;font-size:14px;font-family:'DM Sans',sans-serif;color:var(--ink);outline:none;transition:border-color .15s;width:100%;}
+.finput:focus{border-color:var(--ink);}
+.finput::placeholder{color:var(--stone-light);}
+select.finput{cursor:pointer;}
+.finput option{background:var(--white);}
+.check-row{display:flex;align-items:flex-start;gap:12px;padding:12px 14px;background:var(--white);border:1px solid var(--rule);border-radius:2px;cursor:pointer;transition:border-color .15s;}
+.check-row:hover{border-color:var(--stone-light);}
+.check-row input{appearance:none;width:16px;height:16px;min-width:16px;background:var(--bg);border:1.5px solid var(--rule);border-radius:2px;cursor:pointer;position:relative;transition:background .15s,border-color .15s;margin-top:2px;}
+.check-row input:checked{background:var(--amber);border-color:var(--amber);}
+.check-row input:checked::after{content:'';position:absolute;left:4px;top:1px;width:5px;height:9px;border:2px solid var(--white);border-left:none;border-top:none;transform:rotate(45deg);}
+.check-text strong{display:block;font-size:13px;font-weight:600;color:var(--ink);}
+.check-text span{font-size:11px;color:var(--stone);}
 
-.check-row{display:flex;align-items:flex-start;gap:12px;padding:12px;background:var(--steel);border:1px solid var(--bd);border-radius:3px;cursor:pointer;transition:border-color .15s;}
-.check-row:hover{border-color:var(--bds);}
-.check-row input{appearance:none;width:16px;height:16px;min-width:16px;background:var(--navy);border:1px solid var(--bds);border-radius:2px;cursor:pointer;position:relative;transition:background .15s,border-color .15s;}
-.check-row input:checked{background:var(--ice);border-color:var(--ice);}
-.check-row input:checked::after{content:'';position:absolute;left:4px;top:1px;width:5px;height:9px;border:2px solid var(--navy);border-left:none;border-top:none;transform:rotate(45deg);}
-.check-text strong{display:block;font-size:13px;color:var(--cream);}
-.check-text span{font-size:11px;color:var(--muted);}
-
-/* Summary sidebar */
-.summary-card{background:var(--steel);border:1px solid var(--bd);border-radius:4px;overflow:hidden;margin-bottom:16px;}
-.summary-head{padding:1rem 1.2rem;background:rgba(91,168,204,0.08);border-bottom:1px solid var(--bd);}
-.summary-head h3{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;}
-.summary-body{padding:1rem 1.2rem;}
-.sum-row{display:flex;justify-content:space-between;align-items:baseline;padding:6px 0;border-bottom:1px solid rgba(91,168,204,0.06);font-size:12px;}
+/* Config sidebar */
+.config-sb{padding:2rem;background:var(--bg2);}
+.sum-card{background:var(--white);border:1px solid var(--rule);margin-bottom:16px;}
+.sum-head{padding:12px 16px;border-bottom:1px solid var(--rule);background:var(--ink);}
+.sum-head h3{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--white);letter-spacing:.04em;}
+.sum-body{padding:14px 16px;}
+.sum-row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--rule);font-size:12px;}
 .sum-row:last-child{border-bottom:none;}
-.sum-label{color:var(--muted);}
-.sum-val{font-weight:500;}
-.sum-total{display:flex;justify-content:space-between;align-items:baseline;padding:14px 1.2rem;background:rgba(91,168,204,0.06);border-top:1px solid var(--bds);}
-.sum-total-label{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;}
-.sum-total-val{font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:900;color:var(--ice);}
-.btn-devis{width:100%;padding:14px;background:var(--ice);color:var(--navy);font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;border:none;border-radius:3px;cursor:pointer;transition:background .15s;}
-.btn-devis:hover{background:var(--icel);}
-.summary-note{font-size:10px;color:var(--muted);text-align:center;margin-top:10px;line-height:1.6;}
+.sum-rl{color:var(--stone);}
+.sum-rv{font-weight:600;}
+.sum-total{display:flex;justify-content:space-between;align-items:baseline;padding:14px 16px;background:var(--amber-pale);border-top:2px solid var(--amber);}
+.sum-tl{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;}
+.sum-tv{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:var(--amber);}
+.btn-devis{width:100%;padding:14px;background:var(--ink);color:var(--white);font-family:'Syne',sans-serif;font-size:13px;font-weight:700;letter-spacing:.04em;border:none;border-radius:2px;cursor:pointer;transition:background .15s;margin-bottom:10px;}
+.btn-devis:hover{background:var(--amber);}
+.sum-note{font-size:10px;color:var(--stone);text-align:center;line-height:1.6;}
+
+/* ── SIGNATURE: Cross-section SVG visualizer ── */
+.viz-wrap{background:var(--white);border:1px solid var(--rule);padding:16px;margin-bottom:16px;}
+.viz-title{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--stone);margin-bottom:12px;}
+#cross-section{width:100%;height:220px;display:block;}
 
 /* ═══════════════════════════════════
    PAGE 5 — RÉSERVATION
 ═══════════════════════════════════ */
-.resa-layout{max-width:740px;margin:0 auto;padding:2.5rem;}
-.resa-title{font-family:'Barlow Condensed',sans-serif;font-size:32px;font-weight:800;text-transform:uppercase;margin-bottom:6px;}
-.resa-title span{color:var(--ice);}
-.resa-sub{font-size:13px;color:var(--muted);margin-bottom:2rem;}
+.resa-wrap{max-width:680px;margin:0 auto;padding:3rem 2rem;}
+.resa-title{font-family:'Syne',sans-serif;font-size:28px;font-weight:700;margin-bottom:6px;}
+.resa-title em{font-style:normal;color:var(--amber);}
+.resa-sub{font-size:13px;color:var(--stone);margin-bottom:2.5rem;}
 
-/* Progress */
-.progress-bar{display:flex;align-items:center;margin-bottom:2.5rem;gap:0;}
-.progress-step{display:flex;align-items:center;flex:1;}
-.progress-dot{width:32px;height:32px;min-width:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;border:2px solid var(--bds);color:var(--muted);transition:all .3s;}
-.progress-dot.done{background:var(--ice);border-color:var(--ice);color:var(--navy);}
-.progress-dot.active{border-color:var(--ice);color:var(--ice);}
-.progress-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-left:8px;white-space:nowrap;}
-.progress-label.active{color:var(--ice);}
-.progress-line{height:1px;flex:1;background:var(--bd);margin:0 8px;}
-.progress-line.done{background:var(--ice);}
+/* progress */
+.progress{display:flex;align-items:center;margin-bottom:3rem;}
+.prog-step{display:flex;align-items:center;gap:8px;flex:1;}
+.prog-dot{width:30px;height:30px;min-width:30px;border-radius:50%;border:2px solid var(--rule);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:12px;font-weight:700;color:var(--stone);transition:all .3s;}
+.prog-dot.active{border-color:var(--ink);color:var(--ink);}
+.prog-dot.done{background:var(--ok);border-color:var(--ok);color:var(--white);}
+.prog-lbl{font-size:11px;font-weight:500;color:var(--stone);white-space:nowrap;}
+.prog-lbl.active{color:var(--ink);}
+.prog-line{height:1px;flex:1;background:var(--rule);margin:0 8px;}
+.prog-line.done{background:var(--ok);}
 
-/* Steps */
+/* steps */
 .step{display:none;}
 .step.on{display:block;}
-.step-title{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:700;text-transform:uppercase;margin-bottom:1.5rem;color:var(--cream);}
-
+.step-t{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;margin-bottom:1.5rem;}
 .fgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
 .fgrid.full{grid-template-columns:1fr;}
-.fgroup{display:flex;flex-direction:column;gap:6px;}
-.flabel{font-size:11px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;}
-.finp{padding:11px 13px;background:var(--steel);border:1px solid var(--bds);border-radius:3px;font-size:14px;font-family:'Barlow',sans-serif;color:var(--cream);outline:none;transition:border-color .15s;width:100%;}
-.finp:focus{border-color:var(--ice);}
-.finp::placeholder{color:var(--muted);}
-select.finp{cursor:pointer;}
-.finp option{background:var(--steel);}
+.fg{display:flex;flex-direction:column;gap:6px;}
+.flb{font-size:11px;font-weight:500;color:var(--stone);text-transform:uppercase;letter-spacing:.08em;}
+.fi{padding:11px 13px;background:var(--white);border:1px solid var(--rule);border-radius:2px;font-size:14px;font-family:'DM Sans',sans-serif;color:var(--ink);outline:none;transition:border-color .15s;width:100%;}
+.fi:focus{border-color:var(--ink);}
+.fi::placeholder{color:var(--stone-light);}
+select.fi{cursor:pointer;}
+.fi option{background:var(--white);}
 
-/* Radio urgence */
-.radio-group{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+/* radio urgence */
+.radio-g{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
 .radio-opt{position:relative;}
 .radio-opt input{position:absolute;opacity:0;width:0;height:0;}
-.radio-opt label{display:block;padding:12px;background:var(--steel);border:1px solid var(--bd);border-radius:3px;cursor:pointer;transition:border-color .15s,background .15s;}
-.radio-opt input:checked + label{border-color:var(--ice);background:rgba(91,168,204,0.08);}
-.radio-opt label strong{display:block;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;color:var(--cream);}
-.radio-opt label span{font-size:10px;color:var(--muted);}
+.radio-opt label{display:block;padding:12px;background:var(--white);border:1.5px solid var(--rule);border-radius:2px;cursor:pointer;transition:border-color .15s,background .15s;}
+.radio-opt input:checked + label{border-color:var(--amber);background:var(--amber-pale);}
+.radio-opt label strong{display:block;font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--ink);}
+.radio-opt label span{font-size:10px;color:var(--stone);}
 
-/* Calendar */
-.calendar{background:var(--steel);border:1px solid var(--bd);border-radius:4px;overflow:hidden;}
-.cal-nav{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.2rem;border-bottom:1px solid var(--bd);}
-.cal-month{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;}
-.cal-arrow{padding:6px 10px;background:transparent;border:1px solid var(--bds);border-radius:2px;color:var(--muted);cursor:pointer;font-size:14px;transition:border-color .15s,color .15s;}
-.cal-arrow:hover{border-color:var(--ice);color:var(--ice);}
-.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);}
-.cal-dow{padding:8px 0;text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--bd);}
-.cal-day{padding:10px 0;text-align:center;font-size:13px;cursor:pointer;position:relative;transition:background .1s,color .1s;}
-.cal-day:hover:not(.disabled):not(.empty){background:rgba(91,168,204,0.1);color:var(--ice);}
-.cal-day.disabled{color:rgba(122,154,174,0.3);cursor:default;}
+/* calendar */
+.calendar{background:var(--white);border:1px solid var(--rule);margin-bottom:14px;}
+.cal-nav{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.2rem;border-bottom:1px solid var(--rule);}
+.cal-month-l{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;}
+.cal-arr{padding:6px 12px;background:transparent;border:1px solid var(--rule);border-radius:2px;color:var(--stone);cursor:pointer;font-size:14px;transition:border-color .15s;}
+.cal-arr:hover{border-color:var(--ink);}
+.cal-g{display:grid;grid-template-columns:repeat(7,1fr);}
+.cal-dow{padding:8px 0;text-align:center;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--stone);border-bottom:1px solid var(--rule);}
+.cal-day{padding:11px 0;text-align:center;font-size:13px;cursor:pointer;transition:background .1s;}
+.cal-day:hover:not(.disabled):not(.empty){background:var(--bg2);}
+.cal-day.disabled{color:var(--stone-light);cursor:default;}
 .cal-day.empty{cursor:default;}
-.cal-day.selected{background:var(--ice);color:var(--navy);font-weight:700;}
-.cal-day.today{font-weight:700;color:var(--ice);}
-.cal-day.today.selected{color:var(--navy);}
+.cal-day.selected{background:var(--amber);color:var(--white);font-weight:700;}
+.cal-day.today{font-weight:700;color:var(--amber);}
+.cal-day.today.selected{color:var(--white);}
+.cal-selected-row{padding:12px 1.2rem;border-top:1px solid var(--rule);display:flex;justify-content:space-between;align-items:center;font-size:13px;}
+.cal-selected-row span:first-child{color:var(--stone);}
+.cal-selected-row span:last-child{font-weight:600;color:var(--amber);}
 
-/* Step nav */
+/* step nav */
 .step-nav{display:flex;justify-content:space-between;margin-top:2rem;}
-.btn-back{padding:11px 24px;background:transparent;color:var(--cream2);font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;border:1px solid var(--bd);border-radius:2px;cursor:pointer;transition:border-color .15s;}
-.btn-back:hover{border-color:var(--bds);}
-.btn-next{padding:11px 28px;background:var(--ice);color:var(--navy);font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;border:none;border-radius:2px;cursor:pointer;transition:background .15s;}
-.btn-next:hover{background:var(--icel);}
-.btn-submit{padding:13px 32px;background:var(--ok);color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;border:none;border-radius:2px;cursor:pointer;transition:background .15s;}
-.btn-submit:hover{background:#4aad6a;}
+.btn-back{padding:11px 24px;background:transparent;color:var(--stone);font-family:'Syne',sans-serif;font-size:12px;font-weight:600;letter-spacing:.04em;border:1px solid var(--rule);border-radius:2px;cursor:pointer;transition:border-color .15s;}
+.btn-back:hover{border-color:var(--stone);}
+.btn-next{padding:11px 28px;background:var(--ink);color:var(--white);font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:.04em;border:none;border-radius:2px;cursor:pointer;transition:background .15s;}
+.btn-next:hover{background:var(--amber);}
+.btn-submit{padding:13px 32px;background:var(--ok);color:var(--white);font-family:'Syne',sans-serif;font-size:13px;font-weight:700;letter-spacing:.04em;border:none;border-radius:2px;cursor:pointer;transition:background .15s;}
+.btn-submit:hover{background:#256640;}
 
-/* Confirmation */
-.confirm-box{text-align:center;padding:3rem 2rem;}
-.confirm-icon{width:64px;height:64px;background:rgba(92,192,128,0.15);border:2px solid var(--ok);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;}
-.confirm-icon svg{width:28px;height:28px;stroke:var(--ok);stroke-width:2.5;fill:none;}
-.confirm-ref{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--ice);margin-bottom:8px;}
-.confirm-title{font-family:'Barlow Condensed',sans-serif;font-size:30px;font-weight:800;text-transform:uppercase;margin-bottom:12px;}
-.confirm-sub{font-size:13px;color:var(--muted);line-height:1.7;max-width:400px;margin:0 auto 2rem;}
+/* confirm */
+.confirm-box{text-align:center;padding:4rem 2rem;}
+.confirm-check{width:64px;height:64px;border:2px solid var(--ok);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;}
+.confirm-check svg{width:28px;height:28px;stroke:var(--ok);stroke-width:2.5;fill:none;}
+.confirm-ref{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--amber);margin-bottom:8px;}
+.confirm-title{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;margin-bottom:12px;}
+.confirm-sub{font-size:13px;color:var(--stone);line-height:1.8;max-width:380px;margin:0 auto 2rem;}
 
 /* ═══════════════════════════════════
    MODAL
 ═══════════════════════════════════ */
-.modal-overlay{position:fixed;inset:0;background:rgba(5,12,18,0.85);backdrop-filter:blur(4px);z-index:9999;display:none;align-items:center;justify-content:center;}
-.modal-overlay.open{display:flex;}
-.modal{background:var(--steel);border:1px solid var(--bds);border-radius:6px;width:min(540px,90vw);max-height:80vh;overflow-y:auto;}
-.modal-head{padding:1.2rem 1.5rem;border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;}
-.modal-head h3{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;}
-.modal-close{background:transparent;border:none;color:var(--muted);cursor:pointer;font-size:20px;line-height:1;padding:4px;transition:color .15s;}
-.modal-close:hover{color:var(--cream);}
+.modal-ov{position:fixed;inset:0;background:rgba(30,28,24,0.7);backdrop-filter:blur(4px);z-index:9999;display:none;align-items:center;justify-content:center;}
+.modal-ov.open{display:flex;}
+.modal{background:var(--white);border:1px solid var(--rule);width:min(520px,90vw);max-height:80vh;overflow-y:auto;}
+.modal-hd{padding:1.2rem 1.5rem;border-bottom:1px solid var(--rule);display:flex;align-items:center;justify-content:space-between;background:var(--ink);}
+.modal-hd h3{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;color:var(--white);}
+.modal-x{background:transparent;border:none;color:rgba(255,255,255,.5);cursor:pointer;font-size:20px;line-height:1;padding:4px;transition:color .15s;}
+.modal-x:hover{color:var(--white);}
 .modal-body{padding:1.5rem;}
-.modal-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(91,168,204,0.08);font-size:13px;}
+.modal-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--rule);font-size:13px;}
 .modal-row:last-child{border-bottom:none;}
-.modal-row-label{color:var(--muted);}
-.modal-row-val{font-weight:500;}
-.modal-total{display:flex;justify-content:space-between;padding:1.2rem 1.5rem;background:rgba(91,168,204,0.06);border-top:1px solid var(--bds);}
-.modal-total-label{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;text-transform:uppercase;}
-.modal-total-val{font-family:'Barlow Condensed',sans-serif;font-size:30px;font-weight:900;color:var(--ice);}
-.modal-footer{padding:1rem 1.5rem;border-top:1px solid var(--bd);display:flex;gap:10px;justify-content:flex-end;}
+.modal-rl{color:var(--stone);}
+.modal-rv{font-weight:600;}
+.modal-total{display:flex;justify-content:space-between;align-items:baseline;padding:1.2rem 1.5rem;background:var(--amber-pale);border-top:2px solid var(--amber);}
+.modal-tl{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;}
+.modal-tv{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:var(--amber);}
+.modal-ft{padding:1rem 1.5rem;border-top:1px solid var(--rule);display:flex;gap:10px;justify-content:flex-end;}
 
-/* Notif toast */
-.toast{position:fixed;bottom:2rem;right:2rem;background:var(--steel);border:1px solid var(--bds);border-radius:4px;padding:12px 18px;font-size:13px;z-index:9998;transform:translateY(20px);opacity:0;transition:all .3s;pointer-events:none;}
+/* toast */
+.toast{position:fixed;bottom:2rem;right:2rem;background:var(--ink);color:var(--white);border-radius:2px;padding:12px 20px;font-size:13px;z-index:9998;transform:translateY(10px);opacity:0;transition:all .25s;pointer-events:none;}
 .toast.show{transform:translateY(0);opacity:1;}
-.toast.success{border-color:var(--ok);}
+.toast.success{background:var(--ok);}
 
-/* Leaflet overrides */
-.leaflet-container{background:#0d1f2d !important;}
-.leaflet-tile{filter:brightness(0.85) contrast(1.1) saturate(0.7);}
-.leaflet-popup-content-wrapper{background:var(--steel);border:1px solid var(--bds);color:var(--cream);font-family:'Barlow',sans-serif;border-radius:3px;box-shadow:0 8px 32px rgba(0,0,0,0.5);}
-.leaflet-popup-tip{background:var(--steel);}
+/* leaflet overrides */
+.leaflet-container{background:#E8E2D8 !important;}
+.leaflet-popup-content-wrapper{background:var(--white);border:1px solid var(--rule);color:var(--ink);font-family:'DM Sans',sans-serif;border-radius:2px;box-shadow:0 8px 24px rgba(0,0,0,.15);}
+.leaflet-popup-tip{background:var(--white);}
 
 @media(max-width:900px){
-  .prod-grid,.stats-bar{grid-template-columns:repeat(2,1fr);}
+  .hero{grid-template-columns:1fr;}
+  .hero-right{display:none;}
+  .prod-grid,.stats{grid-template-columns:1fr 1fr;}
   .terrain-layout,.config-layout{grid-template-columns:1fr;}
+  .terrain-sb{border-right:none;border-bottom:1px solid var(--rule);}
   .cat-grid{grid-template-columns:1fr;}
-  .terrain-sidebar{border-right:none;border-bottom:1px solid var(--bd);}
-  #map{min-height:350px;}
   .trust-grid,.form-row,.fgrid{grid-template-columns:1fr;}
-  .ntabs{display:none;}
+  .section,.trust,.cat-hd,.cat-grid,.cta-strip{padding-left:1.5rem;padding-right:1.5rem;}
+  .cta-strip{flex-direction:column;align-items:flex-start;}
+  #map{min-height:350px;}
 }
 </style>
 </head>
@@ -409,10 +403,18 @@ select.finp{cursor:pointer;}
 <!-- ═══ NAV ═══ -->
 <nav>
   <a class="nlogo" onclick="showPage('home')">
-    <div class="nmark">
-      <svg viewBox="0 0 24 24"><path d="M12 2L3 7v5c0 5.25 3.75 10.15 9 11.25C17.25 22.15 21 17.25 21 12V7L12 2z"/></svg>
-    </div>
-    <div class="nwordmark">ARMA<span>DAM</span></div>
+    <!-- Logo: A comme arche de barrage -->
+    <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+      <path d="M4 30 L18 6 L32 30" stroke="#1E1C18" stroke-width="2.5" fill="none" stroke-linejoin="round"/>
+      <path d="M9 22 L27 22" stroke="#D4751A" stroke-width="3" stroke-linecap="round"/>
+      <!-- eau animée sous la barre -->
+      <clipPath id="water-clip"><rect x="9" y="22" width="18" height="10"/></clipPath>
+      <g clip-path="url(#water-clip)">
+        <rect x="5" y="22" width="26" height="12" fill="#3B7EA1" opacity="0.35"/>
+        <animateTransform attributeName="transform" type="translate" values="-4 0;4 0;-4 0" dur="3s" repeatCount="indefinite"/>
+      </g>
+    </svg>
+    <div class="nwordmark">ARMA<em>DAM</em></div>
   </a>
   <div class="ntabs">
     <div class="ntab on" onclick="showPage('home')" id="tab-home">Accueil</div>
@@ -435,122 +437,148 @@ select.finp{cursor:pointer;}
 ═══════════════════════════════════ -->
 <div class="pg on" id="pg-home">
   <div class="hero">
-    <div class="hero-grid"></div>
-    <div class="hero-glow"></div>
-    <div class="hero-content">
-      <div class="hero-eyebrow"><div class="hero-eyebrow-line"></div>Protection hydrique de précision — Québec</div>
-      <h1 class="hero-title">
-        PROTÉGEZ<br>
-        <span class="hl">VOS BIENS</span>
-        <span class="hl2">Batardeaux sur mesure — résidentiel &amp; commercial</span>
+    <div class="hero-left">
+      <div class="hero-kicker">Protection hydrique — Québec</div>
+      <h1 class="hero-h1">
+        BATARDEAUX<br>
+        <span class="orange">SUR</span><br>
+        <span class="light">MESURE</span>
       </h1>
-      <p class="hero-sub">Systèmes de protection contre les inondations conçus et fabriqués au Québec. Analyse de terrain gratuite, installation professionnelle certifiée RBQ, livraison 48h partout en province.</p>
-      <div class="hero-btns">
+      <p class="hero-sub">Systèmes de protection contre les inondations fabriqués au Québec. Analyse de terrain gratuite, installation certifiée RBQ, livraison 48h partout en province.</p>
+      <div class="hero-actions">
         <button class="btn-primary" onclick="showPage('terrain')">Analyser mon terrain</button>
-        <button class="btn-secondary" onclick="showPage('catalogue')">Voir les produits</button>
+        <button class="btn-ghost" onclick="showPage('catalogue')">Voir les produits</button>
       </div>
     </div>
-    <div class="hero-waves">
-      <svg viewBox="0 0 1440 80" preserveAspectRatio="none" height="80">
-        <path d="M0,40 C180,80 360,0 540,40 C720,80 900,0 1080,40 C1260,80 1350,20 1440,40 L1440,80 L0,80 Z" fill="rgba(91,168,204,0.12)"/>
-        <path d="M0,60 C200,20 400,80 600,50 C800,20 1000,70 1200,45 C1320,30 1380,60 1440,50 L1440,80 L0,80 Z" fill="rgba(91,168,204,0.07)"/>
-      </svg>
-      <svg viewBox="0 0 1440 80" preserveAspectRatio="none" height="80" style="animation-delay:-5s;">
-        <path d="M0,50 C240,10 480,70 720,40 C960,10 1200,70 1440,50 L1440,80 L0,80 Z" fill="rgba(91,168,204,0.05)"/>
-      </svg>
+    <div class="hero-right">
+      <div class="hero-diagram">
+        <div class="hero-water"></div>
+        <div class="hero-barrier"></div>
+        <div class="hero-label">Système ARMADAM</div>
+        <!-- Cross-section lines -->
+        <svg viewBox="0 0 400 560" preserveAspectRatio="none">
+          <!-- Ground floor -->
+          <line x1="0" y1="400" x2="400" y2="400" stroke="#DDD8D0" stroke-width="1"/>
+          <!-- Walls -->
+          <line x1="160" y1="300" x2="160" y2="560" stroke="#C8C0B4" stroke-width="1.5"/>
+          <line x1="240" y1="300" x2="240" y2="560" stroke="#C8C0B4" stroke-width="1.5"/>
+          <!-- Measurement arrows -->
+          <line x1="40" y1="220" x2="40" y2="398" stroke="#D4751A" stroke-width="1" stroke-dasharray="3,3"/>
+          <text x="44" y="315" fill="#D4751A" font-size="11" font-family="DM Sans">profondeur</text>
+        </svg>
+      </div>
     </div>
   </div>
 
   <!-- Stats -->
-  <div class="stats-bar">
-    <div class="stat-item"><div class="stat-num">1 200+</div><div class="stat-label">Installations complétées</div></div>
-    <div class="stat-item"><div class="stat-num">48h</div><div class="stat-label">Délai de livraison</div></div>
-    <div class="stat-item"><div class="stat-num">15 ans</div><div class="stat-label">Garantie produit</div></div>
-    <div class="stat-item"><div class="stat-num">RBQ</div><div class="stat-label">Entrepreneurs certifiés</div></div>
+  <div class="stats">
+    <div class="stat"><div class="stat-n">1 200<span>+</span></div><div class="stat-l">Installations complétées</div></div>
+    <div class="stat"><div class="stat-n">48<span>h</span></div><div class="stat-l">Délai de livraison garanti</div></div>
+    <div class="stat"><div class="stat-n">15<span> ans</span></div><div class="stat-l">Garantie produit</div></div>
+    <div class="stat"><div class="stat-n">RBQ</div><div class="stat-l">Entrepreneurs certifiés</div></div>
   </div>
 
-  <!-- Products preview -->
+  <!-- Products -->
   <div class="section">
-    <div class="section-header">
-      <div class="section-title">Nos <span>gammes</span></div>
-      <button class="section-link" onclick="showPage('catalogue')">Catalogue complet →</button>
+    <div class="sec-hd">
+      <div class="sec-t">Nos gammes</div>
+      <button class="sec-link" onclick="showPage('catalogue')">Catalogue complet →</button>
     </div>
     <div class="prod-grid">
       <div class="prod-card" onclick="showPage('catalogue')">
-        <div class="prod-card-vis" style="background:linear-gradient(135deg,#162b3a,#1a3546);">
-          <svg viewBox="0 0 52 52" fill="none"><rect x="8" y="28" width="36" height="16" rx="1" fill="rgba(91,168,204,0.3)" stroke="#5ba8cc" stroke-width="1.5"/><rect x="12" y="22" width="28" height="8" rx="1" fill="rgba(91,168,204,0.2)" stroke="#5ba8cc" stroke-width="1.5"/><line x1="14" y1="30" x2="14" y2="42" stroke="#5ba8cc" stroke-width="1" opacity=".5"/><line x1="26" y1="30" x2="26" y2="42" stroke="#5ba8cc" stroke-width="1" opacity=".5"/><line x1="38" y1="30" x2="38" y2="42" stroke="#5ba8cc" stroke-width="1" opacity=".5"/></svg>
+        <div class="pc-num">01</div>
+        <div class="pc-icon">
+          <svg viewBox="0 0 48 48" fill="none">
+            <rect x="6" y="28" width="36" height="14" rx="1" fill="#E8E2D8" stroke="#8C8680" stroke-width="1.5"/>
+            <rect x="10" y="22" width="28" height="8" rx="1" fill="#F2EDE4" stroke="#8C8680" stroke-width="1.5"/>
+            <line x1="12" y1="30" x2="12" y2="40" stroke="#D4751A" stroke-width="1" opacity=".5"/>
+            <line x1="24" y1="30" x2="24" y2="40" stroke="#D4751A" stroke-width="1" opacity=".5"/>
+            <line x1="36" y1="30" x2="36" y2="40" stroke="#D4751A" stroke-width="1" opacity=".5"/>
+          </svg>
         </div>
-        <div class="prod-card-body">
-          <div class="prod-tier">Résidentiel</div>
-          <div class="prod-name">SENTINEL 120</div>
-          <div class="prod-depth">Jusqu'à 1.2m de hauteur</div>
-          <div class="prod-price">1 890 $ <small>/ module</small></div>
-        </div>
+        <div class="pc-tier">Résidentiel</div>
+        <div class="pc-name">SENTINEL 120</div>
+        <div class="pc-depth">Jusqu'à 1.2 m</div>
+        <div class="pc-price">1 890 $ <small>/ module</small></div>
       </div>
       <div class="prod-card" onclick="showPage('catalogue')">
-        <div class="prod-card-vis" style="background:linear-gradient(135deg,#1a2d3e,#1e3d52);">
-          <svg viewBox="0 0 52 52" fill="none"><rect x="6" y="22" width="40" height="22" rx="1" fill="rgba(91,168,204,0.25)" stroke="#5ba8cc" stroke-width="1.5"/><rect x="10" y="14" width="32" height="10" rx="1" fill="rgba(91,168,204,0.18)" stroke="#5ba8cc" stroke-width="1.5"/><path d="M14 24 L14 42 M26 24 L26 42 M38 24 L38 42" stroke="#5ba8cc" stroke-width="1" opacity=".4"/><rect x="8" y="10" width="36" height="5" rx="1" fill="rgba(168,212,232,0.15)" stroke="#a8d4e8" stroke-width="1"/></svg>
+        <div class="pc-num">02</div>
+        <div class="pc-icon">
+          <svg viewBox="0 0 48 48" fill="none">
+            <rect x="5" y="20" width="38" height="22" rx="1" fill="#E8E2D8" stroke="#8C8680" stroke-width="1.5"/>
+            <rect x="9" y="12" width="30" height="10" rx="1" fill="#F2EDE4" stroke="#8C8680" stroke-width="1.5"/>
+            <rect x="5" y="8" width="38" height="5" rx="1" fill="#EAE4DA" stroke="#C8C0B4" stroke-width="1"/>
+            <path d="M15 22 L15 40 M24 22 L24 40 M33 22 L33 40" stroke="#D4751A" stroke-width="1" opacity=".5"/>
+          </svg>
         </div>
-        <div class="prod-card-body">
-          <div class="prod-tier">Riverain</div>
-          <div class="prod-name">AQUASHIELD PRO</div>
-          <div class="prod-depth">Jusqu'à 2m de hauteur</div>
-          <div class="prod-price">3 450 $ <small>/ module</small></div>
-        </div>
+        <div class="pc-tier">Riverain</div>
+        <div class="pc-name">AQUASHIELD PRO</div>
+        <div class="pc-depth">Jusqu'à 2.0 m</div>
+        <div class="pc-price">3 450 $ <small>/ module</small></div>
       </div>
       <div class="prod-card" onclick="showPage('catalogue')">
-        <div class="prod-card-vis" style="background:linear-gradient(135deg,#1c2e3a,#243544);">
-          <svg viewBox="0 0 52 52" fill="none"><rect x="4" y="16" width="44" height="28" rx="1" fill="rgba(91,168,204,0.2)" stroke="#5ba8cc" stroke-width="1.5"/><rect x="8" y="8" width="36" height="10" rx="1" fill="rgba(91,168,204,0.15)" stroke="#5ba8cc" stroke-width="1.5"/><rect x="4" y="6" width="44" height="4" rx="1" fill="rgba(168,212,232,0.12)" stroke="#a8d4e8" stroke-width="1"/><path d="M12 18 L12 42 M26 18 L26 42 M40 18 L40 42" stroke="#5ba8cc" stroke-width="1" opacity=".35"/><path d="M4 28 L48 28" stroke="#5ba8cc" stroke-width="0.5" opacity=".3"/></svg>
+        <div class="pc-num">03</div>
+        <div class="pc-icon">
+          <svg viewBox="0 0 48 48" fill="none">
+            <rect x="3" y="14" width="42" height="28" rx="1" fill="#E8E2D8" stroke="#8C8680" stroke-width="1.5"/>
+            <rect x="7" y="6" width="34" height="10" rx="1" fill="#F2EDE4" stroke="#8C8680" stroke-width="1.5"/>
+            <rect x="3" y="4" width="42" height="4" rx="1" fill="#EAE4DA" stroke="#C8C0B4" stroke-width="1"/>
+            <path d="M3 26 L45 26 M3 36 L45 36" stroke="#C8C0B4" stroke-width=".5"/>
+            <path d="M12 14 L12 42 M24 14 L24 42 M36 14 L36 42" stroke="#D4751A" stroke-width="1" opacity=".4"/>
+          </svg>
         </div>
-        <div class="prod-card-body">
-          <div class="prod-tier">Commercial</div>
-          <div class="prod-name">FORTRESS</div>
-          <div class="prod-depth">Jusqu'à 2.8m de hauteur</div>
-          <div class="prod-price">6 200 $ <small>/ module</small></div>
-        </div>
+        <div class="pc-tier">Commercial</div>
+        <div class="pc-name">FORTRESS</div>
+        <div class="pc-depth">Jusqu'à 2.8 m</div>
+        <div class="pc-price">6 200 $ <small>/ module</small></div>
       </div>
       <div class="prod-card" onclick="showPage('catalogue')">
-        <div class="prod-card-vis" style="background:linear-gradient(135deg,#1a2535,#202f40);">
-          <svg viewBox="0 0 52 52" fill="none"><rect x="4" y="10" width="44" height="34" rx="1" fill="rgba(91,168,204,0.18)" stroke="#5ba8cc" stroke-width="1.5"/><rect x="4" y="6" width="44" height="6" rx="1" fill="rgba(168,212,232,0.15)" stroke="#a8d4e8" stroke-width="1"/><path d="M4 18 L48 18 M4 26 L48 26 M4 34 L48 34" stroke="#5ba8cc" stroke-width="0.5" opacity=".3"/><path d="M12 10 L12 44 M26 10 L26 44 M40 10 L40 44" stroke="#5ba8cc" stroke-width="1" opacity=".3"/><rect x="0" y="4" width="52" height="4" rx="1" fill="rgba(91,168,204,0.3)" stroke="#5ba8cc" stroke-width="1"/></svg>
+        <div class="pc-num">04</div>
+        <div class="pc-icon">
+          <svg viewBox="0 0 48 48" fill="none">
+            <rect x="2" y="8" width="44" height="36" rx="1" fill="#E8E2D8" stroke="#8C8680" stroke-width="1.5"/>
+            <rect x="2" y="4" width="44" height="6" rx="1" fill="#EAE4DA" stroke="#C8C0B4" stroke-width="1"/>
+            <path d="M2 18 L46 18 M2 28 L46 28 M2 38 L46 38" stroke="#C8C0B4" stroke-width=".5"/>
+            <path d="M12 8 L12 44 M24 8 L24 44 M36 8 L36 44" stroke="#D4751A" stroke-width="1" opacity=".4"/>
+            <rect x="0" y="2" width="48" height="4" rx="1" fill="rgba(212,117,26,0.3)" stroke="#D4751A" stroke-width="1"/>
+          </svg>
         </div>
-        <div class="prod-card-body">
-          <div class="prod-tier">Extrême</div>
-          <div class="prod-name">TITAN EXTREME</div>
-          <div class="prod-depth">3.5m+ — Installation pro</div>
-          <div class="prod-price">9 800 $ <small>/ module</small></div>
-        </div>
+        <div class="pc-tier">Extrême</div>
+        <div class="pc-name">TITAN EXTREME</div>
+        <div class="pc-depth">3.5 m et plus</div>
+        <div class="pc-price">9 800 $ <small>/ module</small></div>
       </div>
     </div>
   </div>
 
   <!-- Trust -->
-  <div class="trust-section">
+  <div class="trust">
     <div class="trust-grid">
       <div class="trust-item">
-        <div class="trust-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-        <div class="trust-title">Certifié RBQ &amp; CMMTQ</div>
-        <div class="trust-desc">Nos équipes d'installation sont certifiées par la Régie du bâtiment du Québec. Garantie de conformité aux normes provinciales en vigueur.</div>
+        <div class="trust-num">01 / 03</div>
+        <div class="trust-t">Certifié RBQ &amp; CMMTQ</div>
+        <div class="trust-d">Toutes nos équipes d'installation détiennent une licence de la Régie du bâtiment du Québec. Travaux garantis conformes aux normes provinciales.</div>
       </div>
       <div class="trust-item">
-        <div class="trust-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
-        <div class="trust-title">Livraison 48h garanti</div>
-        <div class="trust-desc">Stock disponible en entrepôt à Laval et Québec. Livraison express partout en province, y compris régions éloignées.</div>
+        <div class="trust-num">02 / 03</div>
+        <div class="trust-t">Livraison 48h — Province entière</div>
+        <div class="trust-d">Entrepôts à Laval et Québec. Stock disponible immédiatement pour les 4 gammes. Livraison express possible même en région éloignée.</div>
       </div>
       <div class="trust-item">
-        <div class="trust-icon"><svg viewBox="0 0 24 24"><polyline points="22 11.08 22 12 12 22 2 12 2 11.08 12 1 22 11.08z"/><polyline points="7 12 10 15 17 8"/></svg></div>
-        <div class="trust-title">15 ans de garantie</div>
-        <div class="trust-desc">Tous nos systèmes sont garantis 15 ans contre les défauts de fabrication. Pièces de remplacement disponibles à vie sur catalogue.</div>
+        <div class="trust-num">03 / 03</div>
+        <div class="trust-t">15 ans de garantie fabricant</div>
+        <div class="trust-d">Chaque système est couvert 15 ans contre les défauts de fabrication. Pièces de remplacement disponibles à vie dans notre catalogue.</div>
       </div>
     </div>
   </div>
 
-  <!-- CTA Banner -->
-  <div class="cta-banner">
-    <div class="cta-text">
+  <!-- CTA strip -->
+  <div class="cta-strip">
+    <div>
       <h3>Analysez votre terrain gratuitement</h3>
-      <p>Entrez votre adresse — la carte bathymétrique CEHQ indique la profondeur estimée et le bon batardeau apparaît automatiquement.</p>
+      <p>Entrez votre adresse — notre système identifie la profondeur d'eau estimée et recommande le bon batardeau.</p>
     </div>
-    <button class="btn-primary" onclick="showPage('terrain')">Démarrer l'analyse →</button>
+    <button class="btn-amber" onclick="showPage('terrain')">Démarrer l'analyse →</button>
   </div>
 </div>
 
@@ -558,33 +586,34 @@ select.finp{cursor:pointer;}
      PAGE 2 — ANALYSE TERRAIN
 ═══════════════════════════════════ -->
 <div class="pg" id="pg-terrain">
-  <div class="terrain-head">
-    <h1>Analyse <span style="color:var(--ice)">Terrain</span></h1>
-    <p>Entrez votre adresse pour obtenir une recommandation personnalisée basée sur les données hydrologiques de votre zone.</p>
+  <div class="terrain-hd">
+    <h1>Analyse <em>Terrain</em></h1>
+    <p>Entrez votre adresse pour une recommandation basée sur les données hydrologiques de votre zone.</p>
   </div>
   <div class="terrain-layout">
-    <div class="terrain-sidebar">
-
+    <div class="terrain-sb">
       <div>
-        <label class="search-label">Adresse ou localité</label>
-        <div class="search-wrap">
-          <svg class="search-ico" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          <input class="search-inp" id="addr-inp" type="text" placeholder="Ex: Saint-Sauveur, QC…" autocomplete="off" oninput="onAddrInput()" onkeydown="if(event.key==='Enter')doSearch()"/>
-          <button class="search-btn" onclick="doSearch()">Analyser</button>
-          <div class="suggestions" id="suggestions"></div>
+        <label class="flabel">Adresse ou localité</label>
+        <div class="swrap">
+          <svg class="sico" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input class="sinp" id="addr-inp" type="text" placeholder="Ex: Saint-Sauveur, QC…" autocomplete="off" oninput="onAddrInput()" onkeydown="if(event.key==='Enter')doSearch()"/>
+          <button class="sbtn" onclick="doSearch()">Analyser</button>
+          <div class="suggs" id="suggestions"></div>
         </div>
       </div>
 
-      <div class="analysis-box" id="analysis-box">
-        <div class="abox-title">Données du site</div>
-        <div class="arow"><span class="arow-label">Localité</span><span class="arow-val" id="a-city">—</span></div>
-        <div class="arow"><span class="arow-label">Coordonnées</span><span class="arow-val" id="a-coords">—</span></div>
-        <div class="arow"><span class="arow-label">Zone CEHQ</span><span class="arow-val" id="a-zone">—</span></div>
-        <div class="arow"><span class="arow-label">Profondeur estimée</span><span class="arow-val" id="a-depth">—</span></div>
-        <div class="arow"><span class="arow-label">Niveau de risque</span><span class="arow-val" id="a-risk">—</span></div>
-        <div class="depth-gauge-wrap">
-          <div class="depth-gauge-label"><span>0m</span><span id="a-depth-label">—</span><span>3.5m+</span></div>
-          <div class="depth-gauge-track"><div class="depth-gauge-fill" id="a-gauge" style="width:0%;background:var(--ok)"></div></div>
+      <div class="abox" id="analysis-box">
+        <div class="abox-t">Données du site</div>
+        <div class="arow"><span class="ar-l">Localité</span><span class="ar-v" id="a-city">—</span></div>
+        <div class="arow"><span class="ar-l">Coordonnées</span><span class="ar-v" id="a-coords">—</span></div>
+        <div class="arow"><span class="ar-l">Zone CEHQ</span><span class="ar-v" id="a-zone">—</span></div>
+        <div class="arow"><span class="ar-l">Profondeur estimée</span><span class="ar-v" id="a-depth">—</span></div>
+        <div class="arow"><span class="ar-l">Niveau de risque</span><span class="ar-v" id="a-risk">—</span></div>
+        <!-- Vertical depth gauge -->
+        <div class="depth-gauge">
+          <div class="dg-track"><div class="dg-fill" id="a-gauge" style="height:0%"></div></div>
+          <div class="dg-labels"><span>3.5m</span><span>2.0m</span><span>0m</span></div>
+          <div style="font-size:32px;font-family:'Syne',sans-serif;font-weight:800;color:var(--ink);line-height:1;" id="a-depth-big">—</div>
         </div>
       </div>
 
@@ -594,13 +623,13 @@ select.finp{cursor:pointer;}
         <div class="reco-desc" id="reco-desc">—</div>
         <div class="reco-specs" id="reco-specs"></div>
         <div class="reco-price" id="reco-price">—</div>
-        <button class="reco-cta" id="reco-cta" onclick="goToConfig()">Commander ce système →</button>
+        <button class="reco-cta" onclick="goToConfig()">Commander ce système →</button>
       </div>
-
     </div>
-    <div class="terrain-map">
-      <div class="map-placeholder" id="map-placeholder">
-        <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+
+    <div class="terrain-map-wrap">
+      <div class="map-ph" id="map-placeholder">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
         <p>Entrez une adresse pour afficher la carte</p>
       </div>
       <div id="map" style="display:none;"></div>
@@ -612,122 +641,110 @@ select.finp{cursor:pointer;}
      PAGE 3 — CATALOGUE
 ═══════════════════════════════════ -->
 <div class="pg" id="pg-catalogue">
-  <div class="catalogue-head">
-    <div class="section-title" style="margin-bottom:6px;">Catalogue <span>Produits</span></div>
-    <p style="font-size:13px;color:var(--muted);margin-bottom:0;">4 gammes pour chaque niveau de protection — fabriqués et certifiés au Québec.</p>
+  <div class="cat-hd">
+    <h1>Catalogue <em>Produits</em></h1>
+    <p>Quatre gammes pour chaque niveau de protection — fabriquées et certifiées au Québec.</p>
   </div>
   <div class="cat-grid">
 
-    <!-- SENTINEL 120 -->
-    <div class="cat-card cat-c1">
-      <div class="cat-card-header">
-        <div class="cat-card-num">01</div>
-        <div class="cat-card-icon">
-          <svg viewBox="0 0 70 70" fill="none" width="70" height="70"><rect x="10" y="38" width="50" height="22" rx="1.5" fill="rgba(91,168,204,0.25)" stroke="#5ba8cc" stroke-width="1.5"/><rect x="16" y="30" width="38" height="10" rx="1" fill="rgba(91,168,204,0.18)" stroke="#5ba8cc" stroke-width="1.5"/><line x1="20" y1="40" x2="20" y2="58" stroke="#5ba8cc" stroke-width="1" opacity=".5"/><line x1="35" y1="40" x2="35" y2="58" stroke="#5ba8cc" stroke-width="1" opacity=".5"/><line x1="50" y1="40" x2="50" y2="58" stroke="#5ba8cc" stroke-width="1" opacity=".5"/></svg>
+    <div class="cat-card">
+      <div class="cat-card-head">
+        <div class="cn">01</div>
+        <div class="cicon">
+          <svg viewBox="0 0 64 64" fill="none" width="64" height="64"><rect x="8" y="36" width="48" height="20" rx="1" fill="#EAE4DA" stroke="#8C8680" stroke-width="1.5"/><rect x="14" y="26" width="36" height="12" rx="1" fill="#F2EDE4" stroke="#8C8680" stroke-width="1.5"/><line x1="18" y1="38" x2="18" y2="54" stroke="#D4751A" stroke-width="1.5" opacity=".6"/><line x1="32" y1="38" x2="32" y2="54" stroke="#D4751A" stroke-width="1.5" opacity=".6"/><line x1="46" y1="38" x2="46" y2="54" stroke="#D4751A" stroke-width="1.5" opacity=".6"/></svg>
         </div>
-        <div class="cat-card-info">
-          <div class="cat-card-tier">01 — Résidentiel Standard</div>
-          <div class="cat-card-name">SENTINEL 120</div>
-        </div>
+        <div class="ctier">01 — Résidentiel Standard</div>
+        <div class="cname">SENTINEL 120</div>
       </div>
       <div class="cat-card-body">
         <table class="cat-specs">
           <tr><td>Matériau</td><td>Aluminium 6061-T6</td></tr>
           <tr><td>Hauteur</td><td>1.2 m</td></tr>
-          <tr><td>Largeur modulaire</td><td>0.5 m – 3 m</td></tr>
+          <tr><td>Largeur modulaire</td><td>0.5 – 3 m</td></tr>
           <tr><td>Étanchéité</td><td>Joint EPDM</td></tr>
           <tr><td>Poids</td><td>18 kg/m</td></tr>
-          <tr><td>Indice de protection</td><td>IP68</td></tr>
-          <tr><td>Délai de livraison</td><td>48 heures</td></tr>
+          <tr><td>Protection</td><td>IP68</td></tr>
+          <tr><td>Livraison</td><td>48 heures</td></tr>
           <tr><td>Garantie</td><td>15 ans</td></tr>
         </table>
-        <div class="cat-footer">
-          <div class="cat-price">1 890 $ <small>/ module</small></div>
-          <button class="btn-cart" onclick="addToCart('SENTINEL 120',1890,this)">
-            <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-            Ajouter
-          </button>
-        </div>
+      </div>
+      <div class="cat-foot">
+        <div class="cat-price">1 890 $ <small>/ module</small></div>
+        <button class="btn-add" onclick="addToCart('SENTINEL 120',1890,this)">
+          <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          Ajouter
+        </button>
       </div>
     </div>
 
-    <!-- AQUASHIELD PRO -->
-    <div class="cat-card cat-c2">
-      <div class="cat-card-header">
-        <div class="cat-card-num">02</div>
-        <div class="cat-card-icon">
-          <svg viewBox="0 0 70 70" fill="none" width="70" height="70"><rect x="8" y="30" width="54" height="30" rx="1.5" fill="rgba(91,168,204,0.2)" stroke="#5ba8cc" stroke-width="1.5"/><rect x="13" y="18" width="44" height="14" rx="1" fill="rgba(91,168,204,0.15)" stroke="#5ba8cc" stroke-width="1.5"/><rect x="8" y="14" width="54" height="6" rx="1" fill="rgba(168,212,232,0.15)" stroke="#a8d4e8" stroke-width="1"/><path d="M18 32 L18 58 M35 32 L35 58 M52 32 L52 58" stroke="#5ba8cc" stroke-width="1" opacity=".4"/></svg>
+    <div class="cat-card">
+      <div class="cat-card-head">
+        <div class="cn">02</div>
+        <div class="cicon">
+          <svg viewBox="0 0 64 64" fill="none" width="64" height="64"><rect x="6" y="28" width="52" height="28" rx="1" fill="#EAE4DA" stroke="#8C8680" stroke-width="1.5"/><rect x="12" y="16" width="40" height="14" rx="1" fill="#F2EDE4" stroke="#8C8680" stroke-width="1.5"/><rect x="6" y="10" width="52" height="8" rx="1" fill="#EAE4DA" stroke="#C8C0B4" stroke-width="1"/><line x1="18" y1="30" x2="18" y2="54" stroke="#D4751A" stroke-width="1.5" opacity=".5"/><line x1="32" y1="30" x2="32" y2="54" stroke="#D4751A" stroke-width="1.5" opacity=".5"/><line x1="46" y1="30" x2="46" y2="54" stroke="#D4751A" stroke-width="1.5" opacity=".5"/></svg>
         </div>
-        <div class="cat-card-info">
-          <div class="cat-card-tier">02 — Protection Riveraine</div>
-          <div class="cat-card-name">AQUASHIELD PRO</div>
-        </div>
+        <div class="ctier">02 — Protection Riveraine</div>
+        <div class="cname">AQUASHIELD PRO</div>
       </div>
       <div class="cat-card-body">
         <table class="cat-specs">
           <tr><td>Matériau</td><td>Aluminium anodisé</td></tr>
           <tr><td>Hauteur</td><td>2.0 m</td></tr>
-          <tr><td>Largeur modulaire</td><td>0.5 m – 4 m</td></tr>
+          <tr><td>Largeur modulaire</td><td>0.5 – 4 m</td></tr>
           <tr><td>Étanchéité</td><td>Joint triple lèvre</td></tr>
           <tr><td>Poids</td><td>28 kg/m</td></tr>
-          <tr><td>Indice de protection</td><td>IP68+</td></tr>
+          <tr><td>Protection</td><td>IP68+</td></tr>
           <tr><td>Certification</td><td>UL Listed</td></tr>
           <tr><td>Garantie</td><td>15 ans</td></tr>
         </table>
-        <div class="cat-footer">
-          <div class="cat-price">3 450 $ <small>/ module</small></div>
-          <button class="btn-cart" onclick="addToCart('AQUASHIELD PRO',3450,this)">
-            <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-            Ajouter
-          </button>
-        </div>
+      </div>
+      <div class="cat-foot">
+        <div class="cat-price">3 450 $ <small>/ module</small></div>
+        <button class="btn-add" onclick="addToCart('AQUASHIELD PRO',3450,this)">
+          <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          Ajouter
+        </button>
       </div>
     </div>
 
-    <!-- FORTRESS COMMERCIAL -->
-    <div class="cat-card cat-c3">
-      <div class="cat-card-header">
-        <div class="cat-card-num">03</div>
-        <div class="cat-card-icon">
-          <svg viewBox="0 0 70 70" fill="none" width="70" height="70"><rect x="5" y="22" width="60" height="40" rx="1.5" fill="rgba(91,168,204,0.18)" stroke="#5ba8cc" stroke-width="1.5"/><rect x="9" y="10" width="52" height="14" rx="1" fill="rgba(91,168,204,0.12)" stroke="#5ba8cc" stroke-width="1.5"/><rect x="5" y="6" width="60" height="6" rx="1" fill="rgba(168,212,232,0.12)" stroke="#a8d4e8" stroke-width="1"/><path d="M5 36 L65 36 M5 48 L65 48" stroke="#5ba8cc" stroke-width="0.5" opacity=".3"/><path d="M18 22 L18 62 M35 22 L35 62 M52 22 L52 62" stroke="#5ba8cc" stroke-width="1" opacity=".3"/></svg>
+    <div class="cat-card">
+      <div class="cat-card-head">
+        <div class="cn">03</div>
+        <div class="cicon">
+          <svg viewBox="0 0 64 64" fill="none" width="64" height="64"><rect x="4" y="20" width="56" height="36" rx="1" fill="#EAE4DA" stroke="#8C8680" stroke-width="1.5"/><rect x="8" y="10" width="48" height="12" rx="1" fill="#F2EDE4" stroke="#8C8680" stroke-width="1.5"/><rect x="4" y="6" width="56" height="6" rx="1" fill="#EAE4DA" stroke="#C8C0B4" stroke-width="1"/><path d="M4 34 L60 34 M4 46 L60 46" stroke="#C8C0B4" stroke-width=".8"/><path d="M16 20 L16 56 M32 20 L32 56 M48 20 L48 56" stroke="#D4751A" stroke-width="1.5" opacity=".4"/></svg>
         </div>
-        <div class="cat-card-info">
-          <div class="cat-card-tier">03 — Commercial / Industriel</div>
-          <div class="cat-card-name">FORTRESS COMMERCIAL</div>
-        </div>
+        <div class="ctier">03 — Commercial / Industriel</div>
+        <div class="cname">FORTRESS COMMERCIAL</div>
       </div>
       <div class="cat-card-body">
         <table class="cat-specs">
           <tr><td>Matériau</td><td>Acier galvanisé + alu</td></tr>
           <tr><td>Hauteur</td><td>2.8 m</td></tr>
-          <tr><td>Largeur modulaire</td><td>0.5 m – 6 m</td></tr>
+          <tr><td>Largeur modulaire</td><td>0.5 – 6 m</td></tr>
           <tr><td>Pression testée</td><td>2.8 m colonne d'eau</td></tr>
           <tr><td>Poids</td><td>45 kg/m</td></tr>
           <tr><td>Norme</td><td>ASTM A123 / F436</td></tr>
           <tr><td>Installation</td><td>Recommandée</td></tr>
           <tr><td>Garantie</td><td>15 ans</td></tr>
         </table>
-        <div class="cat-footer">
-          <div class="cat-price">6 200 $ <small>/ module</small></div>
-          <button class="btn-cart" onclick="addToCart('FORTRESS COMMERCIAL',6200,this)">
-            <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-            Ajouter
-          </button>
-        </div>
+      </div>
+      <div class="cat-foot">
+        <div class="cat-price">6 200 $ <small>/ module</small></div>
+        <button class="btn-add" onclick="addToCart('FORTRESS COMMERCIAL',6200,this)">
+          <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          Ajouter
+        </button>
       </div>
     </div>
 
-    <!-- TITAN EXTREME -->
-    <div class="cat-card cat-c4">
-      <div class="cat-card-header">
-        <div class="cat-card-num">04</div>
-        <div class="cat-card-icon">
-          <svg viewBox="0 0 70 70" fill="none" width="70" height="70"><rect x="3" y="12" width="64" height="52" rx="1.5" fill="rgba(91,168,204,0.15)" stroke="#5ba8cc" stroke-width="1.5"/><rect x="7" y="4" width="56" height="10" rx="1" fill="rgba(91,168,204,0.12)" stroke="#5ba8cc" stroke-width="1.5"/><rect x="3" y="2" width="64" height="4" rx="1" fill="rgba(168,212,232,0.2)" stroke="#a8d4e8" stroke-width="1"/><path d="M3 28 L67 28 M3 42 L67 42 M3 56 L67 56" stroke="#5ba8cc" stroke-width="0.5" opacity=".3"/><path d="M16 12 L16 64 M35 12 L35 64 M54 12 L54 64" stroke="#5ba8cc" stroke-width="1" opacity=".3"/></svg>
+    <div class="cat-card">
+      <div class="cat-card-head">
+        <div class="cn">04</div>
+        <div class="cicon">
+          <svg viewBox="0 0 64 64" fill="none" width="64" height="64"><rect x="2" y="10" width="60" height="48" rx="1" fill="#EAE4DA" stroke="#8C8680" stroke-width="1.5"/><rect x="2" y="4" width="60" height="8" rx="1" fill="#EAE4DA" stroke="#C8C0B4" stroke-width="1"/><path d="M2 24 L62 24 M2 38 L62 38 M2 52 L62 52" stroke="#C8C0B4" stroke-width=".8"/><path d="M16 10 L16 58 M32 10 L32 58 M48 10 L48 58" stroke="#D4751A" stroke-width="1.5" opacity=".4"/><rect x="0" y="2" width="64" height="5" rx="1" fill="rgba(212,117,26,0.25)" stroke="#D4751A" stroke-width="1.5"/></svg>
         </div>
-        <div class="cat-card-info">
-          <div class="cat-card-tier">04 — Protection Extrême</div>
-          <div class="cat-card-name">TITAN EXTREME</div>
-        </div>
+        <div class="ctier">04 — Protection Extrême</div>
+        <div class="cname">TITAN EXTREME</div>
       </div>
       <div class="cat-card-body">
         <table class="cat-specs">
@@ -737,16 +754,16 @@ select.finp{cursor:pointer;}
           <tr><td>Certification</td><td>Municipale / MDDELCC</td></tr>
           <tr><td>Installation</td><td>Équipe pro incluse</td></tr>
           <tr><td>Analyse de site</td><td>Incluse (visite terrain)</td></tr>
-          <tr><td>Maintenance</td><td>Contrat annuel disponible</td></tr>
+          <tr><td>Maintenance</td><td>Contrat annuel dispo.</td></tr>
           <tr><td>Garantie</td><td>15 ans</td></tr>
         </table>
-        <div class="cat-footer">
-          <div class="cat-price">9 800 $ <small>/ module</small></div>
-          <button class="btn-cart" onclick="addToCart('TITAN EXTREME',9800,this)">
-            <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-            Ajouter
-          </button>
-        </div>
+      </div>
+      <div class="cat-foot">
+        <div class="cat-price">9 800 $ <small>/ module</small></div>
+        <button class="btn-add" onclick="addToCart('TITAN EXTREME',9800,this)">
+          <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          Ajouter
+        </button>
       </div>
     </div>
 
@@ -759,87 +776,80 @@ select.finp{cursor:pointer;}
 <div class="pg" id="pg-config">
   <div class="config-layout">
     <div class="config-main">
-      <h2 class="config-title">Configurateur <span>de commande</span></h2>
+      <h2 class="config-title">Configurateur <em>de commande</em></h2>
 
-      <!-- Product selector -->
       <div class="fblock">
-        <div class="fblock-title">Choisir le système</div>
-        <div class="prod-selector">
-          <div class="psel on" onclick="selectProd(0,this)">
-            <div class="psel-name">SENTINEL 120</div>
-            <div class="psel-sub">Résidentiel — 1 890 $/module</div>
-          </div>
-          <div class="psel" onclick="selectProd(1,this)">
-            <div class="psel-name">AQUASHIELD PRO</div>
-            <div class="psel-sub">Riverain — 3 450 $/module</div>
-          </div>
-          <div class="psel" onclick="selectProd(2,this)">
-            <div class="psel-name">FORTRESS COMMERCIAL</div>
-            <div class="psel-sub">Commercial — 6 200 $/module</div>
-          </div>
-          <div class="psel" onclick="selectProd(3,this)">
-            <div class="psel-name">TITAN EXTREME</div>
-            <div class="psel-sub">Extrême — 9 800 $/module</div>
-          </div>
+        <div class="fblock-label">Choisir le système</div>
+        <div class="psel-grid">
+          <div class="psel on" onclick="selectProd(0,this)"><div class="psel-name">SENTINEL 120</div><div class="psel-sub">Résidentiel — 1 890 $/module</div></div>
+          <div class="psel" onclick="selectProd(1,this)"><div class="psel-name">AQUASHIELD PRO</div><div class="psel-sub">Riverain — 3 450 $/module</div></div>
+          <div class="psel" onclick="selectProd(2,this)"><div class="psel-name">FORTRESS COMMERCIAL</div><div class="psel-sub">Commercial — 6 200 $/module</div></div>
+          <div class="psel" onclick="selectProd(3,this)"><div class="psel-name">TITAN EXTREME</div><div class="psel-sub">Extrême — 9 800 $/module</div></div>
         </div>
       </div>
 
-      <!-- Dimensions -->
       <div class="fblock">
-        <div class="fblock-title">Dimensions de l'ouverture</div>
+        <div class="fblock-label">Dimensions de l'ouverture</div>
         <div class="form-row">
-          <div class="form-group">
-            <label class="form-label">Largeur de l'ouverture (mètres)</label>
-            <input class="form-inp" id="cfg-width" type="number" min="0.5" max="20" step="0.5" value="3" oninput="calcPrice()"/>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Nombre d'ouvertures / portées</label>
-            <input class="form-inp" id="cfg-qty" type="number" min="1" max="50" step="1" value="1" oninput="calcPrice()"/>
-          </div>
+          <div class="fgroup"><label class="flbl">Largeur de l'ouverture (mètres)</label><input class="finput" id="cfg-width" type="number" min="0.5" max="20" step="0.5" value="3" oninput="calcPrice()"/></div>
+          <div class="fgroup"><label class="flbl">Nombre d'ouvertures / portées</label><input class="finput" id="cfg-qty" type="number" min="1" max="50" step="1" value="1" oninput="calcPrice()"/></div>
         </div>
       </div>
 
-      <!-- Options -->
       <div class="fblock">
-        <div class="fblock-title">Options</div>
+        <div class="fblock-label">Options</div>
         <div style="display:flex;flex-direction:column;gap:8px;">
-          <label class="check-row">
-            <input type="checkbox" id="opt-install" onchange="calcPrice()"/>
-            <div class="check-text">
-              <strong>Installation professionnelle certifiée RBQ</strong>
-              <span>Pose complète par nos équipes — +25% du prix des modules</span>
-            </div>
-          </label>
-          <label class="check-row">
-            <input type="checkbox" id="opt-livraison" onchange="calcPrice()"/>
-            <div class="check-text">
-              <strong>Livraison express 48h garantie</strong>
-              <span>Priorité d'expédition depuis nos entrepôts — +150 $</span>
-            </div>
-          </label>
+          <label class="check-row"><input type="checkbox" id="opt-install" onchange="calcPrice()"/><div class="check-text"><strong>Installation professionnelle certifiée RBQ</strong><span>Pose complète par nos équipes — +25% du prix des modules</span></div></label>
+          <label class="check-row"><input type="checkbox" id="opt-livraison" onchange="calcPrice()"/><div class="check-text"><strong>Livraison express 48h garantie</strong><span>Priorité d'expédition depuis nos entrepôts — +150 $</span></div></label>
         </div>
       </div>
     </div>
 
-    <!-- Summary -->
-    <div class="config-sidebar">
-      <div class="summary-card">
-        <div class="summary-head"><h3>Sommaire</h3></div>
-        <div class="summary-body">
-          <div class="sum-row"><span class="sum-label">Système</span><span class="sum-val" id="sum-prod">SENTINEL 120</span></div>
-          <div class="sum-row"><span class="sum-label">Modules requis</span><span class="sum-val" id="sum-mods">—</span></div>
-          <div class="sum-row"><span class="sum-label">Ouvertures</span><span class="sum-val" id="sum-qty">1</span></div>
-          <div class="sum-row"><span class="sum-label">Modules × prix</span><span class="sum-val" id="sum-base">—</span></div>
-          <div class="sum-row" id="sum-install-row" style="display:none;"><span class="sum-label">Installation (+25%)</span><span class="sum-val" id="sum-install">—</span></div>
-          <div class="sum-row" id="sum-liv-row" style="display:none;"><span class="sum-label">Livraison express</span><span class="sum-val">+150 $</span></div>
+    <div class="config-sb">
+      <!-- SIGNATURE: Cross-section visualizer -->
+      <div class="viz-wrap">
+        <div class="viz-title">Vue en coupe — temps réel</div>
+        <svg id="cross-section" viewBox="0 0 320 220" xmlns="http://www.w3.org/2000/svg">
+          <!-- Background -->
+          <rect width="320" height="220" fill="#F2EDE4"/>
+          <!-- Ground -->
+          <rect x="0" y="180" width="320" height="40" fill="#C8C0B4"/>
+          <!-- Hatching ground -->
+          <line x1="0" y1="185" x2="20" y2="205" stroke="#B0A89E" stroke-width="1"/><line x1="20" y1="185" x2="40" y2="205" stroke="#B0A89E" stroke-width="1"/><line x1="40" y1="185" x2="60" y2="205" stroke="#B0A89E" stroke-width="1"/><line x1="60" y1="185" x2="80" y2="205" stroke="#B0A89E" stroke-width="1"/><line x1="80" y1="185" x2="100" y2="205" stroke="#B0A89E" stroke-width="1"/><line x1="100" y1="185" x2="120" y2="205" stroke="#B0A89E" stroke-width="1"/><line x1="120" y1="185" x2="140" y2="205" stroke="#B0A89E" stroke-width="1"/><line x1="140" y1="185" x2="160" y2="205" stroke="#B0A89E" stroke-width="1"/><line x1="160" y1="185" x2="180" y2="205" stroke="#B0A89E" stroke-width="1"/><line x1="180" y1="185" x2="200" y2="205" stroke="#B0A89E" stroke-width="1"/><line x1="200" y1="185" x2="220" y2="205" stroke="#B0A89E" stroke-width="1"/><line x1="220" y1="185" x2="240" y2="205" stroke="#B0A89E" stroke-width="1"/><line x1="240" y1="185" x2="260" y2="205" stroke="#B0A89E" stroke-width="1"/><line x1="260" y1="185" x2="280" y2="205" stroke="#B0A89E" stroke-width="1"/><line x1="280" y1="185" x2="300" y2="205" stroke="#B0A89E" stroke-width="1"/><line x1="300" y1="185" x2="320" y2="205" stroke="#B0A89E" stroke-width="1"/>
+          <!-- Left wall -->
+          <rect x="30" y="20" width="20" height="160" fill="#DDD8D0" stroke="#C8C0B4" stroke-width="1"/>
+          <!-- Right wall -->
+          <rect x="270" y="20" width="20" height="160" fill="#DDD8D0" stroke="#C8C0B4" stroke-width="1"/>
+          <!-- Wall labels -->
+          <text x="40" y="16" text-anchor="middle" font-size="8" fill="#8C8680" font-family="DM Sans">mur</text>
+          <text x="280" y="16" text-anchor="middle" font-size="8" fill="#8C8680" font-family="DM Sans">mur</text>
+          <!-- Dynamic elements rendered by JS -->
+          <g id="viz-water"></g>
+          <g id="viz-panels"></g>
+          <g id="viz-labels"></g>
+          <!-- Opening dimension arrow -->
+          <line x1="50" y1="195" x2="270" y2="195" stroke="#D4751A" stroke-width="1" marker-start="url(#arr)" marker-end="url(#arr)"/>
+          <text id="viz-width-label" x="160" y="210" text-anchor="middle" font-size="9" fill="#D4751A" font-family="Syne" font-weight="700">3.0 m</text>
+          <defs>
+            <marker id="arr" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#D4751A"/></marker>
+          </defs>
+        </svg>
+      </div>
+
+      <div class="sum-card">
+        <div class="sum-head"><h3>Sommaire</h3></div>
+        <div class="sum-body">
+          <div class="sum-row"><span class="sum-rl">Système</span><span class="sum-rv" id="sum-prod">SENTINEL 120</span></div>
+          <div class="sum-row"><span class="sum-rl">Modules requis</span><span class="sum-rv" id="sum-mods">—</span></div>
+          <div class="sum-row"><span class="sum-rl">Ouvertures</span><span class="sum-rv" id="sum-qty">1</span></div>
+          <div class="sum-row"><span class="sum-rl">Modules × prix</span><span class="sum-rv" id="sum-base">—</span></div>
+          <div class="sum-row" id="sum-install-row" style="display:none;"><span class="sum-rl">Installation (+25%)</span><span class="sum-rv" id="sum-install">—</span></div>
+          <div class="sum-row" id="sum-liv-row" style="display:none;"><span class="sum-rl">Livraison express</span><span class="sum-rv">+150 $</span></div>
         </div>
-        <div class="sum-total">
-          <span class="sum-total-label">Total estimé</span>
-          <span class="sum-total-val" id="sum-total">—</span>
-        </div>
+        <div class="sum-total"><span class="sum-tl">Total estimé</span><span class="sum-tv" id="sum-total">—</span></div>
       </div>
       <button class="btn-devis" onclick="openDevisModal()">Demander une soumission</button>
-      <div class="summary-note">Prix indicatifs avant taxes (TPS+TVQ). Une soumission détaillée sera envoyée dans les 24h.</div>
+      <div class="sum-note">Prix indicatifs avant taxes (TPS+TVQ).<br>Soumission détaillée dans les 24h.</div>
     </div>
   </div>
 </div>
@@ -848,178 +858,101 @@ select.finp{cursor:pointer;}
      PAGE 5 — RÉSERVATION
 ═══════════════════════════════════ -->
 <div class="pg" id="pg-resa">
-  <div class="resa-layout">
-    <h2 class="resa-title">Réservation <span>Installation</span></h2>
+  <div class="resa-wrap">
+    <h2 class="resa-title">Réservation <em>Installation</em></h2>
     <p class="resa-sub">Planifiez votre installation en 3 étapes — nos équipes certifiées RBQ s'occupent du reste.</p>
 
-    <!-- Progress -->
-    <div class="progress-bar" id="progress-bar">
-      <div class="progress-step">
-        <div class="progress-dot active" id="pd-1">1</div>
-        <span class="progress-label active" id="pl-1">Coordonnées</span>
-      </div>
-      <div class="progress-line" id="pline-1"></div>
-      <div class="progress-step">
-        <div class="progress-dot" id="pd-2">2</div>
-        <span class="progress-label" id="pl-2">Projet</span>
-      </div>
-      <div class="progress-line" id="pline-2"></div>
-      <div class="progress-step">
-        <div class="progress-dot" id="pd-3">3</div>
-        <span class="progress-label" id="pl-3">Calendrier</span>
-      </div>
+    <div class="progress" id="progress-bar">
+      <div class="prog-step"><div class="prog-dot active" id="pd-1">1</div><span class="prog-label active" id="pl-1">Coordonnées</span></div>
+      <div class="prog-line" id="pline-1"></div>
+      <div class="prog-step"><div class="prog-dot" id="pd-2">2</div><span class="prog-label" id="pl-2">Projet</span></div>
+      <div class="prog-line" id="pline-2"></div>
+      <div class="prog-step"><div class="prog-dot" id="pd-3">3</div><span class="prog-label" id="pl-3">Calendrier</span></div>
     </div>
 
     <!-- Step 1 -->
     <div class="step on" id="step-1">
-      <div class="step-title">Vos coordonnées</div>
-      <div class="fgrid">
-        <div class="fgroup"><label class="flabel">Prénom</label><input class="finp" id="r-prenom" type="text" placeholder="Jean"/></div>
-        <div class="fgroup"><label class="flabel">Nom</label><input class="finp" id="r-nom" type="text" placeholder="Tremblay"/></div>
-      </div>
-      <div class="fgrid">
-        <div class="fgroup"><label class="flabel">Courriel</label><input class="finp" id="r-email" type="email" placeholder="jean@exemple.ca"/></div>
-        <div class="fgroup"><label class="flabel">Téléphone</label><input class="finp" id="r-tel" type="tel" placeholder="514 555-0000"/></div>
-      </div>
-      <div class="fgrid full">
-        <div class="fgroup"><label class="flabel">Adresse du chantier</label><input class="finp" id="r-addr" type="text" placeholder="123 Rue des Érables, Laval, QC H7A 1A1"/></div>
-      </div>
-      <div class="step-nav">
-        <span></span>
-        <button class="btn-next" onclick="nextStep(2)">Suivant →</button>
-      </div>
+      <div class="step-t">Vos coordonnées</div>
+      <div class="fgrid"><div class="fg"><label class="flb">Prénom</label><input class="fi" id="r-prenom" type="text" placeholder="Jean"/></div><div class="fg"><label class="flb">Nom</label><input class="fi" id="r-nom" type="text" placeholder="Tremblay"/></div></div>
+      <div class="fgrid"><div class="fg"><label class="flb">Courriel</label><input class="fi" id="r-email" type="email" placeholder="jean@exemple.ca"/></div><div class="fg"><label class="flb">Téléphone</label><input class="fi" id="r-tel" type="tel" placeholder="514 555-0000"/></div></div>
+      <div class="fgrid full"><div class="fg"><label class="flb">Adresse du chantier</label><input class="fi" id="r-addr" type="text" placeholder="123 Rue des Érables, Laval, QC H7A 1A1"/></div></div>
+      <div class="step-nav"><span></span><button class="btn-next" onclick="nextStep(2)">Suivant →</button></div>
     </div>
 
     <!-- Step 2 -->
     <div class="step" id="step-2">
-      <div class="step-title">Détails du projet</div>
+      <div class="step-t">Détails du projet</div>
       <div class="fgrid">
-        <div class="fgroup">
-          <label class="flabel">Type de bâtiment</label>
-          <select class="finp" id="r-type">
-            <option value="">Sélectionner…</option>
-            <option>Résidentiel unifamilial</option>
-            <option>Résidentiel multilogement</option>
-            <option>Commercial / bureau</option>
-            <option>Industriel / entrepôt</option>
-            <option>Municipal / institutionnel</option>
-          </select>
-        </div>
-        <div class="fgroup">
-          <label class="flabel">Système d'intérêt</label>
-          <select class="finp" id="r-prod">
-            <option>SENTINEL 120 — Résidentiel</option>
-            <option>AQUASHIELD PRO — Riverain</option>
-            <option>FORTRESS COMMERCIAL</option>
-            <option>TITAN EXTREME</option>
-            <option>Je ne sais pas encore</option>
-          </select>
+        <div class="fg"><label class="flb">Type de bâtiment</label><select class="fi" id="r-type"><option value="">Sélectionner…</option><option>Résidentiel unifamilial</option><option>Résidentiel multilogement</option><option>Commercial / bureau</option><option>Industriel / entrepôt</option><option>Municipal / institutionnel</option></select></div>
+        <div class="fg"><label class="flb">Système d'intérêt</label><select class="fi" id="r-prod"><option>SENTINEL 120 — Résidentiel</option><option>AQUASHIELD PRO — Riverain</option><option>FORTRESS COMMERCIAL</option><option>TITAN EXTREME</option><option>Je ne sais pas encore</option></select></div>
+      </div>
+      <div class="fgrid full"><div class="fg"><label class="flb">Dimensions approximatives</label><input class="fi" id="r-dims" type="text" placeholder="Ex: 6m × 1.5m — 2 ouvertures"/></div></div>
+      <div class="fg" style="margin-bottom:1.5rem;">
+        <label class="flb" style="margin-bottom:10px;">Niveau d'urgence</label>
+        <div class="radio-g">
+          <div class="radio-opt"><input type="radio" name="urgence" id="u1" value="standard" checked/><label for="u1"><strong>Standard</strong><span>Sous 2 semaines</span></label></div>
+          <div class="radio-opt"><input type="radio" name="urgence" id="u2" value="prioritaire"/><label for="u2"><strong>Prioritaire</strong><span>Sous 72h</span></label></div>
+          <div class="radio-opt"><input type="radio" name="urgence" id="u3" value="urgence"/><label for="u3"><strong>Urgence 24h</strong><span>Intervention rapide</span></label></div>
         </div>
       </div>
-      <div class="fgrid full">
-        <div class="fgroup"><label class="flabel">Dimensions approximatives (longueur × hauteur)</label><input class="finp" id="r-dims" type="text" placeholder="Ex: 6m × 1.5m — 2 ouvertures"/></div>
-      </div>
-      <div class="fgroup" style="margin-bottom:1.5rem;">
-        <label class="flabel" style="margin-bottom:10px;">Niveau d'urgence</label>
-        <div class="radio-group">
-          <div class="radio-opt">
-            <input type="radio" name="urgence" id="u1" value="standard" checked/>
-            <label for="u1"><strong>Standard</strong><span>Sous 2 semaines</span></label>
-          </div>
-          <div class="radio-opt">
-            <input type="radio" name="urgence" id="u2" value="prioritaire"/>
-            <label for="u2"><strong>Prioritaire</strong><span>Sous 72h</span></label>
-          </div>
-          <div class="radio-opt">
-            <input type="radio" name="urgence" id="u3" value="urgence"/>
-            <label for="u3"><strong>Urgence 24h</strong><span>Intervention rapide</span></label>
-          </div>
-        </div>
-      </div>
-      <div class="step-nav">
-        <button class="btn-back" onclick="nextStep(1)">← Retour</button>
-        <button class="btn-next" onclick="nextStep(3)">Suivant →</button>
-      </div>
+      <div class="step-nav"><button class="btn-back" onclick="nextStep(1)">← Retour</button><button class="btn-next" onclick="nextStep(3)">Suivant →</button></div>
     </div>
 
     <!-- Step 3 -->
     <div class="step" id="step-3">
-      <div class="step-title">Choisir une date</div>
+      <div class="step-t">Choisir une date</div>
       <div class="calendar">
-        <div class="cal-nav">
-          <button class="cal-arrow" onclick="calPrev()">‹</button>
-          <div class="cal-month" id="cal-month-label">—</div>
-          <button class="cal-arrow" onclick="calNext()">›</button>
-        </div>
-        <div class="cal-grid" id="cal-grid"></div>
+        <div class="cal-nav"><button class="cal-arr" onclick="calPrev()">‹</button><div class="cal-month-l" id="cal-month-label">—</div><button class="cal-arr" onclick="calNext()">›</button></div>
+        <div class="cal-g" id="cal-grid"></div>
+        <div class="cal-selected-row"><span>Date sélectionnée</span><span id="cal-selected-label">Aucune sélection</span></div>
       </div>
-      <div style="margin-top:1rem;padding:12px;background:var(--steel);border:1px solid var(--bd);border-radius:3px;font-size:13px;display:flex;justify-content:space-between;">
-        <span style="color:var(--muted);">Date sélectionnée</span>
-        <span id="cal-selected-label" style="font-weight:600;color:var(--ice);">Aucune sélection</span>
-      </div>
-      <div class="step-nav">
-        <button class="btn-back" onclick="nextStep(2)">← Retour</button>
-        <button class="btn-submit" onclick="submitResa()">Confirmer la réservation ✓</button>
-      </div>
+      <div class="step-nav"><button class="btn-back" onclick="nextStep(2)">← Retour</button><button class="btn-submit" onclick="submitResa()">Confirmer la réservation ✓</button></div>
     </div>
 
-    <!-- Confirmation -->
+    <!-- Confirm -->
     <div class="step" id="step-confirm">
       <div class="confirm-box">
-        <div class="confirm-icon">
-          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-        </div>
+        <div class="confirm-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
         <div class="confirm-ref" id="confirm-ref">Référence #------</div>
         <h2 class="confirm-title">Réservation confirmée !</h2>
-        <p class="confirm-sub">Votre demande a été enregistrée. Un de nos conseillers vous contactera dans les <strong>2 heures ouvrables</strong> pour confirmer les détails et la date d'installation.</p>
+        <p class="confirm-sub">Votre demande a été enregistrée. Un conseiller vous contactera dans les <strong>2 heures ouvrables</strong> pour confirmer les détails et la date d'installation.</p>
         <button class="btn-primary" onclick="showPage('home')">Retour à l'accueil</button>
       </div>
     </div>
-
   </div>
 </div>
 
 <!-- ═══ MODAL DEVIS ═══ -->
-<div class="modal-overlay" id="devis-modal">
+<div class="modal-ov" id="devis-modal">
   <div class="modal">
-    <div class="modal-head">
-      <h3>Sommaire de soumission</h3>
-      <button class="modal-close" onclick="closeDevisModal()">×</button>
-    </div>
+    <div class="modal-hd"><h3>Sommaire de soumission</h3><button class="modal-x" onclick="closeDevisModal()">×</button></div>
     <div class="modal-body" id="modal-body"></div>
-    <div class="modal-total">
-      <span class="modal-total-label">Total estimé</span>
-      <span class="modal-total-val" id="modal-total">—</span>
-    </div>
-    <div class="modal-footer">
-      <button class="btn-secondary" onclick="closeDevisModal()">Modifier</button>
+    <div class="modal-total"><span class="modal-tl">Total estimé</span><span class="modal-tv" id="modal-total">—</span></div>
+    <div class="modal-ft">
+      <button class="btn-ghost" onclick="closeDevisModal()">Modifier</button>
       <button class="btn-primary" onclick="closeDevisModal();showPage('resa');">Réserver l'installation →</button>
     </div>
   </div>
 </div>
 
-<!-- ═══ TOAST ═══ -->
 <div class="toast" id="toast"></div>
 
-<!-- ═══ LEAFLET ═══ -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
 <script>
 // ── STATE ──────────────────────────────────────────────────────────────────
 let cartCount = 0;
 let leafletMap = null;
 let leafletMarker = null;
 let currentReco = null;
-
 const PRODUCTS = [
-  {name:'SENTINEL 120', tier:'Résidentiel Standard', depth:'0 – 1.2 m', price:1890, modW:3, specs:{matériau:'Aluminium 6061-T6',hauteur:'1.2 m',largeur:'0.5 – 3 m',poids:'18 kg/m',IP:'IP68'}},
-  {name:'AQUASHIELD PRO', tier:'Protection Riveraine', depth:'1.2 – 2 m', price:3450, modW:4, specs:{matériau:'Aluminium anodisé',hauteur:'2.0 m',largeur:'0.5 – 4 m',poids:'28 kg/m',IP:'IP68+'}},
-  {name:'FORTRESS COMMERCIAL', tier:'Commercial / Industriel', depth:'2 – 2.8 m', price:6200, modW:6, specs:{matériau:'Acier galv. + alu',hauteur:'2.8 m',largeur:'0.5 – 6 m',poids:'45 kg/m',norme:'ASTM'}},
-  {name:'TITAN EXTREME', tier:'Protection Extrême', depth:'2.8 m et plus', price:9800, modW:6, specs:{matériau:'Composite HR',hauteur:'3.5 m+',largeur:'Sur mesure',installation:'Pro incluse',certif:'Municipale'}},
+  {name:'SENTINEL 120',tier:'Résidentiel Standard',depth:'0 – 1.2 m',price:1890,modW:3,specs:{matériau:'Aluminium 6061-T6',hauteur:'1.2 m',largeur:'0.5 – 3 m',poids:'18 kg/m',IP:'IP68'}},
+  {name:'AQUASHIELD PRO',tier:'Protection Riveraine',depth:'1.2 – 2 m',price:3450,modW:4,specs:{matériau:'Aluminium anodisé',hauteur:'2.0 m',largeur:'0.5 – 4 m',poids:'28 kg/m',IP:'IP68+'}},
+  {name:'FORTRESS COMMERCIAL',tier:'Commercial / Industriel',depth:'2 – 2.8 m',price:6200,modW:6,specs:{matériau:'Acier galv. + alu',hauteur:'2.8 m',largeur:'0.5 – 6 m',poids:'45 kg/m',norme:'ASTM'}},
+  {name:'TITAN EXTREME',tier:'Protection Extrême',depth:'2.8 m+',price:9800,modW:6,specs:{matériau:'Composite HR',hauteur:'3.5 m+',largeur:'Sur mesure',installation:'Pro incluse',certif:'Municipale'}},
 ];
 let selectedProdIdx = 0;
 
-// ── NAVIGATION ──────────────────────────────────────────────────────────────
+// ── NAV ────────────────────────────────────────────────────────────────────
 function showPage(id) {
   document.querySelectorAll('.pg').forEach(p => p.classList.remove('on'));
   document.querySelectorAll('.ntab').forEach(t => t.classList.remove('on'));
@@ -1028,26 +961,26 @@ function showPage(id) {
   if (tab) tab.classList.add('on');
   window.scrollTo({top:0,behavior:'smooth'});
   if (id === 'terrain') initMap();
-  if (id === 'config') calcPrice();
+  if (id === 'config') { calcPrice(); drawCrossSection(); }
   if (id === 'resa') initCalendar();
 }
 
-// ── CART ────────────────────────────────────────────────────────────────────
+// ── CART ──────────────────────────────────────────────────────────────────
 function addToCart(name, price, btn) {
   cartCount++;
   const badge = document.getElementById('cart-badge');
   badge.textContent = cartCount;
   badge.classList.add('show');
   btn.classList.add('added');
-  btn.innerHTML = '<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Ajouté';
+  btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Ajouté';
   setTimeout(() => {
     btn.classList.remove('added');
-    btn.innerHTML = '<svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> Ajouter';
+    btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> Ajouter';
   }, 2000);
   showToast('✓ ' + name + ' ajouté au panier', 'success');
 }
 
-// ── TERRAIN / MAP ────────────────────────────────────────────────────────────
+// ── GEOCODING ──────────────────────────────────────────────────────────────
 let searchTimeout;
 function onAddrInput() {
   const val = document.getElementById('addr-inp').value;
@@ -1074,10 +1007,7 @@ function renderSuggestions(items) {
     const parts = item.display_name.split(', ');
     const name = parts.slice(0,2).join(', ');
     const sub = parts.slice(2,5).join(', ');
-    return `<div class="sugg-item" data-idx="${i}">
-      <div class="sugg-name">${name}</div>
-      <div class="sugg-sub">${sub}</div>
-    </div>`;
+    return `<div class="sugg-item" data-idx="${i}"><div class="sugg-name">${name}</div><div class="sugg-sub">${sub}</div></div>`;
   }).join('');
   box.querySelectorAll('.sugg-item').forEach(el => {
     el.addEventListener('click', () => {
@@ -1091,23 +1021,14 @@ function renderSuggestions(items) {
   box.classList.add('open');
 }
 
-function closeSugg() {
-  document.getElementById('suggestions').classList.remove('open');
-}
-
-function selectSugg(lat, lon, name) {
-  document.getElementById('addr-inp').value = name;
-  closeSugg();
-  analyzeLocation(parseFloat(lat), parseFloat(lon), name);
-}
+function closeSugg() { document.getElementById('suggestions').classList.remove('open'); }
 
 async function doSearch() {
   const q = document.getElementById('addr-inp').value;
   if (!q.trim()) return;
   closeSugg();
-  const btn = document.querySelector('.search-btn');
-  btn.textContent = '…';
-  btn.disabled = true;
+  const btn = document.querySelector('.sbtn');
+  btn.textContent = '…'; btn.disabled = true;
   try {
     const res = await fetch(`/api/geocode/search?q=${encodeURIComponent(q)}&limit=1`);
     if (!res.ok) throw new Error('API error');
@@ -1115,29 +1036,20 @@ async function doSearch() {
     if (data.length) {
       const name = data[0].display_name.split(', ').slice(0,2).join(', ');
       analyzeLocation(parseFloat(data[0].lat), parseFloat(data[0].lon), name);
-    } else {
-      showToast('Adresse non trouvée — essayez une ville du Québec', '');
-    }
-  } catch(e) {
-    showToast('Erreur de connexion au service de géolocalisation', '');
-  } finally {
-    btn.textContent = 'Analyser';
-    btn.disabled = false;
-  }
+    } else { showToast('Adresse non trouvée — essayez une ville du Québec', ''); }
+  } catch(e) { showToast('Erreur de connexion au service de géolocalisation', ''); }
+  finally { btn.textContent = 'Analyser'; btn.disabled = false; }
 }
 
+// ── MAP ────────────────────────────────────────────────────────────────────
 function initMap() {
   if (leafletMap) return;
   document.getElementById('map').style.display = 'block';
   leafletMap = L.map('map', {zoomControl:true}).setView([46.8, -71.2], 7);
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution:'© OpenStreetMap',
-    maxZoom:18
-  }).addTo(leafletMap);
-  // Custom dark marker
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution:'© OpenStreetMap',maxZoom:18}).addTo(leafletMap);
   const icon = L.divIcon({
-    html:`<div style="width:16px;height:16px;background:#5ba8cc;border:3px solid #0d1f2d;border-radius:50%;box-shadow:0 2px 8px rgba(0,0,0,0.5);"></div>`,
-    iconSize:[16,16],iconAnchor:[8,8]
+    html:`<div style="width:14px;height:14px;background:#D4751A;border:3px solid #1E1C18;border-radius:50%;box-shadow:0 2px 8px rgba(0,0,0,0.3);"></div>`,
+    iconSize:[14,14],iconAnchor:[7,7]
   });
   leafletMap._customIcon = icon;
 }
@@ -1146,17 +1058,12 @@ function analyzeLocation(lat, lon, name) {
   initMap();
   document.getElementById('map-placeholder').style.display = 'none';
   document.getElementById('map').style.display = 'block';
-  if (!leafletMap) return;
-
   leafletMap.flyTo([lat, lon], 13, {duration:1.5});
   if (leafletMarker) leafletMarker.remove();
   leafletMarker = L.marker([lat, lon], {icon: leafletMap._customIcon}).addTo(leafletMap);
 
-  // Simulate depth using lat/lon hash for determinism
-  const seed = Math.abs(Math.sin(lat * 100 + lon * 77)) ;
+  const seed = Math.abs(Math.sin(lat * 100 + lon * 77));
   const depth = (seed * 3.2 + 0.3).toFixed(2);
-
-  // Determine product
   let prodIdx = 0, zone, risk, riskClass;
   const d = parseFloat(depth);
   if (d < 1.2) { prodIdx=0; zone='Zone C — Faible risque'; risk='Faible'; riskClass='ok'; }
@@ -1164,47 +1071,40 @@ function analyzeLocation(lat, lon, name) {
   else if (d < 2.8) { prodIdx=2; zone='Zone A — Risque élevé'; risk='Élevé'; riskClass='danger'; }
   else { prodIdx=3; zone='Zone 0 — Risque extrême'; risk='Extrême'; riskClass='danger'; }
 
-  // Popup on map
   leafletMarker.bindPopup(`
-    <div style="font-family:'Barlow',sans-serif;min-width:160px;">
-      <div style="font-weight:700;margin-bottom:4px;color:#f0ece4;">${name}</div>
-      <div style="font-size:12px;color:#7a9aae;">Profondeur estimée : <strong style="color:#5ba8cc;">${depth} m</strong></div>
-      <div style="font-size:12px;color:#7a9aae;">${zone}</div>
+    <div style="font-family:'DM Sans',sans-serif;min-width:160px;">
+      <div style="font-weight:700;margin-bottom:4px;">${name}</div>
+      <div style="font-size:12px;color:#8C8680;">Profondeur : <strong style="color:#D4751A;">${depth} m</strong></div>
+      <div style="font-size:12px;color:#8C8680;">${zone}</div>
     </div>
   `).openPopup();
 
-  // Update analysis box
   document.getElementById('analysis-box').classList.add('show');
   document.getElementById('a-city').textContent = name;
   document.getElementById('a-coords').textContent = `${lat.toFixed(4)}, ${lon.toFixed(4)}`;
   document.getElementById('a-zone').textContent = zone;
   document.getElementById('a-depth').textContent = depth + ' m';
   const riskEl = document.getElementById('a-risk');
-  riskEl.textContent = risk;
-  riskEl.className = 'arow-val ' + riskClass;
-  document.getElementById('a-depth-label').textContent = depth + ' m';
+  riskEl.textContent = risk; riskEl.className = 'ar-v ' + riskClass;
+  document.getElementById('a-depth-big').textContent = depth + ' m';
+  document.getElementById('a-depth-big').style.color = d < 1.2 ? 'var(--ok)' : d < 2 ? 'var(--warn)' : 'var(--danger)';
 
-  // Depth gauge
+  // Vertical gauge fill
   const pct = Math.min(100, (d / 3.5) * 100);
-  const gaugeColor = d < 1.2 ? 'var(--ok)' : d < 2 ? 'var(--warn)' : 'var(--danger)';
+  const gc = d < 1.2 ? 'var(--ok)' : d < 2 ? 'var(--warn)' : 'var(--danger)';
   const gauge = document.getElementById('a-gauge');
-  gauge.style.width = '0%';
-  setTimeout(() => { gauge.style.width = pct + '%'; gauge.style.background = gaugeColor; }, 50);
+  gauge.style.height = '0%';
+  setTimeout(() => { gauge.style.height = pct + '%'; gauge.style.background = gc; }, 50);
 
-  // Recommendation
   const prod = PRODUCTS[prodIdx];
   currentReco = prod;
   document.getElementById('reco-card').classList.add('show');
   document.getElementById('reco-badge').textContent = zone;
   document.getElementById('reco-name').textContent = prod.name;
-  document.getElementById('reco-desc').textContent =
-    `Basé sur la profondeur estimée de ${depth} m et les données hydrologiques du secteur, le système ${prod.name} est la solution recommandée pour votre site.`;
+  document.getElementById('reco-desc').textContent = `Profondeur estimée de ${depth} m — le système ${prod.name} est la solution recommandée pour votre site.`;
   document.getElementById('reco-price').innerHTML = `${prod.price.toLocaleString('fr-CA')} $ <small>/ module</small>`;
-
-  const specs = Object.entries(prod.specs);
-  document.getElementById('reco-specs').innerHTML = specs.map(([k,v]) =>
-    `<div class="rspec"><span class="rspec-label">${k}</span><span class="rspec-val">${v}</span></div>`
-  ).join('');
+  document.getElementById('reco-specs').innerHTML = Object.entries(prod.specs).map(([k,v]) =>
+    `<div class="rs"><span class="rs-l">${k}</span><span class="rs-v">${v}</span></div>`).join('');
 }
 
 function goToConfig() {
@@ -1212,21 +1112,89 @@ function goToConfig() {
     const idx = PRODUCTS.findIndex(p => p.name === currentReco.name);
     if (idx >= 0) {
       showPage('config');
-      document.querySelectorAll('.psel').forEach((el,i) => {
-        el.classList.toggle('on', i === idx);
-      });
+      document.querySelectorAll('.psel').forEach((el,i) => el.classList.toggle('on', i === idx));
       selectedProdIdx = idx;
-      calcPrice();
+      calcPrice(); drawCrossSection();
     }
   }
 }
 
-// ── CONFIGURATEUR ──────────────────────────────────────────────────────────
+// ── CONFIGURATEUR + SIGNATURE VISUALIZER ──────────────────────────────────
 function selectProd(idx, el) {
   selectedProdIdx = idx;
   document.querySelectorAll('.psel').forEach(e => e.classList.remove('on'));
   el.classList.add('on');
   calcPrice();
+  drawCrossSection();
+}
+
+// Heights per product in meters
+const PROD_HEIGHTS = [1.2, 2.0, 2.8, 3.5];
+const PANEL_HEIGHT_M = 0.3; // each panel = 30cm
+
+function drawCrossSection() {
+  const prod = PRODUCTS[selectedProdIdx];
+  const width = parseFloat(document.getElementById('cfg-width')?.value) || 3;
+  const prodH = PROD_HEIGHTS[selectedProdIdx];
+  const numPanels = Math.ceil(prodH / PANEL_HEIGHT_M);
+
+  // SVG viewport: x[50..270] = opening (220px wide = max 20m)
+  // y[20..180] = height (160px = 3.5m max scale)
+  const SVG_W = 220; // opening width in SVG units
+  const SVG_H = 160; // max height in SVG units
+  const x0 = 50, y0 = 180; // bottom left of opening
+  const pxPerM_W = Math.min(SVG_W / Math.max(width, 0.5), SVG_W);
+  const openingW = Math.min(width / 20 * SVG_W + 40, SVG_W); // scale width
+  const openingX = 50 + (SVG_W - openingW) / 2;
+  const pxPerM_H = SVG_H / 3.5;
+  const panelPxH = PANEL_HEIGHT_M * pxPerM_H;
+  const totalBarrierH = prodH * pxPerM_H;
+  const waterH = totalBarrierH * 1.08; // water slightly above barrier
+
+  // Water (left side)
+  const waterEl = document.getElementById('viz-water');
+  waterEl.innerHTML = `
+    <rect x="${openingX}" y="${y0 - waterH}" width="${openingW * 0.45}" height="${waterH}"
+      fill="url(#water-grad)" opacity="0.7"/>
+    <defs>
+      <linearGradient id="water-grad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#3B7EA1" stop-opacity="0.5"/>
+        <stop offset="100%" stop-color="#3B7EA1" stop-opacity="0.9"/>
+      </linearGradient>
+    </defs>
+    <text x="${openingX + openingW * 0.22}" y="${y0 - waterH - 4}" text-anchor="middle"
+      font-size="8" fill="#3B7EA1" font-family="DM Sans">eau</text>
+  `;
+
+  // Panels
+  let panelsHTML = '';
+  const px = openingX + openingW * 0.4;
+  const pw = openingW * 0.2;
+  for (let i = 0; i < numPanels; i++) {
+    const py = y0 - (i + 1) * panelPxH;
+    const shade = 180 - i * 4;
+    panelsHTML += `
+      <rect x="${px}" y="${py}" width="${pw}" height="${panelPxH - 1}"
+        fill="rgb(${shade},${shade-4},${shade-8})" stroke="#D4751A" stroke-width="0.5"/>
+    `;
+  }
+  // top cap
+  panelsHTML += `<rect x="${px - 2}" y="${y0 - totalBarrierH - 3}" width="${pw + 4}" height="4" fill="#D4751A"/>`;
+
+  document.getElementById('viz-panels').innerHTML = panelsHTML;
+
+  // Labels
+  document.getElementById('viz-labels').innerHTML = `
+    <text x="${px + pw / 2}" y="${y0 - totalBarrierH - 10}" text-anchor="middle"
+      font-size="9" fill="#1E1C18" font-family="Syne" font-weight="700">${prodH} m</text>
+    <line x1="${px + pw + 4}" y1="${y0}" x2="${px + pw + 4}" y2="${y0 - totalBarrierH}"
+      stroke="#8C8680" stroke-width="0.8" stroke-dasharray="2,2"/>
+    <text x="${px + pw + 8}" y="${y0 - totalBarrierH / 2}" font-size="8" fill="#8C8680"
+      font-family="DM Sans">${numPanels} pan.</text>
+  `;
+
+  // Width label
+  document.getElementById('viz-width-label').textContent = width.toFixed(1) + ' m';
 }
 
 function calcPrice() {
@@ -1235,7 +1203,6 @@ function calcPrice() {
   const qty = parseInt(document.getElementById('cfg-qty').value) || 1;
   const doInstall = document.getElementById('opt-install').checked;
   const doLiv = document.getElementById('opt-livraison').checked;
-
   const mods = Math.ceil(width / prod.modW) * qty;
   const base = mods * prod.price;
   const installCost = doInstall ? Math.round(base * 0.25) : 0;
@@ -1246,14 +1213,11 @@ function calcPrice() {
   document.getElementById('sum-mods').textContent = mods + ' module' + (mods > 1 ? 's' : '');
   document.getElementById('sum-qty').textContent = qty;
   document.getElementById('sum-base').textContent = fmt(base);
-
-  const installRow = document.getElementById('sum-install-row');
-  const livRow = document.getElementById('sum-liv-row');
-  installRow.style.display = doInstall ? '' : 'none';
+  document.getElementById('sum-install-row').style.display = doInstall ? '' : 'none';
   if (doInstall) document.getElementById('sum-install').textContent = '+' + fmt(installCost);
-  livRow.style.display = doLiv ? '' : 'none';
-
+  document.getElementById('sum-liv-row').style.display = doLiv ? '' : 'none';
   document.getElementById('sum-total').textContent = fmt(total);
+  drawCrossSection();
 }
 
 function fmt(n) { return n.toLocaleString('fr-CA') + ' $'; }
@@ -1271,32 +1235,22 @@ function openDevisModal() {
   const total = base + installCost + livCost;
 
   const rows = [
-    ['Système', prod.name],
-    ['Largeur ouverture', width + ' m'],
-    ['Nombre d\'ouvertures', qty],
-    ['Modules requis', mods],
-    ['Prix unitaire', fmt(prod.price)],
-    ['Sous-total modules', fmt(base)],
+    ['Système', prod.name],['Largeur ouverture', width + ' m'],['Ouvertures', qty],
+    ['Modules requis', mods],['Prix unitaire', fmt(prod.price)],['Sous-total modules', fmt(base)],
     doInstall ? ['Installation (+25%)', '+' + fmt(installCost)] : null,
     doLiv ? ['Livraison express', '+' + fmt(livCost)] : null,
   ].filter(Boolean);
 
   document.getElementById('modal-body').innerHTML = rows.map(([l,v]) =>
-    `<div class="modal-row"><span class="modal-row-label">${l}</span><span class="modal-row-val">${v}</span></div>`
-  ).join('');
+    `<div class="modal-row"><span class="modal-rl">${l}</span><span class="modal-rv">${v}</span></div>`).join('');
   document.getElementById('modal-total').textContent = fmt(total);
   document.getElementById('devis-modal').classList.add('open');
-  // Enregistrer en arrière-plan
-  fetch('/api/devis', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ produit: prod.name, largeur: width, quantite: qty, installation: doInstall, livraison: doLiv, total }),
-  }).catch(() => {});
+  fetch('/api/devis', {method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({produit:prod.name,largeur:width,quantite:qty,installation:doInstall,livraison:doLiv,total})
+  }).catch(()=>{});
 }
 
-function closeDevisModal() {
-  document.getElementById('devis-modal').classList.remove('open');
-}
+function closeDevisModal() { document.getElementById('devis-modal').classList.remove('open'); }
 
 // ── RÉSERVATION ────────────────────────────────────────────────────────────
 let currentStep = 1;
@@ -1305,18 +1259,13 @@ let calYear, calMonth, selectedDate = null;
 function nextStep(n) {
   document.getElementById('step-' + currentStep).classList.remove('on');
   document.getElementById('step-' + n).classList.add('on');
-
-  // Update progress
   for (let i = 1; i <= 3; i++) {
     const dot = document.getElementById('pd-' + i);
     const lbl = document.getElementById('pl-' + i);
     if (i < n) { dot.classList.add('done'); dot.classList.remove('active'); dot.innerHTML = '✓'; lbl.classList.remove('active'); }
     else if (i === n) { dot.classList.remove('done'); dot.classList.add('active'); dot.innerHTML = i; lbl.classList.add('active'); }
     else { dot.classList.remove('done','active'); dot.innerHTML = i; lbl.classList.remove('active'); }
-    if (i < 3) {
-      const line = document.getElementById('pline-' + i);
-      line.classList.toggle('done', i < n);
-    }
+    if (i < 3) document.getElementById('pline-' + i).classList.toggle('done', i < n);
   }
   currentStep = n;
   if (n === 3) renderCalendar();
@@ -1329,19 +1278,13 @@ async function submitResa() {
   try {
     const urgence = document.querySelector('input[name="urgence"]:checked')?.value || 'standard';
     const res = await fetch('/api/reservations', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        prenom: document.getElementById('r-prenom').value,
-        nom: document.getElementById('r-nom').value,
-        email: document.getElementById('r-email').value,
-        telephone: document.getElementById('r-tel').value,
-        adresse: document.getElementById('r-addr').value,
-        type: document.getElementById('r-type').value,
-        produit: document.getElementById('r-prod').value,
-        dimensions: document.getElementById('r-dims').value,
-        urgence,
-        date: selectedDate.toISOString().split('T')[0],
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        prenom:document.getElementById('r-prenom').value, nom:document.getElementById('r-nom').value,
+        email:document.getElementById('r-email').value, telephone:document.getElementById('r-tel').value,
+        adresse:document.getElementById('r-addr').value, type:document.getElementById('r-type').value,
+        produit:document.getElementById('r-prod').value, dimensions:document.getElementById('r-dims').value,
+        urgence, date:selectedDate.toISOString().split('T')[0],
       }),
     });
     const data = await res.json();
@@ -1351,14 +1294,11 @@ async function submitResa() {
     document.getElementById('step-confirm').classList.add('on');
     document.getElementById('progress-bar').style.display = 'none';
     showToast('Réservation confirmée — réf. #' + data.ref, 'success');
-  } catch(e) {
-    showToast('Erreur lors de la réservation — réessayez', '');
-  } finally {
-    btn.textContent = 'Confirmer la réservation ✓'; btn.disabled = false;
-  }
+  } catch(e) { showToast('Erreur lors de la réservation — réessayez', ''); }
+  finally { btn.textContent = 'Confirmer la réservation ✓'; btn.disabled = false; }
 }
 
-// ── CALENDAR ────────────────────────────────────────────────────────────────
+// ── CALENDAR ──────────────────────────────────────────────────────────────
 function initCalendar() {
   const now = new Date();
   calYear = now.getFullYear();
@@ -1366,76 +1306,49 @@ function initCalendar() {
 }
 
 function renderCalendar() {
-  const now = new Date();
-  now.setHours(0,0,0,0);
+  const now = new Date(); now.setHours(0,0,0,0);
   const months = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
   document.getElementById('cal-month-label').textContent = months[calMonth] + ' ' + calYear;
-
   const days = ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'];
   const firstDay = new Date(calYear, calMonth, 1).getDay();
   const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
-
+  const maxDate = new Date(now); maxDate.setDate(maxDate.getDate() + 42);
   let html = days.map(d => `<div class="cal-dow">${d}</div>`).join('');
   for (let i = 0; i < firstDay; i++) html += `<div class="cal-day empty"></div>`;
-
-  const maxDate = new Date(now);
-  maxDate.setDate(maxDate.getDate() + 42);
-
   for (let d = 1; d <= daysInMonth; d++) {
     const date = new Date(calYear, calMonth, d);
-    const isPast = date < now;
-    const isSun = date.getDay() === 0;
-    const isFuture = date > maxDate;
-    const isDisabled = isPast || isSun || isFuture;
+    const isDisabled = date < now || date.getDay() === 0 || date > maxDate;
     const isToday = date.getTime() === now.getTime();
     const isSelected = selectedDate && date.getTime() === selectedDate.getTime();
-    let cls = 'cal-day';
-    if (isDisabled) cls += ' disabled';
-    if (isToday) cls += ' today';
-    if (isSelected) cls += ' selected';
-    const onclick = isDisabled ? '' : `onclick="selectDate(${calYear},${calMonth},${d})"`;
-    html += `<div class="${cls}" ${onclick}>${d}</div>`;
+    let cls = 'cal-day' + (isDisabled?' disabled':'') + (isToday?' today':'') + (isSelected?' selected':'');
+    const oc = isDisabled ? '' : `onclick="selectDate(${calYear},${calMonth},${d})"`;
+    html += `<div class="${cls}" ${oc}>${d}</div>`;
   }
-
   document.getElementById('cal-grid').innerHTML = html;
 }
 
-function calPrev() {
-  calMonth--;
-  if (calMonth < 0) { calMonth = 11; calYear--; }
-  renderCalendar();
-}
-
-function calNext() {
-  calMonth++;
-  if (calMonth > 11) { calMonth = 0; calYear++; }
-  renderCalendar();
-}
-
+function calPrev() { calMonth--; if (calMonth < 0){calMonth=11;calYear--;} renderCalendar(); }
+function calNext() { calMonth++; if (calMonth > 11){calMonth=0;calYear++;} renderCalendar(); }
 function selectDate(y, m, d) {
   selectedDate = new Date(y, m, d);
   const days = ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
   const months = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
-  document.getElementById('cal-selected-label').textContent =
-    days[selectedDate.getDay()] + ' ' + d + ' ' + months[m] + ' ' + y;
+  document.getElementById('cal-selected-label').textContent = days[selectedDate.getDay()] + ' ' + d + ' ' + months[m] + ' ' + y;
   renderCalendar();
 }
 
-// ── TOAST ────────────────────────────────────────────────────────────────────
+// ── TOAST ──────────────────────────────────────────────────────────────────
 function showToast(msg, type) {
   const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.className = 'toast' + (type ? ' ' + type : '');
-  t.classList.add('show');
+  t.textContent = msg; t.className = 'toast' + (type?' '+type:''); t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 3000);
 }
 
-// ── INIT ────────────────────────────────────────────────────────────────────
+// ── INIT ──────────────────────────────────────────────────────────────────
 calcPrice();
+drawCrossSection();
 initCalendar();
-document.addEventListener('click', e => {
-  if (!e.target.closest('.search-wrap')) closeSugg();
-});
+document.addEventListener('click', e => { if (!e.target.closest('.swrap')) closeSugg(); });
 </script>
 </body>
 </html>
