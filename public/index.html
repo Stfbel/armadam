@@ -145,6 +145,12 @@ nav{position:sticky;top:0;z-index:1000;background:rgba(242,237,228,0.96);backdro
 .map-ph svg{width:40px;height:40px;opacity:.4;}
 .map-ph p{font-size:13px;}
 
+/* context toggle (résidentiel / construction) */
+.ctx-toggle{display:flex;align-items:center;gap:8px;margin-top:12px;flex-wrap:wrap;}
+.ctx-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--stone);}
+.ctab{padding:6px 14px;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--rule);border-radius:2px;background:transparent;color:var(--stone);cursor:pointer;transition:all .15s;}
+.ctab.on{background:var(--ink);color:var(--white);border-color:var(--ink);}
+.ctab:not(.on):hover{border-color:var(--stone);color:var(--ink);}
 /* search mode toggle */
 .mode-toggle{display:flex;gap:0;border:1px solid var(--rule);border-radius:2px;overflow:hidden;margin-bottom:12px;}
 .mtab{flex:1;padding:8px 10px;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border:none;background:var(--bg2);color:var(--stone);cursor:pointer;transition:background .15s,color .15s;}
@@ -631,8 +637,13 @@ select.fi{cursor:pointer;}
 ═══════════════════════════════════ -->
 <div class="pg" id="pg-terrain">
   <div class="terrain-hd">
-    <h1>Votre risque <em>en 30 secondes</em></h1>
-    <p>Entrez votre adresse. Notre système analyse la profondeur d'eau de votre secteur et vous dit exactement quelle protection vous devez avoir — avant que l'eau décide pour vous.</p>
+    <h1 id="terrain-title">Votre risque <em>en 30 secondes</em></h1>
+    <p id="terrain-subtitle">Entrez votre adresse. Notre système analyse la profondeur d'eau de votre secteur et vous dit exactement quelle protection vous devez avoir — avant que l'eau décide pour vous.</p>
+    <div class="ctx-toggle">
+      <span class="ctx-label">Contexte :</span>
+      <button class="ctab on" id="ctx-res" onclick="setContext('res')">Résidentiel — inondation</button>
+      <button class="ctab" id="ctx-con" onclick="setContext('con')">Construction — chantier</button>
+    </div>
   </div>
   <div class="terrain-layout">
     <div class="terrain-sb">
@@ -684,9 +695,9 @@ select.fi{cursor:pointer;}
         <div class="abox-t">Données du site</div>
         <div class="arow"><span class="ar-l">Localité</span><span class="ar-v" id="a-city">—</span></div>
         <div class="arow"><span class="ar-l">Coordonnées</span><span class="ar-v" id="a-coords">—</span></div>
-        <div class="arow"><span class="ar-l">Zone CEHQ</span><span class="ar-v" id="a-zone">—</span></div>
-        <div class="arow"><span class="ar-l">Profondeur estimée</span><span class="ar-v" id="a-depth">—</span></div>
-        <div class="arow"><span class="ar-l">Niveau de risque</span><span class="ar-v" id="a-risk">—</span></div>
+        <div class="arow"><span class="ar-l" id="lbl-zone">Zone CEHQ</span><span class="ar-v" id="a-zone">—</span></div>
+        <div class="arow"><span class="ar-l" id="lbl-depth">Profondeur estimée</span><span class="ar-v" id="a-depth">—</span></div>
+        <div class="arow"><span class="ar-l" id="lbl-risk">Niveau de risque</span><span class="ar-v" id="a-risk">—</span></div>
         <!-- Vertical depth gauge -->
         <div class="depth-gauge">
           <div class="dg-track"><div class="dg-fill" id="a-gauge" style="height:0%"></div></div>
@@ -1144,6 +1155,28 @@ function addToCart(name, price, btn) {
   showToast('✓ ' + name + ' ajouté au panier', 'success');
 }
 
+// ── TERRAIN CONTEXT ────────────────────────────────────────────────────────
+let terrainCtx = 'res'; // 'res' = résidentiel, 'con' = construction
+
+function setContext(ctx) {
+  terrainCtx = ctx;
+  document.getElementById('ctx-res').classList.toggle('on', ctx === 'res');
+  document.getElementById('ctx-con').classList.toggle('on', ctx === 'con');
+  if (ctx === 'res') {
+    document.getElementById('terrain-title').innerHTML = 'Votre risque <em>en 30 secondes</em>';
+    document.getElementById('terrain-subtitle').textContent = 'Entrez votre adresse. Notre système analyse la profondeur d\'eau de votre secteur et vous dit exactement quelle protection vous devez avoir — avant que l\'eau décide pour vous.';
+    document.getElementById('lbl-zone').textContent = 'Zone CEHQ';
+    document.getElementById('lbl-depth').textContent = 'Profondeur estimée';
+    document.getElementById('lbl-risk').textContent = 'Niveau de risque';
+  } else {
+    document.getElementById('terrain-title').innerHTML = 'Votre chantier, <em>le bon batardeau</em>';
+    document.getElementById('terrain-subtitle').textContent = 'Entrez l\'adresse ou les coordonnées GPS du chantier. Notre système détermine la hauteur d\'eau à contenir et vous recommande le batardeau adapté — route, pont, barrage ou infrastructure hydro.';
+    document.getElementById('lbl-zone').textContent = 'Type de milieu';
+    document.getElementById('lbl-depth').textContent = 'Eau à contenir';
+    document.getElementById('lbl-risk').textContent = 'Complexité chantier';
+  }
+}
+
 // ── GEOCODING ──────────────────────────────────────────────────────────────
 let searchTimeout;
 function onAddrInput() {
@@ -1246,15 +1279,24 @@ function analyzeLocation(lat, lon, name) {
   const depth = (seed * 3.2 + 0.3).toFixed(2);
   let prodIdx = 0, zone, risk, riskClass;
   const d = parseFloat(depth);
-  if (d < 1.2) { prodIdx=0; zone='Zone C — Faible risque'; risk='Faible'; riskClass='ok'; }
-  else if (d < 2) { prodIdx=1; zone='Zone B — Risque modéré'; risk='Modéré'; riskClass='warn'; }
-  else if (d < 2.8) { prodIdx=2; zone='Zone A — Risque élevé'; risk='Élevé'; riskClass='danger'; }
-  else { prodIdx=3; zone='Zone 0 — Risque extrême'; risk='Extrême'; riskClass='danger'; }
+  if (terrainCtx === 'res') {
+    if (d < 1.2) { prodIdx=0; zone='Zone C — Faible risque'; risk='Faible'; riskClass='ok'; }
+    else if (d < 2) { prodIdx=1; zone='Zone B — Risque modéré'; risk='Modéré'; riskClass='warn'; }
+    else if (d < 2.8) { prodIdx=2; zone='Zone A — Risque élevé'; risk='Élevé'; riskClass='danger'; }
+    else { prodIdx=3; zone='Zone 0 — Risque extrême'; risk='Extrême'; riskClass='danger'; }
+  } else {
+    // Construction: water = worksite water to contain, not a flood risk
+    if (d < 1.2) { prodIdx=0; zone='Milieu aquatique faible'; risk='Standard'; riskClass='ok'; }
+    else if (d < 2) { prodIdx=1; zone='Chantier riverain'; risk='Intermédiaire'; riskClass='warn'; }
+    else if (d < 2.8) { prodIdx=2; zone='Travaux en eau profonde'; risk='Exigeant'; riskClass='danger'; }
+    else { prodIdx=3; zone='Conditions extrêmes'; risk='Infrastructure majeure'; riskClass='danger'; }
+  }
 
+  const popupLabel = terrainCtx === 'res' ? 'Profondeur d\'inondation' : 'Eau à contenir';
   leafletMarker.bindPopup(`
     <div style="font-family:'DM Sans',sans-serif;min-width:160px;">
       <div style="font-weight:700;margin-bottom:4px;">${name}</div>
-      <div style="font-size:12px;color:#8C8680;">Profondeur : <strong style="color:#D4751A;">${depth} m</strong></div>
+      <div style="font-size:12px;color:#8C8680;">${popupLabel} : <strong style="color:#D4751A;">${depth} m</strong></div>
       <div style="font-size:12px;color:#8C8680;">${zone}</div>
     </div>
   `).openPopup();
@@ -1281,7 +1323,10 @@ function analyzeLocation(lat, lon, name) {
   document.getElementById('reco-card').classList.add('show');
   document.getElementById('reco-badge').textContent = zone;
   document.getElementById('reco-name').textContent = prod.name;
-  document.getElementById('reco-desc').textContent = `Profondeur estimée de ${depth} m — le système ${prod.name} est la solution recommandée pour votre site.`;
+  const recoDesc = terrainCtx === 'res'
+    ? `Profondeur d'inondation estimée à ${depth} m — le système ${prod.name} est la protection recommandée pour votre propriété.`
+    : `Hauteur d'eau à contenir : ${depth} m — le batardeau ${prod.name} est adapté pour l'assèchement de votre zone de travail.`;
+  document.getElementById('reco-desc').textContent = recoDesc;
   document.getElementById('reco-price').innerHTML = `${prod.price.toLocaleString('fr-CA')} $ <small>/ module</small>`;
   document.getElementById('reco-specs').innerHTML = Object.entries(prod.specs).map(([k,v]) =>
     `<div class="rs"><span class="rs-l">${k}</span><span class="rs-v">${v}</span></div>`).join('');
