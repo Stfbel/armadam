@@ -145,6 +145,23 @@ nav{position:sticky;top:0;z-index:1000;background:rgba(242,237,228,0.96);backdro
 .map-ph svg{width:40px;height:40px;opacity:.4;}
 .map-ph p{font-size:13px;}
 
+/* search mode toggle */
+.mode-toggle{display:flex;gap:0;border:1px solid var(--rule);border-radius:2px;overflow:hidden;margin-bottom:12px;}
+.mtab{flex:1;padding:8px 10px;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border:none;background:var(--bg2);color:var(--stone);cursor:pointer;transition:background .15s,color .15s;}
+.mtab.on{background:var(--ink);color:var(--white);}
+.mtab:first-child{border-right:1px solid var(--rule);}
+.search-mode{display:none;}
+.search-mode.on{display:block;}
+.gps-wrap{display:flex;flex-direction:column;gap:8px;}
+.gps-row{display:flex;gap:8px;}
+.gps-field{flex:1;}
+.gps-field label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--stone);margin-bottom:4px;display:block;}
+.gps-inp{width:100%;padding:9px 10px;background:var(--white);border:1px solid var(--rule);border-radius:2px;font-size:13px;font-family:'DM Sans',sans-serif;color:var(--ink);outline:none;transition:border-color .15s;}
+.gps-inp:focus{border-color:var(--ink);}
+.gps-inp::placeholder{color:var(--stone-light);}
+.gps-hint{font-size:10px;color:var(--stone);line-height:1.5;}
+.gps-btn{width:100%;padding:10px;background:var(--amber);color:var(--white);font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:.08em;border:none;border-radius:2px;cursor:pointer;transition:background .15s;}
+.gps-btn:hover{background:var(--amber2);}
 /* search */
 .flabel{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--stone);margin-bottom:6px;display:block;}
 .swrap{position:relative;}
@@ -396,12 +413,27 @@ select.fi{cursor:pointer;}
   .hero-right{display:none;}
   .prod-grid,.stats{grid-template-columns:1fr 1fr;}
   .terrain-layout,.config-layout{grid-template-columns:1fr;}
-  .terrain-sb{border-right:none;border-bottom:1px solid var(--rule);}
+  .terrain-sb{border-right:none;border-bottom:1px solid var(--rule);max-height:none;}
+  .terrain-map-wrap{min-height:300px;}
   .cat-grid{grid-template-columns:1fr;}
   .trust-grid,.form-row,.fgrid{grid-template-columns:1fr;}
   .section,.trust,.cat-hd,.cat-grid,.cta-strip{padding-left:1.5rem;padding-right:1.5rem;}
   .cta-strip{flex-direction:column;align-items:flex-start;}
-  #map{min-height:350px;}
+  #map{min-height:300px;}
+  .gps-row{flex-direction:column;}
+  .mode-toggle{font-size:9px;}
+}
+@media(max-width:480px){
+  nav{padding:0 1rem;}
+  .ntabs{gap:0;}
+  .ntab{padding:0 10px;font-size:11px;}
+  .terrain-hd{padding:1.5rem 1rem 1rem;}
+  .terrain-sb{padding:1rem;}
+  .cat-hd{padding:1.5rem 1rem 0;}
+  .cat-grid{margin:1.5rem 1rem 2rem;}
+  .section,.trust,.cta-strip{padding-left:1rem;padding-right:1rem;}
+  .stats{grid-template-columns:1fr 1fr;gap:1px;}
+  .prod-grid{grid-template-columns:1fr;}
 }
 </style>
 </head>
@@ -605,12 +637,46 @@ select.fi{cursor:pointer;}
   <div class="terrain-layout">
     <div class="terrain-sb">
       <div>
-        <label class="flabel">Adresse ou localité</label>
-        <div class="swrap">
-          <svg class="sico" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          <input class="sinp" id="addr-inp" type="text" placeholder="Ex: Saint-Sauveur, QC…" autocomplete="off" oninput="onAddrInput()" onkeydown="if(event.key==='Enter')doSearch()"/>
-          <button class="sbtn" onclick="doSearch()">Analyser</button>
-          <div class="suggs" id="suggestions"></div>
+        <!-- Mode toggle: Adresse vs GPS -->
+        <div class="mode-toggle">
+          <button class="mtab on" id="mtab-addr" onclick="setSearchMode('addr')">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" style="width:11px;height:11px;vertical-align:-1px;margin-right:4px;"><circle cx="7" cy="7" r="5"/><line x1="13" y1="13" x2="10.5" y2="10.5"/></svg>
+            Adresse
+          </button>
+          <button class="mtab" id="mtab-gps" onclick="setSearchMode('gps')">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" style="width:11px;height:11px;vertical-align:-1px;margin-right:4px;"><circle cx="8" cy="8" r="3"/><line x1="8" y1="1" x2="8" y2="4"/><line x1="8" y1="12" x2="8" y2="15"/><line x1="1" y1="8" x2="4" y2="8"/><line x1="12" y1="8" x2="15" y2="8"/></svg>
+            Coordonnées GPS
+          </button>
+        </div>
+
+        <!-- Mode Adresse -->
+        <div class="search-mode on" id="mode-addr">
+          <label class="flabel">Adresse ou localité</label>
+          <div class="swrap">
+            <svg class="sico" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input class="sinp" id="addr-inp" type="text" placeholder="Ex: Saint-Sauveur, QC…" autocomplete="off" oninput="onAddrInput()" onkeydown="if(event.key==='Enter')doSearch()"/>
+            <button class="sbtn" onclick="doSearch()">Analyser</button>
+            <div class="suggs" id="suggestions"></div>
+          </div>
+        </div>
+
+        <!-- Mode GPS -->
+        <div class="search-mode" id="mode-gps">
+          <label class="flabel">Coordonnées GPS</label>
+          <div class="gps-wrap">
+            <div class="gps-row">
+              <div class="gps-field">
+                <label>Latitude</label>
+                <input class="gps-inp" id="gps-lat" type="number" step="0.000001" min="44" max="63" placeholder="Ex: 46.8123"/>
+              </div>
+              <div class="gps-field">
+                <label>Longitude</label>
+                <input class="gps-inp" id="gps-lon" type="number" step="0.000001" min="-80" max="-57" placeholder="Ex: -71.2456"/>
+              </div>
+            </div>
+            <p class="gps-hint">Pour un chantier sans adresse: routes, ponts, barrages, sites en construction.</p>
+            <button class="gps-btn" onclick="doGpsSearch()">Analyser ces coordonnées</button>
+          </div>
         </div>
       </div>
 
@@ -1120,6 +1186,22 @@ function renderSuggestions(items) {
 }
 
 function closeSugg() { document.getElementById('suggestions').classList.remove('open'); }
+
+function setSearchMode(mode) {
+  document.getElementById('mtab-addr').classList.toggle('on', mode === 'addr');
+  document.getElementById('mtab-gps').classList.toggle('on', mode === 'gps');
+  document.getElementById('mode-addr').classList.toggle('on', mode === 'addr');
+  document.getElementById('mode-gps').classList.toggle('on', mode === 'gps');
+  if (mode === 'addr') closeSugg();
+}
+
+function doGpsSearch() {
+  const lat = parseFloat(document.getElementById('gps-lat').value);
+  const lon = parseFloat(document.getElementById('gps-lon').value);
+  if (isNaN(lat) || isNaN(lon)) { showToast('Entrez des coordonnées valides (ex: 46.8123, -71.2456)', ''); return; }
+  if (lat < 44 || lat > 63 || lon < -80 || lon > -57) { showToast('Coordonnées hors du Québec — vérifiez les valeurs', ''); return; }
+  analyzeLocation(lat, lon, `GPS ${lat.toFixed(5)}, ${lon.toFixed(5)}`);
+}
 
 async function doSearch() {
   const q = document.getElementById('addr-inp').value;
