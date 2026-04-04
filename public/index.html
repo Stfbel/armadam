@@ -449,6 +449,49 @@ select.fi{cursor:pointer;}
 .leaflet-popup-content-wrapper{background:var(--white);border:1px solid var(--rule);color:var(--ink);font-family:'DM Sans',sans-serif;border-radius:2px;box-shadow:0 8px 24px rgba(0,0,0,.15);}
 .leaflet-popup-tip{background:var(--white);}
 
+/* Hamburger */
+.nhamburger{display:none;flex-direction:column;justify-content:space-between;width:34px;height:34px;padding:8px;background:transparent;border:1px solid var(--rule);border-radius:2px;cursor:pointer;gap:4px;}
+.nhamburger span{display:block;height:2px;background:var(--ink);border-radius:1px;transition:all .2s;}
+
+/* Mobile menu overlay */
+.mobile-menu{position:fixed;inset:0;z-index:9990;background:var(--bg);transform:translateX(100%);transition:transform .3s cubic-bezier(.4,0,.2,1);}
+.mobile-menu.open{transform:translateX(0);}
+.mobile-menu-inner{display:flex;flex-direction:column;height:100%;padding:0;}
+.mm-head{display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem;height:60px;border-bottom:1px solid var(--rule);}
+.mm-head .nwordmark{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;letter-spacing:.05em;color:var(--ink);}
+.mm-head .nwordmark em{font-style:normal;color:var(--amber);}
+.mm-close{background:transparent;border:1px solid var(--rule);border-radius:2px;width:34px;height:34px;font-size:16px;cursor:pointer;color:var(--ink);}
+.mm-links{flex:1;padding:1rem 0;overflow-y:auto;}
+.mm-link{padding:1rem 1.5rem;font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:var(--ink);cursor:pointer;border-bottom:1px solid var(--rule);transition:background .1s;}
+.mm-link:hover{background:var(--bg2);}
+.mm-cta{margin:1.5rem;padding:16px;background:var(--amber);color:var(--white);font-family:'Syne',sans-serif;font-size:14px;font-weight:700;letter-spacing:.04em;border:none;border-radius:2px;cursor:pointer;}
+
+/* ── À PROPOS ── */
+.ap-wrap{max-width:860px;margin:0 auto;padding:3rem 2.5rem;}
+.ap-header{border-bottom:1px solid var(--rule);padding-bottom:2rem;margin-bottom:3rem;}
+.ap-kicker{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--amber);margin-bottom:12px;}
+.ap-h1{font-family:'Syne',sans-serif;font-size:clamp(36px,5vw,56px);font-weight:800;line-height:.95;letter-spacing:-.01em;margin-bottom:1.2rem;}
+.ap-lead{font-size:17px;font-weight:300;color:var(--stone);line-height:1.75;max-width:580px;}
+.ap-story{display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-bottom:3rem;}
+.ap-section-label{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--stone);margin-bottom:1rem;}
+.ap-p{font-size:14px;color:var(--ink2);line-height:1.8;margin-bottom:1rem;}
+.ap-p:last-child{margin-bottom:0;}
+.ap-quote{background:var(--ink);padding:2.5rem 3rem;margin-bottom:3rem;}
+.ap-quote-text{font-family:'Syne',sans-serif;font-size:20px;font-weight:600;color:var(--white);line-height:1.5;margin-bottom:1.2rem;}
+.ap-quote-attr{font-size:12px;font-weight:500;color:var(--amber);letter-spacing:.08em;}
+.ap-markets{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--rule);border:1px solid var(--rule);margin-bottom:3rem;}
+.ap-market{background:var(--white);padding:2rem;}
+.ap-market-tag{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;margin-bottom:12px;}
+.ap-market-tag.amber{color:var(--amber);}
+.ap-market-tag.stone{color:var(--stone);}
+.ap-market-t{font-family:'Syne',sans-serif;font-size:17px;font-weight:700;margin-bottom:10px;}
+.ap-market-d{font-size:13px;color:var(--stone);line-height:1.7;}
+.ap-creds{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);}
+.ap-cred{background:var(--bg2);padding:1.5rem;text-align:center;}
+.ap-cred-n{font-family:'Syne',sans-serif;font-size:36px;font-weight:800;color:var(--amber);line-height:1;}
+.ap-cred-l{font-size:11px;color:var(--stone);margin-top:5px;}
+.ap-actions{margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--rule);display:flex;gap:12px;flex-wrap:wrap;}
+
 @media(max-width:900px){
   .hero{grid-template-columns:1fr;}
   .hero-right{display:none;}
@@ -462,15 +505,20 @@ select.fi{cursor:pointer;}
   .cta-strip{flex-direction:column;align-items:flex-start;}
   #map{min-height:300px;}
   .gps-row{flex-direction:column;}
-  .mode-toggle{font-size:9px;}
   .part-paths{grid-template-columns:1fr;margin:2rem 1.5rem 0;}
   .part-form-wrap{padding:2rem 1.5rem 3rem;}
   .part-type-sel{grid-template-columns:1fr;}
+  .ap-story,.ap-markets{grid-template-columns:1fr;}
+  .ap-creds{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:768px){
+  .ntabs{display:none;}
+  .ndevis{display:none;}
+  .nhamburger{display:flex;}
+  nav{padding:0 1.2rem;}
 }
 @media(max-width:480px){
   nav{padding:0 1rem;}
-  .ntabs{gap:0;}
-  .ntab{padding:0 10px;font-size:11px;}
   .terrain-hd{padding:1.5rem 1rem 1rem;}
   .terrain-sb{padding:1rem;}
   .cat-hd{padding:1.5rem 1rem 0;}
@@ -481,6 +529,24 @@ select.fi{cursor:pointer;}
   .part-form-wrap{padding:1.5rem 1rem 2.5rem;}
   .stats{grid-template-columns:1fr 1fr;gap:1px;}
   .prod-grid{grid-template-columns:1fr;}
+  .hero-left{padding:2.5rem 1.5rem 2rem;}
+  .hero-h1{font-size:clamp(48px,12vw,84px);}
+  .hero-sub{font-size:14px;}
+  .hero-actions{flex-direction:column;}
+  .hero-actions .btn-primary,.hero-actions .btn-ghost{width:100%;text-align:center;}
+  .btn-primary,.btn-ghost,.btn-amber{padding:13px 24px;}
+  .config-main{padding:1.5rem 1rem;}
+  .resa-wrap{padding:2rem 1rem;}
+  .ap-wrap{padding:2rem 1rem;}
+  .ap-quote{padding:1.5rem 1.5rem;}
+  .ap-creds{grid-template-columns:repeat(3,1fr);}
+  .ap-cred-n{font-size:24px;}
+  .mode-toggle{font-size:9px;}
+  .sum-tv{font-size:22px;}
+  .cat-card-body,.cat-card-head{padding:1.5rem 1.2rem;}
+  .cat-foot{padding:1.2rem;}
+  .part-hd h1{font-size:clamp(28px,8vw,52px);}
+  .radio-g{grid-template-columns:1fr;}
 }
 </style>
 </head>
@@ -516,9 +582,31 @@ select.fi{cursor:pointer;}
       <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
       <div class="ncart-badge" id="cart-badge">0</div>
     </div>
+    <button class="nhamburger" id="nhamburger" onclick="toggleMobileMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
     <button class="ndevis" onclick="showPage('resa')">Me protéger</button>
   </div>
 </nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <div class="mobile-menu-inner">
+    <div class="mm-head">
+      <div class="nwordmark">ARMA<em>DAM</em></div>
+      <button class="mm-close" onclick="toggleMobileMenu()">✕</button>
+    </div>
+    <nav class="mm-links">
+      <div class="mm-link" onclick="showPage('home');toggleMobileMenu()">Accueil</div>
+      <div class="mm-link" onclick="showPage('terrain');toggleMobileMenu()">Analyse Terrain</div>
+      <div class="mm-link" onclick="showPage('catalogue');toggleMobileMenu()">Catalogue</div>
+      <div class="mm-link" onclick="showPage('config');toggleMobileMenu()">Configurateur</div>
+      <div class="mm-link" onclick="showPage('resa');toggleMobileMenu()">Réservation</div>
+      <div class="mm-link" onclick="showPage('apropos');toggleMobileMenu()">À propos</div>
+      <div class="mm-link" onclick="showPage('partenaires');toggleMobileMenu()">Partenaires</div>
+    </nav>
+    <button class="mm-cta" onclick="showPage('resa');toggleMobileMenu()">Me protéger →</button>
+  </div>
+</div>
 
 <!-- ═══════════════════════════════════
      PAGE 1 — ACCUEIL
@@ -1101,66 +1189,61 @@ select.fi{cursor:pointer;}
      PAGE 6 — À PROPOS
 ═══════════════════════════════════ -->
 <div class="pg" id="pg-apropos">
-  <div style="max-width:860px;margin:0 auto;padding:3rem 2.5rem;">
+  <div class="ap-wrap">
 
-    <!-- Header -->
-    <div style="border-bottom:1px solid var(--rule);padding-bottom:2rem;margin-bottom:3rem;">
-      <div style="font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--amber);margin-bottom:12px;">Fondateur &amp; Pionnier</div>
-      <h1 style="font-family:'Syne',sans-serif;font-size:clamp(36px,5vw,56px);font-weight:800;line-height:.95;letter-spacing:-.01em;margin-bottom:1.2rem;">Nicolas<br>Rivet Auger</h1>
-      <p style="font-size:17px;font-weight:300;color:var(--stone);line-height:1.75;max-width:580px;">25 ans à protéger ce que les gens ont mis une vie à bâtir — et à permettre à des projets de construction de voir le jour dans des conditions impossibles.</p>
+    <div class="ap-header">
+      <div class="ap-kicker">Fondateur &amp; Pionnier</div>
+      <h1 class="ap-h1">Nicolas<br>Rivet Auger</h1>
+      <p class="ap-lead">25 ans à protéger ce que les gens ont mis une vie à bâtir — et à permettre à des projets de construction de voir le jour dans des conditions impossibles.</p>
     </div>
 
-    <!-- Story -->
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-bottom:3rem;">
+    <div class="ap-story">
       <div>
-        <div style="font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--stone);margin-bottom:1rem;">L'origine</div>
-        <p style="font-size:14px;color:var(--ink2);line-height:1.8;margin-bottom:1rem;">Nicolas Rivet Auger entre dans l'industrie au début des années 2000, au moment où le Québec commence à prendre conscience de la vulnérabilité de ses infrastructures riveraines face aux crues printanières.</p>
-        <p style="font-size:14px;color:var(--ink2);line-height:1.8;">Témoin direct de sinistres évitables, il comprend rapidement qu'il manque au marché québécois une solution locale, fiable et adaptée au terrain — ni les importations américaines ni les solutions improvisées ne répondent à la réalité des rivières, des sols et des hivers d'ici.</p>
+        <div class="ap-section-label">L'origine</div>
+        <p class="ap-p">Nicolas Rivet Auger entre dans l'industrie au début des années 2000, au moment où le Québec commence à prendre conscience de la vulnérabilité de ses infrastructures riveraines face aux crues printanières.</p>
+        <p class="ap-p">Témoin direct de sinistres évitables, il comprend rapidement qu'il manque au marché québécois une solution locale, fiable et adaptée au terrain — ni les importations américaines ni les solutions improvisées ne répondent à la réalité des rivières, des sols et des hivers d'ici.</p>
       </div>
       <div>
-        <div style="font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--stone);margin-bottom:1rem;">Le terrain</div>
-        <p style="font-size:14px;color:var(--ink2);line-height:1.8;margin-bottom:1rem;">En 25 ans, Nicolas a travaillé sur des centaines de projets : crues printanières en Outaouais, débordements urbains à Laval, chantiers de ponts en Abitibi, infrastructures hydro-électriques en Côte-Nord.</p>
-        <p style="font-size:14px;color:var(--ink2);line-height:1.8;">Il a vu ce qui fonctionne — et ce qui cède sous pression. Chaque produit Armadam est le résultat direct de cette expérience accumulée sur le terrain, dans des conditions réelles.</p>
+        <div class="ap-section-label">Le terrain</div>
+        <p class="ap-p">En 25 ans, Nicolas a travaillé sur des centaines de projets : crues printanières en Outaouais, débordements urbains à Laval, chantiers de ponts en Abitibi, infrastructures hydro-électriques en Côte-Nord.</p>
+        <p class="ap-p">Il a vu ce qui fonctionne — et ce qui cède sous pression. Chaque produit Armadam est le résultat direct de cette expérience accumulée sur le terrain, dans des conditions réelles.</p>
       </div>
     </div>
 
-    <!-- Quote -->
-    <div style="background:var(--ink);padding:2.5rem 3rem;margin-bottom:3rem;">
-      <p style="font-family:'Syne',sans-serif;font-size:20px;font-weight:600;color:var(--white);line-height:1.5;margin-bottom:1.2rem;">"Un batardeau, c'est pas une option. C'est la différence entre recommencer à zéro ou ne pas avoir à le faire."</p>
-      <div style="font-size:12px;font-weight:500;color:var(--amber);letter-spacing:.08em;">— Nicolas Rivet Auger, fondateur d'Armadam</div>
+    <div class="ap-quote">
+      <p class="ap-quote-text">"Un batardeau, c'est pas une option. C'est la différence entre recommencer à zéro ou ne pas avoir à le faire."</p>
+      <div class="ap-quote-attr">— Nicolas Rivet Auger, fondateur d'Armadam</div>
     </div>
 
-    <!-- Two markets -->
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--rule);border:1px solid var(--rule);margin-bottom:3rem;">
-      <div style="background:var(--white);padding:2rem;">
-        <div style="font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--amber);margin-bottom:12px;">Résidentiel</div>
-        <div style="font-family:'Syne',sans-serif;font-size:17px;font-weight:700;margin-bottom:10px;">Protéger les familles québécoises</div>
-        <p style="font-size:13px;color:var(--stone);line-height:1.7;">Nicolas a vu trop de familles perdre leur sous-sol, leurs souvenirs, leurs économies lors d'une crue. Armadam existe pour que ça n'arrive plus — avec des systèmes accessibles, rapides à installer, et conçus pour le climat québécois.</p>
+    <div class="ap-markets">
+      <div class="ap-market">
+        <div class="ap-market-tag amber">Résidentiel</div>
+        <div class="ap-market-t">Protéger les familles québécoises</div>
+        <p class="ap-market-d">Nicolas a vu trop de familles perdre leur sous-sol, leurs souvenirs, leurs économies lors d'une crue. Armadam existe pour que ça n'arrive plus — avec des systèmes accessibles, rapides à installer, et conçus pour le climat québécois.</p>
       </div>
-      <div style="background:var(--white);padding:2rem;">
-        <div style="font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--stone);margin-bottom:12px;">Construction</div>
-        <div style="font-family:'Syne',sans-serif;font-size:17px;font-weight:700;margin-bottom:10px;">Permettre les projets impossibles</div>
-        <p style="font-size:13px;color:var(--stone);line-height:1.7;">Routes, ponts, barrages, infrastructures hydro-électriques — Armadam fournit les batardeaux qui permettent d'assécher une zone de travail en milieu aquatique. Quand le génie civil a besoin de travailler à sec, on est là.</p>
-      </div>
-    </div>
-
-    <!-- Credentials -->
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);">
-      <div style="background:var(--bg2);padding:1.5rem;text-align:center;">
-        <div style="font-family:'Syne',sans-serif;font-size:36px;font-weight:800;color:var(--amber);line-height:1;">25+</div>
-        <div style="font-size:11px;color:var(--stone);margin-top:5px;">Années d'expérience terrain</div>
-      </div>
-      <div style="background:var(--bg2);padding:1.5rem;text-align:center;border-left:1px solid var(--rule);border-right:1px solid var(--rule);">
-        <div style="font-family:'Syne',sans-serif;font-size:36px;font-weight:800;color:var(--amber);line-height:1;">1 200+</div>
-        <div style="font-size:11px;color:var(--stone);margin-top:5px;">Projets résidentiels et de chantier</div>
-      </div>
-      <div style="background:var(--bg2);padding:1.5rem;text-align:center;">
-        <div style="font-family:'Syne',sans-serif;font-size:36px;font-weight:800;color:var(--amber);line-height:1;">RBQ</div>
-        <div style="font-size:11px;color:var(--stone);margin-top:5px;">Entrepreneur licencié — Québec</div>
+      <div class="ap-market">
+        <div class="ap-market-tag stone">Construction</div>
+        <div class="ap-market-t">Permettre les projets impossibles</div>
+        <p class="ap-market-d">Routes, ponts, barrages, infrastructures hydro-électriques — Armadam fournit les batardeaux qui permettent d'assécher une zone de travail en milieu aquatique. Quand le génie civil a besoin de travailler à sec, on est là.</p>
       </div>
     </div>
 
-    <div style="margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--rule);display:flex;gap:12px;">
+    <div class="ap-creds">
+      <div class="ap-cred">
+        <div class="ap-cred-n">25+</div>
+        <div class="ap-cred-l">Années d'expérience terrain</div>
+      </div>
+      <div class="ap-cred">
+        <div class="ap-cred-n">1 200+</div>
+        <div class="ap-cred-l">Projets résidentiels et de chantier</div>
+      </div>
+      <div class="ap-cred">
+        <div class="ap-cred-n">RBQ</div>
+        <div class="ap-cred-l">Entrepreneur licencié — Québec</div>
+      </div>
+    </div>
+
+    <div class="ap-actions">
       <button class="btn-primary" onclick="showPage('terrain')">Évaluer mon risque</button>
       <button class="btn-ghost" onclick="showPage('resa')">Parler à l'équipe</button>
     </div>
@@ -1314,11 +1397,14 @@ function showPage(id) {
   const tab = document.getElementById('tab-' + id);
   if (tab) tab.classList.add('on');
   window.scrollTo({top:0,behavior:'smooth'});
+  document.getElementById('mobile-menu').classList.remove('open');
   if (id === 'terrain') initMap();
   if (id === 'config') { calcPrice(); drawCrossSection(); }
   if (id === 'resa') initCalendar();
-  if (id === 'apropos') {} // static page
-  if (id === 'partenaires') {} // static page
+}
+
+function toggleMobileMenu() {
+  document.getElementById('mobile-menu').classList.toggle('open');
 }
 
 // ── CART ──────────────────────────────────────────────────────────────────
