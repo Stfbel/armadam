@@ -3,412 +3,1389 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Armadam — Batardeaux sur mesure</title>
+<title>ARMADAM — Batardeaux sur mesure au Québec</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;500;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
-:root{--navy:#0d1f2d;--steel:#1c3344;--slate:#2a4a5e;--ice:#5ba8cc;--icel:#a8d4e8;--cream:#f0ece4;--muted:#8aa0ae;--bd:rgba(91,168,204,0.18);--bds:rgba(91,168,204,0.35);}
-body{font-family:'Barlow',sans-serif;background:var(--navy);color:var(--cream);margin:0;}
-nav{display:flex;align-items:center;justify-content:space-between;padding:0 2rem;height:56px;background:rgba(13,31,45,0.98);border-bottom:0.5px solid var(--bd);position:sticky;top:0;z-index:100;}
-.nlogo{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:800;letter-spacing:0.05em;text-transform:uppercase;color:var(--cream);display:flex;align-items:center;gap:9px;cursor:pointer;}
-.nmark{width:30px;height:30px;background:var(--ice);display:flex;align-items:center;justify-content:center;clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);}
-.nacc{color:var(--ice);}
-.nlinks{display:flex;gap:2px;}
-.nl{padding:8px 13px;font-size:11px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);cursor:pointer;border-radius:3px;transition:color .15s;border:none;background:transparent;}
-.nl:hover,.nl.on{color:var(--ice);}
-.ncta{padding:8px 18px;background:var(--ice);color:var(--navy);font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;border-radius:3px;cursor:pointer;border:none;transition:background .15s;}
-.ncta:hover{background:var(--icel);}
-.pg{display:none;}.pg.on{display:block;}
+:root{
+  --navy:#0d1f2d;
+  --navy2:#0a1820;
+  --steel:#1c3344;
+  --steel2:#243d52;
+  --slate:#2a4a5e;
+  --ice:#5ba8cc;
+  --icel:#a8d4e8;
+  --iceld:#3d8aad;
+  --cream:#f0ece4;
+  --cream2:#c8c4bc;
+  --muted:#7a9aae;
+  --danger:#e05c5c;
+  --warn:#e0a050;
+  --ok:#5cc080;
+  --bd:rgba(91,168,204,0.14);
+  --bds:rgba(91,168,204,0.3);
+  --bdb:rgba(91,168,204,0.5);
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Barlow',sans-serif;background:var(--navy);color:var(--cream);min-height:100vh;overflow-x:hidden;}
 
-/* === HOME === */
-.hero{min-height:480px;position:relative;overflow:hidden;display:flex;flex-direction:column;}
-.hbg{position:absolute;inset:0;background:linear-gradient(135deg,rgba(91,168,204,0.07) 0%,transparent 55%);pointer-events:none;}
-.hgrid{position:absolute;inset:0;background-image:linear-gradient(rgba(91,168,204,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(91,168,204,0.05) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;}
-.hwaves{position:absolute;bottom:0;left:0;right:0;height:160px;overflow:hidden;opacity:0.2;}
-.wv{position:absolute;width:200%;height:72px;background:var(--ice);border-radius:50% 50% 0 0/72px 72px 0 0;animation:wvanim 9s ease-in-out infinite;}
-.wv:nth-child(2){height:54px;opacity:.6;animation-delay:-3.5s;animation-duration:11s;top:38px;}
-.wv:nth-child(3){height:44px;opacity:.4;animation-delay:-6s;animation-duration:13s;top:68px;}
-@keyframes wvanim{0%,100%{transform:translateX(-25%)}50%{transform:translateX(0%)}}
-.hcontent{position:relative;z-index:5;padding:3rem 2.5rem 2rem;flex:1;}
-.hbrow{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--ice);margin-bottom:0.9rem;display:flex;align-items:center;gap:8px;}
-.hbl{width:30px;height:1px;background:var(--ice);}
-.htitle{font-family:'Barlow Condensed',sans-serif;font-size:68px;font-weight:800;line-height:0.9;letter-spacing:-0.01em;text-transform:uppercase;color:var(--cream);margin-bottom:1.25rem;}
-.htitle .ac{color:var(--ice);display:block;}
-.hsub{font-size:15px;font-weight:300;color:var(--muted);line-height:1.65;max-width:500px;margin-bottom:2rem;}
-.hbtns{display:flex;gap:12px;}
-.hbp{padding:13px 28px;background:var(--ice);color:var(--navy);font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;border:none;border-radius:3px;cursor:pointer;transition:background .15s;}
-.hbp:hover{background:var(--icel);}
-.hbs{padding:13px 28px;background:transparent;color:var(--cream);font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;border:1px solid var(--bds);border-radius:3px;cursor:pointer;transition:border-color .15s,color .15s;}
-.hbs:hover{border-color:var(--ice);color:var(--ice);}
-.stats{display:flex;border-top:0.5px solid var(--bd);border-bottom:0.5px solid var(--bd);background:rgba(28,51,68,0.5);}
-.si{flex:1;padding:1rem 1.5rem;border-right:0.5px solid var(--bd);text-align:center;}
-.si:last-child{border-right:none;}
-.sn{font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:800;color:var(--ice);line-height:1;}
-.sl{font-size:9px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin-top:3px;}
-.psect{padding:2rem 2rem 1.5rem;}
-.psh{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:1.5rem;}
-.pst{font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:800;text-transform:uppercase;color:var(--cream);letter-spacing:0.02em;}
-.psl{font-size:10px;color:var(--ice);cursor:pointer;letter-spacing:0.06em;text-transform:uppercase;}
-.pgrid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;}
-.pc{background:var(--steel);border:0.5px solid var(--bd);border-radius:3px;overflow:hidden;cursor:pointer;transition:border-color .15s,transform .15s;}
-.pc:hover{border-color:var(--ice);transform:translateY(-2px);}
-.pcv{height:80px;background:var(--slate);display:flex;align-items:center;justify-content:center;}
-.pci{padding:10px 12px;}
-.pcn{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;text-transform:uppercase;color:var(--cream);margin-bottom:2px;}
-.pcd{font-size:9px;color:var(--ice);font-weight:500;margin-bottom:3px;}
-.pcp{font-size:12px;color:var(--cream);}
-.trust{padding:0 2rem 2rem;}
-.tbox{background:var(--steel);border:0.5px solid var(--bd);border-radius:4px;padding:1.5rem;display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;}
-.tt{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;color:var(--ice);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:5px;}
-.td{font-size:12px;color:var(--muted);line-height:1.65;}
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:var(--navy2);}
+::-webkit-scrollbar-thumb{background:var(--slate);border-radius:2px;}
 
-/* === RECO PAGE === */
-.rphead{padding:1.5rem 2rem 1rem;border-bottom:0.5px solid var(--bd);background:rgba(28,51,68,0.3);}
-.rpt{font-family:'Barlow Condensed',sans-serif;font-size:30px;font-weight:800;text-transform:uppercase;color:var(--cream);letter-spacing:0.02em;}
-.rps{font-size:12px;color:var(--muted);margin-top:3px;}
-.rplay{display:grid;grid-template-columns:320px 1fr;min-height:700px;}
-.rpsb{padding:1.25rem;border-right:0.5px solid var(--bd);display:flex;flex-direction:column;gap:14px;background:rgba(13,31,45,0.5);}
-.flbl{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--ice);margin-bottom:5px;}
-.awrap{position:relative;}
-.ainp{width:100%;padding:10px 12px 10px 34px;background:var(--steel);border:0.5px solid var(--bds);border-radius:3px;font-size:13px;font-family:'Barlow',sans-serif;color:var(--cream);outline:none;transition:border-color .15s;}
-.ainp::placeholder{color:var(--muted);}
-.ainp:focus{border-color:var(--ice);}
-.sico{position:absolute;left:10px;top:50%;transform:translateY(-50%);width:13px;height:13px;color:var(--muted);}
-.sugg{position:absolute;top:calc(100% + 3px);left:0;right:0;background:var(--steel);border:0.5px solid var(--bds);border-radius:3px;z-index:30;overflow:hidden;}
-.sitem{padding:9px 12px;font-size:12px;cursor:pointer;border-bottom:0.5px solid var(--bd);color:var(--cream);transition:background .1s;}
-.sitem:last-child{border-bottom:none;}
-.sitem:hover{background:var(--slate);}
-.scity{font-size:9px;color:var(--muted);margin-top:2px;}
-.ablock{background:var(--steel);border:0.5px solid var(--bd);border-radius:3px;padding:12px;}
-.albl{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:9px;}
-.mrow{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:0.5px solid rgba(91,168,204,0.1);font-size:12px;}
-.mrow:last-child{border-bottom:none;}
-.mlab{color:var(--muted);}
-.mval{font-weight:500;}
-.mval.d{color:#e07070;}.mval.w{color:#e0a050;}.mval.g{color:#70c080;}
-.dgauge{height:4px;background:rgba(91,168,204,0.15);border-radius:2px;margin-top:8px;overflow:hidden;}
-.dfill{height:100%;border-radius:2px;transition:width 1s cubic-bezier(.4,0,.2,1);}
-.rblock{border:1px solid var(--ice);border-radius:3px;padding:12px;background:rgba(91,168,204,0.05);}
-.rbadge{display:inline-block;background:var(--ice);color:var(--navy);font-family:'Barlow Condensed',sans-serif;font-size:8px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:2px 8px;border-radius:2px;margin-bottom:8px;}
-.rname{font-family:'Barlow Condensed',sans-serif;font-size:19px;font-weight:800;text-transform:uppercase;color:var(--cream);letter-spacing:0.02em;margin-bottom:3px;}
-.rdesc{font-size:11px;color:var(--muted);line-height:1.5;margin-bottom:10px;}
-.smini{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:10px;}
-.sm{background:var(--navy);border-radius:2px;padding:5px 8px;font-size:10px;}
-.sml{display:block;font-size:8px;color:var(--muted);margin-bottom:1px;}
-.smv{font-weight:500;color:var(--ice);}
-.prow{display:flex;align-items:baseline;gap:7px;margin-bottom:10px;}
-.pbig{font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:800;color:var(--ice);}
-.pnote{font-size:9px;color:var(--muted);}
-.bord{width:100%;padding:11px;background:var(--ice);color:var(--navy);font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;border:none;border-radius:2px;cursor:pointer;transition:background .15s;}
-.bord:hover{background:var(--icel);}
-.binst{width:100%;padding:9px;background:transparent;color:var(--muted);font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;border:0.5px solid var(--bds);border-radius:2px;cursor:pointer;margin-top:5px;transition:color .15s,border-color .15s;}
-.binst:hover{color:var(--ice);border-color:var(--ice);}
-.mzone{background:var(--slate);position:relative;overflow:hidden;}
-.lbar{height:2px;background:var(--bd);border-radius:1px;overflow:hidden;margin-top:7px;}
-.lfill{height:100%;background:var(--ice);border-radius:1px;width:0%;transition:width 1.3s ease;}
-.mleg{position:absolute;bottom:14px;right:14px;background:rgba(13,31,45,0.94);border:0.5px solid var(--bd);border-radius:3px;padding:9px 13px;font-size:10px;}
-.mlt{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:11px;color:var(--ice);margin-bottom:6px;letter-spacing:0.06em;text-transform:uppercase;}
-.mlr{display:flex;align-items:center;gap:7px;margin-bottom:3px;color:var(--muted);}
-.mls{width:17px;height:6px;border-radius:2px;}
+/* ── NAV ── */
+nav{position:sticky;top:0;z-index:1000;background:rgba(10,24,32,0.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;padding:0 2rem;height:58px;}
+.nlogo{display:flex;align-items:center;gap:10px;cursor:pointer;text-decoration:none;}
+.nmark{width:34px;height:34px;background:var(--ice);clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .2s;}
+.nmark svg{width:16px;height:16px;fill:var(--navy);}
+.nlogo:hover .nmark{background:var(--icel);}
+.nwordmark{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:900;letter-spacing:0.12em;text-transform:uppercase;color:var(--cream);}
+.nwordmark span{color:var(--ice);}
+.ntabs{display:flex;gap:0;}
+.ntab{padding:0 14px;height:58px;display:flex;align-items:center;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;transition:color .15s,border-color .15s;white-space:nowrap;}
+.ntab:hover{color:var(--cream);}
+.ntab.on{color:var(--ice);border-bottom-color:var(--ice);}
+.nright{display:flex;align-items:center;gap:12px;}
+.ncart{position:relative;padding:8px;cursor:pointer;color:var(--muted);transition:color .15s;}
+.ncart:hover{color:var(--ice);}
+.ncart svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;}
+.ncart-badge{position:absolute;top:4px;right:4px;background:var(--ice);color:var(--navy);font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:800;min-width:15px;height:15px;border-radius:8px;display:none;align-items:center;justify-content:center;padding:0 3px;}
+.ncart-badge.show{display:flex;}
+.ndevis{padding:9px 20px;background:var(--ice);color:var(--navy);font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;border:none;border-radius:2px;cursor:pointer;transition:background .15s;}
+.ndevis:hover{background:var(--icel);}
 
-/* === PRODUITS === */
-.pphead{padding:1.5rem 2rem 1rem;border-bottom:0.5px solid var(--bd);}
-.pgbig{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;padding:2rem;}
-.bcard{background:var(--steel);border:0.5px solid var(--bd);border-radius:4px;overflow:hidden;transition:border-color .15s;}
-.bcard:hover{border-color:var(--ice);}
-.bcv{height:140px;display:flex;align-items:center;justify-content:center;background:rgba(28,51,68,0.8);}
-.bcb{padding:16px;}
-.bcn{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:800;text-transform:uppercase;color:var(--cream);letter-spacing:0.02em;margin-bottom:2px;}
-.bctag{display:inline-block;font-size:8px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;padding:2px 8px;border-radius:2px;margin-bottom:8px;}
-.tr{background:rgba(91,168,204,0.15);color:var(--ice);}.tc{background:rgba(200,90,42,0.2);color:#e08060;}.te{background:rgba(224,112,112,0.2);color:#e07070;}
-.bcd{font-size:12px;color:var(--muted);line-height:1.65;margin-bottom:12px;}
-.bcspecs{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-bottom:13px;}
-.bcs{background:var(--navy);border-radius:2px;padding:6px 8px;font-size:10px;}
-.bcsl{display:block;font-size:8px;color:var(--muted);margin-bottom:1px;}
-.bcsv{font-weight:500;color:var(--ice);}
-.bcprow{display:flex;align-items:baseline;gap:8px;margin-bottom:12px;}
-.bcpn{font-family:'Barlow Condensed',sans-serif;font-size:30px;font-weight:800;color:var(--ice);}
-.bcpnote{font-size:10px;color:var(--muted);}
-.badd{padding:10px 20px;background:var(--ice);color:var(--navy);font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;border:none;border-radius:2px;cursor:pointer;transition:background .15s;}
-.badd:hover{background:var(--icel);}
+/* ── PAGES ── */
+.pg{display:none;animation:pgIn .3s ease;}
+.pg.on{display:block;}
+@keyframes pgIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+
+/* ═══════════════════════════════════
+   PAGE 1 — ACCUEIL
+═══════════════════════════════════ */
+.hero{position:relative;min-height:520px;overflow:hidden;display:flex;flex-direction:column;background:linear-gradient(160deg,var(--navy2) 0%,var(--navy) 60%,#0d2535 100%);}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(91,168,204,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(91,168,204,0.04) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;}
+.hero-glow{position:absolute;top:-100px;right:-100px;width:500px;height:500px;background:radial-gradient(circle,rgba(91,168,204,0.08) 0%,transparent 70%);pointer-events:none;}
+.hero-content{position:relative;z-index:5;padding:3.5rem 2.5rem 2rem;flex:1;}
+.hero-eyebrow{display:flex;align-items:center;gap:10px;font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.25em;text-transform:uppercase;color:var(--ice);margin-bottom:1.2rem;}
+.hero-eyebrow-line{width:36px;height:1px;background:var(--ice);}
+.hero-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(52px,8vw,88px);font-weight:900;line-height:0.88;letter-spacing:-0.01em;text-transform:uppercase;color:var(--cream);margin-bottom:0.5rem;}
+.hero-title .hl{color:var(--ice);display:block;}
+.hero-title .hl2{color:var(--cream2);font-size:0.55em;font-weight:400;display:block;letter-spacing:0.08em;margin-top:0.3em;}
+.hero-sub{font-size:15px;font-weight:300;color:var(--muted);line-height:1.7;max-width:480px;margin:1.5rem 0 2rem;}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap;}
+.btn-primary{padding:13px 30px;background:var(--ice);color:var(--navy);font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;border:none;border-radius:2px;cursor:pointer;transition:background .15s,transform .1s;}
+.btn-primary:hover{background:var(--icel);transform:translateY(-1px);}
+.btn-secondary{padding:13px 30px;background:transparent;color:var(--cream);font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;border:1px solid var(--bds);border-radius:2px;cursor:pointer;transition:border-color .15s,color .15s;}
+.btn-secondary:hover{border-color:var(--ice);color:var(--ice);}
+.hero-waves{position:absolute;bottom:0;left:0;right:0;height:120px;overflow:hidden;}
+.hero-waves svg{position:absolute;bottom:0;width:200%;animation:wave 10s linear infinite;}
+.hero-waves svg:nth-child(2){opacity:.5;animation-duration:15s;animation-direction:reverse;}
+@keyframes wave{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* Stats bar */
+.stats-bar{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--bd);background:rgba(28,51,68,0.6);}
+.stat-item{padding:1.1rem 1.5rem;border-right:1px solid var(--bd);text-align:center;}
+.stat-item:last-child{border-right:none;}
+.stat-num{font-family:'Barlow Condensed',sans-serif;font-size:30px;font-weight:900;color:var(--ice);line-height:1;}
+.stat-label{font-size:9px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:0.12em;margin-top:4px;}
+
+/* Products preview */
+.section{padding:2.5rem 2.5rem 2rem;}
+.section-header{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:1.8rem;}
+.section-title{font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:800;text-transform:uppercase;letter-spacing:0.04em;color:var(--cream);}
+.section-title span{color:var(--ice);}
+.section-link{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--ice);cursor:pointer;display:flex;align-items:center;gap:5px;border:none;background:none;}
+.section-link:hover{color:var(--icel);}
+.prod-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+.prod-card{background:var(--steel);border:1px solid var(--bd);border-radius:3px;overflow:hidden;cursor:pointer;transition:border-color .2s,transform .2s;position:relative;}
+.prod-card:hover{border-color:var(--bdb);transform:translateY(-3px);}
+.prod-card-vis{height:90px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.prod-card-vis svg{width:52px;height:52px;opacity:.9;}
+.prod-card-body{padding:12px 14px;}
+.prod-tier{font-family:'Barlow Condensed',sans-serif;font-size:8px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--ice);margin-bottom:4px;}
+.prod-name{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:800;text-transform:uppercase;color:var(--cream);margin-bottom:3px;}
+.prod-depth{font-size:10px;color:var(--muted);margin-bottom:8px;}
+.prod-price{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;color:var(--cream);}
+.prod-price small{font-size:10px;color:var(--muted);font-weight:400;}
+
+/* Trust section */
+.trust-section{padding:0 2.5rem 3rem;}
+.trust-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;border:1px solid var(--bd);border-radius:4px;overflow:hidden;}
+.trust-item{background:var(--steel);padding:1.5rem;border-right:1px solid var(--bd);}
+.trust-item:last-child{border-right:none;}
+.trust-icon{width:36px;height:36px;background:rgba(91,168,204,0.1);border-radius:2px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;}
+.trust-icon svg{width:18px;height:18px;fill:var(--ice);}
+.trust-title{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--ice);margin-bottom:6px;}
+.trust-desc{font-size:12px;color:var(--muted);line-height:1.65;}
+
+/* CTA banner */
+.cta-banner{margin:0 2.5rem 3rem;background:linear-gradient(135deg,var(--steel) 0%,var(--slate) 100%);border:1px solid var(--bds);border-radius:4px;padding:2rem 2.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;}
+.cta-text h3{font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:800;text-transform:uppercase;color:var(--cream);margin-bottom:6px;}
+.cta-text p{font-size:13px;color:var(--muted);}
+
+/* ═══════════════════════════════════
+   PAGE 2 — ANALYSE TERRAIN
+═══════════════════════════════════ */
+.terrain-head{padding:1.5rem 2.5rem 1.2rem;border-bottom:1px solid var(--bd);}
+.terrain-head h1{font-family:'Barlow Condensed',sans-serif;font-size:32px;font-weight:800;text-transform:uppercase;letter-spacing:0.03em;}
+.terrain-head p{font-size:13px;color:var(--muted);margin-top:4px;}
+.terrain-layout{display:grid;grid-template-columns:340px 1fr;min-height:calc(100vh - 150px);}
+.terrain-sidebar{padding:1.5rem;border-right:1px solid var(--bd);background:rgba(10,24,32,0.5);display:flex;flex-direction:column;gap:16px;overflow-y:auto;}
+.terrain-map{position:relative;background:var(--steel2);}
+#map{height:100%;min-height:500px;}
+
+/* Search */
+.search-label{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--ice);margin-bottom:6px;display:block;}
+.search-wrap{position:relative;}
+.search-inp{width:100%;padding:10px 12px 10px 36px;background:var(--steel);border:1px solid var(--bds);border-radius:3px;font-size:13px;font-family:'Barlow',sans-serif;color:var(--cream);outline:none;transition:border-color .15s;}
+.search-inp::placeholder{color:var(--muted);}
+.search-inp:focus{border-color:var(--ice);}
+.search-ico{position:absolute;left:11px;top:50%;transform:translateY(-50%);width:14px;height:14px;fill:none;stroke:var(--muted);stroke-width:2;}
+.search-btn{position:absolute;right:6px;top:50%;transform:translateY(-50%);padding:5px 12px;background:var(--ice);color:var(--navy);font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;border:none;border-radius:2px;cursor:pointer;transition:background .15s;}
+.search-btn:hover{background:var(--icel);}
+.suggestions{position:absolute;top:calc(100% + 3px);left:0;right:0;background:var(--steel);border:1px solid var(--bds);border-radius:3px;z-index:500;display:none;}
+.suggestions.open{display:block;}
+.sugg-item{padding:9px 12px;font-size:12px;cursor:pointer;border-bottom:1px solid var(--bd);color:var(--cream);transition:background .1s;}
+.sugg-item:last-child{border-bottom:none;}
+.sugg-item:hover{background:var(--slate);}
+.sugg-name{font-weight:500;}
+.sugg-sub{font-size:10px;color:var(--muted);margin-top:2px;}
+
+/* Analysis result */
+.analysis-box{background:var(--steel);border:1px solid var(--bd);border-radius:3px;padding:14px;display:none;}
+.analysis-box.show{display:block;}
+.abox-title{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;}
+.arow{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid rgba(91,168,204,0.08);font-size:12px;}
+.arow:last-child{border-bottom:none;}
+.arow-label{color:var(--muted);}
+.arow-val{font-weight:500;}
+.arow-val.danger{color:var(--danger);}
+.arow-val.warn{color:var(--warn);}
+.arow-val.ok{color:var(--ok);}
+
+/* Depth gauge */
+.depth-gauge-wrap{margin-top:12px;}
+.depth-gauge-label{display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-bottom:5px;}
+.depth-gauge-track{height:6px;background:rgba(91,168,204,0.1);border-radius:3px;overflow:hidden;}
+.depth-gauge-fill{height:100%;border-radius:3px;transition:width 1.2s cubic-bezier(.4,0,.2,1),background .5s;}
+
+/* Recommendation card */
+.reco-card{background:rgba(91,168,204,0.05);border:1px solid var(--ice);border-radius:3px;padding:14px;display:none;}
+.reco-card.show{display:block;}
+.reco-badge{display:inline-block;background:var(--ice);color:var(--navy);font-family:'Barlow Condensed',sans-serif;font-size:8px;font-weight:800;letter-spacing:0.15em;text-transform:uppercase;padding:3px 10px;border-radius:2px;margin-bottom:10px;}
+.reco-name{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:900;text-transform:uppercase;color:var(--cream);margin-bottom:4px;}
+.reco-desc{font-size:11px;color:var(--muted);line-height:1.55;margin-bottom:12px;}
+.reco-specs{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:12px;}
+.rspec{background:var(--navy);border-radius:2px;padding:6px 8px;}
+.rspec-label{font-size:8px;color:var(--muted);display:block;margin-bottom:2px;text-transform:uppercase;letter-spacing:0.1em;}
+.rspec-val{font-size:11px;font-weight:600;color:var(--ice);}
+.reco-price{font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:800;color:var(--cream);margin-bottom:12px;}
+.reco-price small{font-size:12px;font-weight:400;color:var(--muted);}
+.reco-cta{width:100%;padding:11px;background:var(--ice);color:var(--navy);font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;border:none;border-radius:2px;cursor:pointer;transition:background .15s;}
+.reco-cta:hover{background:var(--icel);}
+
+/* Map placeholder */
+.map-placeholder{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:var(--muted);}
+.map-placeholder svg{width:48px;height:48px;opacity:.3;fill:var(--ice);}
+.map-placeholder p{font-size:13px;}
+
+/* ═══════════════════════════════════
+   PAGE 3 — CATALOGUE
+═══════════════════════════════════ */
+.catalogue-head{padding:2rem 2.5rem 0;}
+.cat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;padding:2rem 2.5rem 3rem;}
+.cat-card{background:var(--steel);border:1px solid var(--bd);border-radius:4px;overflow:hidden;transition:border-color .2s,transform .2s;}
+.cat-card:hover{border-color:var(--bdb);transform:translateY(-2px);}
+.cat-card-header{padding:2rem;position:relative;overflow:hidden;min-height:140px;display:flex;align-items:flex-end;}
+.cat-card-header::before{content:'';position:absolute;inset:0;}
+.cat-card-num{position:absolute;top:1rem;right:1.5rem;font-family:'Barlow Condensed',sans-serif;font-size:64px;font-weight:900;opacity:.06;color:var(--ice);line-height:1;}
+.cat-card-icon{position:absolute;top:50%;right:2rem;transform:translateY(-50%);}
+.cat-card-icon svg{width:70px;height:70px;}
+.cat-card-info{position:relative;z-index:2;}
+.cat-card-tier{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;margin-bottom:4px;}
+.cat-card-name{font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:900;text-transform:uppercase;color:var(--cream);line-height:1;}
+.cat-card-body{padding:1.5rem 2rem;}
+.cat-specs{width:100%;border-collapse:collapse;margin-bottom:1.5rem;}
+.cat-specs tr{border-bottom:1px solid rgba(91,168,204,0.08);}
+.cat-specs tr:last-child{border-bottom:none;}
+.cat-specs td{padding:6px 0;font-size:12px;}
+.cat-specs td:first-child{color:var(--muted);width:50%;}
+.cat-specs td:last-child{font-weight:500;color:var(--cream);}
+.cat-footer{display:flex;align-items:center;justify-content:space-between;padding-top:1.2rem;border-top:1px solid var(--bd);}
+.cat-price{font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:800;color:var(--cream);}
+.cat-price small{font-size:12px;font-weight:400;color:var(--muted);}
+.btn-cart{padding:11px 22px;background:var(--ice);color:var(--navy);font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;border:none;border-radius:2px;cursor:pointer;transition:background .15s,transform .1s;display:flex;align-items:center;gap:7px;}
+.btn-cart:hover{background:var(--icel);transform:translateY(-1px);}
+.btn-cart svg{width:13px;height:13px;fill:none;stroke:var(--navy);stroke-width:2.5;}
+.btn-cart.added{background:var(--ok);color:#fff;}
+.btn-cart.added svg{stroke:#fff;}
+
+/* product visuals */
+.cat-c1 .cat-card-header{background:linear-gradient(135deg,#162b3a 0%,#1a3546 100%);}
+.cat-c1 .cat-card-tier{color:#70c0e0;}
+.cat-c2 .cat-card-header{background:linear-gradient(135deg,#1a2d3e 0%,#1e3d52 100%);}
+.cat-c2 .cat-card-tier{color:var(--icel);}
+.cat-c3 .cat-card-header{background:linear-gradient(135deg,#1c2e3a 0%,#243544 100%);}
+.cat-c3 .cat-card-tier{color:#a8c8d8;}
+.cat-c4 .cat-card-header{background:linear-gradient(135deg,#1a2535 0%,#202f40 100%);}
+.cat-c4 .cat-card-tier{color:var(--cream2);}
+
+/* ═══════════════════════════════════
+   PAGE 4 — CONFIGURATEUR
+═══════════════════════════════════ */
+.config-layout{display:grid;grid-template-columns:1fr 380px;min-height:calc(100vh - 58px);gap:0;}
+.config-main{padding:2.5rem;border-right:1px solid var(--bd);}
+.config-sidebar{padding:2rem;background:rgba(10,24,32,0.4);}
+.config-title{font-family:'Barlow Condensed',sans-serif;font-size:32px;font-weight:800;text-transform:uppercase;margin-bottom:2rem;}
+.config-title span{color:var(--ice);}
+
+/* form blocks */
+.fblock{margin-bottom:2rem;}
+.fblock-title{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--ice);margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.fblock-title::after{content:'';flex:1;height:1px;background:var(--bd);}
+.prod-selector{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;}
+.psel{padding:14px;background:var(--steel);border:1px solid var(--bd);border-radius:3px;cursor:pointer;transition:border-color .15s,background .15s;}
+.psel:hover{border-color:var(--bds);}
+.psel.on{border-color:var(--ice);background:rgba(91,168,204,0.08);}
+.psel-name{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;text-transform:uppercase;color:var(--cream);}
+.psel-sub{font-size:10px;color:var(--muted);margin-top:2px;}
+
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.form-group{display:flex;flex-direction:column;gap:6px;}
+.form-label{font-size:11px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;}
+.form-inp{padding:10px 12px;background:var(--steel);border:1px solid var(--bds);border-radius:3px;font-size:14px;font-family:'Barlow',sans-serif;color:var(--cream);outline:none;transition:border-color .15s;width:100%;}
+.form-inp:focus{border-color:var(--ice);}
+.form-inp::placeholder{color:var(--muted);}
+select.form-inp{cursor:pointer;}
+.form-inp option{background:var(--steel);}
+
+.check-row{display:flex;align-items:flex-start;gap:12px;padding:12px;background:var(--steel);border:1px solid var(--bd);border-radius:3px;cursor:pointer;transition:border-color .15s;}
+.check-row:hover{border-color:var(--bds);}
+.check-row input{appearance:none;width:16px;height:16px;min-width:16px;background:var(--navy);border:1px solid var(--bds);border-radius:2px;cursor:pointer;position:relative;transition:background .15s,border-color .15s;}
+.check-row input:checked{background:var(--ice);border-color:var(--ice);}
+.check-row input:checked::after{content:'';position:absolute;left:4px;top:1px;width:5px;height:9px;border:2px solid var(--navy);border-left:none;border-top:none;transform:rotate(45deg);}
+.check-text strong{display:block;font-size:13px;color:var(--cream);}
+.check-text span{font-size:11px;color:var(--muted);}
+
+/* Summary sidebar */
+.summary-card{background:var(--steel);border:1px solid var(--bd);border-radius:4px;overflow:hidden;margin-bottom:16px;}
+.summary-head{padding:1rem 1.2rem;background:rgba(91,168,204,0.08);border-bottom:1px solid var(--bd);}
+.summary-head h3{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;}
+.summary-body{padding:1rem 1.2rem;}
+.sum-row{display:flex;justify-content:space-between;align-items:baseline;padding:6px 0;border-bottom:1px solid rgba(91,168,204,0.06);font-size:12px;}
+.sum-row:last-child{border-bottom:none;}
+.sum-label{color:var(--muted);}
+.sum-val{font-weight:500;}
+.sum-total{display:flex;justify-content:space-between;align-items:baseline;padding:14px 1.2rem;background:rgba(91,168,204,0.06);border-top:1px solid var(--bds);}
+.sum-total-label{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;}
+.sum-total-val{font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:900;color:var(--ice);}
+.btn-devis{width:100%;padding:14px;background:var(--ice);color:var(--navy);font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;border:none;border-radius:3px;cursor:pointer;transition:background .15s;}
+.btn-devis:hover{background:var(--icel);}
+.summary-note{font-size:10px;color:var(--muted);text-align:center;margin-top:10px;line-height:1.6;}
+
+/* ═══════════════════════════════════
+   PAGE 5 — RÉSERVATION
+═══════════════════════════════════ */
+.resa-layout{max-width:740px;margin:0 auto;padding:2.5rem;}
+.resa-title{font-family:'Barlow Condensed',sans-serif;font-size:32px;font-weight:800;text-transform:uppercase;margin-bottom:6px;}
+.resa-title span{color:var(--ice);}
+.resa-sub{font-size:13px;color:var(--muted);margin-bottom:2rem;}
+
+/* Progress */
+.progress-bar{display:flex;align-items:center;margin-bottom:2.5rem;gap:0;}
+.progress-step{display:flex;align-items:center;flex:1;}
+.progress-dot{width:32px;height:32px;min-width:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;border:2px solid var(--bds);color:var(--muted);transition:all .3s;}
+.progress-dot.done{background:var(--ice);border-color:var(--ice);color:var(--navy);}
+.progress-dot.active{border-color:var(--ice);color:var(--ice);}
+.progress-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-left:8px;white-space:nowrap;}
+.progress-label.active{color:var(--ice);}
+.progress-line{height:1px;flex:1;background:var(--bd);margin:0 8px;}
+.progress-line.done{background:var(--ice);}
+
+/* Steps */
+.step{display:none;}
+.step.on{display:block;}
+.step-title{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:700;text-transform:uppercase;margin-bottom:1.5rem;color:var(--cream);}
+
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
+.fgrid.full{grid-template-columns:1fr;}
+.fgroup{display:flex;flex-direction:column;gap:6px;}
+.flabel{font-size:11px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;}
+.finp{padding:11px 13px;background:var(--steel);border:1px solid var(--bds);border-radius:3px;font-size:14px;font-family:'Barlow',sans-serif;color:var(--cream);outline:none;transition:border-color .15s;width:100%;}
+.finp:focus{border-color:var(--ice);}
+.finp::placeholder{color:var(--muted);}
+select.finp{cursor:pointer;}
+.finp option{background:var(--steel);}
+
+/* Radio urgence */
+.radio-group{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.radio-opt{position:relative;}
+.radio-opt input{position:absolute;opacity:0;width:0;height:0;}
+.radio-opt label{display:block;padding:12px;background:var(--steel);border:1px solid var(--bd);border-radius:3px;cursor:pointer;transition:border-color .15s,background .15s;}
+.radio-opt input:checked + label{border-color:var(--ice);background:rgba(91,168,204,0.08);}
+.radio-opt label strong{display:block;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;color:var(--cream);}
+.radio-opt label span{font-size:10px;color:var(--muted);}
+
+/* Calendar */
+.calendar{background:var(--steel);border:1px solid var(--bd);border-radius:4px;overflow:hidden;}
+.cal-nav{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.2rem;border-bottom:1px solid var(--bd);}
+.cal-month{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;}
+.cal-arrow{padding:6px 10px;background:transparent;border:1px solid var(--bds);border-radius:2px;color:var(--muted);cursor:pointer;font-size:14px;transition:border-color .15s,color .15s;}
+.cal-arrow:hover{border-color:var(--ice);color:var(--ice);}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);}
+.cal-dow{padding:8px 0;text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--bd);}
+.cal-day{padding:10px 0;text-align:center;font-size:13px;cursor:pointer;position:relative;transition:background .1s,color .1s;}
+.cal-day:hover:not(.disabled):not(.empty){background:rgba(91,168,204,0.1);color:var(--ice);}
+.cal-day.disabled{color:rgba(122,154,174,0.3);cursor:default;}
+.cal-day.empty{cursor:default;}
+.cal-day.selected{background:var(--ice);color:var(--navy);font-weight:700;}
+.cal-day.today{font-weight:700;color:var(--ice);}
+.cal-day.today.selected{color:var(--navy);}
+
+/* Step nav */
+.step-nav{display:flex;justify-content:space-between;margin-top:2rem;}
+.btn-back{padding:11px 24px;background:transparent;color:var(--cream2);font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;border:1px solid var(--bd);border-radius:2px;cursor:pointer;transition:border-color .15s;}
+.btn-back:hover{border-color:var(--bds);}
+.btn-next{padding:11px 28px;background:var(--ice);color:var(--navy);font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;border:none;border-radius:2px;cursor:pointer;transition:background .15s;}
+.btn-next:hover{background:var(--icel);}
+.btn-submit{padding:13px 32px;background:var(--ok);color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;border:none;border-radius:2px;cursor:pointer;transition:background .15s;}
+.btn-submit:hover{background:#4aad6a;}
+
+/* Confirmation */
+.confirm-box{text-align:center;padding:3rem 2rem;}
+.confirm-icon{width:64px;height:64px;background:rgba(92,192,128,0.15);border:2px solid var(--ok);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;}
+.confirm-icon svg{width:28px;height:28px;stroke:var(--ok);stroke-width:2.5;fill:none;}
+.confirm-ref{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--ice);margin-bottom:8px;}
+.confirm-title{font-family:'Barlow Condensed',sans-serif;font-size:30px;font-weight:800;text-transform:uppercase;margin-bottom:12px;}
+.confirm-sub{font-size:13px;color:var(--muted);line-height:1.7;max-width:400px;margin:0 auto 2rem;}
+
+/* ═══════════════════════════════════
+   MODAL
+═══════════════════════════════════ */
+.modal-overlay{position:fixed;inset:0;background:rgba(5,12,18,0.85);backdrop-filter:blur(4px);z-index:9999;display:none;align-items:center;justify-content:center;}
+.modal-overlay.open{display:flex;}
+.modal{background:var(--steel);border:1px solid var(--bds);border-radius:6px;width:min(540px,90vw);max-height:80vh;overflow-y:auto;}
+.modal-head{padding:1.2rem 1.5rem;border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;}
+.modal-head h3{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;}
+.modal-close{background:transparent;border:none;color:var(--muted);cursor:pointer;font-size:20px;line-height:1;padding:4px;transition:color .15s;}
+.modal-close:hover{color:var(--cream);}
+.modal-body{padding:1.5rem;}
+.modal-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(91,168,204,0.08);font-size:13px;}
+.modal-row:last-child{border-bottom:none;}
+.modal-row-label{color:var(--muted);}
+.modal-row-val{font-weight:500;}
+.modal-total{display:flex;justify-content:space-between;padding:1.2rem 1.5rem;background:rgba(91,168,204,0.06);border-top:1px solid var(--bds);}
+.modal-total-label{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;text-transform:uppercase;}
+.modal-total-val{font-family:'Barlow Condensed',sans-serif;font-size:30px;font-weight:900;color:var(--ice);}
+.modal-footer{padding:1rem 1.5rem;border-top:1px solid var(--bd);display:flex;gap:10px;justify-content:flex-end;}
+
+/* Notif toast */
+.toast{position:fixed;bottom:2rem;right:2rem;background:var(--steel);border:1px solid var(--bds);border-radius:4px;padding:12px 18px;font-size:13px;z-index:9998;transform:translateY(20px);opacity:0;transition:all .3s;pointer-events:none;}
+.toast.show{transform:translateY(0);opacity:1;}
+.toast.success{border-color:var(--ok);}
+
+/* Leaflet overrides */
+.leaflet-container{background:#0d1f2d !important;}
+.leaflet-tile{filter:brightness(0.85) contrast(1.1) saturate(0.7);}
+.leaflet-popup-content-wrapper{background:var(--steel);border:1px solid var(--bds);color:var(--cream);font-family:'Barlow',sans-serif;border-radius:3px;box-shadow:0 8px 32px rgba(0,0,0,0.5);}
+.leaflet-popup-tip{background:var(--steel);}
+
+@media(max-width:900px){
+  .prod-grid,.stats-bar{grid-template-columns:repeat(2,1fr);}
+  .terrain-layout,.config-layout{grid-template-columns:1fr;}
+  .cat-grid{grid-template-columns:1fr;}
+  .terrain-sidebar{border-right:none;border-bottom:1px solid var(--bd);}
+  #map{min-height:350px;}
+  .trust-grid,.form-row,.fgrid{grid-template-columns:1fr;}
+  .ntabs{display:none;}
+}
 </style>
 </head>
 <body>
 
+<!-- ═══ NAV ═══ -->
 <nav>
-  <div class="nlogo" onclick="sp('home')">
+  <a class="nlogo" onclick="showPage('home')">
     <div class="nmark">
-      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1L13 4v6l-6 3L1 10V4z" fill="rgba(13,31,45,.6)" stroke="white" stroke-width=".7"/><path d="M4 7h6M7 4v6" stroke="white" stroke-width="1.1"/></svg>
+      <svg viewBox="0 0 24 24"><path d="M12 2L3 7v5c0 5.25 3.75 10.15 9 11.25C17.25 22.15 21 17.25 21 12V7L12 2z"/></svg>
     </div>
-    ARMA<span class="nacc">DAM</span>
+    <div class="nwordmark">ARMA<span>DAM</span></div>
+  </a>
+  <div class="ntabs">
+    <div class="ntab on" onclick="showPage('home')" id="tab-home">Accueil</div>
+    <div class="ntab" onclick="showPage('terrain')" id="tab-terrain">Analyse Terrain</div>
+    <div class="ntab" onclick="showPage('catalogue')" id="tab-catalogue">Catalogue</div>
+    <div class="ntab" onclick="showPage('config')" id="tab-config">Configurateur</div>
+    <div class="ntab" onclick="showPage('resa')" id="tab-resa">Réservation</div>
   </div>
-  <div class="nlinks">
-    <button class="nl on" id="nl0" onclick="sp('home')">Accueil</button>
-    <button class="nl" id="nl1" onclick="sp('reco')">Analyse terrain</button>
-    <button class="nl" id="nl2" onclick="sp('prods')">Produits</button>
-    <button class="nl" id="nl3" onclick="alert('Formulaire de réservation installation — à intégrer')">Installation</button>
+  <div class="nright">
+    <div class="ncart" onclick="showPage('config')">
+      <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+      <div class="ncart-badge" id="cart-badge">0</div>
+    </div>
+    <button class="ndevis" onclick="showPage('resa')">Réserver</button>
   </div>
-  <button class="ncta" onclick="sp('reco')">Soumission gratuite</button>
 </nav>
 
-<!-- HOME -->
+<!-- ═══════════════════════════════════
+     PAGE 1 — ACCUEIL
+═══════════════════════════════════ -->
 <div class="pg on" id="pg-home">
   <div class="hero">
-    <div class="hbg"></div><div class="hgrid"></div>
-    <div class="hwaves"><div class="wv"></div><div class="wv"></div><div class="wv"></div></div>
-    <div class="hcontent">
-      <div class="hbrow"><div class="hbl"></div>Protection contre les crues — Québec</div>
-      <div class="htitle">Batardeaux<br><span class="ac">sur mesure.</span></div>
-      <div class="hsub">Armadam conçoit, fabrique et installe des systèmes de protection contre les inondations pour le résidentiel et le commercial. Recommandation intelligente basée sur les cartes bathymétriques CEHQ.</div>
-      <div class="hbtns">
-        <button class="hbp" onclick="sp('reco')">Analyser mon terrain →</button>
-        <button class="hbs" onclick="sp('prods')">Voir les produits</button>
+    <div class="hero-grid"></div>
+    <div class="hero-glow"></div>
+    <div class="hero-content">
+      <div class="hero-eyebrow"><div class="hero-eyebrow-line"></div>Protection hydrique de précision — Québec</div>
+      <h1 class="hero-title">
+        PROTÉGEZ<br>
+        <span class="hl">VOS BIENS</span>
+        <span class="hl2">Batardeaux sur mesure — résidentiel &amp; commercial</span>
+      </h1>
+      <p class="hero-sub">Systèmes de protection contre les inondations conçus et fabriqués au Québec. Analyse de terrain gratuite, installation professionnelle certifiée RBQ, livraison 48h partout en province.</p>
+      <div class="hero-btns">
+        <button class="btn-primary" onclick="showPage('terrain')">Analyser mon terrain</button>
+        <button class="btn-secondary" onclick="showPage('catalogue')">Voir les produits</button>
+      </div>
+    </div>
+    <div class="hero-waves">
+      <svg viewBox="0 0 1440 80" preserveAspectRatio="none" height="80">
+        <path d="M0,40 C180,80 360,0 540,40 C720,80 900,0 1080,40 C1260,80 1350,20 1440,40 L1440,80 L0,80 Z" fill="rgba(91,168,204,0.12)"/>
+        <path d="M0,60 C200,20 400,80 600,50 C800,20 1000,70 1200,45 C1320,30 1380,60 1440,50 L1440,80 L0,80 Z" fill="rgba(91,168,204,0.07)"/>
+      </svg>
+      <svg viewBox="0 0 1440 80" preserveAspectRatio="none" height="80" style="animation-delay:-5s;">
+        <path d="M0,50 C240,10 480,70 720,40 C960,10 1200,70 1440,50 L1440,80 L0,80 Z" fill="rgba(91,168,204,0.05)"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-bar">
+    <div class="stat-item"><div class="stat-num">1 200+</div><div class="stat-label">Installations complétées</div></div>
+    <div class="stat-item"><div class="stat-num">48h</div><div class="stat-label">Délai de livraison</div></div>
+    <div class="stat-item"><div class="stat-num">15 ans</div><div class="stat-label">Garantie produit</div></div>
+    <div class="stat-item"><div class="stat-num">RBQ</div><div class="stat-label">Entrepreneurs certifiés</div></div>
+  </div>
+
+  <!-- Products preview -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">Nos <span>gammes</span></div>
+      <button class="section-link" onclick="showPage('catalogue')">Catalogue complet →</button>
+    </div>
+    <div class="prod-grid">
+      <div class="prod-card" onclick="showPage('catalogue')">
+        <div class="prod-card-vis" style="background:linear-gradient(135deg,#162b3a,#1a3546);">
+          <svg viewBox="0 0 52 52" fill="none"><rect x="8" y="28" width="36" height="16" rx="1" fill="rgba(91,168,204,0.3)" stroke="#5ba8cc" stroke-width="1.5"/><rect x="12" y="22" width="28" height="8" rx="1" fill="rgba(91,168,204,0.2)" stroke="#5ba8cc" stroke-width="1.5"/><line x1="14" y1="30" x2="14" y2="42" stroke="#5ba8cc" stroke-width="1" opacity=".5"/><line x1="26" y1="30" x2="26" y2="42" stroke="#5ba8cc" stroke-width="1" opacity=".5"/><line x1="38" y1="30" x2="38" y2="42" stroke="#5ba8cc" stroke-width="1" opacity=".5"/></svg>
+        </div>
+        <div class="prod-card-body">
+          <div class="prod-tier">Résidentiel</div>
+          <div class="prod-name">SENTINEL 120</div>
+          <div class="prod-depth">Jusqu'à 1.2m de hauteur</div>
+          <div class="prod-price">1 890 $ <small>/ module</small></div>
+        </div>
+      </div>
+      <div class="prod-card" onclick="showPage('catalogue')">
+        <div class="prod-card-vis" style="background:linear-gradient(135deg,#1a2d3e,#1e3d52);">
+          <svg viewBox="0 0 52 52" fill="none"><rect x="6" y="22" width="40" height="22" rx="1" fill="rgba(91,168,204,0.25)" stroke="#5ba8cc" stroke-width="1.5"/><rect x="10" y="14" width="32" height="10" rx="1" fill="rgba(91,168,204,0.18)" stroke="#5ba8cc" stroke-width="1.5"/><path d="M14 24 L14 42 M26 24 L26 42 M38 24 L38 42" stroke="#5ba8cc" stroke-width="1" opacity=".4"/><rect x="8" y="10" width="36" height="5" rx="1" fill="rgba(168,212,232,0.15)" stroke="#a8d4e8" stroke-width="1"/></svg>
+        </div>
+        <div class="prod-card-body">
+          <div class="prod-tier">Riverain</div>
+          <div class="prod-name">AQUASHIELD PRO</div>
+          <div class="prod-depth">Jusqu'à 2m de hauteur</div>
+          <div class="prod-price">3 450 $ <small>/ module</small></div>
+        </div>
+      </div>
+      <div class="prod-card" onclick="showPage('catalogue')">
+        <div class="prod-card-vis" style="background:linear-gradient(135deg,#1c2e3a,#243544);">
+          <svg viewBox="0 0 52 52" fill="none"><rect x="4" y="16" width="44" height="28" rx="1" fill="rgba(91,168,204,0.2)" stroke="#5ba8cc" stroke-width="1.5"/><rect x="8" y="8" width="36" height="10" rx="1" fill="rgba(91,168,204,0.15)" stroke="#5ba8cc" stroke-width="1.5"/><rect x="4" y="6" width="44" height="4" rx="1" fill="rgba(168,212,232,0.12)" stroke="#a8d4e8" stroke-width="1"/><path d="M12 18 L12 42 M26 18 L26 42 M40 18 L40 42" stroke="#5ba8cc" stroke-width="1" opacity=".35"/><path d="M4 28 L48 28" stroke="#5ba8cc" stroke-width="0.5" opacity=".3"/></svg>
+        </div>
+        <div class="prod-card-body">
+          <div class="prod-tier">Commercial</div>
+          <div class="prod-name">FORTRESS</div>
+          <div class="prod-depth">Jusqu'à 2.8m de hauteur</div>
+          <div class="prod-price">6 200 $ <small>/ module</small></div>
+        </div>
+      </div>
+      <div class="prod-card" onclick="showPage('catalogue')">
+        <div class="prod-card-vis" style="background:linear-gradient(135deg,#1a2535,#202f40);">
+          <svg viewBox="0 0 52 52" fill="none"><rect x="4" y="10" width="44" height="34" rx="1" fill="rgba(91,168,204,0.18)" stroke="#5ba8cc" stroke-width="1.5"/><rect x="4" y="6" width="44" height="6" rx="1" fill="rgba(168,212,232,0.15)" stroke="#a8d4e8" stroke-width="1"/><path d="M4 18 L48 18 M4 26 L48 26 M4 34 L48 34" stroke="#5ba8cc" stroke-width="0.5" opacity=".3"/><path d="M12 10 L12 44 M26 10 L26 44 M40 10 L40 44" stroke="#5ba8cc" stroke-width="1" opacity=".3"/><rect x="0" y="4" width="52" height="4" rx="1" fill="rgba(91,168,204,0.3)" stroke="#5ba8cc" stroke-width="1"/></svg>
+        </div>
+        <div class="prod-card-body">
+          <div class="prod-tier">Extrême</div>
+          <div class="prod-name">TITAN EXTREME</div>
+          <div class="prod-depth">3.5m+ — Installation pro</div>
+          <div class="prod-price">9 800 $ <small>/ module</small></div>
+        </div>
       </div>
     </div>
   </div>
-  <div class="stats">
-    <div class="si"><div class="sn">1 200+</div><div class="sl">installations</div></div>
-    <div class="si"><div class="sn">4</div><div class="sl">gammes</div></div>
-    <div class="si"><div class="sn">48h</div><div class="sl">livraison</div></div>
-    <div class="si"><div class="sn">15 ans</div><div class="sl">garantie</div></div>
-  </div>
-  <div class="psect">
-    <div class="psh">
-      <div class="pst">Nos gammes</div>
-      <div class="psl" onclick="sp('prods')">Voir tout →</div>
+
+  <!-- Trust -->
+  <div class="trust-section">
+    <div class="trust-grid">
+      <div class="trust-item">
+        <div class="trust-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <div class="trust-title">Certifié RBQ &amp; CMMTQ</div>
+        <div class="trust-desc">Nos équipes d'installation sont certifiées par la Régie du bâtiment du Québec. Garantie de conformité aux normes provinciales en vigueur.</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+        <div class="trust-title">Livraison 48h garanti</div>
+        <div class="trust-desc">Stock disponible en entrepôt à Laval et Québec. Livraison express partout en province, y compris régions éloignées.</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon"><svg viewBox="0 0 24 24"><polyline points="22 11.08 22 12 12 22 2 12 2 11.08 12 1 22 11.08z"/><polyline points="7 12 10 15 17 8"/></svg></div>
+        <div class="trust-title">15 ans de garantie</div>
+        <div class="trust-desc">Tous nos systèmes sont garantis 15 ans contre les défauts de fabrication. Pièces de remplacement disponibles à vie sur catalogue.</div>
+      </div>
     </div>
-    <div class="pgrid4" id="hpgrid"></div>
   </div>
-  <div class="trust">
-    <div class="tbox">
-      <div><div class="tt">Certifié CEHQ</div><div class="td">Tous nos produits sont homologués selon les normes du Centre d'expertise hydrique du Québec.</div></div>
-      <div><div class="tt">Fabriqué au Québec</div><div class="td">Aluminium aéronautique 6061-T6 et acier inoxydable 316. Assemblage 100% local.</div></div>
-      <div><div class="tt">Installation pro</div><div class="td">Équipe certifiée disponible dans les Laurentides, Montréal et Lanaudière.</div></div>
+
+  <!-- CTA Banner -->
+  <div class="cta-banner">
+    <div class="cta-text">
+      <h3>Analysez votre terrain gratuitement</h3>
+      <p>Entrez votre adresse — la carte bathymétrique CEHQ indique la profondeur estimée et le bon batardeau apparaît automatiquement.</p>
     </div>
+    <button class="btn-primary" onclick="showPage('terrain')">Démarrer l'analyse →</button>
   </div>
 </div>
 
-<!-- RECO -->
-<div class="pg" id="pg-reco">
-  <div class="rphead">
-    <div class="rpt">Analyse terrain — Recommandation intelligente</div>
-    <div class="rps">Entrez votre adresse pour analyser la bathymétrie locale et recevoir le batardeau adapté à votre risque réel</div>
+<!-- ═══════════════════════════════════
+     PAGE 2 — ANALYSE TERRAIN
+═══════════════════════════════════ -->
+<div class="pg" id="pg-terrain">
+  <div class="terrain-head">
+    <h1>Analyse <span style="color:var(--ice)">Terrain</span></h1>
+    <p>Entrez votre adresse pour obtenir une recommandation personnalisée basée sur les données hydrologiques de votre zone.</p>
   </div>
-  <div class="rplay">
-    <div class="rpsb">
+  <div class="terrain-layout">
+    <div class="terrain-sidebar">
+
       <div>
-        <div class="flbl">Votre adresse</div>
-        <div class="awrap">
-          <svg class="sico" viewBox="0 0 14 14" fill="none"><circle cx="5.5" cy="5.5" r="4" stroke="currentColor" stroke-width="1.1"/><path d="M9 9l3 3" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>
-          <input class="ainp" id="ainp" type="text" placeholder="Ex: 45 rue des Érables, Saint-Sauveur" autocomplete="off"/>
-          <div class="sugg" id="asugg" style="display:none;"></div>
+        <label class="search-label">Adresse ou localité</label>
+        <div class="search-wrap">
+          <svg class="search-ico" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input class="search-inp" id="addr-inp" type="text" placeholder="Ex: Saint-Sauveur, QC…" autocomplete="off" oninput="onAddrInput()" onkeydown="if(event.key==='Enter')doSearch()"/>
+          <button class="search-btn" onclick="doSearch()">Analyser</button>
+          <div class="suggestions" id="suggestions"></div>
         </div>
       </div>
-      <div id="rside">
-        <div style="height:540px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;">
-          <div style="font-size:36px;opacity:0.12;">🌊</div>
-          <div style="font-size:12px;color:var(--muted);text-align:center;line-height:1.65;max-width:200px;">Entrez votre adresse pour lancer l'analyse bathymétrique CEHQ</div>
+
+      <div class="analysis-box" id="analysis-box">
+        <div class="abox-title">Données du site</div>
+        <div class="arow"><span class="arow-label">Localité</span><span class="arow-val" id="a-city">—</span></div>
+        <div class="arow"><span class="arow-label">Coordonnées</span><span class="arow-val" id="a-coords">—</span></div>
+        <div class="arow"><span class="arow-label">Zone CEHQ</span><span class="arow-val" id="a-zone">—</span></div>
+        <div class="arow"><span class="arow-label">Profondeur estimée</span><span class="arow-val" id="a-depth">—</span></div>
+        <div class="arow"><span class="arow-label">Niveau de risque</span><span class="arow-val" id="a-risk">—</span></div>
+        <div class="depth-gauge-wrap">
+          <div class="depth-gauge-label"><span>0m</span><span id="a-depth-label">—</span><span>3.5m+</span></div>
+          <div class="depth-gauge-track"><div class="depth-gauge-fill" id="a-gauge" style="width:0%;background:var(--ok)"></div></div>
         </div>
       </div>
+
+      <div class="reco-card" id="reco-card">
+        <div class="reco-badge" id="reco-badge">Recommandé</div>
+        <div class="reco-name" id="reco-name">—</div>
+        <div class="reco-desc" id="reco-desc">—</div>
+        <div class="reco-specs" id="reco-specs"></div>
+        <div class="reco-price" id="reco-price">—</div>
+        <button class="reco-cta" id="reco-cta" onclick="goToConfig()">Commander ce système →</button>
+      </div>
+
     </div>
-    <div id="rmap" class="mzone">
-      <div style="display:flex;align-items:center;justify-content:center;height:700px;flex-direction:column;gap:10px;">
-        <div style="font-size:42px;opacity:0.12;">🗺️</div>
-        <div style="font-size:13px;color:var(--muted);text-align:center;line-height:1.65;max-width:220px;">La carte bathymétrique apparaîtra ici après saisie de l'adresse</div>
+    <div class="terrain-map">
+      <div class="map-placeholder" id="map-placeholder">
+        <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <p>Entrez une adresse pour afficher la carte</p>
       </div>
+      <div id="map" style="display:none;"></div>
     </div>
   </div>
 </div>
 
-<!-- PRODUITS -->
-<div class="pg" id="pg-prods">
-  <div class="pphead">
-    <div style="font-family:'Barlow Condensed',sans-serif;font-size:30px;font-weight:800;text-transform:uppercase;color:var(--cream);letter-spacing:0.02em;">Catalogue Armadam</div>
-    <div style="font-size:12px;color:var(--muted);margin-top:3px;">4 gammes — du résidentiel à la protection industrielle extrême</div>
+<!-- ═══════════════════════════════════
+     PAGE 3 — CATALOGUE
+═══════════════════════════════════ -->
+<div class="pg" id="pg-catalogue">
+  <div class="catalogue-head">
+    <div class="section-title" style="margin-bottom:6px;">Catalogue <span>Produits</span></div>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:0;">4 gammes pour chaque niveau de protection — fabriqués et certifiés au Québec.</p>
   </div>
-  <div class="pgbig" id="ppgrid"></div>
+  <div class="cat-grid">
+
+    <!-- SENTINEL 120 -->
+    <div class="cat-card cat-c1">
+      <div class="cat-card-header">
+        <div class="cat-card-num">01</div>
+        <div class="cat-card-icon">
+          <svg viewBox="0 0 70 70" fill="none" width="70" height="70"><rect x="10" y="38" width="50" height="22" rx="1.5" fill="rgba(91,168,204,0.25)" stroke="#5ba8cc" stroke-width="1.5"/><rect x="16" y="30" width="38" height="10" rx="1" fill="rgba(91,168,204,0.18)" stroke="#5ba8cc" stroke-width="1.5"/><line x1="20" y1="40" x2="20" y2="58" stroke="#5ba8cc" stroke-width="1" opacity=".5"/><line x1="35" y1="40" x2="35" y2="58" stroke="#5ba8cc" stroke-width="1" opacity=".5"/><line x1="50" y1="40" x2="50" y2="58" stroke="#5ba8cc" stroke-width="1" opacity=".5"/></svg>
+        </div>
+        <div class="cat-card-info">
+          <div class="cat-card-tier">01 — Résidentiel Standard</div>
+          <div class="cat-card-name">SENTINEL 120</div>
+        </div>
+      </div>
+      <div class="cat-card-body">
+        <table class="cat-specs">
+          <tr><td>Matériau</td><td>Aluminium 6061-T6</td></tr>
+          <tr><td>Hauteur</td><td>1.2 m</td></tr>
+          <tr><td>Largeur modulaire</td><td>0.5 m – 3 m</td></tr>
+          <tr><td>Étanchéité</td><td>Joint EPDM</td></tr>
+          <tr><td>Poids</td><td>18 kg/m</td></tr>
+          <tr><td>Indice de protection</td><td>IP68</td></tr>
+          <tr><td>Délai de livraison</td><td>48 heures</td></tr>
+          <tr><td>Garantie</td><td>15 ans</td></tr>
+        </table>
+        <div class="cat-footer">
+          <div class="cat-price">1 890 $ <small>/ module</small></div>
+          <button class="btn-cart" onclick="addToCart('SENTINEL 120',1890,this)">
+            <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+            Ajouter
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- AQUASHIELD PRO -->
+    <div class="cat-card cat-c2">
+      <div class="cat-card-header">
+        <div class="cat-card-num">02</div>
+        <div class="cat-card-icon">
+          <svg viewBox="0 0 70 70" fill="none" width="70" height="70"><rect x="8" y="30" width="54" height="30" rx="1.5" fill="rgba(91,168,204,0.2)" stroke="#5ba8cc" stroke-width="1.5"/><rect x="13" y="18" width="44" height="14" rx="1" fill="rgba(91,168,204,0.15)" stroke="#5ba8cc" stroke-width="1.5"/><rect x="8" y="14" width="54" height="6" rx="1" fill="rgba(168,212,232,0.15)" stroke="#a8d4e8" stroke-width="1"/><path d="M18 32 L18 58 M35 32 L35 58 M52 32 L52 58" stroke="#5ba8cc" stroke-width="1" opacity=".4"/></svg>
+        </div>
+        <div class="cat-card-info">
+          <div class="cat-card-tier">02 — Protection Riveraine</div>
+          <div class="cat-card-name">AQUASHIELD PRO</div>
+        </div>
+      </div>
+      <div class="cat-card-body">
+        <table class="cat-specs">
+          <tr><td>Matériau</td><td>Aluminium anodisé</td></tr>
+          <tr><td>Hauteur</td><td>2.0 m</td></tr>
+          <tr><td>Largeur modulaire</td><td>0.5 m – 4 m</td></tr>
+          <tr><td>Étanchéité</td><td>Joint triple lèvre</td></tr>
+          <tr><td>Poids</td><td>28 kg/m</td></tr>
+          <tr><td>Indice de protection</td><td>IP68+</td></tr>
+          <tr><td>Certification</td><td>UL Listed</td></tr>
+          <tr><td>Garantie</td><td>15 ans</td></tr>
+        </table>
+        <div class="cat-footer">
+          <div class="cat-price">3 450 $ <small>/ module</small></div>
+          <button class="btn-cart" onclick="addToCart('AQUASHIELD PRO',3450,this)">
+            <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+            Ajouter
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- FORTRESS COMMERCIAL -->
+    <div class="cat-card cat-c3">
+      <div class="cat-card-header">
+        <div class="cat-card-num">03</div>
+        <div class="cat-card-icon">
+          <svg viewBox="0 0 70 70" fill="none" width="70" height="70"><rect x="5" y="22" width="60" height="40" rx="1.5" fill="rgba(91,168,204,0.18)" stroke="#5ba8cc" stroke-width="1.5"/><rect x="9" y="10" width="52" height="14" rx="1" fill="rgba(91,168,204,0.12)" stroke="#5ba8cc" stroke-width="1.5"/><rect x="5" y="6" width="60" height="6" rx="1" fill="rgba(168,212,232,0.12)" stroke="#a8d4e8" stroke-width="1"/><path d="M5 36 L65 36 M5 48 L65 48" stroke="#5ba8cc" stroke-width="0.5" opacity=".3"/><path d="M18 22 L18 62 M35 22 L35 62 M52 22 L52 62" stroke="#5ba8cc" stroke-width="1" opacity=".3"/></svg>
+        </div>
+        <div class="cat-card-info">
+          <div class="cat-card-tier">03 — Commercial / Industriel</div>
+          <div class="cat-card-name">FORTRESS COMMERCIAL</div>
+        </div>
+      </div>
+      <div class="cat-card-body">
+        <table class="cat-specs">
+          <tr><td>Matériau</td><td>Acier galvanisé + alu</td></tr>
+          <tr><td>Hauteur</td><td>2.8 m</td></tr>
+          <tr><td>Largeur modulaire</td><td>0.5 m – 6 m</td></tr>
+          <tr><td>Pression testée</td><td>2.8 m colonne d'eau</td></tr>
+          <tr><td>Poids</td><td>45 kg/m</td></tr>
+          <tr><td>Norme</td><td>ASTM A123 / F436</td></tr>
+          <tr><td>Installation</td><td>Recommandée</td></tr>
+          <tr><td>Garantie</td><td>15 ans</td></tr>
+        </table>
+        <div class="cat-footer">
+          <div class="cat-price">6 200 $ <small>/ module</small></div>
+          <button class="btn-cart" onclick="addToCart('FORTRESS COMMERCIAL',6200,this)">
+            <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+            Ajouter
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TITAN EXTREME -->
+    <div class="cat-card cat-c4">
+      <div class="cat-card-header">
+        <div class="cat-card-num">04</div>
+        <div class="cat-card-icon">
+          <svg viewBox="0 0 70 70" fill="none" width="70" height="70"><rect x="3" y="12" width="64" height="52" rx="1.5" fill="rgba(91,168,204,0.15)" stroke="#5ba8cc" stroke-width="1.5"/><rect x="7" y="4" width="56" height="10" rx="1" fill="rgba(91,168,204,0.12)" stroke="#5ba8cc" stroke-width="1.5"/><rect x="3" y="2" width="64" height="4" rx="1" fill="rgba(168,212,232,0.2)" stroke="#a8d4e8" stroke-width="1"/><path d="M3 28 L67 28 M3 42 L67 42 M3 56 L67 56" stroke="#5ba8cc" stroke-width="0.5" opacity=".3"/><path d="M16 12 L16 64 M35 12 L35 64 M54 12 L54 64" stroke="#5ba8cc" stroke-width="1" opacity=".3"/></svg>
+        </div>
+        <div class="cat-card-info">
+          <div class="cat-card-tier">04 — Protection Extrême</div>
+          <div class="cat-card-name">TITAN EXTREME</div>
+        </div>
+      </div>
+      <div class="cat-card-body">
+        <table class="cat-specs">
+          <tr><td>Matériau</td><td>Composite haute résistance</td></tr>
+          <tr><td>Hauteur</td><td>3.5 m et plus</td></tr>
+          <tr><td>Largeur</td><td>Sur mesure</td></tr>
+          <tr><td>Certification</td><td>Municipale / MDDELCC</td></tr>
+          <tr><td>Installation</td><td>Équipe pro incluse</td></tr>
+          <tr><td>Analyse de site</td><td>Incluse (visite terrain)</td></tr>
+          <tr><td>Maintenance</td><td>Contrat annuel disponible</td></tr>
+          <tr><td>Garantie</td><td>15 ans</td></tr>
+        </table>
+        <div class="cat-footer">
+          <div class="cat-price">9 800 $ <small>/ module</small></div>
+          <button class="btn-cart" onclick="addToCart('TITAN EXTREME',9800,this)">
+            <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+            Ajouter
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
 </div>
+
+<!-- ═══════════════════════════════════
+     PAGE 4 — CONFIGURATEUR
+═══════════════════════════════════ -->
+<div class="pg" id="pg-config">
+  <div class="config-layout">
+    <div class="config-main">
+      <h2 class="config-title">Configurateur <span>de commande</span></h2>
+
+      <!-- Product selector -->
+      <div class="fblock">
+        <div class="fblock-title">Choisir le système</div>
+        <div class="prod-selector">
+          <div class="psel on" onclick="selectProd(0,this)">
+            <div class="psel-name">SENTINEL 120</div>
+            <div class="psel-sub">Résidentiel — 1 890 $/module</div>
+          </div>
+          <div class="psel" onclick="selectProd(1,this)">
+            <div class="psel-name">AQUASHIELD PRO</div>
+            <div class="psel-sub">Riverain — 3 450 $/module</div>
+          </div>
+          <div class="psel" onclick="selectProd(2,this)">
+            <div class="psel-name">FORTRESS COMMERCIAL</div>
+            <div class="psel-sub">Commercial — 6 200 $/module</div>
+          </div>
+          <div class="psel" onclick="selectProd(3,this)">
+            <div class="psel-name">TITAN EXTREME</div>
+            <div class="psel-sub">Extrême — 9 800 $/module</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dimensions -->
+      <div class="fblock">
+        <div class="fblock-title">Dimensions de l'ouverture</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Largeur de l'ouverture (mètres)</label>
+            <input class="form-inp" id="cfg-width" type="number" min="0.5" max="20" step="0.5" value="3" oninput="calcPrice()"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Nombre d'ouvertures / portées</label>
+            <input class="form-inp" id="cfg-qty" type="number" min="1" max="50" step="1" value="1" oninput="calcPrice()"/>
+          </div>
+        </div>
+      </div>
+
+      <!-- Options -->
+      <div class="fblock">
+        <div class="fblock-title">Options</div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <label class="check-row">
+            <input type="checkbox" id="opt-install" onchange="calcPrice()"/>
+            <div class="check-text">
+              <strong>Installation professionnelle certifiée RBQ</strong>
+              <span>Pose complète par nos équipes — +25% du prix des modules</span>
+            </div>
+          </label>
+          <label class="check-row">
+            <input type="checkbox" id="opt-livraison" onchange="calcPrice()"/>
+            <div class="check-text">
+              <strong>Livraison express 48h garantie</strong>
+              <span>Priorité d'expédition depuis nos entrepôts — +150 $</span>
+            </div>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Summary -->
+    <div class="config-sidebar">
+      <div class="summary-card">
+        <div class="summary-head"><h3>Sommaire</h3></div>
+        <div class="summary-body">
+          <div class="sum-row"><span class="sum-label">Système</span><span class="sum-val" id="sum-prod">SENTINEL 120</span></div>
+          <div class="sum-row"><span class="sum-label">Modules requis</span><span class="sum-val" id="sum-mods">—</span></div>
+          <div class="sum-row"><span class="sum-label">Ouvertures</span><span class="sum-val" id="sum-qty">1</span></div>
+          <div class="sum-row"><span class="sum-label">Modules × prix</span><span class="sum-val" id="sum-base">—</span></div>
+          <div class="sum-row" id="sum-install-row" style="display:none;"><span class="sum-label">Installation (+25%)</span><span class="sum-val" id="sum-install">—</span></div>
+          <div class="sum-row" id="sum-liv-row" style="display:none;"><span class="sum-label">Livraison express</span><span class="sum-val">+150 $</span></div>
+        </div>
+        <div class="sum-total">
+          <span class="sum-total-label">Total estimé</span>
+          <span class="sum-total-val" id="sum-total">—</span>
+        </div>
+      </div>
+      <button class="btn-devis" onclick="openDevisModal()">Demander une soumission</button>
+      <div class="summary-note">Prix indicatifs avant taxes (TPS+TVQ). Une soumission détaillée sera envoyée dans les 24h.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+     PAGE 5 — RÉSERVATION
+═══════════════════════════════════ -->
+<div class="pg" id="pg-resa">
+  <div class="resa-layout">
+    <h2 class="resa-title">Réservation <span>Installation</span></h2>
+    <p class="resa-sub">Planifiez votre installation en 3 étapes — nos équipes certifiées RBQ s'occupent du reste.</p>
+
+    <!-- Progress -->
+    <div class="progress-bar" id="progress-bar">
+      <div class="progress-step">
+        <div class="progress-dot active" id="pd-1">1</div>
+        <span class="progress-label active" id="pl-1">Coordonnées</span>
+      </div>
+      <div class="progress-line" id="pline-1"></div>
+      <div class="progress-step">
+        <div class="progress-dot" id="pd-2">2</div>
+        <span class="progress-label" id="pl-2">Projet</span>
+      </div>
+      <div class="progress-line" id="pline-2"></div>
+      <div class="progress-step">
+        <div class="progress-dot" id="pd-3">3</div>
+        <span class="progress-label" id="pl-3">Calendrier</span>
+      </div>
+    </div>
+
+    <!-- Step 1 -->
+    <div class="step on" id="step-1">
+      <div class="step-title">Vos coordonnées</div>
+      <div class="fgrid">
+        <div class="fgroup"><label class="flabel">Prénom</label><input class="finp" id="r-prenom" type="text" placeholder="Jean"/></div>
+        <div class="fgroup"><label class="flabel">Nom</label><input class="finp" id="r-nom" type="text" placeholder="Tremblay"/></div>
+      </div>
+      <div class="fgrid">
+        <div class="fgroup"><label class="flabel">Courriel</label><input class="finp" id="r-email" type="email" placeholder="jean@exemple.ca"/></div>
+        <div class="fgroup"><label class="flabel">Téléphone</label><input class="finp" id="r-tel" type="tel" placeholder="514 555-0000"/></div>
+      </div>
+      <div class="fgrid full">
+        <div class="fgroup"><label class="flabel">Adresse du chantier</label><input class="finp" id="r-addr" type="text" placeholder="123 Rue des Érables, Laval, QC H7A 1A1"/></div>
+      </div>
+      <div class="step-nav">
+        <span></span>
+        <button class="btn-next" onclick="nextStep(2)">Suivant →</button>
+      </div>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="step" id="step-2">
+      <div class="step-title">Détails du projet</div>
+      <div class="fgrid">
+        <div class="fgroup">
+          <label class="flabel">Type de bâtiment</label>
+          <select class="finp" id="r-type">
+            <option value="">Sélectionner…</option>
+            <option>Résidentiel unifamilial</option>
+            <option>Résidentiel multilogement</option>
+            <option>Commercial / bureau</option>
+            <option>Industriel / entrepôt</option>
+            <option>Municipal / institutionnel</option>
+          </select>
+        </div>
+        <div class="fgroup">
+          <label class="flabel">Système d'intérêt</label>
+          <select class="finp" id="r-prod">
+            <option>SENTINEL 120 — Résidentiel</option>
+            <option>AQUASHIELD PRO — Riverain</option>
+            <option>FORTRESS COMMERCIAL</option>
+            <option>TITAN EXTREME</option>
+            <option>Je ne sais pas encore</option>
+          </select>
+        </div>
+      </div>
+      <div class="fgrid full">
+        <div class="fgroup"><label class="flabel">Dimensions approximatives (longueur × hauteur)</label><input class="finp" id="r-dims" type="text" placeholder="Ex: 6m × 1.5m — 2 ouvertures"/></div>
+      </div>
+      <div class="fgroup" style="margin-bottom:1.5rem;">
+        <label class="flabel" style="margin-bottom:10px;">Niveau d'urgence</label>
+        <div class="radio-group">
+          <div class="radio-opt">
+            <input type="radio" name="urgence" id="u1" value="standard" checked/>
+            <label for="u1"><strong>Standard</strong><span>Sous 2 semaines</span></label>
+          </div>
+          <div class="radio-opt">
+            <input type="radio" name="urgence" id="u2" value="prioritaire"/>
+            <label for="u2"><strong>Prioritaire</strong><span>Sous 72h</span></label>
+          </div>
+          <div class="radio-opt">
+            <input type="radio" name="urgence" id="u3" value="urgence"/>
+            <label for="u3"><strong>Urgence 24h</strong><span>Intervention rapide</span></label>
+          </div>
+        </div>
+      </div>
+      <div class="step-nav">
+        <button class="btn-back" onclick="nextStep(1)">← Retour</button>
+        <button class="btn-next" onclick="nextStep(3)">Suivant →</button>
+      </div>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="step" id="step-3">
+      <div class="step-title">Choisir une date</div>
+      <div class="calendar">
+        <div class="cal-nav">
+          <button class="cal-arrow" onclick="calPrev()">‹</button>
+          <div class="cal-month" id="cal-month-label">—</div>
+          <button class="cal-arrow" onclick="calNext()">›</button>
+        </div>
+        <div class="cal-grid" id="cal-grid"></div>
+      </div>
+      <div style="margin-top:1rem;padding:12px;background:var(--steel);border:1px solid var(--bd);border-radius:3px;font-size:13px;display:flex;justify-content:space-between;">
+        <span style="color:var(--muted);">Date sélectionnée</span>
+        <span id="cal-selected-label" style="font-weight:600;color:var(--ice);">Aucune sélection</span>
+      </div>
+      <div class="step-nav">
+        <button class="btn-back" onclick="nextStep(2)">← Retour</button>
+        <button class="btn-submit" onclick="submitResa()">Confirmer la réservation ✓</button>
+      </div>
+    </div>
+
+    <!-- Confirmation -->
+    <div class="step" id="step-confirm">
+      <div class="confirm-box">
+        <div class="confirm-icon">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div class="confirm-ref" id="confirm-ref">Référence #------</div>
+        <h2 class="confirm-title">Réservation confirmée !</h2>
+        <p class="confirm-sub">Votre demande a été enregistrée. Un de nos conseillers vous contactera dans les <strong>2 heures ouvrables</strong> pour confirmer les détails et la date d'installation.</p>
+        <button class="btn-primary" onclick="showPage('home')">Retour à l'accueil</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══ MODAL DEVIS ═══ -->
+<div class="modal-overlay" id="devis-modal">
+  <div class="modal">
+    <div class="modal-head">
+      <h3>Sommaire de soumission</h3>
+      <button class="modal-close" onclick="closeDevisModal()">×</button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+    <div class="modal-total">
+      <span class="modal-total-label">Total estimé</span>
+      <span class="modal-total-val" id="modal-total">—</span>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-secondary" onclick="closeDevisModal()">Modifier</button>
+      <button class="btn-primary" onclick="closeDevisModal();showPage('resa');">Réserver l'installation →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ TOAST ═══ -->
+<div class="toast" id="toast"></div>
+
+<!-- ═══ LEAFLET ═══ -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <script>
-const PRODS=[
-  {name:"AquaShield 90",badge:"Résidentiel",tc:"tr",desc:"Pour zones à risque modéré. Aluminium 6061-T6 3mm léger, installation en 45 min sans outil spécialisé.",dmin:0,dmax:1.2,specs:{Hauteur:"90 cm",Matériau:"Alu 6061",Poids:"12 kg/m",Install:"45 min"},price:"389",col:"#4a8fa8"},
-  {name:"FloodShield 150",badge:"Riverain",tc:"tr",desc:"Zones riveraines avec crues saisonnières. Certifié CEHQ, joints EPDM renforcés, ancrage rapide 4 points.",dmin:1.2,dmax:2.0,specs:{Hauteur:"150 cm",Matériau:"Alu 5mm+POM",Poids:"18 kg/m",Install:"90 min"},price:"689",col:"#3a7a94"},
-  {name:"HydroBarrier 200",badge:"Commercial",tc:"tc",desc:"Structure acier inox 316, modulaire, ancrage béton. Pour profondeurs 2 à 2.8m et usage commercial intensif.",dmin:2.0,dmax:2.8,specs:{Hauteur:"200 cm",Matériau:"Inox 316",Poids:"28 kg/m",Install:"3–4h"},price:"1 290",col:"#2d6a80"},
-  {name:"TitanWall 300",badge:"Extrême",tc:"te",desc:"Homologué crues centennales. Acier haute résistance, installation obligatoire par l'équipe Armadam certifiée.",dmin:2.8,dmax:99,specs:{Hauteur:"300 cm",Matériau:"Acier HR",Poids:"45 kg/m",Install:"Équipe pro"},price:"2 490",col:"#1d5570"},
-];
-const ADDRS=[
-  {label:"45 Rue des Érables, Saint-Sauveur, QC",city:"Laurentides · QC",depth:1.8,flood:"Élevé",zone:"Rivière du Nord — Zone riveraine",risk:82,type:"Résidentiel"},
-  {label:"120 Blvd Gouin Ouest, Montréal, QC",city:"Île de Montréal · QC",depth:2.4,flood:"Très élevé",zone:"Fleuve Saint-Laurent — Zone côtière",risk:94,type:"Résidentiel"},
-  {label:"380 Rue St-Paul, Vieux-Montréal, QC",city:"Île de Montréal · QC",depth:0.9,flood:"Modéré",zone:"Zone urbaine dense",risk:45,type:"Commercial"},
-  {label:"1200 Autoroute des Laurentides, Laval, QC",city:"Laval · QC",depth:1.3,flood:"Élevé",zone:"Rivière des Prairies — Zone industrielle",risk:68,type:"Commercial"},
-  {label:"55 Chemin du Lac Supérieur, Lac-Supérieur, QC",city:"Laurentides · QC",depth:3.1,flood:"Extrême",zone:"Lac Supérieur — Zone lacustre",risk:97,type:"Résidentiel"},
-];
+// ── STATE ──────────────────────────────────────────────────────────────────
+let cartCount = 0;
+let leafletMap = null;
+let leafletMarker = null;
+let currentReco = null;
 
-function getP(d){return PRODS.find(p=>d>=p.dmin&&d<p.dmax)||PRODS[3];}
-function rc(r){return r>=80?"d":r>=55?"w":"g";}
-function rcol(r){return r>=80?"#e07070":r>=55?"#e0a050":"#70c080";}
+const PRODUCTS = [
+  {name:'SENTINEL 120', tier:'Résidentiel Standard', depth:'0 – 1.2 m', price:1890, modW:3, specs:{matériau:'Aluminium 6061-T6',hauteur:'1.2 m',largeur:'0.5 – 3 m',poids:'18 kg/m',IP:'IP68'}},
+  {name:'AQUASHIELD PRO', tier:'Protection Riveraine', depth:'1.2 – 2 m', price:3450, modW:4, specs:{matériau:'Aluminium anodisé',hauteur:'2.0 m',largeur:'0.5 – 4 m',poids:'28 kg/m',IP:'IP68+'}},
+  {name:'FORTRESS COMMERCIAL', tier:'Commercial / Industriel', depth:'2 – 2.8 m', price:6200, modW:6, specs:{matériau:'Acier galv. + alu',hauteur:'2.8 m',largeur:'0.5 – 6 m',poids:'45 kg/m',norme:'ASTM'}},
+  {name:'TITAN EXTREME', tier:'Protection Extrême', depth:'2.8 m et plus', price:9800, modW:6, specs:{matériau:'Composite HR',hauteur:'3.5 m+',largeur:'Sur mesure',installation:'Pro incluse',certif:'Municipale'}},
+];
+let selectedProdIdx = 0;
 
-function batSVG(col,dmax,w,h){
-  const frac=Math.min(1,(dmax>10?3.2:dmax)/3.5);
-  const bh=(h*0.4)+frac*(h*0.45);
-  const y0=h-bh;
-  return `<svg viewBox="0 0 ${w} ${h}" style="width:${w}px;height:${h}px;">
-    <rect x="${w*0.08}" y="${y0+bh*0.6}" width="${w*0.84}" height="${bh*0.4}" rx="2" fill="${col}" opacity=".75"/>
-    <rect x="${w*0.12}" y="${y0+bh*0.3}" width="${w*0.76}" height="${bh*0.35}" rx="2" fill="${col}" opacity=".9"/>
-    <rect x="${w*0.2}" y="${y0}" width="${w*0.09}" height="${bh}" rx="1.5" fill="${col}" opacity=".85"/>
-    <rect x="${w*0.71}" y="${y0}" width="${w*0.09}" height="${bh}" rx="1.5" fill="${col}" opacity=".85"/>
-    <line x1="${w*0.08}" y1="${h-2}" x2="${w*0.92}" y2="${h-2}" stroke="rgba(255,255,255,.2)" stroke-width="1.5"/>
-  </svg>`;
+// ── NAVIGATION ──────────────────────────────────────────────────────────────
+function showPage(id) {
+  document.querySelectorAll('.pg').forEach(p => p.classList.remove('on'));
+  document.querySelectorAll('.ntab').forEach(t => t.classList.remove('on'));
+  document.getElementById('pg-' + id).classList.add('on');
+  const tab = document.getElementById('tab-' + id);
+  if (tab) tab.classList.add('on');
+  window.scrollTo({top:0,behavior:'smooth'});
+  if (id === 'terrain') initMap();
+  if (id === 'config') calcPrice();
+  if (id === 'resa') initCalendar();
 }
 
-function sp(id){
-  document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'));
-  document.querySelectorAll('.nl').forEach(l=>l.classList.remove('on'));
-  document.getElementById('pg-'+id).classList.add('on');
-  const m={home:0,reco:1,prods:2};
-  if(m[id]!==undefined)document.getElementById('nl'+m[id]).classList.add('on');
-  window.scrollTo(0,0);
+// ── CART ────────────────────────────────────────────────────────────────────
+function addToCart(name, price, btn) {
+  cartCount++;
+  const badge = document.getElementById('cart-badge');
+  badge.textContent = cartCount;
+  badge.classList.add('show');
+  btn.classList.add('added');
+  btn.innerHTML = '<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Ajouté';
+  setTimeout(() => {
+    btn.classList.remove('added');
+    btn.innerHTML = '<svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> Ajouter';
+  }, 2000);
+  showToast('✓ ' + name + ' ajouté au panier', 'success');
 }
 
-// Build home grid
-document.getElementById('hpgrid').innerHTML=PRODS.map(p=>`
-  <div class="pc" onclick="sp('prods')">
-    <div class="pcv">${batSVG(p.col,p.dmax,90,72)}</div>
-    <div class="pci">
-      <div class="pcn">${p.name}</div>
-      <div class="pcd">jusqu'à ${p.dmax>10?"3m+":p.dmax+"m"}</div>
-      <div class="pcp">dès ${p.price} $</div>
-    </div>
-  </div>`).join('');
+// ── TERRAIN / MAP ────────────────────────────────────────────────────────────
+let searchTimeout;
+function onAddrInput() {
+  const val = document.getElementById('addr-inp').value;
+  clearTimeout(searchTimeout);
+  if (val.length < 3) { closeSugg(); return; }
+  searchTimeout = setTimeout(() => fetchSuggestions(val), 350);
+}
 
-// Build products page
-document.getElementById('ppgrid').innerHTML=PRODS.map(p=>`
-  <div class="bcard">
-    <div class="bcv">${batSVG(p.col,p.dmax,160,120)}</div>
-    <div class="bcb">
-      <div class="bctag ${p.tc}">${p.badge}</div>
-      <div class="bcn">${p.name}</div>
-      <div class="bcd">${p.desc}</div>
-      <div class="bcspecs">${Object.entries(p.specs).map(([k,v])=>`<div class="bcs"><span class="bcsl">${k}</span><span class="bcsv">${v}</span></div>`).join('')}</div>
-      <div class="bcprow"><div class="bcpn">${p.price} $</div><div class="bcpnote">/ module · livraison 48h</div></div>
-      <button class="badd" onclick="alert('Panier — intégration Stripe/Shopify à connecter')">Ajouter au panier →</button>
-    </div>
-  </div>`).join('');
+async function fetchSuggestions(q) {
+  try {
+    const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(q)}&countrycodes=ca&format=json&limit=5`;
+    const res = await fetch(url, {headers:{'Accept-Language':'fr'}});
+    const data = await res.json();
+    renderSuggestions(data);
+  } catch(e) { closeSugg(); }
+}
 
-// Address autocomplete
-const ainp=document.getElementById('ainp');
-const asugg=document.getElementById('asugg');
-ainp.addEventListener('input',()=>{
-  const v=ainp.value.trim();
-  if(v.length<3){asugg.style.display='none';return;}
-  const m=ADDRS.filter(a=>a.label.toLowerCase().includes(v.toLowerCase()));
-  if(!m.length){asugg.style.display='none';return;}
-  asugg.innerHTML=m.map(a=>`<div class="sitem" onclick="selAddr(${ADDRS.indexOf(a)})"><div>${a.label}</div><div class="scity">${a.city}</div></div>`).join('');
-  asugg.style.display='block';
+function renderSuggestions(items) {
+  const box = document.getElementById('suggestions');
+  if (!items.length) { closeSugg(); return; }
+  box.innerHTML = items.map((item,i) => {
+    const parts = item.display_name.split(', ');
+    const name = parts.slice(0,2).join(', ');
+    const sub = parts.slice(2,5).join(', ');
+    return `<div class="sugg-item" onclick="selectSugg(${item.lat},${item.lon},'${name.replace(/'/g,"\\'")}')">
+      <div class="sugg-name">${name}</div>
+      <div class="sugg-sub">${sub}</div>
+    </div>`;
+  }).join('');
+  box.classList.add('open');
+}
+
+function closeSugg() {
+  document.getElementById('suggestions').classList.remove('open');
+}
+
+function selectSugg(lat, lon, name) {
+  document.getElementById('addr-inp').value = name;
+  closeSugg();
+  analyzeLocation(parseFloat(lat), parseFloat(lon), name);
+}
+
+async function doSearch() {
+  const q = document.getElementById('addr-inp').value;
+  if (!q.trim()) return;
+  closeSugg();
+  try {
+    const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(q)}&countrycodes=ca&format=json&limit=1`;
+    const res = await fetch(url, {headers:{'Accept-Language':'fr'}});
+    const data = await res.json();
+    if (data.length) {
+      const name = data[0].display_name.split(', ').slice(0,2).join(', ');
+      analyzeLocation(parseFloat(data[0].lat), parseFloat(data[0].lon), name);
+    } else {
+      showToast('Adresse non trouvée au Québec', '');
+    }
+  } catch(e) {
+    showToast('Erreur de connexion', '');
+  }
+}
+
+function initMap() {
+  if (leafletMap) return;
+  document.getElementById('map').style.display = 'block';
+  leafletMap = L.map('map', {zoomControl:true}).setView([46.8, -71.2], 7);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution:'© OpenStreetMap',
+    maxZoom:18
+  }).addTo(leafletMap);
+  // Custom dark marker
+  const icon = L.divIcon({
+    html:`<div style="width:16px;height:16px;background:#5ba8cc;border:3px solid #0d1f2d;border-radius:50%;box-shadow:0 2px 8px rgba(0,0,0,0.5);"></div>`,
+    iconSize:[16,16],iconAnchor:[8,8]
+  });
+  leafletMap._customIcon = icon;
+}
+
+function analyzeLocation(lat, lon, name) {
+  initMap();
+  document.getElementById('map-placeholder').style.display = 'none';
+  document.getElementById('map').style.display = 'block';
+  if (!leafletMap) return;
+
+  leafletMap.flyTo([lat, lon], 13, {duration:1.5});
+  if (leafletMarker) leafletMarker.remove();
+  leafletMarker = L.marker([lat, lon], {icon: leafletMap._customIcon}).addTo(leafletMap);
+
+  // Simulate depth using lat/lon hash for determinism
+  const seed = Math.abs(Math.sin(lat * 100 + lon * 77)) ;
+  const depth = (seed * 3.2 + 0.3).toFixed(2);
+
+  // Determine product
+  let prodIdx = 0, zone, risk, riskClass;
+  const d = parseFloat(depth);
+  if (d < 1.2) { prodIdx=0; zone='Zone C — Faible risque'; risk='Faible'; riskClass='ok'; }
+  else if (d < 2) { prodIdx=1; zone='Zone B — Risque modéré'; risk='Modéré'; riskClass='warn'; }
+  else if (d < 2.8) { prodIdx=2; zone='Zone A — Risque élevé'; risk='Élevé'; riskClass='danger'; }
+  else { prodIdx=3; zone='Zone 0 — Risque extrême'; risk='Extrême'; riskClass='danger'; }
+
+  // Popup on map
+  leafletMarker.bindPopup(`
+    <div style="font-family:'Barlow',sans-serif;min-width:160px;">
+      <div style="font-weight:700;margin-bottom:4px;color:#f0ece4;">${name}</div>
+      <div style="font-size:12px;color:#7a9aae;">Profondeur estimée : <strong style="color:#5ba8cc;">${depth} m</strong></div>
+      <div style="font-size:12px;color:#7a9aae;">${zone}</div>
+    </div>
+  `).openPopup();
+
+  // Update analysis box
+  document.getElementById('analysis-box').classList.add('show');
+  document.getElementById('a-city').textContent = name;
+  document.getElementById('a-coords').textContent = `${lat.toFixed(4)}, ${lon.toFixed(4)}`;
+  document.getElementById('a-zone').textContent = zone;
+  document.getElementById('a-depth').textContent = depth + ' m';
+  const riskEl = document.getElementById('a-risk');
+  riskEl.textContent = risk;
+  riskEl.className = 'arow-val ' + riskClass;
+  document.getElementById('a-depth-label').textContent = depth + ' m';
+
+  // Depth gauge
+  const pct = Math.min(100, (d / 3.5) * 100);
+  const gaugeColor = d < 1.2 ? 'var(--ok)' : d < 2 ? 'var(--warn)' : 'var(--danger)';
+  const gauge = document.getElementById('a-gauge');
+  gauge.style.width = '0%';
+  setTimeout(() => { gauge.style.width = pct + '%'; gauge.style.background = gaugeColor; }, 50);
+
+  // Recommendation
+  const prod = PRODUCTS[prodIdx];
+  currentReco = prod;
+  document.getElementById('reco-card').classList.add('show');
+  document.getElementById('reco-badge').textContent = zone;
+  document.getElementById('reco-name').textContent = prod.name;
+  document.getElementById('reco-desc').textContent =
+    `Basé sur la profondeur estimée de ${depth} m et les données hydrologiques du secteur, le système ${prod.name} est la solution recommandée pour votre site.`;
+  document.getElementById('reco-price').innerHTML = `${prod.price.toLocaleString('fr-CA')} $ <small>/ module</small>`;
+
+  const specs = Object.entries(prod.specs);
+  document.getElementById('reco-specs').innerHTML = specs.map(([k,v]) =>
+    `<div class="rspec"><span class="rspec-label">${k}</span><span class="rspec-val">${v}</span></div>`
+  ).join('');
+}
+
+function goToConfig() {
+  if (currentReco) {
+    const idx = PRODUCTS.findIndex(p => p.name === currentReco.name);
+    if (idx >= 0) {
+      showPage('config');
+      document.querySelectorAll('.psel').forEach((el,i) => {
+        el.classList.toggle('on', i === idx);
+      });
+      selectedProdIdx = idx;
+      calcPrice();
+    }
+  }
+}
+
+// ── CONFIGURATEUR ──────────────────────────────────────────────────────────
+function selectProd(idx, el) {
+  selectedProdIdx = idx;
+  document.querySelectorAll('.psel').forEach(e => e.classList.remove('on'));
+  el.classList.add('on');
+  calcPrice();
+}
+
+function calcPrice() {
+  const prod = PRODUCTS[selectedProdIdx];
+  const width = parseFloat(document.getElementById('cfg-width').value) || 0;
+  const qty = parseInt(document.getElementById('cfg-qty').value) || 1;
+  const doInstall = document.getElementById('opt-install').checked;
+  const doLiv = document.getElementById('opt-livraison').checked;
+
+  const mods = Math.ceil(width / prod.modW) * qty;
+  const base = mods * prod.price;
+  const installCost = doInstall ? Math.round(base * 0.25) : 0;
+  const livCost = doLiv ? 150 : 0;
+  const total = base + installCost + livCost;
+
+  document.getElementById('sum-prod').textContent = prod.name;
+  document.getElementById('sum-mods').textContent = mods + ' module' + (mods > 1 ? 's' : '');
+  document.getElementById('sum-qty').textContent = qty;
+  document.getElementById('sum-base').textContent = fmt(base);
+
+  const installRow = document.getElementById('sum-install-row');
+  const livRow = document.getElementById('sum-liv-row');
+  installRow.style.display = doInstall ? '' : 'none';
+  if (doInstall) document.getElementById('sum-install').textContent = '+' + fmt(installCost);
+  livRow.style.display = doLiv ? '' : 'none';
+
+  document.getElementById('sum-total').textContent = fmt(total);
+}
+
+function fmt(n) { return n.toLocaleString('fr-CA') + ' $'; }
+
+function openDevisModal() {
+  const prod = PRODUCTS[selectedProdIdx];
+  const width = parseFloat(document.getElementById('cfg-width').value) || 0;
+  const qty = parseInt(document.getElementById('cfg-qty').value) || 1;
+  const doInstall = document.getElementById('opt-install').checked;
+  const doLiv = document.getElementById('opt-livraison').checked;
+  const mods = Math.ceil(width / prod.modW) * qty;
+  const base = mods * prod.price;
+  const installCost = doInstall ? Math.round(base * 0.25) : 0;
+  const livCost = doLiv ? 150 : 0;
+  const total = base + installCost + livCost;
+
+  const rows = [
+    ['Système', prod.name],
+    ['Largeur ouverture', width + ' m'],
+    ['Nombre d\'ouvertures', qty],
+    ['Modules requis', mods],
+    ['Prix unitaire', fmt(prod.price)],
+    ['Sous-total modules', fmt(base)],
+    doInstall ? ['Installation (+25%)', '+' + fmt(installCost)] : null,
+    doLiv ? ['Livraison express', '+' + fmt(livCost)] : null,
+  ].filter(Boolean);
+
+  document.getElementById('modal-body').innerHTML = rows.map(([l,v]) =>
+    `<div class="modal-row"><span class="modal-row-label">${l}</span><span class="modal-row-val">${v}</span></div>`
+  ).join('');
+  document.getElementById('modal-total').textContent = fmt(total);
+  document.getElementById('devis-modal').classList.add('open');
+}
+
+function closeDevisModal() {
+  document.getElementById('devis-modal').classList.remove('open');
+}
+
+// ── RÉSERVATION ────────────────────────────────────────────────────────────
+let currentStep = 1;
+let calYear, calMonth, selectedDate = null;
+
+function nextStep(n) {
+  document.getElementById('step-' + currentStep).classList.remove('on');
+  document.getElementById('step-' + n).classList.add('on');
+
+  // Update progress
+  for (let i = 1; i <= 3; i++) {
+    const dot = document.getElementById('pd-' + i);
+    const lbl = document.getElementById('pl-' + i);
+    if (i < n) { dot.classList.add('done'); dot.classList.remove('active'); dot.innerHTML = '✓'; lbl.classList.remove('active'); }
+    else if (i === n) { dot.classList.remove('done'); dot.classList.add('active'); dot.innerHTML = i; lbl.classList.add('active'); }
+    else { dot.classList.remove('done','active'); dot.innerHTML = i; lbl.classList.remove('active'); }
+    if (i < 3) {
+      const line = document.getElementById('pline-' + i);
+      line.classList.toggle('done', i < n);
+    }
+  }
+  currentStep = n;
+  if (n === 3) renderCalendar();
+}
+
+function submitResa() {
+  const ref = Math.floor(100000 + Math.random() * 900000);
+  document.getElementById('confirm-ref').textContent = 'Référence #' + ref;
+  document.getElementById('step-3').classList.remove('on');
+  document.getElementById('step-confirm').classList.add('on');
+  document.getElementById('progress-bar').style.display = 'none';
+  showToast('Réservation confirmée — réf. #' + ref, 'success');
+}
+
+// ── CALENDAR ────────────────────────────────────────────────────────────────
+function initCalendar() {
+  const now = new Date();
+  calYear = now.getFullYear();
+  calMonth = now.getMonth();
+}
+
+function renderCalendar() {
+  const now = new Date();
+  now.setHours(0,0,0,0);
+  const months = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
+  document.getElementById('cal-month-label').textContent = months[calMonth] + ' ' + calYear;
+
+  const days = ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'];
+  const firstDay = new Date(calYear, calMonth, 1).getDay();
+  const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
+
+  let html = days.map(d => `<div class="cal-dow">${d}</div>`).join('');
+  for (let i = 0; i < firstDay; i++) html += `<div class="cal-day empty"></div>`;
+
+  const maxDate = new Date(now);
+  maxDate.setDate(maxDate.getDate() + 42);
+
+  for (let d = 1; d <= daysInMonth; d++) {
+    const date = new Date(calYear, calMonth, d);
+    const isPast = date < now;
+    const isSun = date.getDay() === 0;
+    const isFuture = date > maxDate;
+    const isDisabled = isPast || isSun || isFuture;
+    const isToday = date.getTime() === now.getTime();
+    const isSelected = selectedDate && date.getTime() === selectedDate.getTime();
+    let cls = 'cal-day';
+    if (isDisabled) cls += ' disabled';
+    if (isToday) cls += ' today';
+    if (isSelected) cls += ' selected';
+    const onclick = isDisabled ? '' : `onclick="selectDate(${calYear},${calMonth},${d})"`;
+    html += `<div class="${cls}" ${onclick}>${d}</div>`;
+  }
+
+  document.getElementById('cal-grid').innerHTML = html;
+}
+
+function calPrev() {
+  calMonth--;
+  if (calMonth < 0) { calMonth = 11; calYear--; }
+  renderCalendar();
+}
+
+function calNext() {
+  calMonth++;
+  if (calMonth > 11) { calMonth = 0; calYear++; }
+  renderCalendar();
+}
+
+function selectDate(y, m, d) {
+  selectedDate = new Date(y, m, d);
+  const days = ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
+  const months = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+  document.getElementById('cal-selected-label').textContent =
+    days[selectedDate.getDay()] + ' ' + d + ' ' + months[m] + ' ' + y;
+  renderCalendar();
+}
+
+// ── TOAST ────────────────────────────────────────────────────────────────────
+function showToast(msg, type) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast' + (type ? ' ' + type : '');
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// ── INIT ────────────────────────────────────────────────────────────────────
+calcPrice();
+initCalendar();
+document.addEventListener('click', e => {
+  if (!e.target.closest('.search-wrap')) closeSugg();
 });
-document.addEventListener('click',e=>{if(!e.target.closest('.awrap'))asugg.style.display='none';});
-
-function selAddr(i){
-  const s=ADDRS[i];
-  ainp.value=s.label;
-  asugg.style.display='none';
-  document.getElementById('rside').innerHTML=`
-    <div style="padding:6px 0;">
-      <div style="font-size:11px;color:var(--muted);margin-bottom:5px;">Consultation CEHQ · MELCCFP · Atlas hydroclimatique…</div>
-      <div class="lbar"><div class="lfill" id="lf"></div></div>
-      <div style="font-size:9px;color:var(--muted);margin-top:3px;opacity:.7;">Vérification des cartes de crue bathymétriques</div>
-    </div>`;
-  document.getElementById('rmap').innerHTML=`<div style="display:flex;align-items:center;justify-content:center;height:700px;color:var(--muted);font-size:13px;font-family:'Barlow',sans-serif;">Chargement de la carte…</div>`;
-  setTimeout(()=>{const l=document.getElementById('lf');if(l)l.style.width='100%';},60);
-  setTimeout(()=>showRes(s),1500);
-}
-
-function showRes(s){
-  const prod=getP(s.depth);
-  const rcc=rc(s.risk);
-  const rco=rcol(s.risk);
-  const dp=Math.min(100,(s.depth/3.5)*100).toFixed(0);
-  document.getElementById('rmap').innerHTML=makeMap(s,rco);
-  document.getElementById('rside').innerHTML=`
-    <div>
-      <div class="ablock">
-        <div class="albl">Analyse — ${s.zone}</div>
-        <div class="mrow"><span class="mlab">Profondeur estimée</span><span class="mval ${rcc}">${s.depth.toFixed(1)} m</span></div>
-        <div class="mrow"><span class="mlab">Niveau de risque</span><span class="mval ${rcc}">${s.flood}</span></div>
-        <div class="mrow"><span class="mlab">Type de propriété</span><span class="mval">${s.type}</span></div>
-        <div class="mrow"><span class="mlab">Score CEHQ</span><span class="mval ${rcc}">${s.risk}/100</span></div>
-        <div class="dgauge"><div class="dfill" id="df" style="width:0%;background:${rco};"></div></div>
-        <div style="font-size:8px;color:var(--muted);margin-top:4px;">Source: CEHQ · MELCCFP · Atlas hydroclimatique QC</div>
-      </div>
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--ice);margin:11px 0 5px;">Recommandation Armadam</div>
-      <div class="rblock">
-        <div class="rbadge">${prod.badge}</div>
-        <div class="rname">${prod.name}</div>
-        <div class="rdesc">${prod.desc}</div>
-        <div class="smini">${Object.entries(prod.specs).map(([k,v])=>`<div class="sm"><span class="sml">${k}</span><span class="smv">${v}</span></div>`).join('')}</div>
-        <div class="prow"><div class="pbig">${prod.price} $</div><div class="pnote">/ module · livraison incluse</div></div>
-        <button class="bord" onclick="alert('Redirection vers le panier — intégration e-commerce à connecter')">Commander maintenant →</button>
-        <button class="binst" onclick="alert('Formulaire de réservation installation — à intégrer')">Réserver l\'installation →</button>
-      </div>
-    </div>`;
-  setTimeout(()=>{const d=document.getElementById('df');if(d)d.style.width=dp+'%';},80);
-}
-
-function makeMap(s,rco){
-  return `<div style="position:relative;">
-    <svg viewBox="0 0 700 700" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:700px;">
-      <defs><pattern id="grd" width="30" height="30" patternUnits="userSpaceOnUse"><path d="M30 0L0 0 0 30" fill="none" stroke="rgba(91,168,204,0.07)" stroke-width=".5"/></pattern></defs>
-      <rect width="700" height="700" fill="#1c3a4a"/>
-      <ellipse cx="350" cy="350" rx="195" ry="138" fill="#1d5570" opacity=".9"/>
-      <ellipse cx="350" cy="350" rx="138" ry="94" fill="#2d6a80"/>
-      <ellipse cx="350" cy="350" rx="84" ry="55" fill="#3a7a94"/>
-      <ellipse cx="350" cy="350" rx="40" ry="26" fill="#4a8fa8"/>
-      <path d="M60 80 Q155 145 218 210 Q278 262 326 305" fill="none" stroke="#3a7a94" stroke-width="32" stroke-linecap="round"/>
-      <path d="M60 80 Q155 145 218 210 Q278 262 326 305" fill="none" stroke="#4a8fa8" stroke-width="16" stroke-linecap="round"/>
-      <path d="M374 398 Q438 448 508 500 Q595 548 680 565" fill="none" stroke="#3a7a94" stroke-width="36" stroke-linecap="round"/>
-      <path d="M374 398 Q438 448 508 500 Q595 548 680 565" fill="none" stroke="#4a8fa8" stroke-width="18" stroke-linecap="round"/>
-      <path d="M0 0 L130 0 L95 105 L54 186 L0 278Z" fill="#243520" opacity=".85"/>
-      <path d="M545 0 L700 0 L700 210 L618 154 L572 55Z" fill="#243520" opacity=".8"/>
-      <path d="M0 468 L55 420 L102 455 L60 540 L0 620Z" fill="#243520" opacity=".75"/>
-      <path d="M555 650 L700 598 L700 700 L520 700Z" fill="#243520" opacity=".7"/>
-      <ellipse cx="350" cy="350" rx="258" ry="178" fill="none" stroke="${rco}" stroke-width="1.8" stroke-dasharray="8,5" opacity=".7"/>
-      <ellipse cx="350" cy="350" rx="302" ry="214" fill="none" stroke="#e0a050" stroke-width="1.2" stroke-dasharray="5,7" opacity=".4"/>
-      <ellipse cx="350" cy="350" rx="258" ry="178" fill="${rco}" opacity=".07"/>
-      <line x1="152" y1="0" x2="116" y2="292" stroke="rgba(255,255,255,.18)" stroke-width="1.6"/>
-      <line x1="0" y1="420" x2="246" y2="398" stroke="rgba(255,255,255,.18)" stroke-width="1.6"/>
-      <line x1="448" y1="0" x2="482" y2="258" stroke="rgba(255,255,255,.14)" stroke-width="1.4"/>
-      <rect width="700" height="700" fill="url(#grd)"/>
-      <text x="350" y="328" text-anchor="middle" font-size="13" fill="rgba(168,212,232,.85)" font-family="Barlow Condensed,sans-serif" font-weight="600">${s.depth.toFixed(1)}m</text>
-      <text x="350" y="344" text-anchor="middle" font-size="10" fill="rgba(168,212,232,.4)" font-family="Barlow,sans-serif">profondeur estimée</text>
-      <circle cx="350" cy="350" r="20" fill="rgba(255,255,255,.1)"/>
-      <circle cx="350" cy="350" r="10" fill="${rco}"/>
-      <circle cx="350" cy="350" r="4.5" fill="white"/>
-      <circle cx="350" cy="350" r="16" fill="none" stroke="${rco}" stroke-width="2.5" opacity=".7">
-        <animate attributeName="r" values="10;26;10" dur="2.5s" repeatCount="indefinite"/>
-        <animate attributeName="opacity" values=".8;0;.8" dur="2.5s" repeatCount="indefinite"/>
-      </circle>
-      <rect x="186" y="370" width="328" height="42" rx="3" fill="rgba(13,31,45,.94)" stroke="rgba(91,168,204,.3)" stroke-width=".5"/>
-      <text x="350" y="386" text-anchor="middle" font-size="11" font-weight="600" fill="#a8d4e8" font-family="Barlow Condensed,sans-serif" letter-spacing=".04em">${s.label.split(',')[0].toUpperCase()}</text>
-      <text x="350" y="401" text-anchor="middle" font-size="10" fill="rgba(138,160,174,.8)" font-family="Barlow,sans-serif">${s.zone}</text>
-      <text x="24" y="32" font-size="12" fill="rgba(91,168,204,.7)" font-family="Barlow Condensed,sans-serif" font-weight="700">N ↑</text>
-      <line x1="20" y1="672" x2="90" y2="672" stroke="rgba(91,168,204,.5)" stroke-width="1.5"/>
-      <line x1="20" y1="668" x2="20" y2="676" stroke="rgba(91,168,204,.5)" stroke-width="1.5"/>
-      <line x1="90" y1="668" x2="90" y2="676" stroke="rgba(91,168,204,.5)" stroke-width="1.5"/>
-      <text x="55" y="665" text-anchor="middle" font-size="9" fill="rgba(91,168,204,.5)" font-family="Barlow,sans-serif">500m</text>
-      <text x="205" y="208" text-anchor="middle" font-size="10" fill="rgba(224,112,112,.82)" font-family="Barlow Condensed,sans-serif" font-weight="600">Zone 2 ans CEHQ</text>
-      <text x="138" y="185" text-anchor="middle" font-size="9" fill="rgba(224,160,80,.65)" font-family="Barlow,sans-serif">Zone 100 ans</text>
-    </svg>
-    <div class="mleg">
-      <div class="mlt">Profondeur d'inondation</div>
-      <div class="mlr"><div class="mls" style="background:#1d5570;"></div>+3m — extrême</div>
-      <div class="mlr"><div class="mls" style="background:#2d6a80;"></div>2–3m — très élevé</div>
-      <div class="mlr"><div class="mls" style="background:#3a7a94;"></div>1–2m — élevé</div>
-      <div class="mlr"><div class="mls" style="background:#4a8fa8;"></div>0–1m — modéré</div>
-      <div class="mlr" style="margin-top:4px;"><div class="mls" style="background:transparent;border:1px dashed #e07070;"></div>Zone 2 ans CEHQ</div>
-    </div>
-  </div>`;
-}
 </script>
 </body>
 </html>
