@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80">
+  <!-- ARMADAM — Logomark primary -->
+  <!-- Jambe gauche — portique structural HSS -->
+  <polygon points="2,76 14,76 40,4 37,4" fill="#1E1C18"/>
+  <!-- Jambe droite -->
+  <polygon points="66,76 78,76 43,4 40,4" fill="#1E1C18"/>
+  <!-- Chapeau d'apex -->
+  <rect x="37" y="2" width="6" height="4" fill="#1E1C18"/>
+  <!-- Barre ambre — le batardeau -->
+  <rect x="14" y="49" width="52" height="11" fill="#D4751A"/>
+</svg>

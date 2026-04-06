@@ -1,0 +1,71 @@
+<!--
+  ARMADAM — Système de logo
+  ─────────────────────────
+  Palette:  Ink    #1E1C18
+            Amber  #D4751A
+            BG     #F2EDE4
+            White  #FDFAF6
+
+  Concept: Le A est une arche de barrage / portique structurel.
+           La barre ambre EST le batardeau — elle sépare l'eau du sec.
+           Les jambes = montants HSS. La barre = barrière en toile.
+
+  Variants:
+    1. Mark      — logomark seul 80×80     #mark
+    2. Lockup H  — horizontal 200×48       #lockup-h
+    3. Lockup V  — vertical 100×110        #lockup-v
+    4. Reversed  — sur fond sombre 80×80   #mark-rev
+    5. Favicon   — ultra simple 32×32      #favicon
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 120" style="background:#F2EDE4;font-family:Syne,sans-serif;">
+  <defs>
+    <style>text{font-family:'Syne',sans-serif;}</style>
+  </defs>
+
+  <!-- ── 1. MARK (80×80) ──────────────────────────── -->
+  <g id="mark" transform="translate(20,20)">
+    <!-- Jambe gauche — portique structural -->
+    <polygon points="2,76 14,76 40,4 37,4" fill="#1E1C18"/>
+    <!-- Jambe droite -->
+    <polygon points="66,76 78,76 43,4 40,4" fill="#1E1C18"/>
+    <!-- Chapeau d'apex -->
+    <rect x="37" y="2" width="6" height="4" fill="#1E1C18"/>
+    <!-- Barre ambre — le batardeau -->
+    <rect x="14" y="49" width="52" height="11" fill="#D4751A"/>
+  </g>
+
+  <!-- ── 2. LOCKUP HORIZONTAL (200×48) ────────────── -->
+  <g id="lockup-h" transform="translate(120,16)">
+    <!-- Mark à 48px de haut → scale 48/80 = 0.6 -->
+    <g transform="scale(0.6)">
+      <polygon points="2,76 14,76 40,4 37,4" fill="#1E1C18"/>
+      <polygon points="66,76 78,76 43,4 40,4" fill="#1E1C18"/>
+      <rect x="37" y="2" width="6" height="4" fill="#1E1C18"/>
+      <rect x="14" y="49" width="52" height="11" fill="#D4751A"/>
+    </g>
+    <!-- Séparateur vertical -->
+    <line x1="54" y1="8" x2="54" y2="40" stroke="#DDD8D0" stroke-width="1"/>
+    <!-- Wordmark -->
+    <text x="62" y="33" font-weight="800" font-size="22" letter-spacing="2" fill="#1E1C18">ARMA<tspan fill="#D4751A">DAM</tspan></text>
+  </g>
+
+  <!-- ── 3. LOCKUP VERTICAL (100×110) ─────────────── -->
+  <g id="lockup-v" transform="translate(360,10)">
+    <!-- Mark -->
+    <g transform="translate(10,0)">
+      <polygon points="2,76 14,76 40,4 37,4" fill="#1E1C18"/>
+      <polygon points="66,76 78,76 43,4 40,4" fill="#1E1C18"/>
+      <rect x="37" y="2" width="6" height="4" fill="#1E1C18"/>
+      <rect x="14" y="49" width="52" height="11" fill="#D4751A"/>
+    </g>
+    <!-- Règle ambre sous le mark -->
+    <rect x="0" y="84" width="100" height="2" fill="#D4751A" opacity="0.3"/>
+    <!-- Wordmark -->
+    <text x="50" y="104" font-weight="800" font-size="17" letter-spacing="3" fill="#1E1C18" text-anchor="middle">ARMA<tspan fill="#D4751A">DAM</tspan></text>
+  </g>
+
+  <!-- ── Labels ──────────────────────────────────── -->
+  <text x="20" y="112" font-size="9" fill="#8C8680" font-family="DM Sans,sans-serif" letter-spacing=".12em">MARK</text>
+  <text x="120" y="112" font-size="9" fill="#8C8680" font-family="DM Sans,sans-serif" letter-spacing=".12em">HORIZONTAL</text>
+  <text x="360" y="112" font-size="9" fill="#8C8680" font-family="DM Sans,sans-serif" letter-spacing=".12em">VERTICAL</text>
+</svg>
