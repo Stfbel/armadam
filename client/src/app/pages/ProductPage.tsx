@@ -11,7 +11,7 @@ export function ProductPage() {
     if (product) {
       document.title = `${product.name} — Batardeaux Garrison | Armadam`;
       document.querySelector('meta[name="description"]')?.setAttribute('content',
-        `${product.name} : ${product.shortDesc}. ${product.description.slice(0, 110)}… Disponible au Canada via Armadam, distributeur officiel Garrison Flood Control.`);
+        `${product.name} : ${product.shortDesc}. ${product.description.slice(0, 110)}… Conseil et livraison par Armadam, expert en systèmes de batardeaux Garrison.`);
     } else {
       document.title = 'Produit introuvable — Armadam';
     }
@@ -284,7 +284,7 @@ export function ProductPage() {
             Prêt à protéger votre propriété ?
           </h2>
           <p className="text-white/70 mb-8 text-lg">
-            Un expert Armadam vous répond sous 24 heures avec une recommandation personnalisée.
+            Notre expertise au service de votre projet — réponse sous 24 heures avec une recommandation adaptée à votre situation.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link

@@ -6,9 +6,9 @@ const makoImage = '/images/mako.webp';
 
 export function Home() {
   useEffect(() => {
-    document.title = 'Armadam — Votre partenaire batardeaux au Canada';
+    document.title = 'Armadam — Expert en batardeaux';
     document.querySelector('meta[name="description"]')?.setAttribute('content',
-      'Armadam, votre partenaire pour tous vos projets de batardeaux. Systèmes Garrison pour projets résidentiels, commerciaux et industriels partout au Canada. Devis en 24h.');
+      'Plusieurs années d\'expertise en systèmes de batardeaux. Armadam conseille et équipe vos projets résidentiels, commerciaux et industriels avec les systèmes Garrison. Devis en 24h.');
   }, []);
 
   return (
@@ -21,16 +21,16 @@ export function Home() {
         <div className="relative max-w-7xl mx-auto px-6 lg:px-8 py-24 lg:py-32">
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 mb-6">
-              <span className="text-sm font-medium">Votre partenaire batardeaux au Canada</span>
+              <span className="text-sm font-medium">Plusieurs années d'expertise en batardeaux</span>
             </div>
 
             <h1 className="text-5xl lg:text-6xl font-bold font-['Raleway'] mb-6 leading-tight">
-              Tous vos projets de batardeaux, livrés depuis le Canada
+              L'expertise batardeaux pour tous vos projets
             </h1>
 
             <p className="text-xl text-gray-300 mb-10 leading-relaxed">
-              ARMADAM est votre partenaire pour chaque projet — résidentiel, commercial ou industriel.
-              Systèmes Garrison, stock local, expertise technique et réponse en 24 h.
+              Résidentiel, commercial ou industriel — ARMADAM conseille, sélectionne et livre
+              le bon système Garrison pour chaque situation. Réponse en 24 h.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
@@ -55,8 +55,8 @@ export function Home() {
                 <div className="text-sm text-gray-400 mt-1">Systèmes Garrison</div>
               </div>
               <div>
-                <div className="text-3xl font-bold font-['Raleway']">CAN</div>
-                <div className="text-sm text-gray-400 mt-1">Distribution nationale</div>
+                <div className="text-3xl font-bold font-['Raleway']">Expert</div>
+                <div className="text-sm text-gray-400 mt-1">Conseil en batardeaux</div>
               </div>
               <div>
                 <div className="text-3xl font-bold font-['Raleway']">24 h</div>
@@ -75,7 +75,7 @@ export function Home() {
               Notre approche
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Un processus simple pour protéger votre propriété
+              Notre expertise au service de votre projet, de l'analyse à la livraison
             </p>
           </div>
 
@@ -94,7 +94,7 @@ export function Home() {
               {
                 step: '3',
                 title: 'Livraison & Support',
-                description: 'Livraison depuis notre stock canadien avec support technique professionnel inclus.'
+                description: 'Livraison rapide depuis notre stock local avec support technique professionnel inclus.'
               }
             ].map((item, idx) => (
               <div key={idx} className="relative">
@@ -210,10 +210,10 @@ export function Home() {
       <section className="py-20 bg-[#1F4E79]">
         <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center">
           <h2 className="text-4xl font-bold font-['Raleway'] text-white mb-6">
-            Un projet en tête ?
+            Parlons de votre projet
           </h2>
           <p className="text-xl text-white/80 mb-10">
-            Un expert Armadam vous répond sous 24 heures avec une recommandation personnalisée.
+            Notre expertise à votre service — réponse sous 24 heures avec une recommandation adaptée à votre situation.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link

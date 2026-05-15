@@ -8,7 +8,7 @@ export function Catalog() {
   useEffect(() => {
     document.title = 'Catalogue — Batardeaux Garrison Flood Control | Armadam';
     document.querySelector('meta[name="description"]')?.setAttribute('content',
-      '14 systèmes de batardeaux Garrison — ouvertures, périmètres, solutions automatiques et rapides. Votre partenaire officiel pour tous vos projets au Canada.');
+      '14 systèmes de batardeaux Garrison — ouvertures, périmètres, solutions automatiques et rapides. Expertise et conseil pour tous vos projets résidentiels, commerciaux et industriels.');
   }, []);
   const filteredProducts = activeFilter === 'Tous'
     ? products
@@ -27,8 +27,8 @@ export function Catalog() {
               Batardeaux Garrison Flood Control
             </h1>
             <p className="text-xl text-gray-600 leading-relaxed">
-              Votre partenaire officiel au Canada. Chaque système est fabriqué aux États-Unis
-              par Garrison et livré depuis notre stock local.
+              Notre expertise à votre service. Chaque système est fabriqué aux États-Unis
+              par Garrison — sélectionné, conseillé et livré par notre équipe.
             </p>
           </div>
         </div>
@@ -109,7 +109,7 @@ export function Catalog() {
           <div className="grid md:grid-cols-3 gap-8">
             {[
               { icon: 'workspace_premium', title: 'Qualité Garrison', desc: 'Systèmes fabriqués aux États-Unis, testés et éprouvés sur des centaines de projets en Amérique du Nord.' },
-              { icon: 'local_shipping', title: 'Livraison Canada', desc: 'Distributeur officiel au Canada. Stock local disponible, livraison rapide partout au Canada.' },
+              { icon: 'local_shipping', title: 'Livraison rapide', desc: 'Stock local disponible. Livraison rapide pour ne pas bloquer vos chantiers ou délais de projet.' },
               { icon: 'engineering', title: 'Support technique', desc: 'Conseils professionnels pour chaque projet — résidentiel, commercial ou industriel. Réponse en 24 h.' },
             ].map((item, i) => (
               <div key={i} className="flex gap-4">

@@ -5,7 +5,7 @@ const VALUES = [
   {
     icon: 'workspace_premium',
     title: 'Qualité sans compromis',
-    body: 'Nous ne distribuons que des systèmes Garrison testés et éprouvés sur le terrain. Chaque produit est sélectionné pour sa fiabilité, sa durabilité et son adéquation aux réalités canadiennes.',
+    body: 'Nous ne distribuons que des systèmes Garrison testés et éprouvés sur le terrain. Chaque produit est sélectionné pour sa fiabilité, sa durabilité et son adéquation aux réalités de vos projets.',
   },
   {
     icon: 'engineering',
@@ -14,8 +14,8 @@ const VALUES = [
   },
   {
     icon: 'local_shipping',
-    title: 'Stock local au Canada',
-    body: "En tant que distributeur officiel, nous maintenons un inventaire au Canada. Pas de délai d'importation — livraison rapide partout au Canada.",
+    title: 'Stock local & livraison rapide',
+    body: "En tant que distributeur officiel, nous maintenons un inventaire local. Pas de délai d'importation — livraison rapide pour ne pas bloquer vos chantiers.",
   },
   {
     icon: 'support_agent',
@@ -28,14 +28,14 @@ const STEPS = [
   { n: '01', title: 'Analyse du projet', body: 'Vous décrivez votre situation — type de bâtiment, ouvertures à protéger, contraintes d\'installation.' },
   { n: '02', title: 'Recommandation', body: "Notre évaluateur ou un expert identifie le système Garrison adapté à votre cas spécifique." },
   { n: '03', title: 'Devis personnalisé', body: 'Vous recevez un devis détaillé avec les spécifications, le prix et le délai de livraison.' },
-  { n: '04', title: 'Livraison & support', body: "Le produit est livré depuis notre stock canadien. Support technique inclus pour l'installation." },
+  { n: '04', title: 'Livraison & support', body: "Le produit est livré depuis notre stock local. Support technique inclus pour l'installation et la mise en œuvre." },
 ];
 
 export function About() {
   useEffect(() => {
-    document.title = 'À propos — Votre partenaire batardeaux | Armadam';
+    document.title = 'À propos — Expert en batardeaux | Armadam';
     document.querySelector('meta[name="description"]')?.setAttribute('content',
-      'Armadam est le distributeur officiel Garrison au Canada. Votre partenaire expert pour tous vos projets de batardeaux — résidentiel, commercial, industriel.');
+      'Plusieurs années d\'expertise en systèmes de batardeaux. Armadam conseille et équipe vos projets résidentiels, commerciaux et industriels — distributeur officiel Garrison.');
   }, []);
 
   return (
@@ -48,11 +48,11 @@ export function About() {
             À propos
           </div>
           <h1 className="text-4xl lg:text-5xl font-bold font-['Raleway'] mb-6 leading-tight max-w-3xl">
-            Votre partenaire canadien pour tous vos projets de batardeaux
+            Plusieurs années d'expertise en systèmes de batardeaux
           </h1>
           <p className="text-xl text-gray-300 max-w-2xl leading-relaxed">
-            ARMADAM est le distributeur officiel Garrison pour l'ensemble du Canada.
-            Notre mission : être le partenaire de confiance pour tous vos projets — résidentiel, commercial ou industriel.
+            ARMADAM conseille, sélectionne et livre le bon système pour chaque projet.
+            Résidentiel, commercial, industriel — notre expertise au service de vos contraintes.
           </p>
         </div>
       </section>
@@ -62,10 +62,10 @@ export function About() {
         <div className="max-w-5xl mx-auto px-6 lg:px-8 py-12">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {[
-              { val: '14', label: 'Systèmes Garrison' },
-              { val: 'CAN', label: 'Distribution nationale' },
+              { val: '14', label: 'Systèmes disponibles' },
+              { val: 'Expert', label: 'Conseil en batardeaux' },
               { val: '24 h', label: 'Délai de réponse' },
-              { val: '100%', label: 'Stock local Canada' },
+              { val: 'Stock', label: 'Livraison rapide' },
             ].map((s, i) => (
               <div key={i} className="text-center">
                 <div className="text-4xl font-bold font-['Raleway'] text-[#1F4E79] mb-1">{s.val}</div>
@@ -93,8 +93,8 @@ export function About() {
                 stations de transit, sites industriels — à travers l'Amérique du Nord.
               </p>
               <p className="text-gray-600 leading-relaxed">
-                En tant que distributeur officiel au Canada, ARMADAM offre l'accès à toute la gamme
-                Garrison avec stock local, support francophone et expertise technique complète.
+                En tant que distributeur officiel, ARMADAM offre l'accès à toute la gamme
+                Garrison avec stock disponible, support technique et expertise éprouvée.
               </p>
             </div>
             <div className="bg-[#111111] rounded-2xl p-8 text-white">
