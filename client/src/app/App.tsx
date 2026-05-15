@@ -6,6 +6,8 @@ import { RiskAnalysis } from './pages/RiskAnalysis';
 import { Catalog } from './pages/Catalog';
 import { About } from './pages/About';
 import { Contact } from './pages/Contact';
+import { ProductPage } from './pages/ProductPage';
+import { NotFound } from './pages/NotFound';
 
 export default function App() {
   return (
@@ -16,8 +18,10 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/analyse" element={<RiskAnalysis />} />
           <Route path="/produits" element={<Catalog />} />
+          <Route path="/produits/:slug" element={<ProductPage />} />
           <Route path="/apropos" element={<About />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
         <BottomNav />
       </div>

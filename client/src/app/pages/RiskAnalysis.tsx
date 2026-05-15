@@ -1,4 +1,5 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router';
 
 // ── TYPES ──────────────────────────────────────────────────────────────────────
 interface Product {
@@ -69,7 +70,7 @@ const RECO_DB: Record<string, Product> = {
     complement: null,
   },
   MAYIM: {
-    name: 'MAYIM', tier: 'Périmètre — Panneaux eau', price: 13200, priceStr: 'À partir de 13 200 $ CAD', height: 1.02,
+    name: 'MAYIM', tier: 'Périmètre — Panneaux eau', price: 0, priceStr: 'Sur devis', height: 1.02,
     why: (d, kpa) => `Le MAYIM crée une barrière périmétrique avec des panneaux remplis d'eau — idéal pour les sites temporaires ou changeants. À ${d.toFixed(2)} m, hauteurs disponibles 20", 30" ou 40" avec déviation active.`,
     install: 'Panneaux interconnectables. Remplissage à l\'eau sur place. Capacité de déviation active intégrée.',
     caveat: null,
@@ -186,7 +187,7 @@ function computeReco(d: number, protection: string, structure: string, delay: st
 }
 
 function imgKey(name: string) {
-  return name.toLowerCase().replace(/\s+/g, '-').replace(/_/g, '-');
+  return `/images/${name.toLowerCase().replace(/\s+/g, '-').replace(/_/g, '-')}.webp`;
 }
 
 function riskBadge(risk: string) {
@@ -197,11 +198,17 @@ function riskBadge(risk: string) {
 
 // ── COMPONENT ─────────────────────────────────────────────────────────────────
 export function RiskAnalysis() {
+  const navigate = useNavigate();
   const [address, setAddress] = useState('');
   const [suggestions, setSuggestions] = useState<any[]>([]);
   const [showSugg, setShowSugg] = useState(false);
   const [loading, setLoading] = useState(false);
   const [step, setStep] = useState<'idle' | 'quiz' | 'result'>('idle');
+  useEffect(() => {
+    document.title = 'Évaluateur de projet — Quel batardeau ? | Armadam';
+    document.querySelector('meta[name="description"]')?.setAttribute('content',
+      'Entrez votre adresse au Canada. Armadam estime la profondeur de crue et vous recommande le bon système Garrison Flood Control en 3 questions.');
+  }, []);
   const [quizStep, setQuizStep] = useState<1 | 2 | 3>(1);
   const [answers, setAnswers] = useState<Partial<QuizAnswers>>({});
   const [location, setLocation] = useState<LocationData | null>(null);
@@ -341,7 +348,7 @@ export function RiskAnalysis() {
             Quel système pour votre propriété ?
           </h1>
           <p className="text-lg text-gray-300 mb-10 max-w-2xl leading-relaxed">
-            Entrez votre adresse au Québec. Nous estimons la profondeur de crue de votre secteur
+            Entrez votre adresse au Canada. Nous estimons la profondeur de crue de votre secteur
             et vous guidons en 3 questions vers le bon produit Garrison.
           </p>
 
@@ -420,9 +427,9 @@ export function RiskAnalysis() {
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {[
-                { label: 'Profondeur estimée', value: `${depthData.depth.toFixed(2)} m`, color: 'text-[#1F4E79]' },
+                { label: 'Profondeur indicative', value: `${depthData.depth.toFixed(2)} m`, color: 'text-[#1F4E79]' },
                 { label: 'Pression hydrostatique', value: `${depthData.kpa} kPa`, color: 'text-gray-900' },
-                { label: 'Zone FEMA', value: depthData.zone, color: 'text-gray-900' },
+                { label: 'Zone FEMA approx.', value: depthData.zone, color: 'text-gray-900' },
               ].map((stat, i) => (
                 <div key={i} className="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
                   <div className="text-xs text-gray-500 mb-1 font-['JetBrains_Mono']">{stat.label}</div>
@@ -430,12 +437,15 @@ export function RiskAnalysis() {
                 </div>
               ))}
               <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
-                <div className="text-xs text-gray-500 mb-2 font-['JetBrains_Mono']">Risque</div>
+                <div className="text-xs text-gray-500 mb-2 font-['JetBrains_Mono']">Risque indicatif</div>
                 <span className={`inline-flex items-center px-3 py-1.5 rounded-full text-sm font-bold border ${riskBadge(depthData.risk)}`}>
                   {depthData.risk}
                 </span>
               </div>
             </div>
+            <p className="text-xs text-gray-400 mt-3 font-['JetBrains_Mono']">
+              ⚠ Estimation illustrative — consulter les cartes de zones inondables officielles (MELCCFP / municipalité) pour une évaluation réglementaire.
+            </p>
           </div>
         </section>
       )}
@@ -502,7 +512,7 @@ export function RiskAnalysis() {
               {/* Photo */}
               <div className="overflow-hidden" style={{ height: '220px' }}>
                 <img
-                  src={`/images/${imgKey(reco.primary.name)}.png`}
+                  src={imgKey(reco.primary.name)}
                   alt={reco.primary.name}
                   className="w-full h-full object-cover mix-blend-luminosity opacity-60"
                   onError={e => { (e.target as HTMLImageElement).parentElement!.style.display = 'none'; }}
@@ -553,13 +563,13 @@ export function RiskAnalysis() {
                     >
                       Modifier
                     </button>
-                    <a
-                      href="/produits"
+                    <Link
+                      to="/produits"
                       className="px-6 py-2.5 bg-white text-[#1F4E79] hover:bg-gray-50 rounded-lg font-bold text-sm transition-all inline-flex items-center gap-2"
                     >
                       Voir le catalogue
                       <span className="material-symbols-outlined text-base">arrow_forward</span>
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -570,12 +580,12 @@ export function RiskAnalysis() {
                 <div className="font-bold font-['Raleway'] text-gray-900 mb-1">Des questions sur votre projet ?</div>
                 <p className="text-sm text-gray-500">Nos experts Garrison répondent dans les 24h.</p>
               </div>
-              <a
-                href="mailto:info@armadam.ca"
+              <button
+                onClick={() => navigate('/contact', { state: { produit: reco?.primary.name } })}
                 className="px-6 py-3 bg-[#1F4E79] hover:bg-[#2B6CB0] text-white rounded-lg font-bold text-sm transition-all whitespace-nowrap"
               >
-                Contacter Armadam
-              </a>
+                Demander un devis
+              </button>
             </div>
           </div>
         </section>

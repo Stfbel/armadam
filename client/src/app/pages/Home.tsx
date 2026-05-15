@@ -1,17 +1,23 @@
 import { useNavigate } from 'react-router';
+import { useEffect } from 'react';
 
-const hammerheadImage = '/images/hammerhead.png';
-const makoImage = '/images/mako.png';
+const hammerheadImage = '/images/hammerhead.webp';
+const makoImage = '/images/mako.webp';
 
 export function Home() {
   const navigate = useNavigate();
+  useEffect(() => {
+    document.title = 'Armadam — Batardeaux Garrison Flood Control au Canada';
+    document.querySelector('meta[name="description"]')?.setAttribute('content',
+      'ARMADAM est le distributeur officiel Garrison Flood Control au Canada. Batardeaux certifiés FEMA/NFIP pour projets résidentiels, commerciaux et industriels. Devis en 24h.');
+  }, []);
 
   return (
     <main className="pt-24">
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-[#111111] via-[#1F4E79] to-[#2B4C80] text-white overflow-hidden">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1763798709709-ef54e8bad856?w=1600&q=80')] bg-cover bg-center opacity-30"></div>
-        <div className="absolute inset-0 bg-gradient-to-r from-[#111111]/85 via-[#1F4E79]/70 to-[#2B4C80]/50"></div>
+        <div className="absolute inset-0 bg-[url('/images/bluefin.webp')] bg-cover bg-center opacity-20"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-[#111111]/90 via-[#1F4E79]/75 to-[#2B4C80]/55"></div>
 
         <div className="relative max-w-7xl mx-auto px-6 lg:px-8 py-24 lg:py-32">
           <div className="max-w-3xl">
@@ -46,16 +52,16 @@ export function Home() {
             {/* Stats */}
             <div className="grid grid-cols-3 gap-8 mt-16 pt-8 border-t border-white/20">
               <div>
-                <div className="text-3xl font-bold font-['Raleway']">5 000+</div>
-                <div className="text-sm text-gray-400 mt-1">Projets réalisés</div>
+                <div className="text-3xl font-bold font-['Raleway']">14</div>
+                <div className="text-sm text-gray-400 mt-1">Produits certifiés</div>
               </div>
               <div>
-                <div className="text-3xl font-bold font-['Raleway']">QC</div>
-                <div className="text-sm text-gray-400 mt-1">Expertise locale</div>
+                <div className="text-3xl font-bold font-['Raleway']">CA</div>
+                <div className="text-sm text-gray-400 mt-1">Distributeur officiel</div>
               </div>
               <div>
-                <div className="text-3xl font-bold font-['Raleway']">FEMA</div>
-                <div className="text-sm text-gray-400 mt-1">Certifié</div>
+                <div className="text-3xl font-bold font-['Raleway']">24 h</div>
+                <div className="text-sm text-gray-400 mt-1">Délai de réponse</div>
               </div>
             </div>
           </div>
@@ -89,7 +95,7 @@ export function Home() {
               {
                 step: '3',
                 title: 'Livraison & Support',
-                description: 'Livraison rapide partout au Québec avec support technique professionnel'
+                description: 'Livraison rapide partout au Canada avec support technique professionnel'
               }
             ].map((item, idx) => (
               <div key={idx} className="relative">
@@ -155,7 +161,10 @@ export function Home() {
                     <span className="text-sm text-gray-500">À partir de</span>
                     <div className="text-xl font-bold text-gray-900">Sur devis</div>
                   </div>
-                  <button className="flex items-center gap-2 text-primary hover:gap-3 transition-all font-semibold">
+                  <button
+                    onClick={() => navigate('/produits/hammerhead')}
+                    className="flex items-center gap-2 text-primary hover:gap-3 transition-all font-semibold"
+                  >
                     En savoir plus
                     <span className="material-symbols-outlined">arrow_forward</span>
                   </button>
@@ -188,7 +197,10 @@ export function Home() {
                     <span className="text-sm text-gray-500">À partir de</span>
                     <div className="text-xl font-bold text-gray-900">580 $ CAD</div>
                   </div>
-                  <button className="flex items-center gap-2 text-primary hover:gap-3 transition-all font-semibold">
+                  <button
+                    onClick={() => navigate('/produits/mako')}
+                    className="flex items-center gap-2 text-primary hover:gap-3 transition-all font-semibold"
+                  >
                     En savoir plus
                     <span className="material-symbols-outlined">arrow_forward</span>
                   </button>
@@ -215,7 +227,10 @@ export function Home() {
             >
               Évaluer mon projet
             </button>
-            <button className="bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white px-8 py-4 rounded-lg font-semibold transition-all border border-white/20">
+            <button
+              onClick={() => navigate('/contact')}
+              className="bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white px-8 py-4 rounded-lg font-semibold transition-all border border-white/20"
+            >
               Parler à un expert
             </button>
           </div>

@@ -5,12 +5,29 @@ export function Header() {
     <header className="fixed top-0 w-full z-50 bg-white/98 backdrop-blur-sm border-b border-gray-100 shadow-sm">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex items-center justify-between h-24">
+
           {/* Logo */}
-          <Link to="/" className="flex items-center hover:opacity-75 transition-opacity">
-            <svg viewBox="0 0 560 140" height="52" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <polyline points="56,8 4,112 112,112 556,112" stroke="#555557" strokeWidth="10" strokeLinejoin="miter" strokeLinecap="square"/>
-              <text x="122" y="100" fontFamily="Raleway, Arial Black, sans-serif" fontWeight="900" fontSize="88" letterSpacing="-1" fill="#1C3C72">RMADAM</text>
-              <text x="160" y="132" fontFamily="Raleway, Arial, sans-serif" fontWeight="700" fontSize="17" letterSpacing="9" fill="#1C3C72">BATARDEAUX</text>
+          <Link to="/" className="flex items-center hover:opacity-80 transition-opacity">
+            <svg viewBox="0 0 560 145" height="54" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <filter id="neon" x="-35%" y="-35%" width="170%" height="170%">
+                  <feGaussianBlur in="SourceGraphic" stdDeviation="14" result="wide"/>
+                  <feGaussianBlur in="SourceGraphic" stdDeviation="5"  result="tight"/>
+                  <feMerge>
+                    <feMergeNode in="wide"/>
+                    <feMergeNode in="tight"/>
+                    <feMergeNode in="SourceGraphic"/>
+                  </feMerge>
+                </filter>
+              </defs>
+              {/* Triangle fermé — △ */}
+              <polygon points="66,8 10,110 122,110" stroke="#555557" strokeWidth="9" fill="none" strokeLinejoin="miter"/>
+              {/* Ligne de base */}
+              <line x1="10" y1="110" x2="552" y2="110" stroke="#555557" strokeWidth="9" strokeLinecap="square"/>
+              {/* RMADAM — bleu électrique + glow */}
+              <text x="132" y="101" fontFamily="Raleway, Arial Black, sans-serif" fontWeight="900" fontSize="88" letterSpacing="-1" fill="#1A6AFF" filter="url(#neon)">RMADAM</text>
+              {/* BATARDEAUX */}
+              <text x="168" y="133" fontFamily="Raleway, Arial, sans-serif" fontWeight="700" fontSize="15" letterSpacing="9" fill="#1A4FC0">BATARDEAUX</text>
             </svg>
           </Link>
 
@@ -33,8 +50,15 @@ export function Header() {
             </Link>
           </nav>
 
-          {/* CTA Button */}
+          {/* CTA + Phone */}
           <div className="flex items-center gap-4">
+            <a
+              href="mailto:info@armadam.com"
+              className="hidden lg:flex items-center gap-1.5 text-sm text-gray-600 hover:text-[#1F4E79] transition-colors font-['JetBrains_Mono']"
+            >
+              <span className="material-symbols-outlined text-base">mail</span>
+              info@armadam.com
+            </a>
             <Link to="/analyse">
               <button className="bg-primary hover:bg-primary/90 text-white px-6 py-2.5 rounded-lg font-medium transition-all shadow-sm hover:shadow-md">
                 Évaluer un projet

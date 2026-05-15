@@ -1,11 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router';
+import { products as PRODUCT_LIST } from '../data/products';
 
-const PRODUCTS = [
-  'Conseils généraux', 'HAMMERHEAD', 'MAKO', 'YELLOWFIN',
-  'BLUEFIN', 'MAYIM', 'STINGRAY', 'OYSTER',
-  'GUPPY', 'GUPPY MAX', 'SERPENT', 'MINNOW',
-  'BELUGA', 'SANDBAGS', 'SEA SPONGE',
-];
+const PRODUCTS = ['Conseils généraux', ...PRODUCT_LIST.map(p => p.name)];
 
 interface FormState {
   prenom: string;
@@ -27,9 +24,16 @@ const EMPTY: FormState = {
 };
 
 export function Contact() {
-  const [form, setForm] = useState<FormState>(EMPTY);
+  const location = useLocation();
+  const preselect = (location.state as { produit?: string } | null)?.produit;
+  const [form, setForm] = useState<FormState>({ ...EMPTY, produit: preselect || EMPTY.produit });
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
   const [ref, setRef] = useState('');
+  useEffect(() => {
+    document.title = 'Contact — Devis et informations | Armadam';
+    document.querySelector('meta[name="description"]')?.setAttribute('content',
+      'Demandez un devis personnalisé pour votre projet de batardeaux. Réponse garantie sous 24 heures. Distributeur officiel Garrison Flood Control au Canada.');
+  }, []);
 
   const set = (k: keyof FormState) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
     setForm(f => ({ ...f, [k]: e.target.value }));
@@ -279,20 +283,20 @@ export function Contact() {
                 <span className="material-symbols-outlined text-[#1F4E79] text-3xl mb-3 block">mail</span>
                 <h3 className="font-bold font-['Raleway'] text-gray-900 mb-1">Courriel direct</h3>
                 <a
-                  href="mailto:info@armadam.ca"
+                  href="mailto:info@armadam.com"
                   className="text-sm text-[#1F4E79] hover:text-[#2B6CB0] font-['JetBrains_Mono'] transition-colors"
                 >
-                  info@armadam.ca
+                  info@armadam.com
                 </a>
               </div>
 
               {/* Region */}
               <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
                 <span className="material-symbols-outlined text-[#1F4E79] text-3xl mb-3 block">location_on</span>
-                <h3 className="font-bold font-['Raleway'] text-gray-900 mb-1">Service Québec</h3>
+                <h3 className="font-bold font-['Raleway'] text-gray-900 mb-1">Service Canada</h3>
                 <p className="text-sm text-gray-500 leading-relaxed">
-                  Distributeur officiel Garrison Flood Control pour l'ensemble du Québec.
-                  Livraison partout dans la province.
+                  Distributeur officiel Garrison Flood Control pour l'ensemble du Canada.
+                  Livraison partout au Canada.
                 </p>
               </div>
 

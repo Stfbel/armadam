@@ -20,7 +20,7 @@ router.get('/search', async (req, res) => {
 
     const response = await fetch(url.toString(), {
       headers: {
-        'User-Agent': 'Armadam/1.0 (contact@armadam.ca)',
+        'User-Agent': 'Armadam/1.0 (contact@armadam.com)',
         'Accept-Language': 'fr',
       },
     });
