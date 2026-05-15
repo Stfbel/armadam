@@ -19,9 +19,9 @@ export const products: Product[] = [
     id: 1, slug: 'hammerhead', name: 'HAMMERHEAD', category: 'Ouvertures', type: 'Résidentiel & Commercial',
     shortDesc: 'Système de planches aluminium',
     description: "Planches aluminium 6063-T6 insérées dans des poteaux en U fixés à la maçonnerie. Joints SureGasket™/AlumiSeal™ pour étanchéité optimale. Protection pour portes, fenêtres et garages.",
-    price: 'Sur devis', features: ['Aluminium 6063-T6', "Jusqu'à 3.6 m", 'SureGasket™', 'AlumiSeal™'],
+    price: 'Sur devis', features: ['Aluminium 6063-T6', 'Planches empilables', 'SureGasket™', 'AlumiSeal™'],
     image: '/images/hammerhead.webp',
-    specs: { Matériau: 'Aluminium 6063-T6', 'Hauteur max': '3.6 m', 'Largeur max': '12 pi (144")', Joints: 'SureGasket™ / AlumiSeal™', Certification: 'Garrison Flood Control' },
+    specs: { Matériau: 'Aluminium 6063-T6', 'Hauteur max': 'Illimitée (empilage)', 'Largeur max': '12 pi (144")', Joints: 'SureGasket™ / AlumiSeal™', Certification: 'Garrison Flood Control' },
     applications: [
       { icon: 'door_front', label: 'Portes résidentielles' },
       { icon: 'window', label: 'Fenêtres & meurtrières' },

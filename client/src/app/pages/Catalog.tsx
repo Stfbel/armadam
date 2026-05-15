@@ -133,7 +133,7 @@ export function Catalog() {
             Quel batardeau pour votre projet ?
           </h2>
           <p className="text-xl text-gray-600 mb-8">
-            Notre évaluateur vous guide en 3 questions vers le bon système Garrison.
+            Notre évaluateur vous guide en 4 questions vers le bon système Garrison.
           </p>
           <Link to="/analyse" className="inline-flex items-center gap-2 bg-[#1F4E79] hover:bg-[#2B6CB0] text-white px-8 py-4 rounded-lg font-bold font-['Raleway'] transition-all shadow-lg">
             Évaluer mon risque
