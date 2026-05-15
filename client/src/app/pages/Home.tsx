@@ -90,7 +90,6 @@ export function Home() {
           <div className="flex flex-wrap gap-10 mt-20 pt-8 border-t border-white/10">
             {[
               { val: '14', label: 'Systèmes Garrison' },
-              { val: '3,6 m', label: 'Hauteur max. certifiée' },
               { val: '24 h', label: 'Réponse · Livraison rapide' },
             ].map((s, i) => (
               <div key={i}>
