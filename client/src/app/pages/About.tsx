@@ -49,7 +49,7 @@ export function About() {
             À propos
           </div>
           <h1 className="text-4xl lg:text-5xl font-bold font-['Raleway'] mb-6 leading-tight max-w-3xl">
-            Le spécialiste québécois en protection contre les inondations
+            Le spécialiste canadien en protection contre les inondations
           </h1>
           <p className="text-xl text-gray-300 max-w-2xl leading-relaxed">
             ARMADAM est le distributeur officiel Garrison Flood Control pour l'ensemble du Canada.
@@ -64,7 +64,7 @@ export function About() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {[
               { val: '14', label: 'Produits certifiés' },
-              { val: 'CA', label: 'Distributeur officiel' },
+              { val: 'CAN', label: 'Distribution nationale' },
               { val: '24 h', label: 'Délai de réponse' },
               { val: '100%', label: 'Produits FEMA/NFIP' },
             ].map((s, i) => (

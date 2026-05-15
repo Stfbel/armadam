@@ -9,25 +9,14 @@ export function Header() {
           {/* Logo */}
           <Link to="/" className="flex items-center hover:opacity-80 transition-opacity">
             <svg viewBox="0 0 560 145" height="54" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <filter id="neon" x="-35%" y="-35%" width="170%" height="170%">
-                  <feGaussianBlur in="SourceGraphic" stdDeviation="14" result="wide"/>
-                  <feGaussianBlur in="SourceGraphic" stdDeviation="5"  result="tight"/>
-                  <feMerge>
-                    <feMergeNode in="wide"/>
-                    <feMergeNode in="tight"/>
-                    <feMergeNode in="SourceGraphic"/>
-                  </feMerge>
-                </filter>
-              </defs>
-              {/* Triangle fermé — △ */}
-              <polygon points="66,8 10,110 122,110" stroke="#555557" strokeWidth="9" fill="none" strokeLinejoin="miter"/>
+              {/* Triangle — △ */}
+              <polygon points="66,8 10,110 122,110" stroke="#444447" strokeWidth="9" fill="none" strokeLinejoin="miter"/>
               {/* Ligne de base */}
-              <line x1="10" y1="110" x2="552" y2="110" stroke="#555557" strokeWidth="9" strokeLinecap="square"/>
-              {/* RMADAM — bleu électrique + glow */}
-              <text x="132" y="101" fontFamily="Raleway, Arial Black, sans-serif" fontWeight="900" fontSize="88" letterSpacing="-1" fill="#1A6AFF" filter="url(#neon)">RMADAM</text>
+              <line x1="10" y1="110" x2="552" y2="110" stroke="#444447" strokeWidth="9" strokeLinecap="square"/>
+              {/* RMADAM */}
+              <text x="132" y="101" fontFamily="Raleway, Arial Black, sans-serif" fontWeight="900" fontSize="88" letterSpacing="-1" fill="#1F4E79">RMADAM</text>
               {/* BATARDEAUX */}
-              <text x="168" y="133" fontFamily="Raleway, Arial, sans-serif" fontWeight="700" fontSize="15" letterSpacing="9" fill="#1A4FC0">BATARDEAUX</text>
+              <text x="168" y="133" fontFamily="Raleway, Arial, sans-serif" fontWeight="700" fontSize="15" letterSpacing="9" fill="#1F4E79">BATARDEAUX</text>
             </svg>
           </Link>
 
