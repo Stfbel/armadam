@@ -32,12 +32,12 @@ export function Header() {
             <Link to="/analyse" className="text-gray-700 hover:text-primary transition-colors font-medium">
               Évaluateur de projet
             </Link>
-            <a href="#" className="text-gray-700 hover:text-primary transition-colors font-medium">
+            <Link to="/apropos" className="text-gray-700 hover:text-primary transition-colors font-medium">
               À propos
-            </a>
-            <a href="#" className="text-gray-700 hover:text-primary transition-colors font-medium">
+            </Link>
+            <Link to="/contact" className="text-gray-700 hover:text-primary transition-colors font-medium">
               Contact
-            </a>
+            </Link>
           </nav>
 
           {/* CTA Button */}
