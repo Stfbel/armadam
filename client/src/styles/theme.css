@@ -1,0 +1,101 @@
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --font-size: 16px;
+
+  /* ARMADAM Color System */
+  --surface: #fcf9f6;
+  --surface-dim: #dcd9d7;
+  --surface-bright: #FDFCFA;
+  --surface-container-lowest: #ffffff;
+  --surface-container-low: #f6f3f1;
+  --surface-container: #f0edeb;
+  --surface-container-high: #ebe7e5;
+  --surface-container-highest: #e5e2e0;
+  --surface-base: #F6F5F3;
+
+  --on-surface: #111111;
+  --on-surface-variant: #42474f;
+  --inverse-surface: #31302f;
+  --inverse-on-surface: #f3f0ee;
+
+  --outline: #72777f;
+  --outline-variant: #c2c7d0;
+
+  --primary: #1F4E79;
+  --on-primary: #ffffff;
+  --primary-container: #2B4C80;
+  --on-primary-container: #ffffff;
+  --inverse-primary: #a0cafc;
+  --surface-tint: #35618d;
+  --primary-fixed: #d1e4ff;
+  --primary-fixed-dim: #a0cafc;
+  --on-primary-fixed: #001d35;
+  --on-primary-fixed-variant: #184974;
+
+  --secondary: #615e59;
+  --on-secondary: #ffffff;
+  --secondary-container: #e8e1db;
+  --on-secondary-container: #67645f;
+  --secondary-fixed: #e8e1db;
+  --secondary-fixed-dim: #cbc6c0;
+  --on-secondary-fixed: #1d1b18;
+  --on-secondary-fixed-variant: #494642;
+
+  --tertiary: #4c2e00;
+  --on-tertiary: #ffffff;
+  --tertiary-container: #6a4300;
+  --on-tertiary-container: #e9b268;
+  --tertiary-fixed: #ffddb5;
+  --tertiary-fixed-dim: #f5bc72;
+  --on-tertiary-fixed: #2a1800;
+  --on-tertiary-fixed-variant: #643f00;
+
+  --error: #ba1a1a;
+  --on-error: #ffffff;
+  --error-container: #ffdad6;
+  --on-error-container: #93000a;
+
+  --background: #fcf9f6;
+  --on-background: #1c1c1a;
+
+  --data-mono: #111111;
+
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+  --font-weight-bold: 700;
+
+  --radius: 0.125rem;
+  --radius-lg: 0.25rem;
+  --radius-xl: 0.5rem;
+  --radius-full: 0.75rem;
+}
+
+@theme inline {
+  --color-primary: #1F4E79;
+  --color-primary-hover: #2B4C80;
+  --color-on-primary: #ffffff;
+}
+
+@layer base {
+  * {
+    @apply border-gray-200;
+  }
+
+  body {
+    @apply bg-white text-gray-900;
+    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    min-height: 100dvh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  html {
+    font-size: var(--font-size);
+    scroll-behavior: smooth;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Raleway', sans-serif;
+  }
+}

@@ -8,7 +8,8 @@ const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'dist')));
+app.use('/images', express.static(path.join(__dirname, 'public', 'images')));
 
 // Routes API
 app.use('/api/geocode', require('./routes/geocode'));
@@ -20,7 +21,7 @@ app.get('/health', (req, res) => res.json({ status: 'ok', app: 'Armadam' }));
 
 // Fallback SPA
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 
 app.listen(PORT, () => {
