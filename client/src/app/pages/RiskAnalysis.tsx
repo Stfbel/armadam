@@ -166,11 +166,20 @@ function computeReco(d: number, protection: string, structure: string, delay: st
     } else if (structure === 'maconnerie') {
       primary = d < 1.5 ? RECO_DB.HAMMERHEAD : RECO_DB.YELLOWFIN;
     } else {
+      // MAKO max = 1.22 m — avertir si hauteur dépasse la capacité
       primary = RECO_DB.MAKO;
+      if (d > 1.22) {
+        caveat = 'Le MAKO est limité à 1.22 m (48"). Pour une hauteur d\'eau supérieure sans maçonnerie, une consultation technique est nécessaire — des solutions sur mesure existent.';
+      }
     }
   } else if (protection === 'perimetre') {
     if (delay === 'urgent') {
-      primary = d < 0.51 ? RECO_DB.STINGRAY : RECO_DB.MINNOW;
+      // STINGRAY (auto-activant, 1.22 m max) est plus adapté que MINNOW pour périmètre urgent
+      if (d < 1.22) primary = RECO_DB.STINGRAY;
+      else {
+        primary = RECO_DB.MINNOW;
+        caveat = 'En urgence absolue à cette hauteur, empiler les MINNOW en barrière périmétrique. Prévoir un système BLUEFIN en remplacement permanent.';
+      }
     } else if (delay === 'moyen') {
       if (d < 0.76) primary = RECO_DB.STINGRAY;
       else if (d < 1.02) primary = RECO_DB.SERPENT;
@@ -181,14 +190,23 @@ function computeReco(d: number, protection: string, structure: string, delay: st
       else if (d < 2.44) primary = RECO_DB.BLUEFIN;
       else {
         primary = RECO_DB.BLUEFIN;
-        caveat = 'Profondeur extrême — consulter un ingénieur en protection contre les inondations. Le BLUEFIN couvre jusqu\'à 2.44 m.';
+        caveat = 'Hauteur extrême — consulter un ingénieur en protection contre les inondations. Le BLUEFIN est conçu pour des hauteurs allant jusqu\'à 2.44 m.';
       }
     }
   } else {
-    // urgence / rapide
-    if (delay === 'urgent') primary = RECO_DB.MINNOW;
-    else if (delay === 'moyen') primary = d < 0.76 ? RECO_DB.STINGRAY : RECO_DB.SERPENT;
-    else primary = d < 0.76 ? RECO_DB.STINGRAY : RECO_DB.GUPPY;
+    // protection === 'urgence' — solution rapide sans définir ouverture vs périmètre
+    if (delay === 'urgent') {
+      primary = RECO_DB.MINNOW;
+    } else if (delay === 'moyen') {
+      if (d < 0.76) primary = RECO_DB.STINGRAY;
+      else if (d < 1.02) primary = RECO_DB.SERPENT;
+      else primary = RECO_DB.BLUEFIN; // SERPENT insuffisant à > 1.02 m
+    } else {
+      // planifié — recommander une solution permanente adaptée à la hauteur
+      if (d < 0.76) primary = RECO_DB.STINGRAY;
+      else if (d < 1.02) primary = RECO_DB.SERPENT;
+      else primary = RECO_DB.BLUEFIN; // GUPPY max 56 cm — insuffisant à > 1 m
+    }
   }
 
   return {
