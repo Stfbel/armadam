@@ -18,10 +18,10 @@ export const products: Product[] = [
   {
     id: 1, slug: 'hammerhead', name: 'HAMMERHEAD', category: 'Ouvertures', type: 'Résidentiel & Commercial',
     shortDesc: 'Système de planches aluminium',
-    description: "Planches aluminium 6063-T6 insérées dans des poteaux en U fixés à la maçonnerie. Joints SureGasket™/AlumiSeal™ pour étanchéité optimale. Protection pour portes, fenêtres et garages. Certifié FEMA NFIP TB3.",
-    price: 'Sur devis', features: ['Aluminium 6063-T6', "Jusqu'à 3.6 m", 'Certifié FEMA/NFIP', 'SureGasket™'],
+    description: "Planches aluminium 6063-T6 insérées dans des poteaux en U fixés à la maçonnerie. Joints SureGasket™/AlumiSeal™ pour étanchéité optimale. Protection pour portes, fenêtres et garages.",
+    price: 'Sur devis', features: ['Aluminium 6063-T6', "Jusqu'à 3.6 m", 'SureGasket™', 'AlumiSeal™'],
     image: '/images/hammerhead.webp',
-    specs: { Matériau: 'Aluminium 6063-T6', 'Hauteur max': '3.6 m', 'Largeur max': '12 pi (144")', Certification: 'FEMA NFIP TB3', Joints: 'SureGasket™ / AlumiSeal™' },
+    specs: { Matériau: 'Aluminium 6063-T6', 'Hauteur max': '3.6 m', 'Largeur max': '12 pi (144")', Joints: 'SureGasket™ / AlumiSeal™', Certification: 'Garrison Flood Control' },
     applications: [
       { icon: 'door_front', label: 'Portes résidentielles' },
       { icon: 'window', label: 'Fenêtres & meurtrières' },
@@ -52,10 +52,10 @@ export const products: Product[] = [
   {
     id: 3, slug: 'yellowfin', name: 'YELLOWFIN', category: 'Ouvertures', type: 'Commercial',
     shortDesc: 'Panneaux composites muraux',
-    description: "Panneaux composites fibre de verre + aluminium 6063-T6 + HDPE + inox 316L montés sur rails. Panneaux 36\"/48\" empilables jusqu'à 96\". Certifié FEMA TB3 + NFIP, portée 3.35 m. Redéploiement rapide : ~10 min/panneau.",
-    price: 'Sur devis', features: ['Composite renforcé', 'Portée 3.35 m', 'Certifié FEMA TB3', 'Redéployable'],
+    description: "Panneaux composites fibre de verre + aluminium 6063-T6 + HDPE + inox 316L montés sur rails. Panneaux 36\"/48\" empilables jusqu'à 96\", portée 3.35 m. Redéploiement rapide : ~10 min/panneau.",
+    price: 'Sur devis', features: ['Composite renforcé', 'Portée 3.35 m', 'Jusqu\'à 96"', 'Redéployable'],
     image: '/images/yellowfin.webp',
-    specs: { Matériau: 'Fibre de verre + alu 6063-T6 + HDPE + inox 316L', Certification: 'FEMA TB3 + NFIP', Portée: '3.35 m', 'Hauteur max': '96"', Redéploiement: '~10 min/panneau' },
+    specs: { Matériau: 'Fibre de verre + alu 6063-T6 + HDPE + inox 316L', Portée: '3.35 m', 'Hauteur max': '96"', Redéploiement: '~10 min/panneau', Certification: 'Garrison Flood Control' },
     applications: [
       { icon: 'warehouse', label: 'Grandes ouvertures industrielles' },
       { icon: 'directions_subway', label: 'Stations de transit' },

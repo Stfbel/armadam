@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router';
+import { Link } from 'react-router';
 
 // ── TYPES ──────────────────────────────────────────────────────────────────────
 interface Product {
@@ -26,6 +26,12 @@ interface QuizAnswers {
   delay: string;
 }
 
+interface NominatimResult {
+  lat: string;
+  lon: string;
+  display_name: string;
+}
+
 interface LocationData {
   lat: number;
   lon: number;
@@ -43,15 +49,15 @@ interface DepthData {
 const RECO_DB: Record<string, Product> = {
   HAMMERHEAD: {
     name: 'HAMMERHEAD', tier: 'Ouvertures — Planches aluminium', price: 0, priceStr: 'Sur devis', height: 0.91,
-    why: (d, kpa) => `Certifié FEMA/NFIP pour les profondeurs jusqu'à 0.91 m. À ${d.toFixed(2)} m (${kpa.toFixed(1)} kPa) dans votre secteur, les planches aluminium 6063-T6 avec joints EPDM SureGasket™ offrent une protection robuste et permanente sur maçonnerie.`,
-    install: 'Montants U fixés définitivement à la maçonnerie. Planches insérées à la main en 10–15 min. Aucun outil requis. Certifié FEMA NFIP Bulletin technique 3.',
+    why: (d, kpa) => `À ${d.toFixed(2)} m (${kpa.toFixed(1)} kPa) dans votre secteur, les planches aluminium 6063-T6 avec joints SureGasket™ offrent une protection robuste et permanente sur maçonnerie. Système Garrison de référence pour portes, garages et fenêtres.`,
+    install: 'Montants U fixés définitivement à la maçonnerie. Planches insérées à la main en 10–15 min. Aucun outil requis. Fabriqué aux États-Unis par Garrison.',
     caveat: null,
     complement: null,
   },
   YELLOWFIN: {
     name: 'YELLOWFIN', tier: 'Ouvertures — Composite haute résistance', price: 0, priceStr: 'Sur devis', height: 2.44,
-    why: (d, kpa) => `Pour ${d.toFixed(2)} m (${kpa.toFixed(1)} kPa), le YELLOWFIN en panneaux composites fibre de verre + aluminium 6063-T6 est la solution pour les grandes ouvertures commerciales. Panneaux 36"/48" empilables jusqu'à 96". Certifié FEMA TB3 + NFIP.`,
-    install: 'Montage sur rails muraux préinstallés. Panneaux insérés en 10 min/panneau. Portée max 3.35 m. Certifié FEMA TB3 + NFIP.',
+    why: (d, kpa) => `Pour ${d.toFixed(2)} m (${kpa.toFixed(1)} kPa), le YELLOWFIN en panneaux composites fibre de verre + aluminium 6063-T6 est la solution pour les grandes ouvertures commerciales. Panneaux 36"/48" empilables jusqu'à 96", portée jusqu'à 3.35 m.`,
+    install: 'Montage sur rails muraux préinstallés. Panneaux insérés en 10 min/panneau. Portée max 3.35 m. Fabriqué aux États-Unis par Garrison.',
     caveat: null,
     complement: null,
   },
@@ -198,9 +204,8 @@ function riskBadge(risk: string) {
 
 // ── COMPONENT ─────────────────────────────────────────────────────────────────
 export function RiskAnalysis() {
-  const navigate = useNavigate();
   const [address, setAddress] = useState('');
-  const [suggestions, setSuggestions] = useState<any[]>([]);
+  const [suggestions, setSuggestions] = useState<NominatimResult[]>([]);
   const [showSugg, setShowSugg] = useState(false);
   const [loading, setLoading] = useState(false);
   const [step, setStep] = useState<'idle' | 'quiz' | 'result'>('idle');
@@ -255,7 +260,7 @@ export function RiskAnalysis() {
     setReco(null);
   };
 
-  const handleSuggestionClick = (s: any) => {
+  const handleSuggestionClick = (s: NominatimResult) => {
     setAddress(s.display_name.split(',').slice(0, 2).join(','));
     setSuggestions([]);
     setShowSugg(false);
@@ -348,7 +353,7 @@ export function RiskAnalysis() {
             Quel système pour votre propriété ?
           </h1>
           <p className="text-lg text-gray-300 mb-10 max-w-2xl leading-relaxed">
-            Entrez votre adresse au Canada. Nous estimons la profondeur de crue de votre secteur
+            Entrez votre adresse. Nous estimons la profondeur de crue de votre secteur
             et vous guidons en 3 questions vers le bon produit Garrison.
           </p>
 
@@ -362,7 +367,7 @@ export function RiskAnalysis() {
                   onKeyDown={e => e.key === 'Enter' && handleSearch()}
                   onBlur={() => setTimeout(() => setShowSugg(false), 150)}
                   onFocus={() => suggestions.length > 0 && setShowSugg(true)}
-                  placeholder="Ex: 123 rue des Érables, Laval, QC"
+                  placeholder="Ex: 123 rue des Érables, Laval"
                   className="w-full h-14 pl-12 pr-4 bg-white rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#2B6CB0] shadow-lg text-base"
                 />
                 <span className="material-symbols-outlined absolute left-4 top-4 text-gray-400 text-xl">
@@ -429,7 +434,7 @@ export function RiskAnalysis() {
               {[
                 { label: 'Profondeur indicative', value: `${depthData.depth.toFixed(2)} m`, color: 'text-[#1F4E79]' },
                 { label: 'Pression hydrostatique', value: `${depthData.kpa} kPa`, color: 'text-gray-900' },
-                { label: 'Zone FEMA approx.', value: depthData.zone, color: 'text-gray-900' },
+                { label: 'Zone de crue approx.', value: depthData.zone, color: 'text-gray-900' },
               ].map((stat, i) => (
                 <div key={i} className="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
                   <div className="text-xs text-gray-500 mb-1 font-['JetBrains_Mono']">{stat.label}</div>
@@ -580,12 +585,13 @@ export function RiskAnalysis() {
                 <div className="font-bold font-['Raleway'] text-gray-900 mb-1">Des questions sur votre projet ?</div>
                 <p className="text-sm text-gray-500">Nos experts Garrison répondent dans les 24h.</p>
               </div>
-              <button
-                onClick={() => navigate('/contact', { state: { produit: reco?.primary.name } })}
+              <Link
+                to="/contact"
+                state={{ produit: reco?.primary.name }}
                 className="px-6 py-3 bg-[#1F4E79] hover:bg-[#2B6CB0] text-white rounded-lg font-bold text-sm transition-all whitespace-nowrap"
               >
                 Demander un devis
-              </button>
+              </Link>
             </div>
           </div>
         </section>

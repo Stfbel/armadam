@@ -63,7 +63,7 @@ export function About() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {[
               { val: '14', label: 'Systèmes disponibles' },
-              { val: 'Expert', label: 'Conseil en batardeaux' },
+              { val: 'Garrison', label: 'Distributeur officiel' },
               { val: '24 h', label: 'Délai de réponse' },
               { val: 'Stock', label: 'Livraison rapide' },
             ].map((s, i) => (
@@ -102,8 +102,8 @@ export function About() {
                 Qualité produits
               </div>
               {[
-                { icon: 'verified_user', label: 'FEMA NFIP Bulletin Technique 3' },
-                { icon: 'check_circle', label: 'FM Global Approved' },
+                { icon: 'verified_user', label: 'FM Global Approved' },
+                { icon: 'check_circle', label: 'NFIP Compliant' },
                 { icon: 'check_circle', label: 'EN 13501-B1' },
                 { icon: 'factory', label: 'Made in USA' },
               ].map((c, i) => (

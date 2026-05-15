@@ -32,7 +32,7 @@ export function Contact() {
   useEffect(() => {
     document.title = 'Contact — Devis et informations | Armadam';
     document.querySelector('meta[name="description"]')?.setAttribute('content',
-      'Demandez un devis personnalisé pour votre projet de batardeaux. Réponse garantie sous 24 heures. Distributeur officiel Garrison Flood Control au Canada.');
+      'Demandez un devis personnalisé pour votre projet de batardeaux. Réponse garantie sous 24 heures. Distributeur officiel Garrison Flood Control.');
   }, []);
 
   const set = (k: keyof FormState) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
@@ -182,7 +182,7 @@ export function Contact() {
                       type="text"
                       value={form.adresse}
                       onChange={set('adresse')}
-                      placeholder="123 rue des Érables, Laval, QC"
+                      placeholder="123 rue des Érables, Laval"
                       className={inputCls}
                     />
                   </div>
@@ -293,10 +293,10 @@ export function Contact() {
               {/* Region */}
               <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
                 <span className="material-symbols-outlined text-[#1F4E79] text-3xl mb-3 block">location_on</span>
-                <h3 className="font-bold font-['Raleway'] text-gray-900 mb-1">Service Canada</h3>
+                <h3 className="font-bold font-['Raleway'] text-gray-900 mb-1">Service Armadam</h3>
                 <p className="text-sm text-gray-500 leading-relaxed">
-                  Distributeur officiel Garrison Flood Control pour l'ensemble du Canada.
-                  Livraison partout au Canada.
+                  Distributeur officiel Garrison Flood Control.
+                  Projets résidentiels, commerciaux et industriels.
                 </p>
               </div>
 
@@ -305,7 +305,7 @@ export function Contact() {
                 <div className="text-xs text-gray-400 font-['JetBrains_Mono'] uppercase tracking-widest mb-4">
                   Certifications produits
                 </div>
-                {['FEMA NFIP TB3', 'FM Global approved', 'EN 13501-B1', 'Made in USA'].map((c, i) => (
+                {['FM Global Approved', 'NFIP Compliant', 'EN 13501-B1', 'Made in USA'].map((c, i) => (
                   <div key={i} className="flex items-center gap-2 text-sm text-gray-300 mb-2 last:mb-0">
                     <span className="material-symbols-outlined text-[#2B6CB0] text-base">check_circle</span>
                     {c}

@@ -55,8 +55,8 @@ export function Home() {
                 <div className="text-sm text-gray-400 mt-1">Systèmes Garrison</div>
               </div>
               <div>
-                <div className="text-3xl font-bold font-['Raleway']">Expert</div>
-                <div className="text-sm text-gray-400 mt-1">Conseil en batardeaux</div>
+                <div className="text-3xl font-bold font-['Raleway']">Garrison</div>
+                <div className="text-sm text-gray-400 mt-1">Distributeur officiel</div>
               </div>
               <div>
                 <div className="text-3xl font-bold font-['Raleway']">24 h</div>

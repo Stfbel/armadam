@@ -198,9 +198,9 @@ export function ProductPage() {
               </div>
               <div className="grid grid-cols-1 gap-4">
                 {[
-                  { icon: 'bolt', label: 'Déploiement rapide', desc: 'Conçu pour être opérationnel en quelques minutes' },
+                  { icon: 'bolt', label: 'Mise en œuvre rapide', desc: 'Conçu pour être opérationnel en quelques minutes' },
                   { icon: 'shield', label: 'Qualité Garrison', desc: 'Fabriqué aux États-Unis — testé et éprouvé sur le terrain' },
-                  { icon: 'replay', label: 'Réutilisable', desc: 'Rangement compact — prêt pour la prochaine utilisation' },
+                  { icon: 'support_agent', label: 'Support inclus', desc: 'Conseil professionnel inclus — notre équipe répond sous 24 h.' },
                 ].map((b, i) => (
                   <div key={i} className="flex items-start gap-4 bg-white/5 border border-white/10 rounded-xl p-5">
                     <div className="flex-shrink-0 w-10 h-10 bg-[#1F4E79]/30 rounded-lg flex items-center justify-center">
