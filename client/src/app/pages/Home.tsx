@@ -68,7 +68,7 @@ export function Home() {
             {/* Stats — JetBrains Mono labels */}
             <div className="flex gap-10 mt-16 pt-8 border-t border-white/10">
               {[
-                { val: '14', label: 'Systèmes Garrison' },
+                { val: '14', label: 'Systèmes' },
                 { val: '24 h', label: 'Délai de réponse' },
                 { val: 'Stock', label: 'Livraison rapide' },
               ].map((s, i) => (
