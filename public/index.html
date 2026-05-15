@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>ARMADAM — Batardeaux sur mesure au Québec</title>
+<title>ARMADAM — Distributeur Garrison Flood Control au Québec</title>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=JetBrains+Mono:wght@400;500;600&display=block" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800&family=Montserrat:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=JetBrains+Mono:wght@400;500;600&display=block" rel="stylesheet"/>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
@@ -16,9 +16,9 @@
   --bg2:#EEEDE9;
   --ink:#111110;
   --ink2:#2E2D2A;
-  --amber:#B85C10;
-  --amber2:#CA6615;
-  --amber-pale:#F5EBD9;
+  --blue:#1F4E79;
+  --blue2:#2B6CB0;
+  --blue-pale:#EEF4FB;
   --stone:#797570;
   --stone-light:#BEBAB4;
   --rule:#DDDBD6;
@@ -38,20 +38,20 @@ body{font-family:'DM Sans',sans-serif;font-weight:400;background:var(--bg);color
 /* ── NAV ── */
 nav{position:sticky;top:0;z-index:1000;background:rgba(246,245,243,0.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;height:60px;}
 .nlogo{display:flex;align-items:center;gap:12px;cursor:pointer;text-decoration:none;}
-.nwordmark{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;letter-spacing:0.05em;color:var(--ink);}
-.nwordmark em{font-style:normal;color:var(--amber);}
+.nwordmark{font-family:'Raleway',sans-serif;font-size:20px;font-weight:800;letter-spacing:0.05em;color:var(--ink);}
+.nwordmark em{font-style:normal;color:var(--blue);}
 .ntabs{display:flex;}
 .ntab{padding:0 16px;height:60px;display:flex;align-items:center;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:var(--stone);cursor:pointer;border-bottom:2px solid transparent;transition:color .15s,border-color .15s;white-space:nowrap;}
 .ntab:hover{color:var(--ink);}
-.ntab.on{color:var(--ink);border-bottom-color:var(--amber);}
+.ntab.on{color:var(--ink);border-bottom-color:var(--blue);}
 .nright{display:flex;align-items:center;gap:10px;}
 .ncart{position:relative;width:38px;height:38px;display:flex;align-items:center;justify-content:center;cursor:pointer;border:1px solid var(--rule);border-radius:2px;transition:border-color .15s;}
 .ncart:hover{border-color:var(--stone);}
 .ncart svg{width:16px;height:16px;fill:none;stroke:var(--ink);stroke-width:1.8;}
-.ncart-badge{position:absolute;top:-5px;right:-5px;background:var(--amber);color:var(--white);font-family:'Syne',sans-serif;font-size:9px;font-weight:700;min-width:16px;height:16px;border-radius:8px;display:none;align-items:center;justify-content:center;padding:0 3px;}
+.ncart-badge{position:absolute;top:-5px;right:-5px;background:var(--blue);color:var(--white);font-family:'Raleway',sans-serif;font-size:9px;font-weight:700;min-width:16px;height:16px;border-radius:8px;display:none;align-items:center;justify-content:center;padding:0 3px;}
 .ncart-badge.show{display:flex;}
-.ndevis{padding:10px 22px;background:var(--ink);color:var(--white);font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.04em;border:none;border-radius:2px;cursor:pointer;transition:background .15s;}
-.ndevis:hover{background:var(--amber);}
+.ndevis{padding:10px 22px;background:var(--ink);color:var(--white);font-family:'Raleway',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.04em;border:none;border-radius:2px;cursor:pointer;transition:background .15s;}
+.ndevis:hover{background:var(--blue);}
 
 /* ── PAGES ── */
 .pg{display:none;animation:fadeUp .25s ease;}
@@ -64,15 +64,15 @@ nav{position:sticky;top:0;z-index:1000;background:rgba(246,245,243,0.96);backdro
 .hero{min-height:560px;display:grid;grid-template-columns:1fr 400px;border-bottom:1px solid var(--rule);overflow:hidden;position:relative;}
 .hero-left{padding:4rem 3rem 3rem 3.5rem;display:flex;flex-direction:column;justify-content:center;border-right:1px solid var(--rule);}
 .hero-kicker{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:500;color:var(--stone);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:2rem;}
-.hero-kicker::before{content:'';width:24px;height:1px;background:var(--amber);}
-.hero-h1{font-family:'Fraunces',serif;font-size:clamp(52px,5.5vw,82px);font-weight:700;line-height:0.96;letter-spacing:-0.02em;color:var(--ink);margin-bottom:1.8rem;font-optical-sizing:auto;}
-.hero-h1 .orange{color:var(--amber);}
+.hero-kicker::before{content:'';width:24px;height:1px;background:var(--blue);}
+.hero-h1{font-family:'Montserrat',serif;font-size:clamp(52px,5.5vw,82px);font-weight:700;line-height:0.96;letter-spacing:-0.02em;color:var(--ink);margin-bottom:1.8rem;}
+.hero-h1 .orange{color:var(--blue);}
 .hero-h1 .light{font-weight:400;color:var(--stone);}
 .hero-sub{font-size:15px;font-weight:400;color:var(--stone);line-height:1.75;max-width:440px;margin-bottom:2rem;}
 .hero-actions{display:flex;gap:12px;flex-wrap:wrap;}
-.btn-primary{padding:14px 32px;background:var(--ink);color:var(--white);font-family:'Syne',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.04em;border:none;border-radius:2px;cursor:pointer;transition:background .15s;}
-.btn-primary:hover{background:var(--amber);}
-.btn-ghost{padding:14px 32px;background:transparent;color:var(--ink);font-family:'Syne',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.04em;border:1.5px solid var(--rule);border-radius:2px;cursor:pointer;transition:border-color .15s,color .15s;}
+.btn-primary{padding:14px 32px;background:var(--ink);color:var(--white);font-family:'Raleway',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.04em;border:none;border-radius:2px;cursor:pointer;transition:background .15s;}
+.btn-primary:hover{background:var(--blue);}
+.btn-ghost{padding:14px 32px;background:transparent;color:var(--ink);font-family:'Raleway',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.04em;border:1.5px solid var(--rule);border-radius:2px;cursor:pointer;transition:border-color .15s,color .15s;}
 .btn-ghost:hover{border-color:var(--ink);}
 
 /* Hero right — water visualizer */
@@ -82,37 +82,37 @@ nav{position:sticky;top:0;z-index:1000;background:rgba(246,245,243,0.96);backdro
 .hero-water{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(59,126,161,0.7),rgba(91,168,204,0.3));animation:waterRise 2.5s cubic-bezier(.4,0,.2,1) forwards,waterFlow 4s ease-in-out infinite 2.5s;}
 @keyframes waterRise{from{height:0;}to{height:62%;}}
 @keyframes waterFlow{0%,100%{transform:scaleY(1);}50%{transform:scaleY(1.02);}}
-.hero-barrier{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:80px;background:linear-gradient(to top,var(--panel),#CAC4BC);border-top:3px solid var(--amber);animation:barrierRise 1.8s cubic-bezier(.4,0,.2,1) .3s both;}
+.hero-barrier{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:80px;background:linear-gradient(to top,var(--panel),#CAC4BC);border-top:3px solid var(--blue);animation:barrierRise 1.8s cubic-bezier(.4,0,.2,1) .3s both;}
 @keyframes barrierRise{from{height:0;}to{height:58%;}}
-.hero-label{position:absolute;top:2rem;right:2rem;font-family:'Syne',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--stone);writing-mode:vertical-rl;opacity:.5;}
+.hero-label{position:absolute;top:2rem;right:2rem;font-family:'Raleway',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--stone);writing-mode:vertical-rl;opacity:.5;}
 
 /* Stats */
 .stats{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--rule);}
 .stat{padding:1.5rem 2rem;border-right:1px solid var(--rule);position:relative;}
 .stat:last-child{border-right:none;}
 .stat-n{font-family:'JetBrains Mono',monospace;font-size:34px;font-weight:600;color:var(--ink);line-height:1;}
-.stat-n span{color:var(--amber);}
+.stat-n span{color:var(--blue);}
 .stat-l{font-size:11px;font-weight:400;color:var(--stone);margin-top:5px;line-height:1.4;}
 
 /* Products section */
 .section{padding:3rem 3.5rem;}
 .sec-hd{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:2.5rem;padding-bottom:1rem;border-bottom:1px solid var(--rule);}
-.sec-t{font-family:'Fraunces',serif;font-size:22px;font-weight:600;color:var(--ink);font-optical-sizing:auto;}
+.sec-t{font-family:'Montserrat',serif;font-size:22px;font-weight:600;color:var(--ink);}
 .sec-link{font-size:12px;font-weight:500;color:var(--stone);cursor:pointer;background:none;border:none;transition:color .15s;}
-.sec-link:hover{color:var(--amber);}
+.sec-link:hover{color:var(--blue);}
 .prod-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);}
 .prod-segment{display:grid;grid-template-columns:repeat(2,1fr);gap:0;}
-.seg-label{grid-column:1/-1;padding:10px 16px;background:var(--ink);font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--white);display:flex;align-items:center;justify-content:space-between;}
-.seg-label em{font-style:normal;color:var(--amber);font-size:9px;letter-spacing:.12em;}
+.seg-label{grid-column:1/-1;padding:10px 16px;background:var(--ink);font-family:'Raleway',sans-serif;font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--white);display:flex;align-items:center;justify-content:space-between;}
+.seg-label em{font-style:normal;color:var(--blue);font-size:9px;letter-spacing:.12em;}
 .prod-card{background:var(--white);padding:1.5rem;cursor:pointer;transition:background .15s;position:relative;overflow:hidden;}
-.prod-card:hover{background:var(--amber-pale);}
-.prod-card::after{content:'';position:absolute;top:0;left:0;width:3px;height:0;background:var(--amber);transition:height .2s;}
+.prod-card:hover{background:var(--blue-pale);}
+.prod-card::after{content:'';position:absolute;top:0;left:0;width:3px;height:0;background:var(--blue);transition:height .2s;}
 .prod-card:hover::after{height:100%;}
-.pc-num{font-family:'Syne',sans-serif;font-size:11px;font-weight:600;color:var(--stone-light);letter-spacing:0.1em;margin-bottom:1rem;}
+.pc-num{font-family:'Raleway',sans-serif;font-size:11px;font-weight:600;color:var(--stone-light);letter-spacing:0.1em;margin-bottom:1rem;}
 .pc-icon{margin-bottom:1rem;}
 .pc-icon svg{width:48px;height:48px;}
-.pc-tier{font-size:10px;font-weight:600;color:var(--amber);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:4px;}
-.pc-name{font-family:'Syne',sans-serif;font-size:17px;font-weight:700;color:var(--ink);margin-bottom:4px;}
+.pc-tier{font-size:10px;font-weight:600;color:var(--blue);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:4px;}
+.pc-name{font-family:'Raleway',sans-serif;font-size:17px;font-weight:700;color:var(--ink);margin-bottom:4px;}
 .pc-depth{font-size:12px;color:var(--stone);margin-bottom:1rem;}
 .pc-price{font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:600;color:var(--ink);}
 .pc-price small{font-size:11px;font-weight:400;color:var(--stone);}
@@ -121,23 +121,23 @@ nav{position:sticky;top:0;z-index:1000;background:rgba(246,245,243,0.96);backdro
 .trust{padding:0 3.5rem 3rem;}
 .trust-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);}
 .trust-item{background:var(--white);padding:2rem;}
-.trust-num{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;color:var(--stone-light);letter-spacing:.15em;margin-bottom:1rem;}
-.trust-t{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--ink);margin-bottom:8px;}
+.trust-num{font-family:'Raleway',sans-serif;font-size:11px;font-weight:700;color:var(--stone-light);letter-spacing:.15em;margin-bottom:1rem;}
+.trust-t{font-family:'Raleway',sans-serif;font-size:15px;font-weight:700;color:var(--ink);margin-bottom:8px;}
 .trust-d{font-size:13px;color:var(--stone);line-height:1.7;}
 
 /* CTA strip */
 .cta-strip{margin:0 3.5rem 3rem;background:var(--ink);padding:2.5rem 3rem;display:flex;align-items:center;justify-content:space-between;gap:2rem;}
-.cta-strip h3{font-family:'Fraunces',serif;font-size:26px;font-weight:600;color:var(--white);margin-bottom:5px;font-optical-sizing:auto;}
+.cta-strip h3{font-family:'Montserrat',serif;font-size:26px;font-weight:600;color:var(--white);margin-bottom:5px;}
 .cta-strip p{font-size:13px;color:rgba(255,255,255,.5);}
-.btn-amber{padding:14px 32px;background:var(--amber);color:var(--white);font-family:'Syne',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.04em;border:none;border-radius:2px;cursor:pointer;white-space:nowrap;transition:background .15s;}
-.btn-amber:hover{background:var(--amber2);}
+.btn-amber{padding:14px 32px;background:var(--blue);color:var(--white);font-family:'Raleway',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.04em;border:none;border-radius:2px;cursor:pointer;white-space:nowrap;transition:background .15s;}
+.btn-amber:hover{background:var(--blue2);}
 
 /* ═══════════════════════════════════
    PAGE 2 — ANALYSE TERRAIN
 ═══════════════════════════════════ */
 .terrain-hd{padding:2rem 3.5rem 1.5rem;border-bottom:1px solid var(--rule);}
-.terrain-hd h1{font-family:'Fraunces',serif;font-size:28px;font-weight:600;font-optical-sizing:auto;}
-.terrain-hd h1 em{font-style:normal;color:var(--amber);}
+.terrain-hd h1{font-family:'Montserrat',serif;font-size:28px;font-weight:600;}
+.terrain-hd h1 em{font-style:normal;color:var(--blue);}
 .terrain-hd p{font-size:13px;color:var(--stone);margin-top:4px;}
 .terrain-layout{display:grid;grid-template-columns:360px 1fr;min-height:calc(100vh - 148px);}
 .terrain-sb{padding:1.5rem;border-right:1px solid var(--rule);overflow-y:auto;display:flex;flex-direction:column;gap:14px;}
@@ -149,13 +149,13 @@ nav{position:sticky;top:0;z-index:1000;background:rgba(246,245,243,0.96);backdro
 
 /* context toggle (résidentiel / construction) */
 .ctx-toggle{display:flex;align-items:center;gap:8px;margin-top:12px;flex-wrap:wrap;}
-.ctx-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--stone);}
-.ctab{padding:6px 14px;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--rule);border-radius:2px;background:transparent;color:var(--stone);cursor:pointer;transition:all .15s;}
+.ctx-label{font-family:'Raleway',sans-serif;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--stone);}
+.ctab{padding:6px 14px;font-family:'Raleway',sans-serif;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--rule);border-radius:2px;background:transparent;color:var(--stone);cursor:pointer;transition:all .15s;}
 .ctab.on{background:var(--ink);color:var(--white);border-color:var(--ink);}
 .ctab:not(.on):hover{border-color:var(--stone);color:var(--ink);}
 /* search mode toggle */
 .mode-toggle{display:flex;gap:0;border:1px solid var(--rule);border-radius:2px;overflow:hidden;margin-bottom:12px;}
-.mtab{flex:1;padding:8px 10px;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border:none;background:var(--bg2);color:var(--stone);cursor:pointer;transition:background .15s,color .15s;}
+.mtab{flex:1;padding:8px 10px;font-family:'Raleway',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border:none;background:var(--bg2);color:var(--stone);cursor:pointer;transition:background .15s,color .15s;}
 .mtab.on{background:var(--ink);color:var(--white);}
 .mtab:first-child{border-right:1px solid var(--rule);}
 .search-mode{display:none;}
@@ -163,34 +163,34 @@ nav{position:sticky;top:0;z-index:1000;background:rgba(246,245,243,0.96);backdro
 .gps-wrap{display:flex;flex-direction:column;gap:8px;}
 .gps-row{display:flex;gap:8px;}
 .gps-field{flex:1;}
-.gps-field label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--stone);margin-bottom:4px;display:block;}
+.gps-field label{font-family:'Raleway',sans-serif;font-size:9px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--stone);margin-bottom:4px;display:block;}
 .gps-inp{width:100%;padding:9px 10px;background:var(--white);border:1px solid var(--rule);border-radius:2px;font-size:13px;font-family:'DM Sans',sans-serif;color:var(--ink);outline:none;transition:border-color .15s;}
 .gps-inp:focus{border-color:var(--ink);}
 .gps-inp::placeholder{color:var(--stone-light);}
 .gps-hint{font-size:10px;color:var(--stone);line-height:1.5;}
-.gps-btn{width:100%;padding:10px;background:var(--amber);color:var(--white);font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:.08em;border:none;border-radius:2px;cursor:pointer;transition:background .15s;}
-.gps-btn:hover{background:var(--amber2);}
+.gps-btn{width:100%;padding:10px;background:var(--blue);color:var(--white);font-family:'Raleway',sans-serif;font-size:10px;font-weight:700;letter-spacing:.08em;border:none;border-radius:2px;cursor:pointer;transition:background .15s;}
+.gps-btn:hover{background:var(--blue2);}
 .gps-fmt-toggle{display:flex;border:1px solid var(--rule);border-radius:2px;overflow:hidden;margin-bottom:10px;}
-.gps-fmt-btn{flex:1;padding:5px 8px;background:var(--white);border:none;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:.1em;color:var(--stone);cursor:pointer;transition:background .15s,color .15s;}
+.gps-fmt-btn{flex:1;padding:5px 8px;background:var(--white);border:none;font-family:'Raleway',sans-serif;font-size:9px;font-weight:700;letter-spacing:.1em;color:var(--stone);cursor:pointer;transition:background .15s,color .15s;}
 .gps-fmt-btn.on{background:var(--ink);color:var(--white);}
 .gps-fmt-panel{display:none;}.gps-fmt-panel.on{display:block;}
 .dms-row{display:flex;gap:6px;align-items:flex-end;margin-bottom:8px;}
 .dms-field{display:flex;flex-direction:column;flex:2;}
 .dms-field.sm{flex:1.2;}
 .dms-field.xs{flex:0.8;}
-.dms-field label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--stone);margin-bottom:4px;display:block;}
+.dms-field label{font-family:'Raleway',sans-serif;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--stone);margin-bottom:4px;display:block;}
 .dms-sep{font-size:14px;font-weight:600;color:var(--stone);padding-bottom:9px;line-height:1;}
 .dms-dir{width:100%;padding:9px 6px;background:var(--white);border:1px solid var(--rule);border-radius:2px;font-size:12px;font-family:'DM Sans',sans-serif;color:var(--ink);outline:none;appearance:none;-webkit-appearance:none;cursor:pointer;}
 .dms-dir:focus{border-color:var(--ink);}
 /* search */
-.flabel{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--stone);margin-bottom:6px;display:block;}
+.flabel{font-family:'Raleway',sans-serif;font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--stone);margin-bottom:6px;display:block;}
 .swrap{position:relative;}
 .sinp{width:100%;padding:10px 80px 10px 36px;background:var(--white);border:1px solid var(--rule);border-radius:2px;font-size:13px;font-family:'DM Sans',sans-serif;color:var(--ink);outline:none;transition:border-color .15s;}
 .sinp:focus{border-color:var(--ink);}
 .sinp::placeholder{color:var(--stone-light);}
 .sico{position:absolute;left:11px;top:50%;transform:translateY(-50%);width:14px;height:14px;fill:none;stroke:var(--stone);stroke-width:2;}
-.sbtn{position:absolute;right:5px;top:50%;transform:translateY(-50%);padding:5px 12px;background:var(--amber);color:var(--white);font-family:'Syne',sans-serif;font-size:10px;font-weight:700;border:none;border-radius:2px;cursor:pointer;transition:background .15s;}
-.sbtn:hover{background:var(--amber2);}
+.sbtn{position:absolute;right:5px;top:50%;transform:translateY(-50%);padding:5px 12px;background:var(--blue);color:var(--white);font-family:'Raleway',sans-serif;font-size:10px;font-weight:700;border:none;border-radius:2px;cursor:pointer;transition:background .15s;}
+.sbtn:hover{background:var(--blue2);}
 .sbtn:disabled{background:var(--stone-light);cursor:default;}
 .suggs{position:absolute;top:calc(100% + 2px);left:0;right:0;background:var(--white);border:1px solid var(--rule);border-radius:2px;z-index:500;display:none;box-shadow:0 8px 24px rgba(0,0,0,.08);}
 .suggs.open{display:block;}
@@ -203,7 +203,7 @@ nav{position:sticky;top:0;z-index:1000;background:rgba(246,245,243,0.96);backdro
 /* analysis result */
 .abox{background:var(--white);border:1px solid var(--rule);border-radius:2px;padding:14px;display:none;}
 .abox.show{display:block;}
-.abox-t{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--stone);margin-bottom:12px;}
+.abox-t{font-family:'Raleway',sans-serif;font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--stone);margin-bottom:12px;}
 .arow{display:flex;justify-content:space-between;align-items:baseline;padding:5px 0;border-bottom:1px solid var(--rule);font-size:12px;}
 .arow:last-of-type{border-bottom:none;}
 .ar-l{color:var(--stone);}
@@ -219,40 +219,40 @@ nav{position:sticky;top:0;z-index:1000;background:rgba(246,245,243,0.96);backdro
 .dg-labels{display:flex;flex-direction:column;justify-content:space-between;height:120px;font-size:10px;color:var(--stone);}
 
 /* recommendation card */
-.reco-card{background:var(--amber-pale);border:1.5px solid var(--amber);border-radius:2px;padding:14px;display:none;}
+.reco-card{background:var(--blue-pale);border:1.5px solid var(--blue);border-radius:2px;padding:14px;display:none;}
 .reco-card.show{display:block;}
-.reco-badge{display:inline-block;background:var(--amber);color:var(--white);font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:3px 10px;border-radius:2px;margin-bottom:10px;}
-.reco-name{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--ink);margin-bottom:4px;}
+.reco-badge{display:inline-block;background:var(--blue);color:var(--white);font-family:'Raleway',sans-serif;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:3px 10px;border-radius:2px;margin-bottom:10px;}
+.reco-name{font-family:'Raleway',sans-serif;font-size:20px;font-weight:800;color:var(--ink);margin-bottom:4px;}
 .reco-desc{font-size:11px;color:var(--stone);line-height:1.6;margin-bottom:12px;}
 .reco-specs{display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-bottom:12px;}
 .rs{background:var(--white);padding:6px 8px;border-radius:1px;}
 .rs-l{font-size:8px;color:var(--stone);text-transform:uppercase;letter-spacing:.1em;display:block;margin-bottom:1px;}
-.rs-v{font-size:11px;font-weight:600;color:var(--amber);}
+.rs-v{font-size:11px;font-weight:600;color:var(--blue);}
 .reco-price{font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:600;color:var(--ink);margin-bottom:12px;}
 .reco-price small{font-size:12px;font-weight:400;color:var(--stone);}
-.reco-cta{width:100%;padding:11px;background:var(--ink);color:var(--white);font-family:'Syne',sans-serif;font-size:12px;font-weight:700;border:none;border-radius:2px;cursor:pointer;transition:background .15s;}
-.reco-cta:hover{background:var(--amber);}
+.reco-cta{width:100%;padding:11px;background:var(--ink);color:var(--white);font-family:'Raleway',sans-serif;font-size:12px;font-weight:700;border:none;border-radius:2px;cursor:pointer;transition:background .15s;}
+.reco-cta:hover{background:var(--blue);}
 
 /* ═══════════════════════════════════
    PAGE 3 — CATALOGUE
 ═══════════════════════════════════ */
 .cat-hd{padding:2.5rem 3.5rem 0;}
-.cat-hd h1{font-family:'Fraunces',serif;font-size:28px;font-weight:600;margin-bottom:4px;font-optical-sizing:auto;}
-.cat-hd h1 em{font-style:normal;color:var(--amber);}
+.cat-hd h1{font-family:'Montserrat',serif;font-size:28px;font-weight:600;margin-bottom:4px;}
+.cat-hd h1 em{font-style:normal;color:var(--blue);}
 .cat-hd p{font-size:13px;color:var(--stone);}
 .cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--rule);border:1px solid var(--rule);margin:2rem 3.5rem 3rem;}
 .cat-seg-hd{grid-column:1/-1;display:flex;align-items:baseline;gap:16px;padding:1.2rem 2rem;background:var(--bg2);border-bottom:1px solid var(--rule);}
-.cat-seg-hd h2{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:var(--ink);}
+.cat-seg-hd h2{font-family:'Raleway',sans-serif;font-size:18px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:var(--ink);}
 .cat-seg-hd p{font-size:12px;color:var(--stone);}
-.cat-seg-hd .seg-tag{background:var(--ink);color:var(--white);font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;padding:3px 10px;border-radius:2px;margin-left:auto;white-space:nowrap;}
+.cat-seg-hd .seg-tag{background:var(--ink);color:var(--white);font-family:'Raleway',sans-serif;font-size:9px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;padding:3px 10px;border-radius:2px;margin-left:auto;white-space:nowrap;}
 .cat-card{background:var(--white);display:flex;flex-direction:column;}
 .cat-desc{font-size:12px;color:var(--stone);line-height:1.75;margin-bottom:1.2rem;padding-bottom:1rem;border-bottom:1px solid var(--rule);}
 .cat-use{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:1.2rem;}
 .cat-use-tag{font-size:10px;font-weight:600;color:var(--ink2);background:var(--bg2);border:1px solid var(--rule);padding:3px 9px;border-radius:2px;}
 .cat-card-head{padding:2rem 2rem 1.5rem;border-bottom:1px solid var(--rule);position:relative;overflow:hidden;}
-.cat-card-head .cn{position:absolute;top:-10px;right:1.5rem;font-family:'Syne',sans-serif;font-size:80px;font-weight:800;color:var(--rule);line-height:1;pointer-events:none;}
-.cat-card-head .ctier{font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--amber);margin-bottom:6px;}
-.cat-card-head .cname{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;color:var(--ink);}
+.cat-card-head .cn{position:absolute;top:-10px;right:1.5rem;font-family:'Raleway',sans-serif;font-size:80px;font-weight:800;color:var(--rule);line-height:1;pointer-events:none;}
+.cat-card-head .ctier{font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--blue);margin-bottom:6px;}
+.cat-card-head .cname{font-family:'Raleway',sans-serif;font-size:26px;font-weight:800;color:var(--ink);}
 .cat-card-head .cicon{position:absolute;right:2rem;top:50%;transform:translateY(-50%);}
 .cat-card-body{padding:1.5rem 2rem;flex:1;}
 .cat-specs{width:100%;border-collapse:collapse;margin-bottom:1.5rem;}
@@ -264,8 +264,8 @@ nav{position:sticky;top:0;z-index:1000;background:rgba(246,245,243,0.96);backdro
 .cat-foot{display:flex;align-items:center;justify-content:space-between;padding:1.5rem 2rem;border-top:1px solid var(--rule);}
 .cat-price{font-family:'JetBrains Mono',monospace;font-size:23px;font-weight:600;}
 .cat-price small{font-size:11px;font-weight:400;color:var(--stone);}
-.btn-add{padding:11px 22px;background:var(--ink);color:var(--white);font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:.04em;border:none;border-radius:2px;cursor:pointer;transition:background .15s;display:flex;align-items:center;gap:7px;}
-.btn-add:hover{background:var(--amber);}
+.btn-add{padding:11px 22px;background:var(--ink);color:var(--white);font-family:'Raleway',sans-serif;font-size:11px;font-weight:700;letter-spacing:.04em;border:none;border-radius:2px;cursor:pointer;transition:background .15s;display:flex;align-items:center;gap:7px;}
+.btn-add:hover{background:var(--blue);}
 .btn-add svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:2;}
 .btn-add.added{background:var(--ok);}
 
@@ -274,16 +274,16 @@ nav{position:sticky;top:0;z-index:1000;background:rgba(246,245,243,0.96);backdro
 ═══════════════════════════════════ */
 .config-layout{display:grid;grid-template-columns:1fr 420px;min-height:calc(100vh - 60px);}
 .config-main{padding:2.5rem 3rem;border-right:1px solid var(--rule);}
-.config-title{font-family:'Syne',sans-serif;font-size:28px;font-weight:700;margin-bottom:2.5rem;}
-.config-title em{font-style:normal;color:var(--amber);}
+.config-title{font-family:'Raleway',sans-serif;font-size:28px;font-weight:700;margin-bottom:2.5rem;}
+.config-title em{font-style:normal;color:var(--blue);}
 .fblock{margin-bottom:2.5rem;}
-.fblock-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--stone);margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.fblock-label{font-family:'Raleway',sans-serif;font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--stone);margin-bottom:12px;display:flex;align-items:center;gap:8px;}
 .fblock-label::after{content:'';flex:1;height:1px;background:var(--rule);}
 .psel-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;}
 .psel{padding:14px;background:var(--white);border:1.5px solid var(--rule);border-radius:2px;cursor:pointer;transition:border-color .15s,background .15s;}
 .psel:hover{border-color:var(--stone-light);}
-.psel.on{border-color:var(--amber);background:var(--amber-pale);}
-.psel-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--ink);}
+.psel.on{border-color:var(--blue);background:var(--blue-pale);}
+.psel-name{font-family:'Raleway',sans-serif;font-size:13px;font-weight:700;color:var(--ink);}
 .psel-sub{font-size:11px;color:var(--stone);margin-top:2px;}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
 .fgroup{display:flex;flex-direction:column;gap:6px;}
@@ -296,7 +296,7 @@ select.finput{cursor:pointer;}
 .check-row{display:flex;align-items:flex-start;gap:12px;padding:12px 14px;background:var(--white);border:1px solid var(--rule);border-radius:2px;cursor:pointer;transition:border-color .15s;}
 .check-row:hover{border-color:var(--stone-light);}
 .check-row input{appearance:none;width:16px;height:16px;min-width:16px;background:var(--bg);border:1.5px solid var(--rule);border-radius:2px;cursor:pointer;position:relative;transition:background .15s,border-color .15s;margin-top:2px;}
-.check-row input:checked{background:var(--amber);border-color:var(--amber);}
+.check-row input:checked{background:var(--blue);border-color:var(--blue);}
 .check-row input:checked::after{content:'';position:absolute;left:4px;top:1px;width:5px;height:9px;border:2px solid var(--white);border-left:none;border-top:none;transform:rotate(45deg);}
 .check-text strong{display:block;font-size:13px;font-weight:600;color:var(--ink);}
 .check-text span{font-size:11px;color:var(--stone);}
@@ -305,36 +305,36 @@ select.finput{cursor:pointer;}
 .config-sb{padding:2rem;background:var(--bg2);}
 .sum-card{background:var(--white);border:1px solid var(--rule);margin-bottom:16px;}
 .sum-head{padding:12px 16px;border-bottom:1px solid var(--rule);background:var(--ink);}
-.sum-head h3{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--white);letter-spacing:.04em;}
+.sum-head h3{font-family:'Raleway',sans-serif;font-size:14px;font-weight:700;color:var(--white);letter-spacing:.04em;}
 .sum-body{padding:14px 16px;}
 .sum-row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--rule);font-size:12px;}
 .sum-row:last-child{border-bottom:none;}
 .sum-rl{color:var(--stone);}
 .sum-rv{font-weight:600;}
-.sum-total{display:flex;justify-content:space-between;align-items:baseline;padding:14px 16px;background:var(--amber-pale);border-top:2px solid var(--amber);}
-.sum-tl{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;}
-.sum-tv{font-family:'JetBrains Mono',monospace;font-size:26px;font-weight:600;color:var(--amber);}
-.btn-devis{width:100%;padding:14px;background:var(--ink);color:var(--white);font-family:'Syne',sans-serif;font-size:13px;font-weight:700;letter-spacing:.04em;border:none;border-radius:2px;cursor:pointer;transition:background .15s;margin-bottom:10px;}
-.btn-devis:hover{background:var(--amber);}
+.sum-total{display:flex;justify-content:space-between;align-items:baseline;padding:14px 16px;background:var(--blue-pale);border-top:2px solid var(--blue);}
+.sum-tl{font-family:'Raleway',sans-serif;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;}
+.sum-tv{font-family:'JetBrains Mono',monospace;font-size:26px;font-weight:600;color:var(--blue);}
+.btn-devis{width:100%;padding:14px;background:var(--ink);color:var(--white);font-family:'Raleway',sans-serif;font-size:13px;font-weight:700;letter-spacing:.04em;border:none;border-radius:2px;cursor:pointer;transition:background .15s;margin-bottom:10px;}
+.btn-devis:hover{background:var(--blue);}
 .sum-note{font-size:10px;color:var(--stone);text-align:center;line-height:1.6;}
 
 /* ── SIGNATURE: Cross-section SVG visualizer ── */
 .viz-wrap{background:var(--white);border:1px solid var(--rule);padding:16px;margin-bottom:16px;}
-.viz-title{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--stone);margin-bottom:12px;}
+.viz-title{font-family:'Raleway',sans-serif;font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--stone);margin-bottom:12px;}
 #cross-section{width:100%;height:220px;display:block;}
 
 /* ═══════════════════════════════════
    PAGE 5 — RÉSERVATION
 ═══════════════════════════════════ */
 .resa-wrap{max-width:680px;margin:0 auto;padding:3rem 2rem;}
-.resa-title{font-family:'Fraunces',serif;font-size:28px;font-weight:600;margin-bottom:6px;font-optical-sizing:auto;}
-.resa-title em{font-style:normal;color:var(--amber);}
+.resa-title{font-family:'Montserrat',serif;font-size:28px;font-weight:600;margin-bottom:6px;}
+.resa-title em{font-style:normal;color:var(--blue);}
 .resa-sub{font-size:13px;color:var(--stone);margin-bottom:2.5rem;}
 
 /* progress */
 .progress{display:flex;align-items:center;margin-bottom:3rem;}
 .prog-step{display:flex;align-items:center;gap:8px;flex:1;}
-.prog-dot{width:30px;height:30px;min-width:30px;border-radius:50%;border:2px solid var(--rule);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:12px;font-weight:700;color:var(--stone);transition:all .3s;}
+.prog-dot{width:30px;height:30px;min-width:30px;border-radius:50%;border:2px solid var(--rule);display:flex;align-items:center;justify-content:center;font-family:'Raleway',sans-serif;font-size:12px;font-weight:700;color:var(--stone);transition:all .3s;}
 .prog-dot.active{border-color:var(--ink);color:var(--ink);}
 .prog-dot.done{background:var(--ok);border-color:var(--ok);color:var(--white);}
 .prog-lbl{font-size:11px;font-weight:500;color:var(--stone);white-space:nowrap;}
@@ -345,7 +345,7 @@ select.finput{cursor:pointer;}
 /* steps */
 .step{display:none;}
 .step.on{display:block;}
-.step-t{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;margin-bottom:1.5rem;}
+.step-t{font-family:'Raleway',sans-serif;font-size:18px;font-weight:700;margin-bottom:1.5rem;}
 .fgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
 .fgrid.full{grid-template-columns:1fr;}
 .fg{display:flex;flex-direction:column;gap:6px;}
@@ -361,44 +361,44 @@ select.fi{cursor:pointer;}
 .radio-opt{position:relative;}
 .radio-opt input{position:absolute;opacity:0;width:0;height:0;}
 .radio-opt label{display:block;padding:12px;background:var(--white);border:1.5px solid var(--rule);border-radius:2px;cursor:pointer;transition:border-color .15s,background .15s;}
-.radio-opt input:checked + label{border-color:var(--amber);background:var(--amber-pale);}
-.radio-opt label strong{display:block;font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--ink);}
+.radio-opt input:checked + label{border-color:var(--blue);background:var(--blue-pale);}
+.radio-opt label strong{display:block;font-family:'Raleway',sans-serif;font-size:13px;font-weight:700;color:var(--ink);}
 .radio-opt label span{font-size:10px;color:var(--stone);}
 
 /* calendar */
 .calendar{background:var(--white);border:1px solid var(--rule);margin-bottom:14px;}
 .cal-nav{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.2rem;border-bottom:1px solid var(--rule);}
-.cal-month-l{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;}
+.cal-month-l{font-family:'Raleway',sans-serif;font-size:16px;font-weight:700;}
 .cal-arr{padding:6px 12px;background:transparent;border:1px solid var(--rule);border-radius:2px;color:var(--stone);cursor:pointer;font-size:14px;transition:border-color .15s;}
 .cal-arr:hover{border-color:var(--ink);}
 .cal-g{display:grid;grid-template-columns:repeat(7,1fr);}
-.cal-dow{padding:8px 0;text-align:center;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--stone);border-bottom:1px solid var(--rule);}
+.cal-dow{padding:8px 0;text-align:center;font-family:'Raleway',sans-serif;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--stone);border-bottom:1px solid var(--rule);}
 .cal-day{padding:11px 0;text-align:center;font-size:13px;cursor:pointer;transition:background .1s;}
 .cal-day:hover:not(.disabled):not(.empty){background:var(--bg2);}
 .cal-day.disabled{color:var(--stone-light);cursor:default;}
 .cal-day.empty{cursor:default;}
-.cal-day.selected{background:var(--amber);color:var(--white);font-weight:700;}
-.cal-day.today{font-weight:700;color:var(--amber);}
+.cal-day.selected{background:var(--blue);color:var(--white);font-weight:700;}
+.cal-day.today{font-weight:700;color:var(--blue);}
 .cal-day.today.selected{color:var(--white);}
 .cal-selected-row{padding:12px 1.2rem;border-top:1px solid var(--rule);display:flex;justify-content:space-between;align-items:center;font-size:13px;}
 .cal-selected-row span:first-child{color:var(--stone);}
-.cal-selected-row span:last-child{font-weight:600;color:var(--amber);}
+.cal-selected-row span:last-child{font-weight:600;color:var(--blue);}
 
 /* step nav */
 .step-nav{display:flex;justify-content:space-between;margin-top:2rem;}
-.btn-back{padding:11px 24px;background:transparent;color:var(--stone);font-family:'Syne',sans-serif;font-size:12px;font-weight:600;letter-spacing:.04em;border:1px solid var(--rule);border-radius:2px;cursor:pointer;transition:border-color .15s;}
+.btn-back{padding:11px 24px;background:transparent;color:var(--stone);font-family:'Raleway',sans-serif;font-size:12px;font-weight:600;letter-spacing:.04em;border:1px solid var(--rule);border-radius:2px;cursor:pointer;transition:border-color .15s;}
 .btn-back:hover{border-color:var(--stone);}
-.btn-next{padding:11px 28px;background:var(--ink);color:var(--white);font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:.04em;border:none;border-radius:2px;cursor:pointer;transition:background .15s;}
-.btn-next:hover{background:var(--amber);}
-.btn-submit{padding:13px 32px;background:var(--ok);color:var(--white);font-family:'Syne',sans-serif;font-size:13px;font-weight:700;letter-spacing:.04em;border:none;border-radius:2px;cursor:pointer;transition:background .15s;}
+.btn-next{padding:11px 28px;background:var(--ink);color:var(--white);font-family:'Raleway',sans-serif;font-size:12px;font-weight:700;letter-spacing:.04em;border:none;border-radius:2px;cursor:pointer;transition:background .15s;}
+.btn-next:hover{background:var(--blue);}
+.btn-submit{padding:13px 32px;background:var(--ok);color:var(--white);font-family:'Raleway',sans-serif;font-size:13px;font-weight:700;letter-spacing:.04em;border:none;border-radius:2px;cursor:pointer;transition:background .15s;}
 .btn-submit:hover{background:#256640;}
 
 /* confirm */
 .confirm-box{text-align:center;padding:4rem 2rem;}
 .confirm-check{width:64px;height:64px;border:2px solid var(--ok);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;}
 .confirm-check svg{width:28px;height:28px;stroke:var(--ok);stroke-width:2.5;fill:none;}
-.confirm-ref{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--amber);margin-bottom:8px;}
-.confirm-title{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;margin-bottom:12px;}
+.confirm-ref{font-family:'Raleway',sans-serif;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--blue);margin-bottom:8px;}
+.confirm-title{font-family:'Raleway',sans-serif;font-size:28px;font-weight:800;margin-bottom:12px;}
 .confirm-sub{font-size:13px;color:var(--stone);line-height:1.8;max-width:380px;margin:0 auto 2rem;}
 
 /* ═══════════════════════════════════
@@ -408,7 +408,7 @@ select.fi{cursor:pointer;}
 .modal-ov.open{display:flex;}
 .modal{background:var(--white);border:1px solid var(--rule);width:min(520px,90vw);max-height:80vh;overflow-y:auto;}
 .modal-hd{padding:1.2rem 1.5rem;border-bottom:1px solid var(--rule);display:flex;align-items:center;justify-content:space-between;background:var(--ink);}
-.modal-hd h3{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;color:var(--white);}
+.modal-hd h3{font-family:'Raleway',sans-serif;font-size:18px;font-weight:700;color:var(--white);}
 .modal-x{background:transparent;border:none;color:rgba(255,255,255,.5);cursor:pointer;font-size:20px;line-height:1;padding:4px;transition:color .15s;}
 .modal-x:hover{color:var(--white);}
 .modal-body{padding:1.5rem;}
@@ -416,9 +416,9 @@ select.fi{cursor:pointer;}
 .modal-row:last-child{border-bottom:none;}
 .modal-rl{color:var(--stone);}
 .modal-rv{font-weight:600;}
-.modal-total{display:flex;justify-content:space-between;align-items:baseline;padding:1.2rem 1.5rem;background:var(--amber-pale);border-top:2px solid var(--amber);}
-.modal-tl{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;}
-.modal-tv{font-family:'JetBrains Mono',monospace;font-size:26px;font-weight:600;color:var(--amber);}
+.modal-total{display:flex;justify-content:space-between;align-items:baseline;padding:1.2rem 1.5rem;background:var(--blue-pale);border-top:2px solid var(--blue);}
+.modal-tl{font-family:'Raleway',sans-serif;font-size:14px;font-weight:700;}
+.modal-tv{font-family:'JetBrains Mono',monospace;font-size:26px;font-weight:600;color:var(--blue);}
 .modal-ft{padding:1rem 1.5rem;border-top:1px solid var(--rule);display:flex;gap:10px;justify-content:flex-end;}
 
 /* toast */
@@ -430,36 +430,63 @@ select.fi{cursor:pointer;}
    PAGE 7 — PARTENAIRES
 ═══════════════════════════════════ */
 .part-hd{padding:3rem 3.5rem 2rem;border-bottom:1px solid var(--rule);}
-.part-hd .kicker{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--amber);margin-bottom:12px;}
-.part-hd h1{font-family:'Syne',sans-serif;font-size:clamp(32px,4vw,52px);font-weight:800;line-height:.95;letter-spacing:-.01em;margin-bottom:1rem;}
-.part-hd h1 em{font-style:normal;color:var(--amber);}
+.part-hd .kicker{font-family:'Raleway',sans-serif;font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--blue);margin-bottom:12px;}
+.part-hd h1{font-family:'Raleway',sans-serif;font-size:clamp(32px,4vw,52px);font-weight:800;line-height:.95;letter-spacing:-.01em;margin-bottom:1rem;}
+.part-hd h1 em{font-style:normal;color:var(--blue);}
 .part-hd p{font-size:15px;font-weight:300;color:var(--stone);line-height:1.75;max-width:600px;}
 .part-paths{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--rule);border:1px solid var(--rule);margin:2.5rem 3.5rem 0;}
 .part-path{background:var(--white);padding:2.5rem;}
-.part-path-tag{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;padding:3px 12px;border-radius:2px;display:inline-block;margin-bottom:1.5rem;}
-.part-path-tag.dep{background:var(--amber);color:var(--white);}
+.part-path-tag{font-family:'Raleway',sans-serif;font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;padding:3px 12px;border-radius:2px;display:inline-block;margin-bottom:1.5rem;}
+.part-path-tag.dep{background:var(--blue);color:var(--white);}
 .part-path-tag.ins{background:var(--ink);color:var(--white);}
-.part-path h2{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:var(--ink);margin-bottom:6px;}
+.part-path h2{font-family:'Raleway',sans-serif;font-size:22px;font-weight:800;color:var(--ink);margin-bottom:6px;}
 .part-path .sub{font-size:13px;color:var(--stone);margin-bottom:1.5rem;line-height:1.6;}
 .part-benefits{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:2rem;}
 .part-benefits li{display:flex;gap:10px;font-size:13px;color:var(--ink2);line-height:1.5;}
-.part-benefits li::before{content:'→';color:var(--amber);font-family:'Syne',sans-serif;font-weight:700;flex-shrink:0;margin-top:1px;}
+.part-benefits li::before{content:'→';color:var(--blue);font-family:'Raleway',sans-serif;font-weight:700;flex-shrink:0;margin-top:1px;}
 .part-reqs{background:var(--bg2);border:1px solid var(--rule);padding:14px 16px;margin-bottom:1.5rem;border-radius:2px;}
-.part-reqs-t{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--stone);margin-bottom:8px;}
+.part-reqs-t{font-family:'Raleway',sans-serif;font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--stone);margin-bottom:8px;}
 .part-reqs ul{list-style:none;display:flex;flex-direction:column;gap:5px;}
 .part-reqs ul li{font-size:12px;color:var(--stone);padding-left:12px;position:relative;}
 .part-reqs ul li::before{content:'·';position:absolute;left:0;color:var(--stone);}
 .part-form-wrap{padding:2.5rem 3.5rem 3.5rem;}
-.part-form-hd{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;margin-bottom:4px;}
-.part-form-hd em{font-style:normal;color:var(--amber);}
+.part-form-hd{font-family:'Raleway',sans-serif;font-size:20px;font-weight:700;margin-bottom:4px;}
+.part-form-hd em{font-style:normal;color:var(--blue);}
 .part-form-sub{font-size:13px;color:var(--stone);margin-bottom:2rem;}
 .part-form{background:var(--white);border:1px solid var(--rule);padding:2rem;}
 .part-type-sel{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:1.5rem;}
 .ptsel{padding:14px 16px;background:var(--bg);border:1.5px solid var(--rule);border-radius:2px;cursor:pointer;transition:all .15s;text-align:left;}
 .ptsel:hover{border-color:var(--stone-light);}
-.ptsel.on{border-color:var(--amber);background:var(--amber-pale);}
-.ptsel strong{display:block;font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--ink);margin-bottom:2px;}
+.ptsel.on{border-color:var(--blue);background:var(--blue-pale);}
+.ptsel strong{display:block;font-family:'Raleway',sans-serif;font-size:13px;font-weight:700;color:var(--ink);margin-bottom:2px;}
 .ptsel span{font-size:11px;color:var(--stone);}
+
+/* ── GARRISON PARTNER STRIP ── */
+.garrison-strip{background:var(--blue);display:flex;align-items:center;justify-content:center;gap:20px;padding:9px 2.5rem;font-family:'Raleway',sans-serif;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.85);}
+.garrison-strip strong{color:#fff;letter-spacing:.06em;font-size:11px;}
+.garrison-strip-dot{width:3px;height:3px;border-radius:50%;background:rgba(255,255,255,.4);}
+
+/* ── INTENT SELECTOR (home products) ── */
+.intent-bar{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);margin-bottom:1px;}
+.intent-btn{background:var(--white);padding:1.4rem 1.5rem;cursor:pointer;border:none;text-align:left;transition:background .15s;position:relative;}
+.intent-btn:hover,.intent-btn.on{background:var(--blue-pale);}
+.intent-btn.on::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--blue);}
+.intent-label{font-family:'Raleway',sans-serif;font-size:12px;font-weight:700;color:var(--ink);letter-spacing:.02em;display:block;margin-bottom:3px;}
+.intent-sub{font-size:10px;color:var(--stone);}
+
+/* ── PRODUCT PANELS (intent-driven) ── */
+.prod-panel{display:none;}
+.prod-panel.on{display:grid;}
+
+/* ── CATALOGUE FILTER ── */
+.cat-filter{display:flex;gap:0;border-bottom:1px solid var(--rule);padding:0 3.5rem;background:var(--bg);position:sticky;top:60px;z-index:100;overflow-x:auto;}
+.cf-tab{padding:12px 20px;font-family:'Raleway',sans-serif;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--stone);cursor:pointer;border-bottom:2px solid transparent;background:none;border-top:none;border-left:none;border-right:none;white-space:nowrap;transition:color .15s,border-color .15s;}
+.cf-tab:hover{color:var(--ink);}
+.cf-tab.on{color:var(--blue);border-bottom-color:var(--blue);}
+.cat-section{display:contents;}
+
+/* ── IMPROVED BLUE HIERARCHY ── */
+:root{--blue-dim:#3A6E9F;} /* softer blue for secondary elements */
 
 /* leaflet overrides */
 .leaflet-container{background:#E8E2D8 !important;}
@@ -475,37 +502,37 @@ select.fi{cursor:pointer;}
 .mobile-menu.open{transform:translateX(0);}
 .mobile-menu-inner{display:flex;flex-direction:column;height:100%;overflow:hidden;}
 .mm-head{display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem;height:60px;border-bottom:1px solid var(--rule);}
-.mm-head .nwordmark{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;letter-spacing:.05em;color:var(--ink);}
-.mm-head .nwordmark em{font-style:normal;color:var(--amber);}
+.mm-head .nwordmark{font-family:'Raleway',sans-serif;font-size:20px;font-weight:800;letter-spacing:.05em;color:var(--ink);}
+.mm-head .nwordmark em{font-style:normal;color:var(--blue);}
 .mm-close{background:transparent;border:1px solid var(--rule);border-radius:2px;width:34px;height:34px;font-size:16px;cursor:pointer;color:var(--ink);}
 .mm-links{flex:1;padding:1rem 0;overflow-y:auto;}
-.mm-link{padding:1rem 1.5rem;font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:var(--ink);cursor:pointer;border-bottom:1px solid var(--rule);transition:background .1s;}
+.mm-link{padding:1rem 1.5rem;font-family:'Raleway',sans-serif;font-size:16px;font-weight:700;color:var(--ink);cursor:pointer;border-bottom:1px solid var(--rule);transition:background .1s;}
 .mm-link:hover{background:var(--bg2);}
-.mm-cta{margin:1.5rem;padding:16px;background:var(--amber);color:var(--white);font-family:'Syne',sans-serif;font-size:14px;font-weight:700;letter-spacing:.04em;border:none;border-radius:2px;cursor:pointer;}
+.mm-cta{margin:1.5rem;padding:16px;background:var(--blue);color:var(--white);font-family:'Raleway',sans-serif;font-size:14px;font-weight:700;letter-spacing:.04em;border:none;border-radius:2px;cursor:pointer;}
 
 /* ── À PROPOS ── */
 .ap-wrap{max-width:860px;margin:0 auto;padding:3rem 2.5rem;}
 .ap-header{border-bottom:1px solid var(--rule);padding-bottom:2rem;margin-bottom:3rem;}
-.ap-kicker{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--amber);margin-bottom:12px;}
-.ap-h1{font-family:'Fraunces',serif;font-size:clamp(36px,5vw,56px);font-weight:700;line-height:.95;letter-spacing:-.02em;margin-bottom:1.2rem;font-optical-sizing:auto;}
+.ap-kicker{font-family:'Raleway',sans-serif;font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--blue);margin-bottom:12px;}
+.ap-h1{font-family:'Montserrat',serif;font-size:clamp(36px,5vw,56px);font-weight:700;line-height:.95;letter-spacing:-.02em;margin-bottom:1.2rem;}
 .ap-lead{font-size:17px;font-weight:400;color:var(--stone);line-height:1.75;max-width:580px;}
 .ap-story{display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-bottom:3rem;}
-.ap-section-label{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--stone);margin-bottom:1rem;}
+.ap-section-label{font-family:'Raleway',sans-serif;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--stone);margin-bottom:1rem;}
 .ap-p{font-size:14px;color:var(--ink2);line-height:1.8;margin-bottom:1rem;}
 .ap-p:last-child{margin-bottom:0;}
 .ap-quote{background:var(--ink);padding:2.5rem 3rem;margin-bottom:3rem;}
-.ap-quote-text{font-family:'Fraunces',serif;font-size:21px;font-weight:400;font-style:italic;color:var(--white);line-height:1.55;margin-bottom:1.2rem;font-optical-sizing:auto;}
-.ap-quote-attr{font-size:12px;font-weight:500;color:var(--amber);letter-spacing:.08em;}
+.ap-quote-text{font-family:'Montserrat',serif;font-size:21px;font-weight:400;font-style:italic;color:var(--white);line-height:1.55;margin-bottom:1.2rem;}
+.ap-quote-attr{font-size:12px;font-weight:500;color:var(--blue);letter-spacing:.08em;}
 .ap-markets{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--rule);border:1px solid var(--rule);margin-bottom:3rem;}
 .ap-market{background:var(--white);padding:2rem;}
-.ap-market-tag{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;margin-bottom:12px;}
-.ap-market-tag.amber{color:var(--amber);}
+.ap-market-tag{font-family:'Raleway',sans-serif;font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;margin-bottom:12px;}
+.ap-market-tag.amber{color:var(--blue);}
 .ap-market-tag.stone{color:var(--stone);}
-.ap-market-t{font-family:'Syne',sans-serif;font-size:17px;font-weight:700;margin-bottom:10px;}
+.ap-market-t{font-family:'Raleway',sans-serif;font-size:17px;font-weight:700;margin-bottom:10px;}
 .ap-market-d{font-size:13px;color:var(--stone);line-height:1.7;}
 .ap-creds{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);}
 .ap-cred{background:var(--bg2);padding:1.5rem;text-align:center;}
-.ap-cred-n{font-family:'JetBrains Mono',monospace;font-size:34px;font-weight:600;color:var(--amber);line-height:1;}
+.ap-cred-n{font-family:'JetBrains Mono',monospace;font-size:34px;font-weight:600;color:var(--blue);line-height:1;}
 .ap-cred-l{font-size:11px;color:var(--stone);margin-top:5px;}
 .ap-actions{margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--rule);display:flex;gap:12px;flex-wrap:wrap;}
 
@@ -515,17 +542,17 @@ select.fi{cursor:pointer;}
 .hero-srch-inp{flex:1;padding:13px 16px;background:var(--white);border:1.5px solid var(--rule);border-right:none;border-radius:2px 0 0 2px;font-size:14px;font-family:'DM Sans',sans-serif;color:var(--ink);outline:none;transition:border-color .15s;}
 .hero-srch-inp:focus{border-color:var(--ink);}
 .hero-srch-inp::placeholder{color:var(--stone-light);}
-.hero-srch-btn{padding:13px 22px;background:var(--amber);color:var(--white);font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:.04em;border:none;border-radius:0 2px 2px 0;cursor:pointer;white-space:nowrap;transition:background .15s;}
-.hero-srch-btn:hover{background:var(--amber2);}
+.hero-srch-btn{padding:13px 22px;background:var(--blue);color:var(--white);font-family:'Raleway',sans-serif;font-size:12px;font-weight:700;letter-spacing:.04em;border:none;border-radius:0 2px 2px 0;cursor:pointer;white-space:nowrap;transition:background .15s;}
+.hero-srch-btn:hover{background:var(--blue2);}
 .hero-mkt{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;}
-.hero-mkt-btn{padding:6px 14px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--rule);border-radius:2px;background:transparent;color:var(--stone);cursor:pointer;transition:all .15s;}
+.hero-mkt-btn{padding:6px 14px;font-family:'Raleway',sans-serif;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--rule);border-radius:2px;background:transparent;color:var(--stone);cursor:pointer;transition:all .15s;}
 .hero-mkt-btn.on{background:var(--ink);color:var(--white);border-color:var(--ink);}
 .hero-mkt-btn:not(.on):hover{border-color:var(--stone);color:var(--ink);}
 .hero-ghost-link{font-size:12px;font-weight:500;color:var(--stone);background:none;border:none;cursor:pointer;padding:0;transition:color .15s;text-decoration:underline;text-underline-offset:3px;}
 .hero-ghost-link:hover{color:var(--ink);}
 
 /* ── HERO ENGINEERING SVG ── */
-.hero-eng-label{position:absolute;font-family:'Syne',sans-serif;font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--stone);opacity:.7;}
+.hero-eng-label{position:absolute;font-family:'Raleway',sans-serif;font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--stone);opacity:.7;}
 
 /* ── DIAGNOSIS PANEL ── */
 .diag-chain{display:flex;align-items:stretch;gap:0;background:var(--bg2);border:1px solid var(--rule);margin:10px 0 12px;border-radius:2px;overflow:hidden;}
@@ -533,7 +560,7 @@ select.fi{cursor:pointer;}
 .diag-chain-step:last-child{border-right:none;}
 .diag-chain-val{font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:600;color:var(--ink);line-height:1;margin-bottom:2px;}
 .diag-chain-lbl{font-size:8px;color:var(--stone);text-transform:uppercase;letter-spacing:.1em;}
-.diag-chain-arrow{display:flex;align-items:center;padding:0 4px;color:var(--amber);font-weight:700;font-size:14px;flex-shrink:0;}
+.diag-chain-arrow{display:flex;align-items:center;padding:0 4px;color:var(--blue);font-weight:700;font-size:14px;flex-shrink:0;}
 .diag-mini-svg{width:100%;height:70px;display:block;margin-bottom:10px;background:var(--bg2);border:1px solid var(--rule);}
 
 /* ── CASE STUDY ── */
@@ -541,16 +568,16 @@ select.fi{cursor:pointer;}
 .case-hd{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid var(--rule);}
 .case-grid{display:grid;grid-template-columns:1fr 300px;gap:1px;background:var(--rule);border:1px solid var(--rule);}
 .case-main{background:var(--white);padding:2.5rem;}
-.case-tag{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--amber);margin-bottom:10px;}
-.case-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;color:var(--ink);margin-bottom:4px;line-height:1.2;}
+.case-tag{font-family:'Raleway',sans-serif;font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--blue);margin-bottom:10px;}
+.case-title{font-family:'Raleway',sans-serif;font-size:20px;font-weight:700;color:var(--ink);margin-bottom:4px;line-height:1.2;}
 .case-loc{font-size:11px;color:var(--stone);margin-bottom:1.2rem;letter-spacing:.04em;}
 .case-body{font-size:13px;color:var(--stone);line-height:1.8;margin-bottom:1.5rem;}
-.case-prod-tag{display:inline-block;background:var(--ink);color:var(--white);font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:.12em;padding:4px 12px;border-radius:2px;}
+.case-prod-tag{display:inline-block;background:var(--ink);color:var(--white);font-family:'Raleway',sans-serif;font-size:9px;font-weight:700;letter-spacing:.12em;padding:4px 12px;border-radius:2px;}
 .case-metrics{background:var(--bg2);display:flex;flex-direction:column;justify-content:space-evenly;padding:2rem;}
 .case-metric{padding-bottom:1.5rem;margin-bottom:1.5rem;border-bottom:1px solid var(--rule);}
 .case-metric:last-child{border-bottom:none;padding-bottom:0;margin-bottom:0;}
 .case-m-val{font-family:'JetBrains Mono',monospace;font-size:34px;font-weight:600;color:var(--ink);line-height:1;}
-.case-m-val span{color:var(--amber);}
+.case-m-val span{color:var(--blue);}
 .case-m-lbl{font-size:11px;color:var(--stone);margin-top:3px;line-height:1.4;}
 
 @media(max-width:900px){
@@ -630,19 +657,17 @@ select.fi{cursor:pointer;}
   <a class="nlogo" onclick="showPage('home')">
     <!-- Logomark: A = arche portique, barre ambre = le batardeau -->
     <svg width="36" height="36" viewBox="0 0 80 80">
-      <polygon points="2,76 14,76 40,4 37,4" fill="#1E1C18"/>
-      <polygon points="66,76 78,76 43,4 40,4" fill="#1E1C18"/>
-      <rect x="37" y="2" width="6" height="4" fill="#1E1C18"/>
-      <rect x="14" y="49" width="52" height="11" fill="#D4751A"/>
+      <polygon points="2,76 14,76 40,4 37,4" fill="#111111"/>
+      <polygon points="66,76 78,76 43,4 40,4" fill="#111111"/>
+      <rect x="37" y="2" width="6" height="4" fill="#111111"/>
+      <rect x="14" y="49" width="52" height="11" fill="#1F4E79"/>
     </svg>
     <div class="nwordmark">ARMA<em>DAM</em></div>
   </a>
   <div class="ntabs">
     <div class="ntab on" onclick="showPage('home')" id="tab-home">Accueil</div>
-    <div class="ntab" onclick="showPage('terrain')" id="tab-terrain">Analyse Terrain</div>
-    <div class="ntab" onclick="showPage('catalogue')" id="tab-catalogue">Catalogue</div>
-    <div class="ntab" onclick="showPage('config')" id="tab-config">Configurateur</div>
-    <div class="ntab" onclick="showPage('resa')" id="tab-resa">Réservation</div>
+    <div class="ntab" onclick="showPage('terrain')" id="tab-terrain">Analyser mon risque</div>
+    <div class="ntab" onclick="showPage('catalogue')" id="tab-catalogue">Produits Garrison</div>
     <div class="ntab" onclick="showPage('apropos')" id="tab-apropos">À propos</div>
     <div class="ntab" onclick="showPage('partenaires')" id="tab-partenaires">Partenaires</div>
   </div>
@@ -654,7 +679,7 @@ select.fi{cursor:pointer;}
     <button class="nhamburger" id="nhamburger" onclick="toggleMobileMenu()" aria-label="Menu">
       <span></span><span></span><span></span>
     </button>
-    <button class="ndevis" onclick="showPage('resa')">Me protéger</button>
+    <button class="ndevis" onclick="showPage('resa')">Obtenir un devis</button>
   </div>
 </nav>
 
@@ -666,15 +691,26 @@ select.fi{cursor:pointer;}
     </div>
     <div class="mm-links">
       <div class="mm-link" onclick="showPage('home')">Accueil</div>
-      <div class="mm-link" onclick="showPage('terrain')">Analyse Terrain</div>
-      <div class="mm-link" onclick="showPage('catalogue')">Catalogue</div>
-      <div class="mm-link" onclick="showPage('config')">Configurateur</div>
-      <div class="mm-link" onclick="showPage('resa')">Réservation</div>
+      <div class="mm-link" onclick="showPage('terrain')">Analyser mon risque</div>
+      <div class="mm-link" onclick="showPage('catalogue')">Produits Garrison</div>
       <div class="mm-link" onclick="showPage('apropos')">À propos</div>
       <div class="mm-link" onclick="showPage('partenaires')">Partenaires</div>
     </div>
-    <button class="mm-cta" onclick="showPage('resa')">Me protéger →</button>
+    <button class="mm-cta" onclick="showPage('resa')">Obtenir un devis →</button>
   </div>
+</div>
+
+<!-- GARRISON PARTNER STRIP -->
+<div class="garrison-strip">
+  <strong>GARRISON FLOOD CONTROL</strong>
+  <div class="garrison-strip-dot"></div>
+  <span>Distributeur officiel au Québec</span>
+  <div class="garrison-strip-dot"></div>
+  <span>Certifié FEMA / NFIP</span>
+  <div class="garrison-strip-dot"></div>
+  <span>Stock local · Livraison 48h</span>
+  <div class="garrison-strip-dot"></div>
+  <span>Fabriqué aux États-Unis</span>
 </div>
 
 <!-- ═══════════════════════════════════
@@ -683,13 +719,13 @@ select.fi{cursor:pointer;}
 <div class="pg on" id="pg-home">
   <div class="hero">
     <div class="hero-left">
-      <div class="hero-kicker">Batardeaux sur mesure — Résidentiel &amp; Construction</div>
+      <div class="hero-kicker">Protection anti-inondation · Québec &amp; Canada</div>
       <h1 class="hero-h1">
-        PROTÉGER.<br>
-        ASSÉCHER.<br>
-        CONSTRUIRE.
+        BLOQUER.<br>
+        DÉVIER.<br>
+        PROTÉGER.
       </h1>
-      <p class="hero-sub">Inondation résidentielle ou batardeau de chantier — entrez votre adresse, on vous dit exactement quelle protection vous faut.</p>
+      <p class="hero-sub">Protection contre les inondations pour résidences, commerces et infrastructures — entrez votre adresse, on identifie votre niveau de risque et les systèmes Garrison adaptés à votre situation.</p>
 
       <!-- Inline search — the #1 action -->
       <div class="hero-search">
@@ -698,8 +734,8 @@ select.fi{cursor:pointer;}
           <button class="hero-srch-btn" id="hero-srch-btn" onclick="heroSearch()">Analyser →</button>
         </div>
         <div class="hero-mkt">
-          <button class="hero-mkt-btn on" id="hmkt-res" onclick="heroMkt('res')">Résidentiel — inondation</button>
-          <button class="hero-mkt-btn" id="hmkt-con" onclick="heroMkt('con')">Chantier — construction</button>
+          <button class="hero-mkt-btn on" id="hmkt-res" onclick="heroMkt('res')">Résidentiel</button>
+          <button class="hero-mkt-btn" id="hmkt-con" onclick="heroMkt('con')">Commercial &amp; Municipal</button>
         </div>
       </div>
 
@@ -721,19 +757,19 @@ select.fi{cursor:pointer;}
           <rect x="240" y="60" width="40" height="340" fill="#DDDBD6" stroke="#BEBAB4" stroke-width="1"/>
           <rect x="244" y="64" width="32" height="332" fill="#EEEDE9" opacity=".5"/>
           <!-- HSS steel profile indicator on barrier (amber) -->
-          <rect x="196" y="80" width="8" height="320" fill="#D4751A" opacity=".15"/>
-          <rect x="196" y="80" width="8" height="320" fill="none" stroke="#D4751A" stroke-width="1.5"/>
+          <rect x="196" y="80" width="8" height="320" fill="#1F4E79" opacity=".15"/>
+          <rect x="196" y="80" width="8" height="320" fill="none" stroke="#1F4E79" stroke-width="1.5"/>
           <!-- Fabric line -->
           <line x1="160" y1="180" x2="160" y2="400" stroke="#8C8680" stroke-width="1" stroke-dasharray="4,3"/>
           <line x1="240" y1="180" x2="240" y2="400" stroke="#8C8680" stroke-width="1" stroke-dasharray="4,3"/>
           <!-- EPDM joint sol indicator -->
-          <rect x="160" y="395" width="80" height="8" fill="#D4751A" opacity=".6" rx="1"/>
+          <rect x="160" y="395" width="80" height="8" fill="#1F4E79" opacity=".6" rx="1"/>
           <!-- Component labels -->
-          <text x="205" y="55" text-anchor="middle" font-size="9" fill="#D4751A" font-family="Syne" font-weight="700" letter-spacing=".08em">MONTANT HSS</text>
+          <text x="205" y="55" text-anchor="middle" font-size="9" fill="#1F4E79" font-family="Raleway" font-weight="700" letter-spacing=".08em">MONTANT HSS</text>
           <text x="134" y="54" text-anchor="middle" font-size="8" fill="#8C8680" font-family="DM Sans">mur</text>
           <text x="266" y="54" text-anchor="middle" font-size="8" fill="#8C8680" font-family="DM Sans">mur</text>
           <text x="152" y="290" font-size="8" fill="#8C8680" font-family="DM Sans" text-anchor="end">toile PVC</text>
-          <text x="205" y="408" text-anchor="middle" font-size="8" fill="#D4751A" font-family="DM Sans" font-weight="600">joint sol EPDM</text>
+          <text x="205" y="408" text-anchor="middle" font-size="8" fill="#1F4E79" font-family="DM Sans" font-weight="600">joint sol EPDM</text>
           <!-- Pressure arrows on water side (left) -->
           <line x1="100" y1="240" x2="118" y2="240" stroke="#3B7EA1" stroke-width="1.5" marker-end="url(#blue-arr)"/>
           <line x1="90" y1="280" x2="118" y2="280" stroke="#3B7EA1" stroke-width="1.5" marker-end="url(#blue-arr)"/>
@@ -741,8 +777,8 @@ select.fi{cursor:pointer;}
           <line x1="70" y1="360" x2="118" y2="360" stroke="#3B7EA1" stroke-width="2" marker-end="url(#blue-arr)"/>
           <text x="58" y="308" font-size="8" fill="#3B7EA1" font-family="DM Sans" text-anchor="middle" transform="rotate(-90,58,308)">pression</text>
           <!-- Measurement: height arrow -->
-          <line x1="360" y1="180" x2="360" y2="400" stroke="#D4751A" stroke-width="1" stroke-dasharray="2,2"/>
-          <text x="374" y="295" font-size="9" fill="#D4751A" font-family="Syne" font-weight="700" transform="rotate(90,374,295)">hauteur</text>
+          <line x1="360" y1="180" x2="360" y2="400" stroke="#1F4E79" stroke-width="1" stroke-dasharray="2,2"/>
+          <text x="374" y="295" font-size="9" fill="#1F4E79" font-family="Raleway" font-weight="700" transform="rotate(90,374,295)">hauteur</text>
           <defs>
             <marker id="blue-arr" markerWidth="5" markerHeight="5" refX="4" refY="2.5" orient="auto"><path d="M0,0 L5,2.5 L0,5 Z" fill="#3B7EA1"/></marker>
           </defs>
@@ -753,85 +789,101 @@ select.fi{cursor:pointer;}
 
   <!-- Stats -->
   <div class="stats">
-    <div class="stat"><div class="stat-n">1 200<span>+</span></div><div class="stat-l">Projets complétés — résidentiel et construction</div></div>
-    <div class="stat"><div class="stat-n">25<span> ans</span></div><div class="stat-l">D'expérience terrain au Québec</div></div>
-    <div class="stat"><div class="stat-n">48<span>h</span></div><div class="stat-l">Délai de livraison partout en province</div></div>
-    <div class="stat"><div class="stat-n">RBQ</div><div class="stat-l">Entrepreneurs certifiés — installation garantie</div></div>
+    <div class="stat"><div class="stat-n">5 000<span>+</span></div><div class="stat-l">Projets Garrison complétés dans le monde</div></div>
+    <div class="stat"><div class="stat-n">14<span> sys.</span></div><div class="stat-l">Systèmes de protection au catalogue</div></div>
+    <div class="stat"><div class="stat-n">48<span>h</span></div><div class="stat-l">Livraison au Québec depuis stock local</div></div>
+    <div class="stat"><div class="stat-n">FEMA</div><div class="stat-l">Produits certifiés floodproofing — NFIP compliant</div></div>
   </div>
 
-  <!-- Products -->
+  <!-- Products — intent-driven -->
   <div class="section">
     <div class="sec-hd">
-      <div class="sec-t">La bonne protection pour chaque situation</div>
-      <button class="sec-link" onclick="showPage('catalogue')">Spécifications complètes →</button>
+      <div class="sec-t">Quelle est votre situation ?</div>
+      <button class="sec-link" onclick="showPage('catalogue')">Voir tout le catalogue →</button>
     </div>
-    <div class="prod-grid">
-      <!-- RÉSIDENTIEL -->
-      <div class="seg-label">Résidentiel <em>Maison · Chalet · Condo · Riverain</em></div>
+    <!-- Intent selector -->
+    <div class="intent-bar">
+      <button class="intent-btn on" onclick="switchIntent('ouverture',this)">
+        <span class="intent-label">Protéger une ouverture</span>
+        <span class="intent-sub">Porte · Garage · Fenêtre · Accès</span>
+      </button>
+      <button class="intent-btn" onclick="switchIntent('perimetre',this)">
+        <span class="intent-label">Protéger un périmètre</span>
+        <span class="intent-sub">Propriété · Zone riveraine · Terrain</span>
+      </button>
+      <button class="intent-btn" onclick="switchIntent('auto',this)">
+        <span class="intent-label">Protection automatique</span>
+        <span class="intent-sub">Sans intervention · Rampe · Allée</span>
+      </button>
+    </div>
+    <!-- Panel: Ouvertures -->
+    <div class="prod-grid prod-panel on" id="panel-ouverture" style="grid-template-columns:repeat(3,1fr);">
       <div class="prod-card" onclick="showPage('catalogue')">
         <div class="pc-num">01</div>
-        <div class="pc-icon">
-          <svg viewBox="0 0 48 48" fill="none">
-            <rect x="6" y="28" width="36" height="14" rx="1" fill="#E5E4E0" stroke="#797570" stroke-width="1.5"/>
-            <rect x="10" y="22" width="28" height="8" rx="1" fill="#F6F5F3" stroke="#797570" stroke-width="1.5"/>
-            <line x1="12" y1="30" x2="12" y2="40" stroke="#D4751A" stroke-width="1" opacity=".5"/>
-            <line x1="24" y1="30" x2="24" y2="40" stroke="#D4751A" stroke-width="1" opacity=".5"/>
-            <line x1="36" y1="30" x2="36" y2="40" stroke="#D4751A" stroke-width="1" opacity=".5"/>
-          </svg>
-        </div>
-        <div class="pc-tier">Maison — Chalet — Condo</div>
-        <div class="pc-name">SENTINEL 120</div>
-        <div class="pc-depth">Acier + toile PVC — jusqu'à 1.2 m</div>
-        <div class="pc-price">1 890 $ <small>/ travée</small></div>
+        <div class="pc-icon"><svg viewBox="0 0 48 48" fill="none"><rect x="8" y="14" width="32" height="26" rx="1" fill="#E5E4E0" stroke="#797570" stroke-width="1.5"/><rect x="8" y="30" width="32" height="8" fill="#1F4E79" opacity=".15"/><line x1="14" y1="30" x2="14" y2="38" stroke="#1F4E79" stroke-width="1.5" opacity=".7"/><line x1="24" y1="30" x2="24" y2="38" stroke="#1F4E79" stroke-width="1.5" opacity=".7"/><line x1="34" y1="30" x2="34" y2="38" stroke="#1F4E79" stroke-width="1.5" opacity=".7"/><rect x="8" y="36" width="32" height="4" fill="#1F4E79" opacity=".5" rx="1"/></svg></div>
+        <div class="pc-tier">Résidentiel &amp; Commercial</div>
+        <div class="pc-name">HAMMERHEAD</div>
+        <div class="pc-depth">Planches aluminium · jusqu'à 91 cm · 3.6 m large</div>
+        <div class="pc-price">Sur devis <small>/ ouverture</small></div>
       </div>
       <div class="prod-card" onclick="showPage('catalogue')">
         <div class="pc-num">02</div>
-        <div class="pc-icon">
-          <svg viewBox="0 0 48 48" fill="none">
-            <rect x="5" y="20" width="38" height="22" rx="1" fill="#E5E4E0" stroke="#797570" stroke-width="1.5"/>
-            <rect x="9" y="12" width="30" height="10" rx="1" fill="#F6F5F3" stroke="#797570" stroke-width="1.5"/>
-            <rect x="5" y="8" width="38" height="5" rx="1" fill="#EEEDE9" stroke="#BEBAB4" stroke-width="1"/>
-            <path d="M15 22 L15 40 M24 22 L24 40 M33 22 L33 40" stroke="#D4751A" stroke-width="1" opacity=".5"/>
-          </svg>
-        </div>
-        <div class="pc-tier">Riverain — Zone inondable</div>
-        <div class="pc-name">AQUASHIELD PRO</div>
-        <div class="pc-depth">Acier galv. + PVC armé — jusqu'à 2.0 m</div>
-        <div class="pc-price">3 450 $ <small>/ travée</small></div>
+        <div class="pc-icon"><svg viewBox="0 0 48 48" fill="none"><ellipse cx="24" cy="34" rx="18" ry="8" fill="#1F4E79" opacity=".15" stroke="#1F4E79" stroke-width="1.5"/><ellipse cx="24" cy="26" rx="18" ry="8" fill="#E5E4E0" stroke="#797570" stroke-width="1.5"/><line x1="8" y1="26" x2="8" y2="34" stroke="#797570" stroke-width="1"/><line x1="40" y1="26" x2="40" y2="34" stroke="#797570" stroke-width="1"/><path d="M14 22 Q24 18 34 22" stroke="#1F4E79" stroke-width="1.5" fill="none"/></svg></div>
+        <div class="pc-tier">Résidentiel</div>
+        <div class="pc-name">MAKO</div>
+        <div class="pc-depth">Gonflable · 76 cm ou 102 cm · sans outil</div>
+        <div class="pc-price">À partir de 580 $ <small>CAD</small></div>
       </div>
-      <!-- COMMERCIAL -->
-      <div class="seg-label">Commercial <em>Commerce · Entrepôt · Industriel · Municipal</em></div>
       <div class="prod-card" onclick="showPage('catalogue')">
         <div class="pc-num">03</div>
-        <div class="pc-icon">
-          <svg viewBox="0 0 48 48" fill="none">
-            <rect x="3" y="14" width="42" height="28" rx="1" fill="#E5E4E0" stroke="#797570" stroke-width="1.5"/>
-            <rect x="7" y="6" width="34" height="10" rx="1" fill="#F6F5F3" stroke="#797570" stroke-width="1.5"/>
-            <rect x="3" y="4" width="42" height="4" rx="1" fill="#EEEDE9" stroke="#BEBAB4" stroke-width="1"/>
-            <path d="M3 26 L45 26 M3 36 L45 36" stroke="#BEBAB4" stroke-width=".5"/>
-            <path d="M12 14 L12 42 M24 14 L24 42 M36 14 L36 42" stroke="#D4751A" stroke-width="1" opacity=".4"/>
-          </svg>
-        </div>
-        <div class="pc-tier">Chantier routier — Ponceaux — Ponts</div>
-        <div class="pc-name">FORTRESS CHANTIER</div>
-        <div class="pc-depth">Batardeau acier + toile — jusqu'à 2.8 m</div>
-        <div class="pc-price">6 200 $ <small>/ travée</small></div>
+        <div class="pc-icon"><svg viewBox="0 0 48 48" fill="none"><rect x="4" y="10" width="40" height="32" rx="1" fill="#E5E4E0" stroke="#797570" stroke-width="1.5"/><rect x="4" y="8" width="40" height="6" fill="#1F4E79" rx="1"/><path d="M4 22 L44 22 M4 32 L44 32" stroke="#BEBAB4" stroke-width=".8"/><path d="M14 8 L14 42 M24 8 L24 42 M34 8 L34 42" stroke="#F6F5F3" stroke-width="1" opacity=".6"/></svg></div>
+        <div class="pc-tier">Commercial &amp; Institutionnel</div>
+        <div class="pc-name">YELLOWFIN</div>
+        <div class="pc-depth">Composite premium · pression extrême · toute ouverture</div>
+        <div class="pc-price">Sur devis <small>/ ouverture</small></div>
+      </div>
+    </div>
+    <!-- Panel: Périmètre -->
+    <div class="prod-grid prod-panel" id="panel-perimetre" style="grid-template-columns:repeat(3,1fr);">
+      <div class="prod-card" onclick="showPage('catalogue')">
+        <div class="pc-num">01</div>
+        <div class="pc-icon"><svg viewBox="0 0 48 48" fill="none"><rect x="4" y="12" width="40" height="28" rx="1" fill="#E5E4E0" stroke="#797570" stroke-width="1.5"/><rect x="4" y="8" width="40" height="6" fill="#1F4E79" opacity=".3" rx="1"/><path d="M4 22 L44 22 M4 32 L44 32" stroke="#1F4E79" stroke-width=".8" opacity=".4"/><path d="M14 8 L14 40 M24 8 L24 40 M34 8 L34 40" stroke="#1F4E79" stroke-width="1" opacity=".35"/></svg></div>
+        <div class="pc-tier">Résidentiel &amp; Commercial</div>
+        <div class="pc-name">BLUEFIN</div>
+        <div class="pc-depth">Panneaux modulaires · 91 à 244 cm · périmètre complet</div>
+        <div class="pc-price">Sur devis <small>/ kit</small></div>
       </div>
       <div class="prod-card" onclick="showPage('catalogue')">
-        <div class="pc-num">04</div>
-        <div class="pc-icon">
-          <svg viewBox="0 0 48 48" fill="none">
-            <rect x="2" y="8" width="44" height="36" rx="1" fill="#E5E4E0" stroke="#797570" stroke-width="1.5"/>
-            <rect x="2" y="4" width="44" height="6" rx="1" fill="#EEEDE9" stroke="#BEBAB4" stroke-width="1"/>
-            <path d="M2 18 L46 18 M2 28 L46 28 M2 38 L46 38" stroke="#BEBAB4" stroke-width=".5"/>
-            <path d="M12 8 L12 44 M24 8 L24 44 M36 8 L36 44" stroke="#D4751A" stroke-width="1" opacity=".4"/>
-            <rect x="0" y="2" width="48" height="4" rx="1" fill="rgba(212,117,26,0.3)" stroke="#D4751A" stroke-width="1"/>
-          </svg>
-        </div>
-        <div class="pc-tier">Ponts majeurs — Barrages — HQ — Pipelines</div>
-        <div class="pc-name">TITAN EXTREME</div>
-        <div class="pc-depth">Batardeau acier structural + toile armée — 3.5 m+</div>
-        <div class="pc-price">9 800 $ <small>/ travée · base</small></div>
+        <div class="pc-num">02</div>
+        <div class="pc-icon"><svg viewBox="0 0 48 48" fill="none"><rect x="4" y="26" width="40" height="14" rx="2" fill="#1F4E79" opacity=".2" stroke="#1F4E79" stroke-width="1.5"/><rect x="6" y="20" width="36" height="8" rx="2" fill="#E5E4E0" stroke="#797570" stroke-width="1.5"/><rect x="4" y="38" width="40" height="4" rx="1" fill="#797570" opacity=".3"/><path d="M8 26 Q24 22 40 26" stroke="#1F4E79" stroke-width="1.5" fill="none" opacity=".7"/></svg></div>
+        <div class="pc-tier">Terrain irrégulier · Urgence</div>
+        <div class="pc-name">MAYIM</div>
+        <div class="pc-depth">Panneaux d'eau · 51–102 cm · à partir de 13 200 $ / 30 m</div>
+        <div class="pc-price">À partir de 13 200 $ <small>CAD</small></div>
+      </div>
+      <div class="prod-card" onclick="showPage('catalogue')">
+        <div class="pc-num">03</div>
+        <div class="pc-icon"><svg viewBox="0 0 48 48" fill="none"><rect x="4" y="28" width="40" height="14" rx="3" fill="#1F4E79" opacity=".15" stroke="#1F4E79" stroke-width="1.5"/><rect x="4" y="40" width="40" height="4" rx="1" fill="#797570" opacity=".25"/><path d="M6 28 Q24 20 42 28" stroke="#1F4E79" stroke-width="2" fill="none"/></svg></div>
+        <div class="pc-tier">Berge · Riverain · Auto-déployant</div>
+        <div class="pc-name">STINGRAY</div>
+        <div class="pc-depth">S'active au contact de l'eau · 51–122 cm · réutilisable</div>
+        <div class="pc-price">À partir de 240 $ <small>CAD</small></div>
+      </div>
+    </div>
+    <!-- Panel: Auto-activé -->
+    <div class="prod-grid prod-panel" id="panel-auto" style="grid-template-columns:repeat(2,1fr);">
+      <div class="prod-card" onclick="showPage('catalogue')">
+        <div class="pc-num">01</div>
+        <div class="pc-icon"><svg viewBox="0 0 48 48" fill="none"><path d="M8 40 L8 20 Q24 12 40 20 L40 40 Z" fill="#1F4E79" opacity=".12" stroke="#1F4E79" stroke-width="1.5"/><rect x="6" y="38" width="36" height="4" rx="1" fill="#797570" opacity=".3"/><path d="M14 30 Q24 24 34 30" stroke="#2B6CB0" stroke-width="2" fill="none"/><circle cx="24" cy="34" r="3" fill="#1F4E79" opacity=".5"/></svg></div>
+        <div class="pc-tier">Rampe · Allée · Accès en pente</div>
+        <div class="pc-name">OYSTER</div>
+        <div class="pc-depth">Auto-montant hydrostatique · 61–122 cm · 0 énergie · 0 intervention</div>
+        <div class="pc-price">Sur devis <small>/ unité</small></div>
+      </div>
+      <div class="prod-card" onclick="showPage('catalogue')" style="background:var(--bg2);display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:10px;">
+        <div style="font-family:'Raleway',sans-serif;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--stone);">Autres systèmes rapides</div>
+        <div style="font-size:13px;color:var(--ink2);line-height:1.7;">SERPENT — tubes gonflables urgence<br>GUPPY — tubes eau terrain irrégulier<br>MINNOW — alternative sacs de sable</div>
+        <button class="btn-ghost" style="padding:8px 18px;font-size:11px;" onclick="event.stopPropagation();showPage('catalogue')">Voir tout →</button>
       </div>
     </div>
   </div>
@@ -844,25 +896,25 @@ select.fi{cursor:pointer;}
     </div>
     <div class="case-grid">
       <div class="case-main">
-        <div class="case-tag">Chantier infrastructure · Septembre 2023</div>
-        <div class="case-title">Remplacement du ponceau, Route 158</div>
-        <div class="case-loc">Saint-Lin-Laurentides, Québec — Rivière L'Achigan</div>
-        <p class="case-body">La rivière L'Achigan devait être barrée sur 18 mètres pour permettre le remplacement d'un ponceau de 1 200 mm sous charge de circulation. Profondeur d'eau à contenir : 2.4 m. Contrainte : maintien du débit en période post-fonte — aucune interruption possible de plus de 6 heures pour la machinerie.</p>
-        <p class="case-body">Armadam a déployé 6 modules FORTRESS CHANTIER en configuration courbe, ancrés par pieux battus sur lit de roc. Joint de fond en mousse cellulaire fermée comprimée mécaniquement à 35 kPa. Zone asséchée en 4 heures. Travaux complétés en 11 jours. Aucune infiltration.</p>
-        <span class="case-prod-tag">FORTRESS CHANTIER × 6 modules</span>
+        <div class="case-tag">Protection résidentielle · Printemps 2024</div>
+        <div class="case-title">Crue printanière — Secteur riverain, Deux-Montagnes</div>
+        <div class="case-loc">Lac-des-Deux-Montagnes, Québec — Propriété en zone 0-20 ans</div>
+        <p class="case-body">Le lac-des-Deux-Montagnes montait de 42 cm en 18 heures. Cinq propriétés du secteur n'avaient aucune protection. Armadam a déployé des systèmes BLUEFIN en périmètre sur trois propriétés et des HAMMERHEAD sur les ouvertures de deux résidences — le tout en moins de 6 heures avec deux équipes.</p>
+        <p class="case-body">Résultat : zéro infiltration sur les cinq propriétés protégées. Les deux voisins non équipés ont subi des dommages estimés entre 40 000 $ et 85 000 $. Les systèmes Garrison ont été réutilisés lors de la deuxième montée des eaux trois semaines plus tard.</p>
+        <span class="case-prod-tag">BLUEFIN périmètre + HAMMERHEAD ouvertures</span>
       </div>
       <div class="case-metrics">
         <div class="case-metric">
-          <div class="case-m-val">18<span> m</span></div>
-          <div class="case-m-lbl">Portée totale du batardeau — configuration courbe</div>
+          <div class="case-m-val">5<span> prop.</span></div>
+          <div class="case-m-lbl">Propriétés protégées en une journée d'intervention</div>
         </div>
         <div class="case-metric">
-          <div class="case-m-val">2.4<span> m</span></div>
-          <div class="case-m-lbl">Profondeur d'eau contenue — pression 23.5 kPa</div>
+          <div class="case-m-val">42<span> cm</span></div>
+          <div class="case-m-lbl">Montée d'eau en 18 heures — pic de crue printanière</div>
         </div>
         <div class="case-metric">
-          <div class="case-m-val">4<span> h</span></div>
-          <div class="case-m-lbl">De l'arrivée sur le chantier à la zone asséchée</div>
+          <div class="case-m-val">0 $</div>
+          <div class="case-m-lbl">Dommages sur les propriétés équipées Garrison</div>
         </div>
       </div>
     </div>
@@ -872,7 +924,7 @@ select.fi{cursor:pointer;}
   <div class="cta-strip">
     <div>
       <h3>La prochaine crue ne vous avertira pas.</h3>
-      <p>Entrez votre adresse — en 30 secondes, vous savez quel niveau de risque vous êtes exposé et quelle protection s'impose.</p>
+      <p>Entrez votre adresse — en 30 secondes, vous connaissez votre niveau de risque et les systèmes Garrison adaptés à votre propriété.</p>
     </div>
     <button class="btn-amber" onclick="showPage('terrain')">Analyser mon projet →</button>
   </div>
@@ -887,8 +939,8 @@ select.fi{cursor:pointer;}
     <p id="terrain-subtitle">Entrez votre adresse. Notre système analyse la profondeur d'eau de votre secteur et vous dit exactement quelle protection vous devez avoir — avant que l'eau décide pour vous.</p>
     <div class="ctx-toggle">
       <span class="ctx-label">Contexte :</span>
-      <button class="ctab on" id="ctx-res" onclick="setContext('res')">Résidentiel — inondation</button>
-      <button class="ctab" id="ctx-con" onclick="setContext('con')">Construction — chantier</button>
+      <button class="ctab on" id="ctx-res" onclick="setContext('res')">Résidentiel</button>
+      <button class="ctab" id="ctx-con" onclick="setContext('con')">Commercial &amp; Municipal</button>
     </div>
   </div>
   <div class="terrain-layout">
@@ -980,7 +1032,7 @@ select.fi{cursor:pointer;}
         <div class="depth-gauge">
           <div class="dg-track"><div class="dg-fill" id="a-gauge" style="height:0%"></div></div>
           <div class="dg-labels"><span>3.5m</span><span>2.0m</span><span>0m</span></div>
-          <div style="font-size:32px;font-family:'Syne',sans-serif;font-weight:800;color:var(--ink);line-height:1;" id="a-depth-big">—</div>
+          <div style="font-size:32px;font-family:'Raleway',sans-serif;font-weight:800;color:var(--ink);line-height:1;" id="a-depth-big">—</div>
         </div>
       </div>
 
@@ -1030,53 +1082,65 @@ select.fi{cursor:pointer;}
 ═══════════════════════════════════ -->
 <div class="pg" id="pg-catalogue">
   <div class="cat-hd">
-    <h1>La bonne protection. <em>Point final.</em></h1>
-    <p>Deux marchés, une seule exigence : que ça tienne. Protection résidentielle contre les inondations ou batardeau de chantier pour vos travaux de construction — chaque système est conçu pour le terrain, pas pour le catalogue.</p>
+    <h1>Garrison Flood Control. <em>Distribué par Armadam.</em></h1>
+    <p>L'un des plus grands fabricants mondiaux de protection contre les inondations — plus de 5 000 projets complétés. Armadam est le distributeur officiel au Québec. Chaque système est certifié FEMA/NFIP, fabriqué aux États-Unis, livré depuis notre stock local.</p>
+  </div>
+  <div class="cat-filter">
+    <button class="cf-tab on" onclick="filterCat('all',this)">Toutes</button>
+    <button class="cf-tab" onclick="filterCat('ouverture',this)">Ouvertures</button>
+    <button class="cf-tab" onclick="filterCat('perimetre',this)">Périmètre</button>
+    <button class="cf-tab" onclick="filterCat('auto',this)">Auto-activé</button>
+    <button class="cf-tab" onclick="filterCat('rapide',this)">Solutions rapides</button>
   </div>
   <div class="cat-grid">
 
-    <!-- ── RÉSIDENTIEL ── -->
+    <!-- ── OUVERTURES ── -->
+    <div class="cat-section" data-cat="ouverture">
     <div class="cat-seg-hd">
-      <h2>Résidentiel</h2>
-      <p>Maison · Chalet · Condo · Riverain · Zone inondable</p>
-      <span class="seg-tag">Protection 0 – 2 m</span>
+      <h2>Ouvertures</h2>
+      <p>Portes · Garages · Fenêtres · Accès de sous-sol · Couloirs</p>
+      <span class="seg-tag">Résidentiel &amp; Commercial</span>
     </div>
 
     <div class="cat-card">
       <div class="cat-card-head">
         <div class="cn">01</div>
         <div class="cicon">
-          <svg viewBox="0 0 64 64" fill="none" width="64" height="64"><rect x="8" y="36" width="48" height="20" rx="1" fill="#EAE4DA" stroke="#8C8680" stroke-width="1.5"/><rect x="14" y="26" width="36" height="12" rx="1" fill="#F6F5F3" stroke="#797570" stroke-width="1.5"/><line x1="18" y1="38" x2="18" y2="54" stroke="#D4751A" stroke-width="1.5" opacity=".6"/><line x1="32" y1="38" x2="32" y2="54" stroke="#D4751A" stroke-width="1.5" opacity=".6"/><line x1="46" y1="38" x2="46" y2="54" stroke="#D4751A" stroke-width="1.5" opacity=".6"/></svg>
+          <svg viewBox="0 0 64 64" fill="none" width="64" height="64">
+            <rect x="8" y="20" width="48" height="36" rx="1" fill="#EEEDE9" stroke="#8C8680" stroke-width="1.5"/>
+            <rect x="8" y="40" width="48" height="14" fill="#1F4E79" opacity=".15"/>
+            <line x1="16" y1="40" x2="16" y2="54" stroke="#1F4E79" stroke-width="2" opacity=".7"/>
+            <line x1="32" y1="40" x2="32" y2="54" stroke="#1F4E79" stroke-width="2" opacity=".7"/>
+            <line x1="48" y1="40" x2="48" y2="54" stroke="#1F4E79" stroke-width="2" opacity=".7"/>
+            <rect x="8" y="52" width="48" height="4" rx="1" fill="#1F4E79" opacity=".5"/>
+          </svg>
         </div>
-        <div class="ctier">01 — Barrière résidentielle</div>
-        <div class="cname">SENTINEL 120</div>
+        <div class="ctier">01 — Planches aluminium</div>
+        <div class="cname">HAMMERHEAD</div>
       </div>
       <div class="cat-card-body">
-        <p class="cat-desc">Barrière légère à déploiement autonome pour protéger les ouvertures résidentielles. Montants en aluminium extrudé + toile PVC souple mise en tension par barres de serrage. En place en 15 minutes sans outil — conçue pour être déployée seul, même sous stress, même la nuit avant une crue.</p>
+        <p class="cat-desc">Système de planches aluminium pour protéger les ouvertures résidentielles et commerciales. Déploiement rapide sans modification permanente — les planches s'insèrent dans des montants fixés à la maçonnerie. Certifié FEMA/NFIP pour le floodproofing à sec. Fabriqué aux États-Unis.</p>
         <div class="cat-use">
           <span class="cat-use-tag">Porte d'entrée</span>
           <span class="cat-use-tag">Garage</span>
+          <span class="cat-use-tag">Fenêtre de sous-sol</span>
           <span class="cat-use-tag">Accès de plain-pied</span>
-          <span class="cat-use-tag">Terrasse</span>
+          <span class="cat-use-tag">Rampe de stationnement</span>
         </div>
         <table class="cat-specs">
-          <tr><td>Cadre porteur</td><td>Aluminium extrudé 6061-T6, montants + seuil</td></tr>
-          <tr><td>Toile</td><td>Bâche PVC souple 600 g/m², coutures thermo-soudées, anti-UV</td></tr>
-          <tr><td>Joint sol</td><td>Semelle EPDM 15 mm, compression par serrage</td></tr>
-          <tr><td>Joint latéral</td><td>Profilés caoutchouc + appui sur maçonnerie</td></tr>
-          <tr><td>Tension</td><td>Barres horizontales de serrage, sans outil</td></tr>
-          <tr><td>Hauteur</td><td>1.2 m (fixe)</td></tr>
-          <tr><td>Portée max.</td><td>3.0 m / battée</td></tr>
-          <tr><td>Pression de calcul</td><td>12 kPa (1.2 m colonne d'eau)</td></tr>
-          <tr><td>Déploiement</td><td>1-2 personnes · 10-15 min</td></tr>
-          <tr><td>Garantie</td><td>15 ans structure · 10 ans toile</td></tr>
+          <tr><td>Matériaux</td><td>Aluminium extrudé — léger, résistant à la corrosion</td></tr>
+          <tr><td>Largeur max.</td><td>Jusqu'à 3.6 m (12 pi) — portées plus larges avec poteau central</td></tr>
+          <tr><td>Longueur</td><td>Illimitée avec poteaux intermédiaires</td></tr>
+          <tr><td>Certification</td><td>FEMA / NFIP — floodproofing à sec</td></tr>
+          <tr><td>Déploiement</td><td>1-2 personnes · 10-15 min sans outil spécialisé</td></tr>
+          <tr><td>Origine</td><td>Fabriqué aux États-Unis</td></tr>
         </table>
       </div>
       <div class="cat-foot">
-        <div class="cat-price">1 890 $ <small>/ battée</small></div>
-        <button class="btn-add" onclick="addToCart('SENTINEL 120',1890,this)">
+        <div class="cat-price">Sur devis <small>/ ouverture</small></div>
+        <button class="btn-add" onclick="addToCart('HAMMERHEAD',0,this)">
           <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-          Ajouter
+          Demander un devis
         </button>
       </div>
     </div>
@@ -1085,83 +1149,165 @@ select.fi{cursor:pointer;}
       <div class="cat-card-head">
         <div class="cn">02</div>
         <div class="cicon">
-          <svg viewBox="0 0 64 64" fill="none" width="64" height="64"><rect x="6" y="28" width="52" height="28" rx="1" fill="#EAE4DA" stroke="#8C8680" stroke-width="1.5"/><rect x="12" y="16" width="40" height="14" rx="1" fill="#F6F5F3" stroke="#797570" stroke-width="1.5"/><rect x="6" y="10" width="52" height="8" rx="1" fill="#EEEDE9" stroke="#BEBAB4" stroke-width="1"/><line x1="18" y1="30" x2="18" y2="54" stroke="#D4751A" stroke-width="1.5" opacity=".5"/><line x1="32" y1="30" x2="32" y2="54" stroke="#D4751A" stroke-width="1.5" opacity=".5"/><line x1="46" y1="30" x2="46" y2="54" stroke="#D4751A" stroke-width="1.5" opacity=".5"/></svg>
+          <svg viewBox="0 0 64 64" fill="none" width="64" height="64">
+            <ellipse cx="32" cy="44" rx="22" ry="10" fill="#1F4E79" opacity=".15" stroke="#1F4E79" stroke-width="1.5"/>
+            <ellipse cx="32" cy="34" rx="22" ry="10" fill="#EEEDE9" stroke="#8C8680" stroke-width="1.5"/>
+            <line x1="10" y1="34" x2="10" y2="44" stroke="#8C8680" stroke-width="1"/>
+            <line x1="54" y1="34" x2="54" y2="44" stroke="#8C8680" stroke-width="1"/>
+            <path d="M16 30 Q32 24 48 30" stroke="#1F4E79" stroke-width="2" fill="none"/>
+          </svg>
         </div>
-        <div class="ctier">02 — Périmètre résidentiel / riverain</div>
-        <div class="cname">AQUASHIELD PRO</div>
+        <div class="ctier">02 — Barrière gonflable</div>
+        <div class="cname">MAKO</div>
       </div>
       <div class="cat-card-body">
-        <p class="cat-desc">Système de périmètre pour encercler l'intégralité d'une propriété riveraine. Montants en acier galvanisé ancrés tous les 1.5 m + toile PVC armée tendue par tendeurs à rochet. La semelle en néoprène s'adapte aux irrégularités du terrain — dalle, gravier, béton. Point critique : le joint au sol est la première ligne de défense, pas la toile.</p>
+        <p class="cat-desc">Barrière gonflable qui se pressurize dans l'ouverture pour offrir une protection sans modification structurale. Fabriquée sur mesure aux dimensions exactes de l'ouverture — s'installe sans outil avec une pompe à air standard. Idéale pour les propriétaires qui veulent une solution discrète, rapide et réutilisable.</p>
         <div class="cat-use">
-          <span class="cat-use-tag">Périmètre maison</span>
-          <span class="cat-use-tag">Chalet riverain</span>
-          <span class="cat-use-tag">Cour inondable</span>
-          <span class="cat-use-tag">Condo rez-de-chaussée</span>
+          <span class="cat-use-tag">Portes résidentielles</span>
+          <span class="cat-use-tag">Garage</span>
+          <span class="cat-use-tag">Fenêtres</span>
+          <span class="cat-use-tag">Couloirs</span>
+          <span class="cat-use-tag">Conduites</span>
         </div>
         <table class="cat-specs">
-          <tr><td>Cadre porteur</td><td>Acier galvanisé à chaud HSS 60×60×4, espacés 1.5 m</td></tr>
-          <tr><td>Toile</td><td>PVC enduit 900 g/m², fibre polyester HT, coutures thermo-soudées</td></tr>
-          <tr><td>Joint sol</td><td>Semelle néoprène 100 mm, lestée eau ou masse béton</td></tr>
-          <tr><td>Joint latéral</td><td>Plaque boulonnée + EPDM continu sur montant</td></tr>
-          <tr><td>Tension</td><td>Tendeurs à rochet inox + barres de compression</td></tr>
-          <tr><td>Hauteur</td><td>1.2 m standard + extension 0.6 m = 2.0 m</td></tr>
-          <tr><td>Portée max.</td><td>3.0 m / portée (avec poteau intermédiaire)</td></tr>
-          <tr><td>Pression de calcul</td><td>19.6 kPa (2.0 m colonne d'eau)</td></tr>
-          <tr><td>Déploiement</td><td>3 personnes · 2-4 h (périmètre type)</td></tr>
-          <tr><td>Garantie</td><td>15 ans structure · 10 ans toile</td></tr>
+          <tr><td>Hauteur disponible</td><td>76 cm (30") ou 102 cm (40")</td></tr>
+          <tr><td>Gonflage</td><td>Pompe à air standard · installation sans outil</td></tr>
+          <tr><td>Sur mesure</td><td>Fabriquée aux dimensions exactes de l'ouverture</td></tr>
+          <tr><td>Réutilisable</td><td>Oui — se dégonfle et se range facilement</td></tr>
+          <tr><td>Déploiement</td><td>1 personne · moins de 5 min</td></tr>
         </table>
       </div>
       <div class="cat-foot">
-        <div class="cat-price">3 450 $ <small>/ portée</small></div>
-        <button class="btn-add" onclick="addToCart('AQUASHIELD PRO',3450,this)">
+        <div class="cat-price">À partir de 580 $ <small>CAD / unité</small></div>
+        <button class="btn-add" onclick="addToCart('MAKO',580,this)">
           <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
           Ajouter
         </button>
       </div>
-    </div>
-
-    <!-- ── COMMERCIAL ── -->
-    <div class="cat-seg-hd">
-      <h2>Construction</h2>
-      <p>Routes · Ponts · Barrages · Hydro-Québec · Infrastructures · Chantiers aquatiques</p>
-      <span class="seg-tag">Batardeau de chantier</span>
     </div>
 
     <div class="cat-card">
       <div class="cat-card-head">
         <div class="cn">03</div>
         <div class="cicon">
-          <svg viewBox="0 0 64 64" fill="none" width="64" height="64"><rect x="4" y="20" width="56" height="36" rx="1" fill="#EAE4DA" stroke="#8C8680" stroke-width="1.5"/><rect x="8" y="10" width="48" height="12" rx="1" fill="#F6F5F3" stroke="#797570" stroke-width="1.5"/><rect x="4" y="6" width="56" height="6" rx="1" fill="#EEEDE9" stroke="#BEBAB4" stroke-width="1"/><path d="M4 34 L60 34 M4 46 L60 46" stroke="#C8C0B4" stroke-width=".8"/><path d="M16 20 L16 56 M32 20 L32 56 M48 20 L48 56" stroke="#D4751A" stroke-width="1.5" opacity=".4"/></svg>
+          <svg viewBox="0 0 64 64" fill="none" width="64" height="64">
+            <rect x="8" y="28" width="48" height="28" rx="1" fill="#EEEDE9" stroke="#8C8680" stroke-width="1.5"/>
+            <rect x="8" y="8" width="48" height="22" rx="1" fill="#1F4E79" opacity=".1" stroke="#1F4E79" stroke-width="1.5"/>
+            <path d="M8 28 L32 8 L56 28" stroke="#1F4E79" stroke-width="2" fill="none"/>
+            <rect x="14" y="48" width="36" height="6" rx="1" fill="#1F4E79" opacity=".4"/>
+          </svg>
         </div>
-        <div class="ctier">03 — Batardeau de chantier</div>
-        <div class="cname">FORTRESS CHANTIER</div>
+        <div class="ctier">03 — Panneau composite premium</div>
+        <div class="cname">YELLOWFIN</div>
       </div>
       <div class="cat-card-body">
-        <p class="cat-desc">Batardeau modulaire acier + membrane pour l'assèchement de zones de travail en eau courante. Montants HSS galvanisés ancrés par pieux + membrane géosynthétique imperméable mise en tension par vérins mécaniques et câbles précontraints. Le joint de fond en mousse cellulaire fermée est ancré et comprimé mécaniquement — c'est lui qui détermine l'étanchéité du batardeau, pas la toile.</p>
+        <p class="cat-desc">Système de panneaux composites premium pour les ouvertures où l'apparence, la performance et le déploiement rapide sont également importants. Se monte directement sur l'ouverture sans poteau permanent. Résiste aux pressions hydrostatiques et hydrodynamiques extrêmes. Conçu pour les commerces, institutions et immeubles.</p>
         <div class="cat-use">
-          <span class="cat-use-tag">Ponceaux</span>
-          <span class="cat-use-tag">Traversées de cours d'eau</span>
-          <span class="cat-use-tag">Chantiers routiers</span>
-          <span class="cat-use-tag">Petits ponts</span>
-          <span class="cat-use-tag">Accès en rivière</span>
+          <span class="cat-use-tag">Portes commerciales</span>
+          <span class="cat-use-tag">Fenêtres de vitrine</span>
+          <span class="cat-use-tag">Garages commerciaux</span>
+          <span class="cat-use-tag">Ouvertures murales</span>
         </div>
         <table class="cat-specs">
-          <tr><td>Cadre porteur</td><td>Acier galvanisé à chaud HSS 100×100×6, espacés 1.5-2.0 m</td></tr>
-          <tr><td>Toile</td><td>Membrane géosynthétique imperméable (MGI) 1 000 g/m², traction ≥ 80 kN/m</td></tr>
-          <tr><td>Joint sol</td><td>Lisse de fond acier plat + mousse cellulaire fermée, ancrée par pieux</td></tr>
-          <tr><td>Joint latéral</td><td>Plaque de rive + joint hydrogonflant</td></tr>
-          <tr><td>Tension</td><td>Vérins mécaniques + câbles inox précontraints</td></tr>
-          <tr><td>Hauteur</td><td>Jusqu'à 2.8 m (modules 0.7 m empilables)</td></tr>
-          <tr><td>Portée max.</td><td>6.0 m / travée (poteau intermédiaire disponible)</td></tr>
-          <tr><td>Pression de calcul</td><td>27.5 kPa (2.8 m colonne d'eau)</td></tr>
-          <tr><td>Ancrage</td><td>Pieux tubulaires battus/vissés ou palplanches AZ légères</td></tr>
-          <tr><td>Normes</td><td>ASTM A500 Gr.C · CSA G40.21 350W</td></tr>
-          <tr><td>Déploiement</td><td>4-6 personnes · 1-2 jours</td></tr>
+          <tr><td>Matériaux</td><td>Panneau composite modulaire — design breveté</td></tr>
+          <tr><td>Installation</td><td>Directement sur l'ouverture — aucun poteau permanent requis</td></tr>
+          <tr><td>Pression</td><td>Résiste aux pressions hydrostatiques et hydrodynamiques extrêmes</td></tr>
+          <tr><td>Design</td><td>Modulaire — configurations infinies</td></tr>
+          <tr><td>Origine</td><td>Fabriqué aux États-Unis</td></tr>
         </table>
       </div>
       <div class="cat-foot">
-        <div class="cat-price">6 200 $ <small>/ travée</small></div>
-        <button class="btn-add" onclick="addToCart('FORTRESS COMMERCIAL',6200,this)">
+        <div class="cat-price">Sur devis <small>/ ouverture</small></div>
+        <button class="btn-add" onclick="addToCart('YELLOWFIN',0,this)">
+          <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          Demander un devis
+        </button>
+      </div>
+    </div>
+    </div><!-- /cat-section ouverture -->
+
+    <!-- ── PÉRIMÈTRE ── -->
+    <div class="cat-section" data-cat="perimetre">
+    <div class="cat-seg-hd">
+      <h2>Périmètre</h2>
+      <p>Propriétés riveraines · Zones inondables · Infrastructures · Terrain variable</p>
+      <span class="seg-tag">Résidentiel, Commercial &amp; Municipal</span>
+    </div>
+
+    <div class="cat-card">
+      <div class="cat-card-head">
+        <div class="cn">04</div>
+        <div class="cicon">
+          <svg viewBox="0 0 64 64" fill="none" width="64" height="64">
+            <rect x="4" y="14" width="56" height="42" rx="1" fill="#EEEDE9" stroke="#8C8680" stroke-width="1.5"/>
+            <rect x="4" y="8" width="56" height="8" fill="#1F4E79" rx="1"/>
+            <path d="M4 24 L60 24 M4 34 L60 34 M4 44 L60 44" stroke="#C8C0B4" stroke-width=".8"/>
+            <path d="M16 8 L16 56 M32 8 L32 56 M48 8 L48 56" stroke="#F6F5F3" stroke-width="1.2" opacity=".8"/>
+          </svg>
+        </div>
+        <div class="ctier">04 — Mur de périmètre modulaire</div>
+        <div class="cname">BLUEFIN</div>
+      </div>
+      <div class="cat-card-body">
+        <p class="cat-desc">Panneaux interconnectés modulaires conçus pour la résistance, la rigidité et le déploiement rapide en périmètre de propriété. Design breveté — panneaux s'assemblent sans outil. Disponible en 4 hauteurs pour couvrir tous les niveaux de risque. La solution de référence pour les propriétés riveraines du Québec.</p>
+        <div class="cat-use">
+          <span class="cat-use-tag">Périmètre maison</span>
+          <span class="cat-use-tag">Chalet riverain</span>
+          <span class="cat-use-tag">Station électrique</span>
+          <span class="cat-use-tag">Entrepôt</span>
+          <span class="cat-use-tag">Diversion d'eau</span>
+        </div>
+        <table class="cat-specs">
+          <tr><td>Hauteurs disponibles</td><td>91 cm (3 pi) · 122 cm (4 pi) · 183 cm (6 pi) · 244 cm (8 pi)</td></tr>
+          <tr><td>Design</td><td>Modulaire — panneaux interconnectés, aucun outil requis</td></tr>
+          <tr><td>Configurations</td><td>Ligne droite, angle, courbe — périmètre complet</td></tr>
+          <tr><td>Déploiement</td><td>Rapide — 2 personnes selon la longueur</td></tr>
+          <tr><td>Origine</td><td>Fabriqué aux États-Unis · design breveté</td></tr>
+        </table>
+      </div>
+      <div class="cat-foot">
+        <div class="cat-price">Sur devis <small>/ kit périmètre</small></div>
+        <button class="btn-add" onclick="addToCart('BLUEFIN',0,this)">
+          <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          Demander un devis
+        </button>
+      </div>
+    </div>
+
+    <div class="cat-card">
+      <div class="cat-card-head">
+        <div class="cn">05</div>
+        <div class="cicon">
+          <svg viewBox="0 0 64 64" fill="none" width="64" height="64">
+            <rect x="4" y="30" width="56" height="18" rx="2" fill="#1F4E79" opacity=".2" stroke="#1F4E79" stroke-width="1.5"/>
+            <rect x="6" y="22" width="52" height="10" rx="2" fill="#EEEDE9" stroke="#8C8680" stroke-width="1.5"/>
+            <rect x="4" y="46" width="56" height="6" rx="1" fill="#797570" opacity=".3"/>
+            <path d="M10 30 Q32 26 54 30" stroke="#1F4E79" stroke-width="1.5" fill="none" opacity=".7"/>
+            <path d="M10 38 Q32 34 54 38" stroke="#1F4E79" stroke-width="1" fill="none" opacity=".4"/>
+          </svg>
+        </div>
+        <div class="ctier">05 — Panneaux d'eau interconnectés</div>
+        <div class="cname">MAYIM</div>
+      </div>
+      <div class="cat-card-body">
+        <p class="cat-desc">Panneaux modulaires à remplissage d'eau qui créent un système de protection instantané capable de dévier, contenir ou bloquer la montée des eaux. Les panneaux courbes permettent de contourner les obstacles — idéaux pour les périmètres irréguliers et les terrains difficiles d'accès.</p>
+        <div class="cat-use">
+          <span class="cat-use-tag">Périmètre propriété</span>
+          <span class="cat-use-tag">Diversion autour d'obstacles</span>
+          <span class="cat-use-tag">Menace de crue sévère</span>
+          <span class="cat-use-tag">Terrain irrégulier</span>
+        </div>
+        <table class="cat-specs">
+          <tr><td>Modèles</td><td>MB1 = 51 cm · MB2 = 76 cm · MB-MAX = 102 cm</td></tr>
+          <tr><td>Panneaux courbes</td><td>Disponibles pour coins et périmètres complexes</td></tr>
+          <tr><td>Kit 30 m (MB-MAX)</td><td>À partir de ~13 200 $ CAD</td></tr>
+          <tr><td>Kit 46 m (MB-MAX)</td><td>À partir de ~19 900 $ CAD</td></tr>
+          <tr><td>Déploiement</td><td>Connecter · remplir d'eau · protéger</td></tr>
+        </table>
+      </div>
+      <div class="cat-foot">
+        <div class="cat-price">À partir de 13 200 $ <small>CAD / 30 m</small></div>
+        <button class="btn-add" onclick="addToCart('MAYIM MB-MAX',13200,this)">
           <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
           Ajouter
         </button>
@@ -1170,44 +1316,216 @@ select.fi{cursor:pointer;}
 
     <div class="cat-card">
       <div class="cat-card-head">
-        <div class="cn">04</div>
+        <div class="cn">06</div>
         <div class="cicon">
-          <svg viewBox="0 0 64 64" fill="none" width="64" height="64"><rect x="2" y="10" width="60" height="48" rx="1" fill="#EAE4DA" stroke="#8C8680" stroke-width="1.5"/><rect x="2" y="4" width="60" height="8" rx="1" fill="#EEEDE9" stroke="#BEBAB4" stroke-width="1"/><path d="M2 24 L62 24 M2 38 L62 38 M2 52 L62 52" stroke="#C8C0B4" stroke-width=".8"/><path d="M16 10 L16 58 M32 10 L32 58 M48 10 L48 58" stroke="#D4751A" stroke-width="1.5" opacity=".4"/><rect x="0" y="2" width="64" height="5" rx="1" fill="rgba(212,117,26,0.25)" stroke="#D4751A" stroke-width="1.5"/></svg>
+          <svg viewBox="0 0 64 64" fill="none" width="64" height="64">
+            <path d="M6 52 L6 28 Q32 16 58 28 L58 52 Z" fill="#1F4E79" opacity=".12" stroke="#1F4E79" stroke-width="1.5"/>
+            <rect x="4" y="50" width="56" height="6" rx="1" fill="#797570" opacity=".3"/>
+            <path d="M6 36 Q32 28 58 36" stroke="#2B6CB0" stroke-width="1.5" fill="none" opacity=".6"/>
+            <path d="M6 44 Q32 36 58 44" stroke="#2B6CB0" stroke-width="1" fill="none" opacity=".4"/>
+          </svg>
         </div>
-        <div class="ctier">04 — Infrastructure critique</div>
-        <div class="cname">TITAN EXTREME</div>
+        <div class="ctier">06 — Digue auto-déployante</div>
+        <div class="cname">STINGRAY</div>
       </div>
       <div class="cat-card-body">
-        <p class="cat-desc">Batardeau lourd pour infrastructures majeures en conditions aquatiques exigeantes. Cadre en acier structural S350W (profilés IPE/HEA) + toile industrielle PVC/PU à soudure haute fréquence, ou blindage acier selon les conditions. Chaque installation est précédée d'une étude géotechnique et d'un calcul structurale signé par ingénieur. La tension est appliquée par vérins hydrauliques et tirants précontraints — ce système ne tolère aucun compromis sur la tension uniforme.</p>
+        <p class="cat-desc">Barrière auto-déployante qui accumule l'eau dans ses chambres internes, ce qui fait monter toute la barrière de manière protectrice. Réutilisable, durable, se déploie en quelques minutes avec un minimum de main-d'œuvre. S'adapte aux surfaces irrégulières — terrains, berges, dalles.</p>
         <div class="cat-use">
-          <span class="cat-use-tag">Ponts majeurs</span>
-          <span class="cat-use-tag">Barrages-réservoirs</span>
-          <span class="cat-use-tag">Hydro-Québec</span>
-          <span class="cat-use-tag">Pipelines sous-fluviaux</span>
-          <span class="cat-use-tag">Travaux sous-fluviaux</span>
+          <span class="cat-use-tag">Périmètre propriété</span>
+          <span class="cat-use-tag">Berge · Rivière</span>
+          <span class="cat-use-tag">Protection riveraine</span>
+          <span class="cat-use-tag">Surface irrégulière</span>
         </div>
         <table class="cat-specs">
-          <tr><td>Cadre porteur</td><td>Acier structural S350W (IPE 240 ou HEA 200), montants ≤ 1.5 m</td></tr>
-          <tr><td>Toile</td><td>Bâche PVC/PU armée 1 200-1 500 g/m², soudure HF, classe I2/W2 · OU blindage acier</td></tr>
-          <tr><td>Joint sol</td><td>Semelle béton + joint hydrogonflant · ou injection coulis si terrain irrégulier</td></tr>
-          <tr><td>Joint latéral</td><td>Plaque de rive soudée + joint labyrinthique</td></tr>
-          <tr><td>Tension</td><td>Vérins hydrauliques + tirants précontraints (calcul PE requis)</td></tr>
-          <tr><td>Hauteur</td><td>3.5 m à 6.0 m+ (selon étude de site)</td></tr>
-          <tr><td>Portée max.</td><td>12 m / travée · au-delà sur devis</td></tr>
-          <tr><td>Pression de calcul</td><td>≥ 34 kPa · jusqu'à 6.0 m colonne d'eau sur étude</td></tr>
-          <tr><td>Ancrage</td><td>Palplanches AZ/PU · pieux battus H · ou massifs béton armé</td></tr>
-          <tr><td>Certification</td><td>MDDELCC · calcul PE signé · permis chantier inclus</td></tr>
-          <tr><td>Déploiement</td><td>6-10 pers. + équipement lourd · 3-7 jours</td></tr>
+          <tr><td>Hauteurs disponibles</td><td>51 cm (20") · 76 cm (30") · 122 cm (48")</td></tr>
+          <tr><td>Déploiement</td><td>Auto-activé par accumulation d'eau</td></tr>
+          <tr><td>Réutilisable</td><td>Oui — construction durable</td></tr>
+          <tr><td>Prix indicatif</td><td>~240 $ à ~3 350 $ CAD selon configuration</td></tr>
+          <tr><td>Terrain</td><td>S'adapte aux surfaces variables</td></tr>
         </table>
       </div>
       <div class="cat-foot">
-        <div class="cat-price">9 800 $ <small>/ travée · base</small></div>
-        <button class="btn-add" onclick="addToCart('TITAN EXTREME',9800,this)">
+        <div class="cat-price">À partir de 240 $ <small>CAD</small></div>
+        <button class="btn-add" onclick="addToCart('STINGRAY',240,this)">
           <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
           Ajouter
         </button>
       </div>
     </div>
+    </div><!-- /cat-section perimetre -->
+
+    <!-- ── AUTO-ACTIVÉ ── -->
+    <div class="cat-section" data-cat="auto">
+    <div class="cat-seg-hd">
+      <h2>Auto-activé</h2>
+      <p>Protection automatique sans intervention humaine — idéal pour les propriétés non surveillées</p>
+      <span class="seg-tag">Zéro énergie · Zéro action requise</span>
+    </div>
+
+    <div class="cat-card">
+      <div class="cat-card-head">
+        <div class="cn">07</div>
+        <div class="cicon">
+          <svg viewBox="0 0 64 64" fill="none" width="64" height="64">
+            <rect x="8" y="42" width="48" height="14" rx="1" fill="#EEEDE9" stroke="#8C8680" stroke-width="1.5"/>
+            <path d="M8 42 Q32 16 56 42" fill="#1F4E79" opacity=".15" stroke="#1F4E79" stroke-width="2"/>
+            <circle cx="32" cy="42" r="4" fill="#1F4E79" opacity=".4"/>
+            <line x1="32" y1="38" x2="32" y2="10" stroke="#1F4E79" stroke-width="1.5" stroke-dasharray="3,2"/>
+          </svg>
+        </div>
+        <div class="ctier">07 — Vanne auto-montante</div>
+        <div class="cname">OYSTER</div>
+      </div>
+      <div class="cat-card-body">
+        <p class="cat-desc">Barrière activée par la pression hydrostatique — se lève automatiquement quand l'eau monte. Couché à plat pour le passage normal, il se dresse dès que l'eau l'atteint. Aucune électricité, aucune pile, aucune intervention humaine requise. Parfait pour les allées, rampes de garage et accès en pente.</p>
+        <div class="cat-use">
+          <span class="cat-use-tag">Rampe de garage</span>
+          <span class="cat-use-tag">Allée en pente</span>
+          <span class="cat-use-tag">Station de transit</span>
+          <span class="cat-use-tag">Accès sous-terrain</span>
+          <span class="cat-use-tag">Quai de chargement</span>
+        </div>
+        <table class="cat-specs">
+          <tr><td>Hauteurs disponibles</td><td>61 cm (24") · 91 cm (36") · 122 cm (48")</td></tr>
+          <tr><td>Activation</td><td>Pression hydrostatique — automatique</td></tr>
+          <tr><td>Énergie requise</td><td>Aucune — zéro électricité, zéro pile</td></tr>
+          <tr><td>Position normale</td><td>À plat — passage normal non obstrué</td></tr>
+          <tr><td>Usage type</td><td>Propriétés non surveillées · rampes en pente</td></tr>
+        </table>
+      </div>
+      <div class="cat-foot">
+        <div class="cat-price">Sur devis <small>/ unité</small></div>
+        <button class="btn-add" onclick="addToCart('OYSTER',0,this)">
+          <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          Demander un devis
+        </button>
+      </div>
+    </div>
+    </div><!-- /cat-section auto -->
+
+    <!-- ── SOLUTIONS RAPIDES ── -->
+    <div class="cat-section" data-cat="rapide">
+    <div class="cat-seg-hd">
+      <h2>Solutions rapides</h2>
+      <p>Tubes · Sacs · Produits complémentaires — déploiement immédiat</p>
+      <span class="seg-tag">Urgence · Complémentaire</span>
+    </div>
+
+    <div class="cat-card">
+      <div class="cat-card-head">
+        <div class="cn">08</div>
+        <div class="cicon">
+          <svg viewBox="0 0 64 64" fill="none" width="64" height="64">
+            <ellipse cx="32" cy="46" rx="24" ry="10" fill="#1F4E79" opacity=".15" stroke="#1F4E79" stroke-width="1.5"/>
+            <ellipse cx="32" cy="38" rx="24" ry="10" fill="#EEEDE9" stroke="#8C8680" stroke-width="1.5"/>
+            <ellipse cx="32" cy="30" rx="24" ry="10" fill="#EEEDE9" stroke="#8C8680" stroke-width="1.5"/>
+            <path d="M10 30 Q32 24 54 30" stroke="#2B6CB0" stroke-width="1" fill="none" opacity=".5"/>
+          </svg>
+        </div>
+        <div class="ctier">08 — Tubes remplis d'eau</div>
+        <div class="cname">GUPPY</div>
+      </div>
+      <div class="cat-card-body">
+        <p class="cat-desc">Système de tubes flexibles qui se remplissent avec un boyau d'arrosage et s'adaptent aux surfaces irrégulières. Économique, réutilisable — se vide et s'enroule facilement après usage. Idéal pour protéger équipements, zones de stockage et points d'entrée secondaires.</p>
+        <div class="cat-use">
+          <span class="cat-use-tag">Protection équipements</span>
+          <span class="cat-use-tag">Zone de stockage</span>
+          <span class="cat-use-tag">Forte pluie</span>
+          <span class="cat-use-tag">Surface irrégulière</span>
+        </div>
+        <table class="cat-specs">
+          <tr><td>Hauteurs</td><td>15 cm (6") · 30 cm (12") · 61 cm (24")</td></tr>
+          <tr><td>Longueurs</td><td>3 m · 7.5 m · 15 m · 30 m</td></tr>
+          <tr><td>Remplissage</td><td>Boyau d'arrosage standard</td></tr>
+          <tr><td>Réutilisable</td><td>Oui — se vide et s'enroule</td></tr>
+          <tr><td>Prix indicatif</td><td>À partir de ~57 $ CAD (bande de jonction)</td></tr>
+        </table>
+      </div>
+      <div class="cat-foot">
+        <div class="cat-price">À partir de 57 $ <small>CAD</small></div>
+        <button class="btn-add" onclick="addToCart('GUPPY',57,this)">
+          <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          Ajouter
+        </button>
+      </div>
+    </div>
+
+    <div class="cat-card">
+      <div class="cat-card-head">
+        <div class="cn">09</div>
+        <div class="cicon">
+          <svg viewBox="0 0 64 64" fill="none" width="64" height="64">
+            <rect x="4" y="32" width="56" height="20" rx="4" fill="#1F4E79" opacity=".15" stroke="#1F4E79" stroke-width="1.5"/>
+            <rect x="6" y="34" width="52" height="16" rx="3" fill="#EEEDE9" stroke="#8C8680" stroke-width="1"/>
+            <path d="M8 42 Q32 38 56 42" stroke="#1F4E79" stroke-width="1.5" fill="none"/>
+            <rect x="4" y="50" width="56" height="4" rx="1" fill="#797570" opacity=".2"/>
+          </svg>
+        </div>
+        <div class="ctier">09 — Tubes gonflables</div>
+        <div class="cname">SERPENT</div>
+      </div>
+      <div class="cat-card-body">
+        <p class="cat-desc">Système de protection à grande échelle conçu pour la rapidité de déploiement. Les sections se connectent par sangles velcro — protection jusqu'à 102 cm de hauteur. Gonflé à l'air avec une pompe standard. Idéal pour créer rapidement une digue ou une barrière étendue lors d'une alerte de crue.</p>
+        <div class="cat-use">
+          <span class="cat-use-tag">Réponse rapide crue</span>
+          <span class="cat-use-tag">Digue temporaire</span>
+          <span class="cat-use-tag">Barrière étendue</span>
+        </div>
+        <table class="cat-specs">
+          <tr><td>Hauteur protection</td><td>Jusqu'à 102 cm (40")</td></tr>
+          <tr><td>Longueurs</td><td>Sections de 4.5 m et 9 m — connexion velcro</td></tr>
+          <tr><td>Gonflage</td><td>Pompe à air standard</td></tr>
+          <tr><td>Déploiement</td><td>Rapide — sections modulaires</td></tr>
+        </table>
+      </div>
+      <div class="cat-foot">
+        <div class="cat-price">Sur devis <small>/ configuration</small></div>
+        <button class="btn-add" onclick="addToCart('SERPENT',0,this)">
+          <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          Demander un devis
+        </button>
+      </div>
+    </div>
+
+    <div class="cat-card">
+      <div class="cat-card-head">
+        <div class="cn">10</div>
+        <div class="cicon">
+          <svg viewBox="0 0 64 64" fill="none" width="64" height="64">
+            <rect x="8" y="34" width="20" height="22" rx="1" fill="#EEEDE9" stroke="#8C8680" stroke-width="1.5"/>
+            <rect x="22" y="28" width="20" height="28" rx="1" fill="#EEEDE9" stroke="#8C8680" stroke-width="1.5"/>
+            <rect x="36" y="22" width="20" height="34" rx="1" fill="#EEEDE9" stroke="#8C8680" stroke-width="1.5"/>
+            <rect x="8" y="54" width="48" height="4" rx="1" fill="#1F4E79" opacity=".3"/>
+            <path d="M8 54 L42 22" stroke="#1F4E79" stroke-width="1.5" stroke-dasharray="3,2" opacity=".5"/>
+          </svg>
+        </div>
+        <div class="ctier">10 — Alternative sac de sable</div>
+        <div class="cname">MINNOW</div>
+      </div>
+      <div class="cat-card-body">
+        <p class="cat-desc">Alternative aux sacs de sable — remplis de polymère superabsorbant (SAP) qui absorbe 18-20 kg d'eau par sac en 3-4 minutes. Compacts à stocker, sans dégât lors du nettoyage. Empilables pour créer des barrières rapides. Idéaux pour les propriétaires qui veulent une réserve d'urgence simple.</p>
+        <div class="cat-use">
+          <span class="cat-use-tag">Digue rapide</span>
+          <span class="cat-use-tag">Barrière empilable</span>
+          <span class="cat-use-tag">Urgence sans préparation</span>
+          <span class="cat-use-tag">Nettoyage minimal</span>
+        </div>
+        <table class="cat-specs">
+          <tr><td>Absorption</td><td>18-20 kg d'eau par sac</td></tr>
+          <tr><td>Activation</td><td>3-4 minutes</td></tr>
+          <tr><td>Stockage</td><td>Compact avant activation</td></tr>
+          <tr><td>Nettoyage</td><td>Sans dégât · facile à disposer</td></tr>
+        </table>
+      </div>
+      <div class="cat-foot">
+        <div class="cat-price">Sur devis <small>/ caisse</small></div>
+        <button class="btn-add" onclick="addToCart('MINNOW',0,this)">
+          <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          Demander un devis
+        </button>
+      </div>
+    </div>
+    </div><!-- /cat-section rapide -->
 
   </div>
 </div>
@@ -1223,10 +1541,10 @@ select.fi{cursor:pointer;}
       <div class="fblock">
         <div class="fblock-label">Choisir le système</div>
         <div class="psel-grid">
-          <div class="psel on" onclick="selectProd(0,this)"><div class="psel-name">SENTINEL 120</div><div class="psel-sub">Résidentiel — 1 890 $/travée</div></div>
-          <div class="psel" onclick="selectProd(1,this)"><div class="psel-name">AQUASHIELD PRO</div><div class="psel-sub">Riverain — 3 450 $/travée</div></div>
-          <div class="psel" onclick="selectProd(2,this)"><div class="psel-name">FORTRESS CHANTIER</div><div class="psel-sub">Construction — 6 200 $/travée</div></div>
-          <div class="psel" onclick="selectProd(3,this)"><div class="psel-name">TITAN EXTREME</div><div class="psel-sub">Infrastructures — 9 800 $/travée</div></div>
+          <div class="psel on" onclick="selectProd(0,this)"><div class="psel-name">HAMMERHEAD</div><div class="psel-sub">Ouverture alu — devis requis</div></div>
+          <div class="psel" onclick="selectProd(1,this)"><div class="psel-name">MAKO</div><div class="psel-sub">Gonflable — à partir de 580 $/u</div></div>
+          <div class="psel" onclick="selectProd(2,this)"><div class="psel-name">BLUEFIN</div><div class="psel-sub">Périmètre modulaire — devis requis</div></div>
+          <div class="psel" onclick="selectProd(3,this)"><div class="psel-name">MAYIM MB-MAX</div><div class="psel-sub">Panneaux eau — ~13 200 $/30 m</div></div>
         </div>
       </div>
 
@@ -1297,10 +1615,10 @@ select.fi{cursor:pointer;}
           <g id="viz-panels"></g>
           <g id="viz-labels"></g>
           <!-- Opening dimension arrow -->
-          <line x1="50" y1="195" x2="270" y2="195" stroke="#D4751A" stroke-width="1" marker-start="url(#arr)" marker-end="url(#arr)"/>
-          <text id="viz-width-label" x="160" y="210" text-anchor="middle" font-size="9" fill="#D4751A" font-family="Syne" font-weight="700">3.0 m</text>
+          <line x1="50" y1="195" x2="270" y2="195" stroke="#1F4E79" stroke-width="1" marker-start="url(#arr)" marker-end="url(#arr)"/>
+          <text id="viz-width-label" x="160" y="210" text-anchor="middle" font-size="9" fill="#1F4E79" font-family="Raleway" font-weight="700">3.0 m</text>
           <defs>
-            <marker id="arr" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#D4751A"/></marker>
+            <marker id="arr" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#1F4E79"/></marker>
           </defs>
         </svg>
       </div>
@@ -1308,7 +1626,7 @@ select.fi{cursor:pointer;}
       <div class="sum-card">
         <div class="sum-head"><h3>Sommaire</h3></div>
         <div class="sum-body">
-          <div class="sum-row"><span class="sum-rl">Système</span><span class="sum-rv" id="sum-prod">SENTINEL 120</span></div>
+          <div class="sum-row"><span class="sum-rl">Système</span><span class="sum-rv" id="sum-prod">HAMMERHEAD</span></div>
           <div class="sum-row"><span class="sum-rl">Modules requis</span><span class="sum-rv" id="sum-mods">—</span></div>
           <div class="sum-row"><span class="sum-rl">Ouvertures</span><span class="sum-rv" id="sum-qty">1</span></div>
           <div class="sum-row"><span class="sum-rl">Modules × prix</span><span class="sum-rv" id="sum-base">—</span></div>
@@ -1332,7 +1650,7 @@ select.fi{cursor:pointer;}
 <div class="pg" id="pg-resa">
   <div class="resa-wrap">
     <h2 class="resa-title">Planifiez votre <em>protection</em></h2>
-    <p class="resa-sub">3 étapes. 5 minutes. Que ce soit pour protéger votre résidence ou planifier un batardeau de chantier, nos équipes certifiées RBQ s'occupent de tout — de l'évaluation à l'installation.</p>
+    <p class="resa-sub">3 étapes. 5 minutes. Que ce soit pour protéger votre résidence ou votre commerce, nos conseillers identifient le bon système Garrison et nos équipes s'occupent de tout — de l'évaluation à l'installation.</p>
 
     <div class="progress" id="progress-bar">
       <div class="prog-step"><div class="prog-dot active" id="pd-1">1</div><span class="prog-label active" id="pl-1">Coordonnées</span></div>
@@ -1356,7 +1674,7 @@ select.fi{cursor:pointer;}
       <div class="step-t">Détails du projet</div>
       <div class="fgrid">
         <div class="fg"><label class="flb">Type de bâtiment</label><select class="fi" id="r-type"><option value="">Sélectionner…</option><option>Résidentiel unifamilial</option><option>Résidentiel multilogement</option><option>Commercial / bureau</option><option>Industriel / entrepôt</option><option>Municipal / institutionnel</option></select></div>
-        <div class="fg"><label class="flb">Système d'intérêt</label><select class="fi" id="r-prod"><option>SENTINEL 120 — Résidentiel</option><option>AQUASHIELD PRO — Riverain</option><option>FORTRESS COMMERCIAL</option><option>TITAN EXTREME</option><option>Je ne sais pas encore</option></select></div>
+        <div class="fg"><label class="flb">Système d'intérêt</label><select class="fi" id="r-prod"><option>HAMMERHEAD — Ouvertures aluminium</option><option>MAKO — Gonflable résidentiel</option><option>BLUEFIN — Périmètre modulaire</option><option>MAYIM — Panneaux d'eau</option><option>OYSTER — Auto-montant</option><option>YELLOWFIN — Commercial premium</option><option>STINGRAY — Digue auto-déployante</option><option>GUPPY — Tubes eau</option><option>Je ne sais pas encore</option></select></div>
       </div>
       <div class="fgrid full"><div class="fg"><label class="flb">Dimensions approximatives</label><input class="fi" id="r-dims" type="text" placeholder="Ex: 6m × 1.5m — 2 ouvertures"/></div></div>
       <div class="fg" style="margin-bottom:1.5rem;">
@@ -1403,52 +1721,52 @@ select.fi{cursor:pointer;}
     <div class="ap-header">
       <div class="ap-kicker">Fondateur &amp; Pionnier</div>
       <h1 class="ap-h1">Nicolas<br>Rivet Auger</h1>
-      <p class="ap-lead">25 ans à protéger ce que les gens ont mis une vie à bâtir — et à permettre à des projets de construction de voir le jour dans des conditions impossibles.</p>
+      <p class="ap-lead">25 ans à protéger ce que les gens ont mis une vie à bâtir — et à trouver la meilleure technologie mondiale pour le faire. Armadam est maintenant le distributeur officiel de Garrison Flood Control au Québec.</p>
     </div>
 
     <div class="ap-story">
       <div>
-        <div class="ap-section-label">L'origine</div>
+        <div class="ap-section-label">L'expertise terrain</div>
         <p class="ap-p">Nicolas Rivet Auger entre dans l'industrie au début des années 2000, au moment où le Québec commence à prendre conscience de la vulnérabilité de ses infrastructures riveraines face aux crues printanières.</p>
-        <p class="ap-p">Témoin direct de sinistres évitables, il comprend rapidement qu'il manque au marché québécois une solution locale, fiable et adaptée au terrain — ni les importations américaines ni les solutions improvisées ne répondent à la réalité des rivières, des sols et des hivers d'ici.</p>
+        <p class="ap-p">Après 25 ans sur le terrain — crues printanières en Outaouais, débordements urbains à Laval, infrastructures hydro-électriques en Côte-Nord — il a une conviction : les meilleures solutions viennent de ceux qui ont fait de la protection anti-inondation leur unique métier.</p>
       </div>
       <div>
-        <div class="ap-section-label">Le terrain</div>
-        <p class="ap-p">En 25 ans, Nicolas a travaillé sur des centaines de projets : crues printanières en Outaouais, débordements urbains à Laval, chantiers de ponts en Abitibi, infrastructures hydro-électriques en Côte-Nord.</p>
-        <p class="ap-p">Il a vu ce qui fonctionne — et ce qui cède sous pression. Chaque produit Armadam est le résultat direct de cette expérience accumulée sur le terrain, dans des conditions réelles.</p>
+        <div class="ap-section-label">Le partenariat Garrison</div>
+        <p class="ap-p">Garrison Flood Control est l'un des plus grands fabricants mondiaux de systèmes de protection contre les inondations — plus de 5 000 projets complétés, produits certifiés FEMA/NFIP, fabriqués aux États-Unis.</p>
+        <p class="ap-p">Armadam apporte l'expertise terrain québécoise, le réseau local et la connaissance des conditions climatiques d'ici. Garrison apporte la technologie. Ensemble : la bonne protection, livrée en 48h, installée par des équipes qui connaissent le terrain.</p>
       </div>
     </div>
 
     <div class="ap-quote">
-      <p class="ap-quote-text">"Un batardeau, c'est pas une option. C'est la différence entre recommencer à zéro ou ne pas avoir à le faire."</p>
+      <p class="ap-quote-text">"On n'a pas besoin de réinventer la roue. On a besoin du meilleur produit mondial, adapté à la réalité québécoise. C'est ce qu'on fait."</p>
       <div class="ap-quote-attr">— Nicolas Rivet Auger, fondateur d'Armadam</div>
     </div>
 
     <div class="ap-markets">
       <div class="ap-market">
-        <div class="ap-market-tag amber">Résidentiel</div>
+        <div class="ap-market-tag" style="color:var(--blue);border-color:var(--blue);">Résidentiel</div>
         <div class="ap-market-t">Protéger les familles québécoises</div>
-        <p class="ap-market-d">Nicolas a vu trop de familles perdre leur sous-sol, leurs souvenirs, leurs économies lors d'une crue. Armadam existe pour que ça n'arrive plus — avec des systèmes accessibles, rapides à installer, et conçus pour le climat québécois.</p>
+        <p class="ap-market-d">Nicolas a vu trop de familles perdre leur sous-sol, leurs souvenirs, leurs économies lors d'une crue. Les systèmes Garrison — Hammerhead, Bluefin, Mako, Oyster — offrent des solutions pour chaque type de propriété et chaque niveau de risque.</p>
       </div>
       <div class="ap-market">
-        <div class="ap-market-tag stone">Construction</div>
-        <div class="ap-market-t">Permettre les projets impossibles</div>
-        <p class="ap-market-d">Routes, ponts, barrages, infrastructures hydro-électriques — Armadam fournit les batardeaux qui permettent d'assécher une zone de travail en milieu aquatique. Quand le génie civil a besoin de travailler à sec, on est là.</p>
+        <div class="ap-market-tag stone">Commercial &amp; Municipal</div>
+        <div class="ap-market-t">Infrastructures critiques, commerces, institutions</div>
+        <p class="ap-market-d">Stationnements souterrains, hôpitaux, stations électriques, immeubles commerciaux — les systèmes Garrison Yellowfin, Bluefin grande hauteur et Mayim couvrent les besoins des gestionnaires d'actifs et des municipalités.</p>
       </div>
     </div>
 
     <div class="ap-creds">
       <div class="ap-cred">
         <div class="ap-cred-n">25+</div>
-        <div class="ap-cred-l">Années d'expérience terrain</div>
+        <div class="ap-cred-l">Années d'expérience terrain au Québec</div>
       </div>
       <div class="ap-cred">
-        <div class="ap-cred-n">1 200+</div>
-        <div class="ap-cred-l">Projets résidentiels et de chantier</div>
+        <div class="ap-cred-n">5 000+</div>
+        <div class="ap-cred-l">Projets Garrison complétés dans le monde</div>
       </div>
       <div class="ap-cred">
-        <div class="ap-cred-n">RBQ</div>
-        <div class="ap-cred-l">Entrepreneur licencié — Québec</div>
+        <div class="ap-cred-n">FEMA</div>
+        <div class="ap-cred-l">Produits certifiés — NFIP compliant</div>
       </div>
     </div>
 
@@ -1468,7 +1786,7 @@ select.fi{cursor:pointer;}
   <div class="part-hd">
     <div class="kicker">Réseau de partenaires</div>
     <h1>Rejoignez <em>Armadam</em></h1>
-    <p>Deux façons de faire partie du réseau : devenez dépositaire autorisé pour vendre nos systèmes dans votre région, ou devenez installateur certifié pour offrir l'installation professionnelle à vos clients.</p>
+    <p>Deux façons de faire partie du réseau Garrison × Armadam : devenez revendeur autorisé pour distribuer les systèmes Garrison dans votre région, ou devenez installateur certifié pour offrir l'installation professionnelle à vos clients.</p>
   </div>
 
   <!-- Two paths -->
@@ -1476,15 +1794,15 @@ select.fi{cursor:pointer;}
 
     <div class="part-path">
       <div class="part-path-tag dep">Dépositaire autorisé</div>
-      <h2>Vendre les systèmes Armadam</h2>
-      <p class="sub">Vous êtes quincaillerie, fournisseur en matériaux de construction, ou distributeur régional ? Devenez le point de vente Armadam dans votre territoire — exclusivité de zone disponible.</p>
+      <h2>Revendre les systèmes Garrison</h2>
+      <p class="sub">Vous êtes quincaillerie, fournisseur en matériaux de construction, ou distributeur régional ? Devenez le point de vente officiel Garrison × Armadam dans votre territoire — exclusivité de zone disponible.</p>
       <ul class="part-benefits">
         <li>Exclusivité territoriale selon votre zone de couverture</li>
-        <li>Marge distributeur compétitive sur tous les produits</li>
-        <li>Formation produits + matériel de vente fourni</li>
+        <li>Marge revendeur compétitive sur tous les produits Garrison</li>
+        <li>Formation produits Garrison + matériel de vente fourni</li>
         <li>Support technique et commercial d'Armadam</li>
-        <li>Stock consigné disponible pour les urgences</li>
-        <li>Accès au portail dépositaire (commandes, suivi, documentation)</li>
+        <li>Stock consigné disponible pour les urgences saisonnières</li>
+        <li>Accès au portail revendeur (commandes, suivi, documentation Garrison)</li>
       </ul>
       <div class="part-reqs">
         <div class="part-reqs-t">Critères d'admissibilité</div>
@@ -1500,8 +1818,8 @@ select.fi{cursor:pointer;}
 
     <div class="part-path">
       <div class="part-path-tag ins">Installateur certifié</div>
-      <h2>Installer les systèmes Armadam</h2>
-      <p class="sub">Vous êtes entrepreneur général, électricien, plombier ou spécialiste en protection civile ? Obtenez la certification Armadam et offrez l'installation professionnelle à votre clientèle existante.</p>
+      <h2>Installer les systèmes Garrison</h2>
+      <p class="sub">Vous êtes entrepreneur général, électricien, plombier ou spécialiste en protection civile ? Obtenez la certification Garrison × Armadam et offrez l'installation professionnelle à votre clientèle existante.</p>
       <ul class="part-benefits">
         <li>Certification officielle Armadam — reconnue RBQ</li>
         <li>Formation technique complète sur site (2 jours)</li>
@@ -1530,7 +1848,7 @@ select.fi{cursor:pointer;}
     <p class="part-form-sub">Remplissez ce formulaire. Notre équipe vous répond dans les 48 heures ouvrables.</p>
     <div class="part-form">
       <div style="margin-bottom:1.5rem;">
-        <div style="font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--stone);margin-bottom:10px;">Je soumets ma candidature comme :</div>
+        <div style="font-family:'Raleway',sans-serif;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--stone);margin-bottom:10px;">Je soumets ma candidature comme :</div>
         <div class="part-type-sel">
           <button class="ptsel on" id="pt-dep" onclick="selectPartType('depositaire')">
             <strong>Dépositaire autorisé</strong>
@@ -1591,44 +1909,61 @@ let leafletMap = null;
 let leafletMarker = null;
 let currentReco = null;
 const PRODUCTS = [
-  {name:'SENTINEL 120',tier:'Résidentiel Standard',depth:'0 – 1.2 m',price:1890,modW:3,specs:{
-    structure:'Alu 6061-T6 + toile PVC souple 600 g/m²',
-    hauteur:'1.2 m',
-    portée:'0.5 – 3.0 m / module',
-    étanchéité:'EPDM 15 mm lèvre compressée',
-    pression:'11.8 kPa (1.2 m col. eau)',
-    déploiement:'15 min · 1 personne · sans outil',
-    usage:'Portes · garages · fenêtres de sous-sol'
+  {name:'HAMMERHEAD',tier:'Ouvertures — Résidentiel',depth:'0 – 0.9 m',price:0,modW:3.6,specs:{
+    structure:'Aluminium extrudé — léger, anticorrosion',
+    hauteur:'jusqu\'à 91 cm',
+    portée:'jusqu\'à 3.6 m / ouverture (12 pi)',
+    étanchéité:'Joints EPDM intégrés',
+    certification:'FEMA / NFIP — floodproofing à sec',
+    déploiement:'10-15 min · 1-2 personnes · sans outil',
+    usage:'Portes · garages · fenêtres · accès plain-pied'
   }},
-  {name:'AQUASHIELD PRO',tier:'Protection Riveraine',depth:'1.2 – 2 m',price:3450,modW:4,specs:{
-    structure:'HSS 60×60×4 galv. + PVC armé 900 g/m²',
-    hauteur:'2.0 m',
-    portée:'0.5 – 4.0 m / module',
-    étanchéité:'Néoprène 100 mm · tendeurs à rochet',
-    pression:'19.6 kPa (2.0 m col. eau)',
-    déploiement:'45 min · 2 personnes · ancrage sol',
-    usage:'Périmètre maison · chalet riverain · sous-sol'
+  {name:'MAKO',tier:'Gonflable — Ouvertures',depth:'0 – 1.0 m',price:580,modW:3,specs:{
+    structure:'Membrane gonflable haute résistance',
+    hauteur:'76 cm (30") ou 102 cm (40")',
+    portée:'Sur mesure aux dimensions de l\'ouverture',
+    étanchéité:'Pressurisation dans l\'ouverture',
+    certification:'Installation sans modification permanente',
+    déploiement:'Moins de 5 min · 1 personne · pompe à air',
+    usage:'Portes · garages · fenêtres · couloirs'
   }},
-  {name:'FORTRESS CHANTIER',tier:'Chantier de construction',depth:'2 – 2.8 m',price:6200,modW:6,specs:{
-    structure:'HSS 100×100×6 galv. + MGI 1 000 g/m²',
-    hauteur:'2.8 m',
-    portée:'jusqu\'à 6.0 m / module',
-    étanchéité:'Mousse cellulaire fermée + vérins mécaniques',
-    pression:'27.5 kPa testée (ASTM)',
-    déploiement:'2–4 h · équipe certifiée · pieux d\'ancrage',
-    usage:'Ponceaux · traversées · ponts routiers'
+  {name:'BLUEFIN',tier:'Périmètre modulaire',depth:'0 – 2.4 m',price:0,modW:4,specs:{
+    structure:'Panneaux interconnectés — design breveté',
+    hauteur:'91 cm · 122 cm · 183 cm · 244 cm',
+    portée:'Configuration périmètre complet',
+    étanchéité:'Joints de base intégrés',
+    certification:'Déploiement rapide sans outil',
+    déploiement:'2 personnes · selon longueur périmètre',
+    usage:'Périmètre maison · chalet · station électrique'
   }},
-  {name:'TITAN EXTREME',tier:'Infrastructures critiques',depth:'2.8 m+',price:9800,modW:6,specs:{
-    structure:'IPE/HEA S350W + PVC/PU 1 200–1 500 g/m²',
-    hauteur:'3.5 – 6.0 m+ (sur mesure)',
-    portée:'sur mesure / portées ≥ 12 m',
-    étanchéité:'Vérins hydrauliques + tirants précontraints',
-    pression:'34 kPa+ · certification municipale',
-    déploiement:'Équipe Armadam obligatoire · PE requis',
-    usage:'Ponts majeurs · barrages · HQ · pipelines'
+  {name:'MAYIM MB-MAX',tier:'Panneaux d\'eau — Périmètre',depth:'0 – 1.0 m',price:13200,modW:4,specs:{
+    structure:'Panneaux modulaires à remplissage d\'eau',
+    hauteur:'MB1=51cm · MB2=76cm · MB-MAX=102cm',
+    portée:'Kit 30 m / 46 m · panneaux courbes disponibles',
+    étanchéité:'Lest hydraulique — stabilité par gravité',
+    certification:'Connexion simple · remplissage au boyau',
+    déploiement:'2-3 personnes · 1-2 h selon longueur',
+    usage:'Périmètre · diversion · terrain irrégulier'
   }},
 ];
 let selectedProdIdx = 0;
+
+// ── INTENT SELECTOR (home page) ────────────────────────────────────────────
+function switchIntent(type, btn) {
+  document.querySelectorAll('.intent-btn').forEach(b => b.classList.remove('on'));
+  document.querySelectorAll('.prod-panel').forEach(p => p.classList.remove('on'));
+  btn.classList.add('on');
+  document.getElementById('panel-' + type).classList.add('on');
+}
+
+// ── CATALOGUE FILTER ────────────────────────────────────────────────────────
+function filterCat(cat, btn) {
+  document.querySelectorAll('.cf-tab').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+  document.querySelectorAll('.cat-section').forEach(sec => {
+    sec.style.display = (cat === 'all' || sec.dataset.cat === cat) ? 'contents' : 'none';
+  });
+}
 
 // ── NAV ────────────────────────────────────────────────────────────────────
 function showPage(id) {
@@ -1709,13 +2044,13 @@ function setContext(ctx) {
   document.getElementById('ctx-con').classList.toggle('on', ctx === 'con');
   if (ctx === 'res') {
     document.getElementById('terrain-title').innerHTML = 'Votre risque <em>en 30 secondes</em>';
-    document.getElementById('terrain-subtitle').textContent = 'Entrez votre adresse. Notre système analyse la profondeur d\'eau de votre secteur et vous dit exactement quelle protection vous devez avoir — avant que l\'eau décide pour vous.';
+    document.getElementById('terrain-subtitle').textContent = 'Entrez votre adresse. Notre système analyse la profondeur d\'eau de votre secteur et vous recommande le système Garrison adapté à votre niveau de risque.';
     document.getElementById('lbl-zone').textContent = 'Zone CEHQ';
     document.getElementById('lbl-depth').textContent = 'Profondeur estimée';
     document.getElementById('lbl-risk').textContent = 'Niveau de risque';
   } else {
     document.getElementById('terrain-title').innerHTML = 'Votre chantier, <em>le bon batardeau</em>';
-    document.getElementById('terrain-subtitle').textContent = 'Entrez l\'adresse ou les coordonnées GPS du chantier. Notre système détermine la hauteur d\'eau à contenir et vous recommande le batardeau adapté — route, pont, barrage ou infrastructure hydro.';
+    document.getElementById('terrain-subtitle').textContent = 'Entrez l\'adresse ou les coordonnées GPS. Notre système détermine la hauteur d\'eau et vous recommande le système Garrison adapté à votre situation — périmètre, ouverture ou protection rapide.';
     document.getElementById('lbl-zone').textContent = 'Type de milieu';
     document.getElementById('lbl-depth').textContent = 'Eau à contenir';
     document.getElementById('lbl-risk').textContent = 'Complexité chantier';
@@ -1834,7 +2169,7 @@ function initMap() {
   leafletMap = L.map('map', {zoomControl:true}).setView([46.8, -71.2], 7);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution:'© OpenStreetMap',maxZoom:18}).addTo(leafletMap);
   const icon = L.divIcon({
-    html:`<div style="width:14px;height:14px;background:#D4751A;border:3px solid #1E1C18;border-radius:50%;box-shadow:0 2px 8px rgba(0,0,0,0.3);"></div>`,
+    html:`<div style="width:14px;height:14px;background:#1F4E79;border:3px solid #111111;border-radius:50%;box-shadow:0 2px 8px rgba(0,0,0,0.3);"></div>`,
     iconSize:[14,14],iconAnchor:[7,7]
   });
   leafletMap._customIcon = icon;
@@ -1853,23 +2188,22 @@ function analyzeLocation(lat, lon, name) {
   let prodIdx = 0, zone, risk, riskClass;
   const d = parseFloat(depth);
   if (terrainCtx === 'res') {
-    if (d < 1.2) { prodIdx=0; zone='Zone C — Faible risque'; risk='Faible'; riskClass='ok'; }
-    else if (d < 2) { prodIdx=1; zone='Zone B — Risque modéré'; risk='Modéré'; riskClass='warn'; }
-    else if (d < 2.8) { prodIdx=2; zone='Zone A — Risque élevé'; risk='Élevé'; riskClass='danger'; }
+    if (d < 0.9) { prodIdx=0; zone='Zone C — Faible risque'; risk='Faible'; riskClass='ok'; }
+    else if (d < 1.5) { prodIdx=1; zone='Zone B — Risque modéré'; risk='Modéré'; riskClass='warn'; }
+    else if (d < 2.5) { prodIdx=2; zone='Zone A — Risque élevé'; risk='Élevé'; riskClass='danger'; }
     else { prodIdx=3; zone='Zone 0 — Risque extrême'; risk='Extrême'; riskClass='danger'; }
   } else {
-    // Construction: water = worksite water to contain, not a flood risk
-    if (d < 1.2) { prodIdx=0; zone='Milieu aquatique faible'; risk='Standard'; riskClass='ok'; }
-    else if (d < 2) { prodIdx=1; zone='Chantier riverain'; risk='Intermédiaire'; riskClass='warn'; }
-    else if (d < 2.8) { prodIdx=2; zone='Travaux en eau profonde'; risk='Exigeant'; riskClass='danger'; }
-    else { prodIdx=3; zone='Conditions extrêmes'; risk='Infrastructure majeure'; riskClass='danger'; }
+    if (d < 0.9) { prodIdx=0; zone='Protection ouverture standard'; risk='Standard'; riskClass='ok'; }
+    else if (d < 1.5) { prodIdx=1; zone='Protection périmètre modérée'; risk='Intermédiaire'; riskClass='warn'; }
+    else if (d < 2.5) { prodIdx=2; zone='Périmètre hauteur élevée'; risk='Exigeant'; riskClass='danger'; }
+    else { prodIdx=3; zone='Système déploiement rapide'; risk='Urgence'; riskClass='danger'; }
   }
 
   const popupLabel = terrainCtx === 'res' ? 'Profondeur d\'inondation' : 'Eau à contenir';
   leafletMarker.bindPopup(`
     <div style="font-family:'DM Sans',sans-serif;min-width:160px;">
       <div style="font-weight:700;margin-bottom:4px;">${name}</div>
-      <div style="font-size:12px;color:#8C8680;">${popupLabel} : <strong style="color:#D4751A;">${depth} m</strong></div>
+      <div style="font-size:12px;color:#8C8680;">${popupLabel} : <strong style="color:#1F4E79;">${depth} m</strong></div>
       <div style="font-size:12px;color:#8C8680;">${zone}</div>
     </div>
   `).openPopup();
@@ -1911,7 +2245,9 @@ function analyzeLocation(lat, lon, name) {
     ? `Profondeur estimée ${depth} m → pression ${kpa} kPa. Le ${prod.name} est la protection recommandée : ${prod.specs.étanchéité || prod.specs.structure}.`
     : `Eau à contenir : ${depth} m → pression ${kpa} kPa. Le ${prod.name} est le batardeau adapté à votre zone de travail : ${prod.specs.déploiement}.`;
   document.getElementById('reco-desc').textContent = recoDesc;
-  document.getElementById('reco-price').innerHTML = `${prod.price.toLocaleString('fr-CA')} $ <small>/ module</small>`;
+  document.getElementById('reco-price').innerHTML = prod.price > 0
+    ? `À partir de ${prod.price.toLocaleString('fr-CA')} $ <small>CAD</small>`
+    : `<span style="font-size:13px;color:var(--stone)">Prix sur devis — contactez-nous</span>`;
 }
 
 function drawDiagSection(depth, barrierH, color) {
@@ -1926,16 +2262,16 @@ function drawDiagSection(depth, barrierH, color) {
   svg.innerHTML = `
     <rect x="0" y="${ground}" width="${w}" height="${h-ground}" fill="#C8C0B4"/>
     ${hatches}
-    <rect x="30" y="${ground-barrPx}" width="10" height="${barrPx}" fill="#B0A89E" stroke="#D4751A" stroke-width="1.2"/>
-    <rect x="200" y="${ground-barrPx}" width="10" height="${barrPx}" fill="#B0A89E" stroke="#D4751A" stroke-width="1.2"/>
+    <rect x="30" y="${ground-barrPx}" width="10" height="${barrPx}" fill="#B0A89E" stroke="#1F4E79" stroke-width="1.2"/>
+    <rect x="200" y="${ground-barrPx}" width="10" height="${barrPx}" fill="#B0A89E" stroke="#1F4E79" stroke-width="1.2"/>
     <rect x="40" y="${ground-waterPx}" width="160" height="${waterPx}" fill="${color}" fill-opacity="0.22"/>
     <line x1="40" y1="${ground-waterPx}" x2="200" y2="${ground-waterPx}" stroke="${color}" stroke-width="1.2" stroke-dasharray="5,3"/>
-    <line x1="40" y1="${ground-barrPx/2}" x2="30" y2="${ground-barrPx/2}" stroke="#D4751A" stroke-width="1" stroke-dasharray="2,2"/>
-    <line x1="200" y1="${ground-barrPx/2}" x2="210" y2="${ground-barrPx/2}" stroke="#D4751A" stroke-width="1" stroke-dasharray="2,2"/>
-    <rect x="30" y="${ground-barrPx}" width="180" height="2.5" fill="#D4751A" opacity=".7"/>
-    <rect x="26" y="${ground}" width="188" height="4" fill="#D4751A" opacity=".5" rx="1"/>
-    <text x="120" y="${ground-waterPx-3}" text-anchor="middle" font-size="8" fill="${color}" font-family="Syne" font-weight="700">${depth} m</text>
-    <text x="15" y="${ground-barrPx/2+3}" text-anchor="middle" font-size="7" fill="#D4751A" font-family="DM Sans">${barrierH} m</text>
+    <line x1="40" y1="${ground-barrPx/2}" x2="30" y2="${ground-barrPx/2}" stroke="#1F4E79" stroke-width="1" stroke-dasharray="2,2"/>
+    <line x1="200" y1="${ground-barrPx/2}" x2="210" y2="${ground-barrPx/2}" stroke="#1F4E79" stroke-width="1" stroke-dasharray="2,2"/>
+    <rect x="30" y="${ground-barrPx}" width="180" height="2.5" fill="#1F4E79" opacity=".7"/>
+    <rect x="26" y="${ground}" width="188" height="4" fill="#1F4E79" opacity=".5" rx="1"/>
+    <text x="120" y="${ground-waterPx-3}" text-anchor="middle" font-size="8" fill="${color}" font-family="Raleway" font-weight="700">${depth} m</text>
+    <text x="15" y="${ground-barrPx/2+3}" text-anchor="middle" font-size="7" fill="#1F4E79" font-family="DM Sans">${barrierH} m</text>
   `;
 }
 
@@ -1960,8 +2296,8 @@ function selectProd(idx, el) {
   drawCrossSection();
 }
 
-// Heights per product in meters
-const PROD_HEIGHTS = [1.2, 2.0, 2.8, 3.5];
+// Heights per product in meters — Garrison product lineup
+const PROD_HEIGHTS = [0.91, 1.02, 2.44, 1.02];
 const PANEL_HEIGHT_M = 0.3; // each panel = 30cm
 
 function drawCrossSection() {
@@ -2007,18 +2343,18 @@ function drawCrossSection() {
     const shade = 180 - i * 4;
     panelsHTML += `
       <rect x="${px}" y="${py}" width="${pw}" height="${panelPxH - 1}"
-        fill="rgb(${shade},${shade-4},${shade-8})" stroke="#D4751A" stroke-width="0.5"/>
+        fill="rgb(${shade},${shade-4},${shade-8})" stroke="#1F4E79" stroke-width="0.5"/>
     `;
   }
   // top cap
-  panelsHTML += `<rect x="${px - 2}" y="${y0 - totalBarrierH - 3}" width="${pw + 4}" height="4" fill="#D4751A"/>`;
+  panelsHTML += `<rect x="${px - 2}" y="${y0 - totalBarrierH - 3}" width="${pw + 4}" height="4" fill="#1F4E79"/>`;
 
   document.getElementById('viz-panels').innerHTML = panelsHTML;
 
   // Labels
   document.getElementById('viz-labels').innerHTML = `
     <text x="${px + pw / 2}" y="${y0 - totalBarrierH - 10}" text-anchor="middle"
-      font-size="9" fill="#1E1C18" font-family="Syne" font-weight="700">${prodH} m</text>
+      font-size="9" fill="#111111" font-family="Raleway" font-weight="700">${prodH} m</text>
     <line x1="${px + pw + 4}" y1="${y0}" x2="${px + pw + 4}" y2="${y0 - totalBarrierH}"
       stroke="#8C8680" stroke-width="0.8" stroke-dasharray="2,2"/>
     <text x="${px + pw + 8}" y="${y0 - totalBarrierH / 2}" font-size="8" fill="#8C8680"

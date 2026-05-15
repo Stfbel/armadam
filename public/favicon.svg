@@ -1,8 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
   <!-- ARMADAM — Favicon / App icon 32×32 -->
-  <!-- Scale: 80→32 = 0.4 -->
-  <polygon points="1,30 6,30 16,2 15,2" fill="#1E1C18"/>
-  <polygon points="26,30 31,30 17,2 16,2" fill="#1E1C18"/>
-  <rect x="15" y="1" width="2" height="2" fill="#1E1C18"/>
-  <rect x="6" y="20" width="20" height="5" fill="#D4751A"/>
+  <polygon points="1,30 6,30 16,2 15,2" fill="#111111"/>
+  <polygon points="26,30 31,30 17,2 16,2" fill="#111111"/>
+  <rect x="15" y="1" width="2" height="2" fill="#111111"/>
+  <rect x="6" y="20" width="20" height="5" fill="#1F4E79"/>
 </svg>
