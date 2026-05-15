@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 140" fill="none">
+  <!-- Triangle A mark (outline, charcoal) -->
+  <!-- Left leg: top → bottom-left -->
+  <!-- Right leg + horizontal line: top → bottom-right → extends right -->
+  <polyline
+    points="56,8 4,112 112,112 556,112"
+    stroke="#555557"
+    stroke-width="10"
+    stroke-linejoin="miter"
+    stroke-linecap="square"
+    fill="none"
+  />
+  <!-- Left leg separate (to create open-bottom triangle effect) -->
+  <line x1="56" y1="8" x2="4" y2="112" stroke="#555557" stroke-width="10" stroke-linecap="square"/>
+
+  <!-- RMADAM wordmark -->
+  <text
+    x="122"
+    y="100"
+    font-family="Raleway, Arial Black, sans-serif"
+    font-weight="900"
+    font-size="88"
+    letter-spacing="-1"
+    fill="#1C3C72"
+  >RMADAM</text>
+
+  <!-- BATARDEAUX subtitle -->
+  <text
+    x="160"
+    y="132"
+    font-family="Raleway, Arial, sans-serif"
+    font-weight="700"
+    font-size="17"
+    letter-spacing="9"
+    fill="#1C3C72"
+  >BATARDEAUX</text>
+</svg>

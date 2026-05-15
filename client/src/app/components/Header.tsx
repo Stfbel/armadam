@@ -7,17 +7,10 @@ export function Header() {
         <div className="flex items-center justify-between h-24">
           {/* Logo */}
           <Link to="/" className="flex items-center hover:opacity-75 transition-opacity">
-            {/* Lockup horizontal — mark + wordmark */}
-            <svg viewBox="0 0 210 48" height="40" xmlns="http://www.w3.org/2000/svg" style={{fontFamily:'Raleway,sans-serif'}}>
-              <g transform="scale(0.6)">
-                <polygon points="2,76 14,76 40,4 37,4" fill="#111111"/>
-                <polygon points="66,76 78,76 43,4 40,4" fill="#111111"/>
-                <rect x="37" y="2" width="6" height="4" fill="#111111"/>
-                <rect x="14" y="49" width="52" height="11" fill="#1F4E79"/>
-              </g>
-              <line x1="54" y1="8" x2="54" y2="40" stroke="#DDDBD6" strokeWidth="1"/>
-              <text x="62" y="29" fontWeight="800" fontSize="20" letterSpacing="3" fill="#111111">ARMADAM</text>
-              <text x="63" y="41" fontWeight="600" fontSize="9" letterSpacing="2.5" fill="#1F4E79">BATARDEAUX</text>
+            <svg viewBox="0 0 560 140" height="52" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <polyline points="56,8 4,112 112,112 556,112" stroke="#555557" strokeWidth="10" strokeLinejoin="miter" strokeLinecap="square"/>
+              <text x="122" y="100" fontFamily="Raleway, Arial Black, sans-serif" fontWeight="900" fontSize="88" letterSpacing="-1" fill="#1C3C72">RMADAM</text>
+              <text x="160" y="132" fontFamily="Raleway, Arial, sans-serif" fontWeight="700" fontSize="17" letterSpacing="9" fill="#1C3C72">BATARDEAUX</text>
             </svg>
           </Link>
 
