@@ -71,8 +71,8 @@ const RECO_DB: Record<string, Product> = {
   },
   MAYIM: {
     name: 'MAYIM', tier: 'Périmètre — Panneaux eau', price: 0, priceStr: 'Sur devis', height: 1.02,
-    why: (d, kpa) => `Le MAYIM crée une barrière périmétrique avec des panneaux remplis d'eau — idéal pour les sites temporaires ou changeants. À ${d.toFixed(2)} m, hauteurs disponibles 20", 30" ou 40" avec déviation active.`,
-    install: 'Panneaux interconnectables. Remplissage à l\'eau sur place. Capacité de déviation active intégrée.',
+    why: (d, kpa) => `Le MAYIM utilise des panneaux rigides en L maintenus par le poids de l'eau de crue — aucun ancrage requis. Idéal pour les périmètres temporaires ou évolutifs. À ${d.toFixed(2)} m, hauteurs disponibles 20", 30" ou 40".`,
+    install: 'Panneaux rigides en L interconnectables. Positionnement à sec — l\'eau de crue elle-même assure la stabilité.',
     caveat: null,
     complement: null,
   },
@@ -98,8 +98,8 @@ const RECO_DB: Record<string, Product> = {
     complement: null,
   },
   GUPPY_MAX: {
-    name: 'GUPPY MAX', tier: 'Industriel — Tube eau grande capacité', price: 3100, priceStr: '~3 100 $ CAD/section', height: 0.97,
-    why: (d, kpa) => `Pour une protection industrielle rapide, le GUPPY MAX offre 38 pouces (97 cm) de hauteur de protection sur 30 pieds de longueur. Remplissage via borne-incendie, 8 000 kg d'eau par section. À ${d.toFixed(2)} m dans votre secteur.`,
+    name: 'GUPPY MAX', tier: 'Industriel — Tube eau grande capacité', price: 3100, priceStr: '~3 100 $ CAD/section', height: 1.02,
+    why: (d, kpa) => `Pour une protection industrielle rapide, le GUPPY MAX offre 40 pouces (102 cm) de hauteur de protection sur 30 pieds de longueur. Remplissage via borne-incendie, 8 000 kg d'eau par section. À ${d.toFixed(2)} m dans votre secteur.`,
     install: 'Remplissage via borne-incendie. 3 chambres PVC indépendantes. Capacité 8 000 L / 8 000 kg par section de 30 pi.',
     caveat: null,
     complement: null,
@@ -113,7 +113,7 @@ const RECO_DB: Record<string, Product> = {
   },
   MINNOW: {
     name: 'MINNOW', tier: 'Solutions rapides — Sacs absorbants', price: 55, priceStr: 'À partir de 55 $ CAD', height: 0.12,
-    why: (d, kpa) => `Les MINNOW s'activent au contact de l'eau — à sec ils pèsent 2 kg, gorgés ~22 kg. Empilables pour créer une barrière d'urgence immédiate. Idéal pour une intervention express dans votre secteur.`,
+    why: (d, kpa) => `Les MINNOW s'activent au contact de l'eau — à sec ~272 g, gorgés 17–20 kg. Empilables pour créer une barrière d'urgence immédiate. Idéal pour une intervention express dans votre secteur.`,
     install: 'Poser à sec. Activation automatique au contact de l\'eau douce uniquement. MW1 (60×40×12 cm) ou MW2 (40×36×12 cm).',
     caveat: 'Eau douce uniquement. Hauteur par couche limitée à 12 cm — empiler plusieurs rangées.',
     complement: 'Compléter avec STINGRAY ou SERPENT pour une protection périmétrique plus haute',
@@ -121,7 +121,7 @@ const RECO_DB: Record<string, Product> = {
   BELUGA: {
     name: 'BELUGA', tier: 'Solutions rapides — Sacs géants', price: 40, priceStr: 'À partir de 40 $ CAD/BG1', height: 1.02,
     why: (d, kpa) => `Le BELUGA est un grand sac remplissable résistant UV 2 200 h. BG1 (91×91×102 cm H) ou BG5 accordéon 5 compartiments sur 4.5 m. À ${d.toFixed(2)} m, il offre une protection robuste à grande échelle.`,
-    install: 'Remplir de sable ou eau. BG1 unitaire ou BG5 accordéon 4.5 m à 5 compartiments. Résistance UV 2 200 h.',
+    install: 'Remplir de sable ou granulats. BG1 unitaire ou BG5 accordéon 4.5 m à 5 compartiments. Résistance UV 2 200 h.',
     caveat: null,
     complement: null,
   },

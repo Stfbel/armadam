@@ -11,7 +11,7 @@ export function ProductPage() {
     if (product) {
       document.title = `${product.name} — Batardeaux Garrison | Armadam`;
       document.querySelector('meta[name="description"]')?.setAttribute('content',
-        `${product.name} : ${product.shortDesc}. ${product.description.slice(0, 100)}… Disponible au Canada via Armadam, distributeur officiel Garrison Flood Control.`);
+        `${product.name} : ${product.shortDesc}. ${product.description.slice(0, 110)}… Disponible au Canada via Armadam, distributeur officiel Garrison Flood Control.`);
     } else {
       document.title = 'Produit introuvable — Armadam';
     }
@@ -40,6 +40,7 @@ export function ProductPage() {
 
   return (
     <main className="pt-24 pb-24 md:pb-8">
+
       {/* Breadcrumb */}
       <div className="bg-white border-b">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 py-3">
@@ -53,12 +54,13 @@ export function ProductPage() {
         </div>
       </div>
 
-      {/* Hero product */}
-      <section className="bg-white py-12">
+      {/* Hero — image + identité */}
+      <section className="bg-white py-12 border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-start">
-            {/* Image */}
-            <div className="aspect-[4/3] bg-gray-50 rounded-2xl overflow-hidden border border-gray-100">
+
+            {/* Photo */}
+            <div className="aspect-[4/3] bg-gray-50 rounded-2xl overflow-hidden border border-gray-100 shadow-sm">
               <img
                 src={product.image}
                 alt={product.name}
@@ -66,33 +68,54 @@ export function ProductPage() {
               />
             </div>
 
-            {/* Info */}
-            <div>
-              <div className="text-xs text-gray-500 font-['JetBrains_Mono'] uppercase tracking-widest mb-2">
-                {product.category} — {product.type}
+            {/* Identité + CTA */}
+            <div className="flex flex-col">
+              {/* Catégorie + type */}
+              <div className="flex items-center gap-2 mb-3">
+                <span className="text-xs font-bold text-[#1F4E79] bg-blue-50 px-3 py-1 rounded-full font-['JetBrains_Mono'] uppercase tracking-wider">
+                  {product.category}
+                </span>
+                <span className="text-xs text-gray-400 font-['JetBrains_Mono']">{product.type}</span>
               </div>
-              <h1 className="text-4xl lg:text-5xl font-bold font-['Raleway'] text-gray-900 mb-3">
+
+              {/* Nom */}
+              <h1 className="text-4xl lg:text-5xl font-bold font-['Raleway'] text-gray-900 mb-2">
                 {product.name}
               </h1>
-              <p className="text-lg text-gray-600 mb-6 leading-relaxed">
-                {product.shortDesc}
-              </p>
-              <p className="text-gray-700 mb-8 leading-relaxed">
-                {product.description}
-              </p>
 
-              {/* Features */}
-              <div className="flex flex-wrap gap-2 mb-8">
-                {product.features.map((f, i) => (
-                  <span key={i} className="text-sm bg-[#1F4E79]/8 text-[#1F4E79] px-3 py-1.5 rounded-lg font-['JetBrains_Mono']">
-                    {f}
-                  </span>
-                ))}
+              {/* Accroche courte */}
+              <p className="text-xl text-gray-500 mb-6 leading-relaxed">{product.shortDesc}</p>
+
+              {/* ── Tags / Caractéristiques clés ── */}
+              <div className="mb-6">
+                <div className="text-xs font-bold text-gray-400 font-['JetBrains_Mono'] uppercase tracking-widest mb-3">
+                  Caractéristiques clés
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {product.features.map((f, i) => (
+                    <span
+                      key={i}
+                      className="text-sm text-[#1F4E79] bg-blue-50 border border-blue-100 px-3 py-1.5 rounded-lg font-['JetBrains_Mono'] font-medium"
+                    >
+                      {f}
+                    </span>
+                  ))}
+                </div>
               </div>
 
-              {/* Price + CTA */}
-              <div className="bg-gray-50 rounded-xl p-6 mb-6">
-                <div className="text-xs text-gray-500 mb-1">Prix indicatif</div>
+              {/* ── Description ── */}
+              <div className="mb-8">
+                <div className="text-xs font-bold text-gray-400 font-['JetBrains_Mono'] uppercase tracking-widest mb-3">
+                  Description
+                </div>
+                <p className="text-gray-700 leading-relaxed">{product.description}</p>
+              </div>
+
+              {/* Prix + CTA */}
+              <div className="bg-gray-50 rounded-xl p-6 border border-gray-100 mb-5">
+                <div className="text-xs text-gray-400 font-['JetBrains_Mono'] uppercase tracking-wider mb-1">
+                  Prix indicatif
+                </div>
                 <div className="text-2xl font-bold font-['JetBrains_Mono'] text-gray-900 mb-4">
                   {product.price}
                 </div>
@@ -106,7 +129,7 @@ export function ProductPage() {
                   </Link>
                   <Link
                     to="/analyse"
-                    className="flex items-center gap-1.5 px-6 py-3 border border-gray-200 rounded-lg font-medium text-gray-700 hover:border-[#1F4E79] hover:text-[#1F4E79] transition-all"
+                    className="flex items-center gap-1.5 px-5 py-3 border border-gray-200 rounded-lg font-medium text-gray-700 hover:border-[#1F4E79] hover:text-[#1F4E79] transition-all whitespace-nowrap"
                   >
                     <span className="material-symbols-outlined text-base">search</span>
                     Évaluer
@@ -115,7 +138,7 @@ export function ProductPage() {
               </div>
 
               {/* Certifications */}
-              <div className="flex items-center gap-3 text-sm text-gray-500">
+              <div className="flex items-center gap-2 text-sm text-gray-400">
                 <span className="material-symbols-outlined text-[#2B6CB0] text-base">verified_user</span>
                 Certifié FEMA NFIP · FM Global · Fabriqué aux États-Unis
               </div>
@@ -124,18 +147,24 @@ export function ProductPage() {
         </div>
       </section>
 
-      {/* Specs table */}
-      {product.specs && (
-        <section className="bg-gray-50 py-12">
+      {/* ── Fiche technique ── */}
+      {product.specs && Object.keys(product.specs).length > 0 && (
+        <section className="bg-gray-50 py-12 border-b border-gray-100">
           <div className="max-w-7xl mx-auto px-6 lg:px-8">
-            <h2 className="text-2xl font-bold font-['Raleway'] text-gray-900 mb-6">Spécifications techniques</h2>
-            <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
+            <div className="flex items-center gap-3 mb-6">
+              <span className="material-symbols-outlined text-[#1F4E79] text-2xl">description</span>
+              <h2 className="text-2xl font-bold font-['Raleway'] text-gray-900">Fiche technique</h2>
+            </div>
+            <div className="bg-white rounded-xl border border-gray-100 overflow-hidden shadow-sm">
               {Object.entries(product.specs).map(([key, val], i) => (
-                <div key={i} className={`flex items-start px-6 py-4 ${i % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}>
-                  <dt className="w-48 flex-shrink-0 text-xs font-['JetBrains_Mono'] text-gray-500 uppercase tracking-wider pt-0.5">
+                <div
+                  key={i}
+                  className={`grid grid-cols-[180px_1fr] md:grid-cols-[220px_1fr] gap-4 px-6 py-4 border-b border-gray-50 last:border-0 ${i % 2 === 0 ? 'bg-white' : 'bg-gray-50/50'}`}
+                >
+                  <dt className="text-xs font-bold text-gray-400 font-['JetBrains_Mono'] uppercase tracking-wider self-center">
                     {key}
                   </dt>
-                  <dd className="text-gray-900 font-medium">{val}</dd>
+                  <dd className="text-gray-900 font-medium text-sm">{val}</dd>
                 </div>
               ))}
             </div>
@@ -143,9 +172,9 @@ export function ProductPage() {
         </section>
       )}
 
-      {/* Related products */}
+      {/* Produits similaires */}
       {related.length > 0 && (
-        <section className="bg-white py-12">
+        <section className="bg-white py-12 border-b border-gray-100">
           <div className="max-w-7xl mx-auto px-6 lg:px-8">
             <h2 className="text-2xl font-bold font-['Raleway'] text-gray-900 mb-6">
               Autres produits — {product.category}
@@ -166,6 +195,7 @@ export function ProductPage() {
                     />
                   </div>
                   <div className="p-5">
+                    <div className="text-xs text-gray-400 font-['JetBrains_Mono'] mb-1">{rel.type}</div>
                     <h3 className="text-lg font-bold font-['Raleway'] text-gray-900 mb-1">{rel.name}</h3>
                     <p className="text-sm text-gray-500">{rel.shortDesc}</p>
                   </div>
