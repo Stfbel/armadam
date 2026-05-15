@@ -2187,16 +2187,18 @@ function analyzeLocation(lat, lon, name) {
   const depth = (seed * 3.2 + 0.3).toFixed(2);
   let prodIdx = 0, zone, risk, riskClass;
   const d = parseFloat(depth);
+  // Seuils alignés sur les hauteurs réelles Garrison:
+  // HAMMERHEAD ≤ 0.91 m · MAKO ≤ 1.02 m · BLUEFIN ≤ 2.44 m · BLUEFIN (max) > 2.44 m
   if (terrainCtx === 'res') {
-    if (d < 0.9) { prodIdx=0; zone='Zone C — Faible risque'; risk='Faible'; riskClass='ok'; }
-    else if (d < 1.5) { prodIdx=1; zone='Zone B — Risque modéré'; risk='Modéré'; riskClass='warn'; }
-    else if (d < 2.5) { prodIdx=2; zone='Zone A — Risque élevé'; risk='Élevé'; riskClass='danger'; }
-    else { prodIdx=3; zone='Zone 0 — Risque extrême'; risk='Extrême'; riskClass='danger'; }
+    if (d < 0.91) { prodIdx=0; zone='Zone C — Faible risque'; risk='Faible'; riskClass='ok'; }
+    else if (d < 1.02) { prodIdx=1; zone='Zone B — Risque modéré'; risk='Modéré'; riskClass='warn'; }
+    else if (d < 2.44) { prodIdx=2; zone='Zone A — Risque élevé'; risk='Élevé'; riskClass='danger'; }
+    else { prodIdx=2; zone='Zone 0 — Risque extrême · évaluation requise'; risk='Extrême'; riskClass='danger'; }
   } else {
-    if (d < 0.9) { prodIdx=0; zone='Protection ouverture standard'; risk='Standard'; riskClass='ok'; }
-    else if (d < 1.5) { prodIdx=1; zone='Protection périmètre modérée'; risk='Intermédiaire'; riskClass='warn'; }
-    else if (d < 2.5) { prodIdx=2; zone='Périmètre hauteur élevée'; risk='Exigeant'; riskClass='danger'; }
-    else { prodIdx=3; zone='Système déploiement rapide'; risk='Urgence'; riskClass='danger'; }
+    if (d < 0.91) { prodIdx=0; zone='Protection ouverture standard'; risk='Standard'; riskClass='ok'; }
+    else if (d < 1.02) { prodIdx=1; zone='Protection périmètre modérée'; risk='Intermédiaire'; riskClass='warn'; }
+    else if (d < 2.44) { prodIdx=2; zone='Périmètre hauteur élevée'; risk='Exigeant'; riskClass='danger'; }
+    else { prodIdx=2; zone='Périmètre max · évaluation sur site requise'; risk='Urgence'; riskClass='danger'; }
   }
 
   const popupLabel = terrainCtx === 'res' ? 'Profondeur d\'inondation' : 'Eau à contenir';
@@ -2241,9 +2243,14 @@ function analyzeLocation(lat, lon, name) {
   // Mini cross-section SVG
   drawDiagSection(d, barrierH, gc);
 
+  const extreme = d >= 2.44;
   const recoDesc = terrainCtx === 'res'
-    ? `Profondeur estimée ${depth} m → pression ${kpa} kPa. Le ${prod.name} est la protection recommandée : ${prod.specs.étanchéité || prod.specs.structure}.`
-    : `Eau à contenir : ${depth} m → pression ${kpa} kPa. Le ${prod.name} est le batardeau adapté à votre zone de travail : ${prod.specs.déploiement}.`;
+    ? extreme
+      ? `Profondeur estimée ${depth} m → pression ${kpa} kPa. Niveau extrême — le BLUEFIN à hauteur maximale (244 cm) est la solution Garrison la plus performante. Évaluation d'ingénierie sur site recommandée.`
+      : `Profondeur estimée ${depth} m → pression ${kpa} kPa. Le ${prod.name} est la protection recommandée : ${prod.specs.étanchéité || prod.specs.structure}.`
+    : extreme
+      ? `Eau à contenir : ${depth} m → pression ${kpa} kPa. Niveau extrême — BLUEFIN 244 cm requis. Contacter l'équipe Armadam pour une évaluation sur site.`
+      : `Eau à contenir : ${depth} m → pression ${kpa} kPa. Le ${prod.name} est le batardeau adapté à votre zone : ${prod.specs.déploiement}.`;
   document.getElementById('reco-desc').textContent = recoDesc;
   document.getElementById('reco-price').innerHTML = prod.price > 0
     ? `À partir de ${prod.price.toLocaleString('fr-CA')} $ <small>CAD</small>`
