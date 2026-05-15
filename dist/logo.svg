@@ -1,0 +1,71 @@
+<!--
+  ARMADAM — Système de logo
+  ─────────────────────────
+  Palette:  Noir   #111111
+            Bleu   #1F4E79
+            Bleu2  #2B6CB0
+            BG     #F6F5F3
+            White  #FFFFFF
+
+  Concept: Le A est une arche de barrage / portique structurel.
+           La barre bleue EST le batardeau — elle sépare l'eau du sec.
+           Les jambes = montants HSS. La barre = barrière en toile.
+
+  Variants:
+    1. Mark      — logomark seul 80×80     #mark
+    2. Lockup H  — horizontal 200×48       #lockup-h
+    3. Lockup V  — vertical 100×110        #lockup-v
+    4. Reversed  — sur fond sombre 80×80   #mark-rev
+    5. Favicon   — ultra simple 32×32      #favicon
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 120" style="background:#F6F5F3;font-family:Raleway,sans-serif;">
+  <defs>
+    <style>text{font-family:'Raleway',sans-serif;}</style>
+  </defs>
+
+  <!-- ── 1. MARK (80×80) ──────────────────────────── -->
+  <g id="mark" transform="translate(20,20)">
+    <polygon points="2,76 14,76 40,4 37,4" fill="#111111"/>
+    <polygon points="66,76 78,76 43,4 40,4" fill="#111111"/>
+    <rect x="37" y="2" width="6" height="4" fill="#111111"/>
+    <!-- Barre bleue — le batardeau -->
+    <rect x="14" y="49" width="52" height="11" fill="#1F4E79"/>
+  </g>
+
+  <!-- ── 2. LOCKUP HORIZONTAL (200×48) ────────────── -->
+  <g id="lockup-h" transform="translate(120,16)">
+    <!-- Mark à 48px de haut → scale 48/80 = 0.6 -->
+    <g transform="scale(0.6)">
+      <polygon points="2,76 14,76 40,4 37,4" fill="#111111"/>
+      <polygon points="66,76 78,76 43,4 40,4" fill="#111111"/>
+      <rect x="37" y="2" width="6" height="4" fill="#111111"/>
+      <rect x="14" y="49" width="52" height="11" fill="#1F4E79"/>
+    </g>
+    <!-- Séparateur vertical -->
+    <line x1="54" y1="8" x2="54" y2="40" stroke="#DDDBD6" stroke-width="1"/>
+    <!-- Wordmark -->
+    <text x="62" y="28" font-weight="800" font-size="20" letter-spacing="3" fill="#111111">ARMADAM</text>
+    <text x="63" y="40" font-weight="600" font-size="9" letter-spacing="2.5" fill="#1F4E79">BATARDEAUX</text>
+  </g>
+
+  <!-- ── 3. LOCKUP VERTICAL (100×110) ─────────────── -->
+  <g id="lockup-v" transform="translate(360,10)">
+    <!-- Mark -->
+    <g transform="translate(10,0)">
+      <polygon points="2,76 14,76 40,4 37,4" fill="#111111"/>
+      <polygon points="66,76 78,76 43,4 40,4" fill="#111111"/>
+      <rect x="37" y="2" width="6" height="4" fill="#111111"/>
+      <rect x="14" y="49" width="52" height="11" fill="#1F4E79"/>
+    </g>
+    <!-- Règle bleue sous le mark -->
+    <rect x="0" y="84" width="100" height="2" fill="#1F4E79" opacity="0.3"/>
+    <!-- Wordmark -->
+    <text x="50" y="100" font-weight="800" font-size="15" letter-spacing="3" fill="#111111" text-anchor="middle">ARMADAM</text>
+    <text x="50" y="112" font-weight="600" font-size="8" letter-spacing="2" fill="#1F4E79" text-anchor="middle">BATARDEAUX</text>
+  </g>
+
+  <!-- ── Labels ──────────────────────────────────── -->
+  <text x="20" y="115" font-size="9" fill="#8C8680" font-family="DM Sans,sans-serif" letter-spacing=".12em">MARK</text>
+  <text x="120" y="115" font-size="9" fill="#8C8680" font-family="DM Sans,sans-serif" letter-spacing=".12em">HORIZONTAL</text>
+  <text x="360" y="115" font-size="9" fill="#8C8680" font-family="DM Sans,sans-serif" letter-spacing=".12em">VERTICAL</text>
+</svg>

@@ -6,16 +6,19 @@ export function Header() {
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex items-center justify-between h-24">
           {/* Logo */}
-          <Link to="/" className="flex items-center hover:opacity-80 transition-opacity gap-3">
-            <svg width="32" height="32" viewBox="0 0 80 80">
-              <polygon points="2,76 14,76 40,4 37,4" fill="#111111"/>
-              <polygon points="66,76 78,76 43,4 40,4" fill="#111111"/>
-              <rect x="37" y="2" width="6" height="4" fill="#111111"/>
-              <rect x="14" y="49" width="52" height="11" fill="#1F4E79"/>
+          <Link to="/" className="flex items-center hover:opacity-75 transition-opacity">
+            {/* Lockup horizontal — mark + wordmark */}
+            <svg viewBox="0 0 210 48" height="40" xmlns="http://www.w3.org/2000/svg" style={{fontFamily:'Raleway,sans-serif'}}>
+              <g transform="scale(0.6)">
+                <polygon points="2,76 14,76 40,4 37,4" fill="#111111"/>
+                <polygon points="66,76 78,76 43,4 40,4" fill="#111111"/>
+                <rect x="37" y="2" width="6" height="4" fill="#111111"/>
+                <rect x="14" y="49" width="52" height="11" fill="#1F4E79"/>
+              </g>
+              <line x1="54" y1="8" x2="54" y2="40" stroke="#DDDBD6" strokeWidth="1"/>
+              <text x="62" y="29" fontWeight="800" fontSize="20" letterSpacing="3" fill="#111111">ARMADAM</text>
+              <text x="63" y="41" fontWeight="600" fontSize="9" letterSpacing="2.5" fill="#1F4E79">BATARDEAUX</text>
             </svg>
-            <span className="font-['Raleway'] font-black text-xl text-[#111111] tracking-tight">
-              ARMA<em className="not-italic text-[#1F4E79]">DAM</em>
-            </span>
           </Link>
 
           {/* Desktop Navigation */}
