@@ -266,6 +266,9 @@ nav{position:sticky;top:0;z-index:1000;background:rgba(246,245,243,0.96);backdro
 .cat-seg-hd p{font-size:12px;color:var(--stone);}
 .cat-seg-hd .seg-tag{background:var(--ink);color:var(--white);font-family:'Raleway',sans-serif;font-size:9px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;padding:3px 10px;border-radius:2px;margin-left:auto;white-space:nowrap;}
 .cat-card{background:var(--white);display:flex;flex-direction:column;}
+.cat-img{width:100%;aspect-ratio:16/10;overflow:hidden;background:var(--bg2);}
+.cat-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s ease;}
+.cat-card:hover .cat-img img{transform:scale(1.04);}
 .cat-desc{font-size:12px;color:var(--stone);line-height:1.75;margin-bottom:1.2rem;padding-bottom:1rem;border-bottom:1px solid var(--rule);}
 .cat-use{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:1.2rem;}
 .cat-use-tag{font-size:10px;font-weight:600;color:var(--ink2);background:var(--bg2);border:1px solid var(--rule);padding:3px 9px;border-radius:2px;}
@@ -1123,6 +1126,9 @@ select.fi{cursor:pointer;}
 
       <!-- ── RÉSULTAT RECOMMENDATION ── -->
       <div class="reco-card" id="reco-card">
+        <div class="reco-prod-img" id="reco-prod-img" style="display:none;width:100%;aspect-ratio:16/9;border-radius:2px;overflow:hidden;margin-bottom:14px;background:var(--bg2);">
+          <img id="reco-prod-img-el" src="" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+        </div>
         <div class="reco-badge" id="reco-badge">Recommandation personnalisée</div>
         <div class="reco-name" id="reco-name">—</div>
 
@@ -1197,7 +1203,8 @@ select.fi{cursor:pointer;}
     </div>
 
     <div class="cat-card">
-      <div class="cat-card-head">
+            <div class="cat-img"><img src="/images/hammerhead.png" alt="HAMMERHEAD" loading="lazy"></div>
+<div class="cat-card-head">
         <div class="cn">01</div>
         <div class="cicon">
           <svg viewBox="0 0 64 64" fill="none" width="64" height="64">
@@ -1240,7 +1247,8 @@ select.fi{cursor:pointer;}
     </div>
 
     <div class="cat-card">
-      <div class="cat-card-head">
+            <div class="cat-img"><img src="/images/mako.png" alt="MAKO" loading="lazy"></div>
+<div class="cat-card-head">
         <div class="cn">02</div>
         <div class="cicon">
           <svg viewBox="0 0 64 64" fill="none" width="64" height="64">
@@ -1281,7 +1289,8 @@ select.fi{cursor:pointer;}
     </div>
 
     <div class="cat-card">
-      <div class="cat-card-head">
+            <div class="cat-img"><img src="/images/yellowfin.png" alt="YELLOWFIN" loading="lazy"></div>
+<div class="cat-card-head">
         <div class="cn">03</div>
         <div class="cicon">
           <svg viewBox="0 0 64 64" fill="none" width="64" height="64">
@@ -1330,7 +1339,8 @@ select.fi{cursor:pointer;}
     </div>
 
     <div class="cat-card">
-      <div class="cat-card-head">
+            <div class="cat-img"><img src="/images/bluefin.png" alt="BLUEFIN" loading="lazy"></div>
+<div class="cat-card-head">
         <div class="cn">04</div>
         <div class="cicon">
           <svg viewBox="0 0 64 64" fill="none" width="64" height="64">
@@ -1371,7 +1381,8 @@ select.fi{cursor:pointer;}
     </div>
 
     <div class="cat-card">
-      <div class="cat-card-head">
+            <div class="cat-img"><img src="/images/mayim.png" alt="MAYIM" loading="lazy"></div>
+<div class="cat-card-head">
         <div class="cn">05</div>
         <div class="cicon">
           <svg viewBox="0 0 64 64" fill="none" width="64" height="64">
@@ -1411,7 +1422,8 @@ select.fi{cursor:pointer;}
     </div>
 
     <div class="cat-card">
-      <div class="cat-card-head">
+            <div class="cat-img"><img src="/images/stingray.png" alt="STINGRAY" loading="lazy"></div>
+<div class="cat-card-head">
         <div class="cn">06</div>
         <div class="cicon">
           <svg viewBox="0 0 64 64" fill="none" width="64" height="64">
@@ -1460,7 +1472,8 @@ select.fi{cursor:pointer;}
     </div>
 
     <div class="cat-card">
-      <div class="cat-card-head">
+            <div class="cat-img"><img src="/images/oyster.png" alt="OYSTER" loading="lazy"></div>
+<div class="cat-card-head">
         <div class="cn">07</div>
         <div class="cicon">
           <svg viewBox="0 0 64 64" fill="none" width="64" height="64">
@@ -1509,7 +1522,8 @@ select.fi{cursor:pointer;}
     </div>
 
     <div class="cat-card">
-      <div class="cat-card-head">
+            <div class="cat-img"><img src="/images/guppy.png" alt="GUPPY" loading="lazy"></div>
+<div class="cat-card-head">
         <div class="cn">08</div>
         <div class="cicon">
           <svg viewBox="0 0 64 64" fill="none" width="64" height="64">
@@ -1548,7 +1562,8 @@ select.fi{cursor:pointer;}
     </div>
 
     <div class="cat-card">
-      <div class="cat-card-head">
+            <div class="cat-img"><img src="/images/serpent.png" alt="SERPENT" loading="lazy"></div>
+<div class="cat-card-head">
         <div class="cn">09</div>
         <div class="cicon">
           <svg viewBox="0 0 64 64" fill="none" width="64" height="64">
@@ -1587,7 +1602,8 @@ select.fi{cursor:pointer;}
     </div>
 
     <div class="cat-card">
-      <div class="cat-card-head">
+            <div class="cat-img"><img src="/images/minnow.png" alt="MINNOW" loading="lazy"></div>
+<div class="cat-card-head">
         <div class="cn">10</div>
         <div class="cicon">
           <svg viewBox="0 0 64 64" fill="none" width="64" height="64">
@@ -1627,7 +1643,8 @@ select.fi{cursor:pointer;}
     </div>
 
     <div class="cat-card">
-      <div class="cat-card-head">
+            <div class="cat-img"><img src="/images/guppy-max.png" alt="GUPPY MAX" loading="lazy"></div>
+<div class="cat-card-head">
         <div class="cn">11</div>
         <div class="cicon">
           <svg viewBox="0 0 64 64" fill="none" width="64" height="64">
@@ -1670,7 +1687,8 @@ select.fi{cursor:pointer;}
     </div>
 
     <div class="cat-card">
-      <div class="cat-card-head">
+            <div class="cat-img"><img src="/images/beluga.png" alt="BELUGA" loading="lazy"></div>
+<div class="cat-card-head">
         <div class="cn">12</div>
         <div class="cicon">
           <svg viewBox="0 0 64 64" fill="none" width="64" height="64">
@@ -1713,7 +1731,8 @@ select.fi{cursor:pointer;}
     </div>
 
     <div class="cat-card">
-      <div class="cat-card-head">
+            <div class="cat-img"><img src="/images/sandbags.png" alt="SANDBAGS" loading="lazy"></div>
+<div class="cat-card-head">
         <div class="cn">13</div>
         <div class="cicon">
           <svg viewBox="0 0 64 64" fill="none" width="64" height="64">
@@ -1754,7 +1773,8 @@ select.fi{cursor:pointer;}
     </div>
 
     <div class="cat-card">
-      <div class="cat-card-head">
+            <div class="cat-img"><img src="/images/sea-sponge.png" alt="SEA SPONGE" loading="lazy"></div>
+<div class="cat-card-head">
         <div class="cn">14</div>
         <div class="cicon">
           <svg viewBox="0 0 64 64" fill="none" width="64" height="64">
@@ -2610,6 +2630,16 @@ function buildReco() {
   document.getElementById('reco-badge').textContent = 'Recommandation personnalisée';
   document.getElementById('reco-name').textContent = primary.name;
   document.getElementById('diag-sys').textContent = primary.name;
+
+  // Product image
+  const imgKey = primary.name.toLowerCase().replace(/\s+/g, '-').replace(/_/g, '-');
+  const imgEl = document.getElementById('reco-prod-img-el');
+  const imgWrap = document.getElementById('reco-prod-img');
+  imgEl.src = `/images/${imgKey}.png`;
+  imgEl.alt = primary.name;
+  imgEl.onerror = () => { imgWrap.style.display = 'none'; };
+  imgEl.onload = () => { imgWrap.style.display = 'block'; };
+  imgWrap.style.display = 'block';
 
   const whyEl = document.getElementById('reco-why');
   whyEl.textContent = primary.why(lastAnalysisDepth, lastAnalysisKpa);
