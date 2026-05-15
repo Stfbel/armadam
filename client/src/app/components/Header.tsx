@@ -20,13 +20,12 @@ export function Header() {
         <div className="flex items-center justify-between h-24">
 
           {/* Logo */}
-          <Link to="/" className="flex items-center hover:opacity-80 transition-opacity">
-            <svg viewBox="0 0 560 145" height="54" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <polygon points="66,8 10,110 122,110" stroke="#444447" strokeWidth="9" fill="none" strokeLinejoin="miter"/>
-              <line x1="10" y1="110" x2="552" y2="110" stroke="#444447" strokeWidth="9" strokeLinecap="square"/>
-              <text x="132" y="101" fontFamily="Raleway, Arial Black, sans-serif" fontWeight="900" fontSize="88" letterSpacing="-1" fill="#1F4E79">RMADAM</text>
-              <text x="168" y="133" fontFamily="Raleway, Arial, sans-serif" fontWeight="700" fontSize="15" letterSpacing="9" fill="#1F4E79">BATARDEAUX</text>
-            </svg>
+          <Link to="/" className="hover:opacity-80 transition-opacity">
+            <img
+              src="/logo.png"
+              alt="Armadam Batardeaux"
+              className="h-11 md:h-14 w-auto block object-contain"
+            />
           </Link>
 
           {/* Desktop Navigation */}
