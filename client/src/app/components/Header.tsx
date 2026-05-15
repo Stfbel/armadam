@@ -15,7 +15,7 @@ export function Header() {
     exact ? location.pathname === to : location.pathname.startsWith(to);
 
   return (
-    <header className="fixed top-0 w-full z-50 bg-white/98 backdrop-blur-sm border-b border-gray-100 shadow-sm">
+    <header className="fixed top-0 w-full z-50 bg-white border-b border-gray-100 shadow-sm">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex items-center justify-between h-24">
 
@@ -24,7 +24,7 @@ export function Header() {
             <img
               src="/logo.png"
               alt="Armadam Batardeaux"
-              className="h-11 md:h-14 w-auto block object-contain"
+              className="h-14 md:h-16 w-auto block object-contain mix-blend-multiply"
             />
           </Link>
 
