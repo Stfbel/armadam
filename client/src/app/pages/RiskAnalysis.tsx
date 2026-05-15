@@ -23,6 +23,7 @@ interface RecoResult {
 interface QuizAnswers {
   protection: string;
   structure: string;
+  hauteur: string;
   delay: string;
 }
 
@@ -41,9 +42,14 @@ interface LocationData {
 interface DepthData {
   depth: number;
   kpa: number;
-  zone: string;
-  risk: string;
 }
+
+// Hauteur d'eau sélectionnée par l'utilisateur → valeur réelle en mètres
+const DEPTH_MAP: Record<string, number> = {
+  moins60: 0.45,
+  de60a150: 1.0,
+  plus150: 2.0,
+};
 
 // ── RECO_DB ───────────────────────────────────────────────────────────────────
 const RECO_DB: Record<string, Product> = {
@@ -196,12 +202,6 @@ function imgKey(name: string) {
   return `/images/${name.toLowerCase().replace(/\s+/g, '-').replace(/_/g, '-')}.webp`;
 }
 
-function riskBadge(risk: string) {
-  if (risk === 'Faible') return 'text-green-700 bg-green-50 border-green-200';
-  if (risk === 'Modéré') return 'text-amber-700 bg-amber-50 border-amber-200';
-  return 'text-red-700 bg-red-50 border-red-200';
-}
-
 // ── COMPONENT ─────────────────────────────────────────────────────────────────
 export function RiskAnalysis() {
   const [address, setAddress] = useState('');
@@ -214,7 +214,7 @@ export function RiskAnalysis() {
     document.querySelector('meta[name="description"]')?.setAttribute('content',
       'Évaluez votre projet de batardeau en 3 questions. Armadam vous recommande le bon système Garrison selon votre situation — résidentiel, commercial ou industriel.');
   }, []);
-  const [quizStep, setQuizStep] = useState<1 | 2 | 3>(1);
+  const [quizStep, setQuizStep] = useState<1 | 2 | 3 | 4>(1);
   const [answers, setAnswers] = useState<Partial<QuizAnswers>>({});
   const [location, setLocation] = useState<LocationData | null>(null);
   const [depthData, setDepthData] = useState<DepthData | null>(null);
@@ -241,19 +241,7 @@ export function RiskAnalysis() {
     setShowSugg(false);
     setLoading(false);
     setLocation({ lat, lon, name });
-
-    const seed = Math.abs(Math.sin(lat * 100 + lon * 77));
-    const depth = parseFloat((seed * 3.2 + 0.3).toFixed(2));
-    const kpa = parseFloat((depth * 9.81).toFixed(1));
-
-    let zone: string;
-    let risk: string;
-    if (depth < 0.91) { zone = 'Zone C'; risk = 'Faible'; }
-    else if (depth < 1.02) { zone = 'Zone B'; risk = 'Modéré'; }
-    else if (depth < 2.44) { zone = 'Zone A'; risk = 'Élevé'; }
-    else { zone = 'Zone 0'; risk = 'Extrême'; }
-
-    setDepthData({ depth, kpa, zone, risk });
+    setDepthData(null);
     setStep('quiz');
     setQuizStep(1);
     setAnswers({});
@@ -289,11 +277,14 @@ export function RiskAnalysis() {
     const newAnswers = { ...answers, [key]: val };
     setAnswers(newAnswers);
 
-    if (quizStep < 3) {
-      setQuizStep((quizStep + 1) as 2 | 3);
+    if (quizStep < 4) {
+      setQuizStep((quizStep + 1) as 2 | 3 | 4);
     } else {
+      const depth = DEPTH_MAP[newAnswers.hauteur!] ?? 1.0;
+      const kpa = parseFloat((depth * 9.81).toFixed(1));
+      setDepthData({ depth, kpa });
       const result = computeReco(
-        depthData!.depth,
+        depth,
         newAnswers.protection!,
         newAnswers.structure!,
         val,
@@ -322,6 +313,11 @@ export function RiskAnalysis() {
       { val: 'autre', label: 'Autre / mixte', sub: 'Bois, métal, ou incertain', icon: 'home_repair_service' },
     ],
     3: [
+      { val: 'moins60', label: 'Moins de 60 cm', sub: 'Crues légères, ruissellement, refoulement', icon: 'water' },
+      { val: 'de60a150', label: '60 cm à 1,5 m', sub: 'Inondations modérées à importantes', icon: 'water_damage' },
+      { val: 'plus150', label: 'Plus de 1,5 m', sub: 'Crues majeures, zones à risque élevé', icon: 'flood' },
+    ],
+    4: [
       { val: 'urgent', label: "Moins d'1 heure", sub: "Urgence — crue imminente ou en cours", icon: 'alarm' },
       { val: 'moyen', label: '1 à 4 heures', sub: "Quelques heures avant l'arrivée de l'eau", icon: 'schedule' },
       { val: 'planifie', label: 'Installation planifiée', sub: 'Protection saisonnière ou permanente', icon: 'event_available' },
@@ -331,13 +327,15 @@ export function RiskAnalysis() {
   const QUIZ_QUESTIONS: Record<number, string> = {
     1: 'Que voulez-vous protéger ?',
     2: 'Type de structure ?',
-    3: "Temps disponible pour l'installation ?",
+    3: 'Hauteur d\'eau estimée ?',
+    4: "Temps disponible pour l'installation ?",
   };
 
   const QUIZ_KEYS: Record<number, keyof QuizAnswers> = {
     1: 'protection',
     2: 'structure',
-    3: 'delay',
+    3: 'hauteur',
+    4: 'delay',
   };
 
   return (
@@ -353,8 +351,8 @@ export function RiskAnalysis() {
             Quel système pour votre propriété ?
           </h1>
           <p className="text-lg text-gray-300 mb-10 max-w-2xl leading-relaxed">
-            Entrez votre adresse. Nous estimons la profondeur de crue de votre secteur
-            et vous guidons en 3 questions vers le bon produit Garrison.
+            Localisez votre projet, puis répondez à 4 questions pour obtenir la recommandation
+            Garrison adaptée à votre situation réelle.
           </p>
 
           <div className="relative">
@@ -423,37 +421,6 @@ export function RiskAnalysis() {
         </section>
       )}
 
-      {/* Depth stats */}
-      {depthData && step !== 'idle' && (
-        <section className="bg-gray-50 border-b border-gray-100 py-8">
-          <div className="max-w-4xl mx-auto px-6 lg:px-8">
-            <div className="text-xs font-bold font-['JetBrains_Mono'] uppercase tracking-widest text-gray-500 mb-4">
-              Analyse du secteur
-            </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {[
-                { label: 'Profondeur indicative', value: `${depthData.depth.toFixed(2)} m`, color: 'text-[#1F4E79]' },
-                { label: 'Pression hydrostatique', value: `${depthData.kpa} kPa`, color: 'text-gray-900' },
-                { label: 'Zone de crue approx.', value: depthData.zone, color: 'text-gray-900' },
-              ].map((stat, i) => (
-                <div key={i} className="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
-                  <div className="text-xs text-gray-500 mb-1 font-['JetBrains_Mono']">{stat.label}</div>
-                  <div className={`text-2xl font-bold font-['Raleway'] ${stat.color}`}>{stat.value}</div>
-                </div>
-              ))}
-              <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
-                <div className="text-xs text-gray-500 mb-2 font-['JetBrains_Mono']">Risque indicatif</div>
-                <span className={`inline-flex items-center px-3 py-1.5 rounded-full text-sm font-bold border ${riskBadge(depthData.risk)}`}>
-                  {depthData.risk}
-                </span>
-              </div>
-            </div>
-            <p className="text-xs text-gray-400 mt-3 font-['JetBrains_Mono']">
-              ⚠ Estimation illustrative — consulter les cartes de zones inondables officielles (MELCCFP / municipalité) pour une évaluation réglementaire.
-            </p>
-          </div>
-        </section>
-      )}
 
       {/* Quiz */}
       {step === 'quiz' && (
@@ -461,7 +428,7 @@ export function RiskAnalysis() {
           <div className="max-w-4xl mx-auto px-6 lg:px-8">
             {/* Progress */}
             <div className="flex gap-2 mb-10">
-              {[1, 2, 3].map(n => (
+              {[1, 2, 3, 4].map(n => (
                 <div
                   key={n}
                   className={`h-1 flex-1 rounded-full transition-all duration-300 ${n <= quizStep ? 'bg-[#1F4E79]' : 'bg-gray-200'}`}
@@ -470,14 +437,14 @@ export function RiskAnalysis() {
             </div>
 
             <div className="text-xs text-gray-400 font-['JetBrains_Mono'] mb-2 uppercase tracking-widest">
-              Étape {quizStep} / 3
+              Étape {quizStep} / 4
             </div>
             <h3 className="text-3xl font-bold font-['Raleway'] mb-8">
               {QUIZ_QUESTIONS[quizStep]}
             </h3>
 
             <div className="grid md:grid-cols-3 gap-5">
-              {QUIZ_OPTIONS[quizStep as 1 | 2 | 3].map(opt => (
+              {QUIZ_OPTIONS[quizStep as 1 | 2 | 3 | 4].map(opt => (
                 <button
                   key={opt.val}
                   onClick={() => answerQuiz(QUIZ_KEYS[quizStep], opt.val)}
@@ -494,7 +461,7 @@ export function RiskAnalysis() {
 
             {quizStep > 1 && (
               <button
-                onClick={() => setQuizStep((quizStep - 1) as 1 | 2)}
+                onClick={() => setQuizStep((quizStep - 1) as 1 | 2 | 3)}
                 className="mt-8 text-sm text-gray-400 hover:text-gray-600 flex items-center gap-1 transition-all"
               >
                 <span className="material-symbols-outlined text-base">arrow_back</span>
@@ -606,8 +573,8 @@ export function RiskAnalysis() {
               Entrez votre adresse pour commencer
             </h3>
             <p className="text-gray-500 max-w-md mx-auto leading-relaxed">
-              L'outil analyse la profondeur de crue estimée de votre secteur et vous recommande
-              le système Garrison adapté en 3 questions.
+              Entrez votre adresse pour localiser votre projet, puis répondez à 4 questions
+              pour obtenir la recommandation Garrison adaptée à votre situation.
             </p>
           </div>
         </section>

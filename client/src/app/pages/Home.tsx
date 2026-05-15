@@ -48,14 +48,6 @@ export function Home() {
 
         <div className="relative h-full max-w-7xl mx-auto px-6 lg:px-8 flex flex-col justify-center py-32 lg:py-40">
 
-          {/* Eyebrow — identité technique */}
-          <div className="flex items-center gap-3 mb-10">
-            <div className="w-6 h-px bg-[#C4862A]" />
-            <span className="text-xs font-bold text-[#C4862A] font-['JetBrains_Mono'] uppercase tracking-[0.2em]">
-              Distributeur officiel · Garrison Flood Control
-            </span>
-          </div>
-
           {/* H1 — typographie industrielle forte */}
           <h1 className="font-['Raleway'] leading-none mb-10 max-w-3xl">
             <span className="block text-2xl lg:text-3xl font-light text-white/50 tracking-wide mb-3">
@@ -64,7 +56,7 @@ export function Home() {
             <span className="block text-5xl lg:text-7xl font-black text-white tracking-tight">
               pour les
             </span>
-            <span className="block text-5xl lg:text-7xl font-black tracking-tight" style={{ color: '#C4862A' }}>
+            <span className="block text-5xl lg:text-7xl font-black tracking-tight" style={{ color: '#2B6CB0' }}>
               environnements
             </span>
             <span className="block text-5xl lg:text-7xl font-black text-white tracking-tight">
@@ -81,7 +73,7 @@ export function Home() {
           <div className="flex flex-col sm:flex-row gap-4">
             <Link
               to="/contact"
-              className="inline-flex items-center justify-center gap-2 bg-[#C4862A] hover:bg-[#D4962A] text-white px-8 py-4 font-bold font-['Raleway'] transition-all shadow-lg"
+              className="inline-flex items-center justify-center gap-2 bg-[#1F4E79] hover:bg-[#2B6CB0] text-white px-8 py-4 font-bold font-['Raleway'] transition-all shadow-lg"
             >
               Demander une soumission
               <span className="material-symbols-outlined text-base">arrow_forward</span>
@@ -116,8 +108,8 @@ export function Home() {
 
           <div className="mb-14">
             <div className="flex items-center gap-3 mb-5">
-              <div className="w-6 h-px bg-[#C4862A]" />
-              <span className="text-xs font-bold text-[#C4862A] font-['JetBrains_Mono'] uppercase tracking-[0.2em]">
+              <div className="w-6 h-px bg-[#2B6CB0]" />
+              <span className="text-xs font-bold text-[#2B6CB0] font-['JetBrains_Mono'] uppercase tracking-[0.2em]">
                 Applications
               </span>
             </div>
@@ -129,10 +121,10 @@ export function Home() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-white/5">
             {APPLICATIONS.map((app) => (
               <div key={app.label} className="bg-[#111111] p-8 hover:bg-[#1A1A1A] transition-colors group">
-                <span className="material-symbols-outlined text-2xl text-[#C4862A] mb-5 block">
+                <span className="material-symbols-outlined text-2xl text-[#2B6CB0] mb-5 block">
                   {app.icon}
                 </span>
-                <div className="text-base font-bold font-['Raleway'] text-white mb-2 group-hover:text-[#C4862A] transition-colors">
+                <div className="text-base font-bold font-['Raleway'] text-white mb-2 group-hover:text-[#2B6CB0] transition-colors">
                   {app.label}
                 </div>
                 <div className="text-sm text-white/40 leading-relaxed font-light">
@@ -166,8 +158,8 @@ export function Home() {
             <div className="w-full lg:max-w-[540px] px-6 lg:pl-16 lg:pr-8 py-20">
 
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-6 h-px bg-[#C4862A]" />
-                <span className="text-xs font-bold text-[#C4862A] font-['JetBrains_Mono'] uppercase tracking-[0.2em]">
+                <div className="w-6 h-px bg-[#2B6CB0]" />
+                <span className="text-xs font-bold text-[#2B6CB0] font-['JetBrains_Mono'] uppercase tracking-[0.2em]">
                   Pourquoi Garrison
                 </span>
               </div>
@@ -179,7 +171,7 @@ export function Home() {
               <div className="space-y-8">
                 {WHY_GARRISON.map((item) => (
                   <div key={item.num} className="flex gap-5">
-                    <div className="text-xs font-bold font-['JetBrains_Mono'] text-[#C4862A] mt-0.5 w-6 flex-shrink-0 tracking-wider">
+                    <div className="text-xs font-bold font-['JetBrains_Mono'] text-[#2B6CB0] mt-0.5 w-6 flex-shrink-0 tracking-wider">
                       {item.num}
                     </div>
                     <div>
@@ -192,7 +184,7 @@ export function Home() {
 
               <Link
                 to="/produits"
-                className="inline-flex items-center gap-2 mt-10 text-sm font-medium text-white/60 hover:text-[#C4862A] transition-colors font-['JetBrains_Mono'] uppercase tracking-wider"
+                className="inline-flex items-center gap-2 mt-10 text-sm font-medium text-white/60 hover:text-[#2B6CB0] transition-colors font-['JetBrains_Mono'] uppercase tracking-wider"
               >
                 Voir les 14 systèmes
                 <span className="material-symbols-outlined text-base">arrow_forward</span>
@@ -209,8 +201,8 @@ export function Home() {
           <div className="flex items-end justify-between mb-14">
             <div>
               <div className="flex items-center gap-3 mb-5">
-                <div className="w-6 h-px bg-[#C4862A]" />
-                <span className="text-xs font-bold text-[#C4862A] font-['JetBrains_Mono'] uppercase tracking-[0.2em]">
+                <div className="w-6 h-px bg-[#2B6CB0]" />
+                <span className="text-xs font-bold text-[#2B6CB0] font-['JetBrains_Mono'] uppercase tracking-[0.2em]">
                   Sélection produits
                 </span>
               </div>
@@ -220,7 +212,7 @@ export function Home() {
             </div>
             <Link
               to="/produits"
-              className="hidden md:flex items-center gap-2 text-sm text-white/40 hover:text-[#C4862A] hover:gap-3 transition-all font-medium font-['JetBrains_Mono'] uppercase tracking-wider"
+              className="hidden md:flex items-center gap-2 text-sm text-white/40 hover:text-[#2B6CB0] hover:gap-3 transition-all font-medium font-['JetBrains_Mono'] uppercase tracking-wider"
             >
               Voir les 14 systèmes
               <span className="material-symbols-outlined text-base">arrow_forward</span>
@@ -260,7 +252,7 @@ export function Home() {
                     <div className="text-xs text-white/30 font-['JetBrains_Mono'] uppercase tracking-wider mb-0.5">Prix</div>
                     <div className="text-sm font-bold font-['JetBrains_Mono'] text-white">Sur devis</div>
                   </div>
-                  <span className="flex items-center gap-1.5 text-[#C4862A] font-semibold text-xs font-['JetBrains_Mono'] uppercase tracking-wider group-hover:gap-3 transition-all">
+                  <span className="flex items-center gap-1.5 text-[#2B6CB0] font-semibold text-xs font-['JetBrains_Mono'] uppercase tracking-wider group-hover:gap-3 transition-all">
                     Détails
                     <span className="material-symbols-outlined text-base">arrow_forward</span>
                   </span>
@@ -299,7 +291,7 @@ export function Home() {
                     <div className="text-xs text-white/30 font-['JetBrains_Mono'] uppercase tracking-wider mb-0.5">À partir de</div>
                     <div className="text-sm font-bold font-['JetBrains_Mono'] text-white">580 $ CAD</div>
                   </div>
-                  <span className="flex items-center gap-1.5 text-[#C4862A] font-semibold text-xs font-['JetBrains_Mono'] uppercase tracking-wider group-hover:gap-3 transition-all">
+                  <span className="flex items-center gap-1.5 text-[#2B6CB0] font-semibold text-xs font-['JetBrains_Mono'] uppercase tracking-wider group-hover:gap-3 transition-all">
                     Détails
                     <span className="material-symbols-outlined text-base">arrow_forward</span>
                   </span>
@@ -358,11 +350,11 @@ export function Home() {
         <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center">
 
           <div className="flex items-center justify-center gap-3 mb-8">
-            <div className="w-8 h-px bg-[#C4862A]" />
-            <span className="text-xs font-bold text-[#C4862A] font-['JetBrains_Mono'] uppercase tracking-[0.2em]">
+            <div className="w-8 h-px bg-[#2B6CB0]" />
+            <span className="text-xs font-bold text-[#2B6CB0] font-['JetBrains_Mono'] uppercase tracking-[0.2em]">
               Contact
             </span>
-            <div className="w-8 h-px bg-[#C4862A]" />
+            <div className="w-8 h-px bg-[#2B6CB0]" />
           </div>
 
           <h2 className="text-4xl lg:text-5xl font-black font-['Raleway'] text-white mb-6 leading-tight">
@@ -376,7 +368,7 @@ export function Home() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               to="/contact"
-              className="inline-flex items-center justify-center gap-2 bg-[#C4862A] hover:bg-[#D4962A] text-white px-10 py-4 font-bold font-['Raleway'] transition-all shadow-lg"
+              className="inline-flex items-center justify-center gap-2 bg-[#1F4E79] hover:bg-[#2B6CB0] text-white px-10 py-4 font-bold font-['Raleway'] transition-all shadow-lg"
             >
               Demander une soumission
               <span className="material-symbols-outlined text-base">arrow_forward</span>
