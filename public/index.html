@@ -218,20 +218,40 @@ nav{position:sticky;top:0;z-index:1000;background:rgba(246,245,243,0.96);backdro
 .dg-fill{position:absolute;bottom:0;width:100%;border-radius:6px;transition:height 1.2s cubic-bezier(.4,0,.2,1),background .5s;}
 .dg-labels{display:flex;flex-direction:column;justify-content:space-between;height:120px;font-size:10px;color:var(--stone);}
 
+/* wizard qualification */
+.quiz-box{background:var(--white);border:1px solid var(--rule);border-radius:2px;padding:14px;display:none;}
+.quiz-box.show{display:block;}
+.quiz-progress{display:flex;gap:4px;margin-bottom:14px;}
+.quiz-dot{height:3px;flex:1;background:var(--rule);border-radius:2px;transition:background .2s;}
+.quiz-dot.on{background:var(--blue);}
+.quiz-step{display:none;}
+.quiz-step.on{display:block;}
+.quiz-q{font-family:'Raleway',sans-serif;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--stone);margin-bottom:10px;}
+.quiz-opts{display:flex;flex-direction:column;gap:6px;}
+.quiz-opt{padding:10px 12px;background:var(--bg);border:1px solid var(--rule);border-radius:2px;font-size:12px;font-weight:500;color:var(--ink);cursor:pointer;text-align:left;transition:background .12s,border-color .12s;width:100%;}
+.quiz-opt:hover{background:var(--blue-pale);border-color:var(--blue);}
+.quiz-opt-sub{display:block;font-size:10px;color:var(--stone);margin-top:2px;font-weight:400;}
+.quiz-back{font-size:10px;color:var(--stone);background:none;border:none;cursor:pointer;margin-top:10px;padding:0;display:block;}
+.quiz-back:hover{color:var(--ink);}
+
 /* recommendation card */
 .reco-card{background:var(--blue-pale);border:1.5px solid var(--blue);border-radius:2px;padding:14px;display:none;}
 .reco-card.show{display:block;}
 .reco-badge{display:inline-block;background:var(--blue);color:var(--white);font-family:'Raleway',sans-serif;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:3px 10px;border-radius:2px;margin-bottom:10px;}
 .reco-name{font-family:'Raleway',sans-serif;font-size:20px;font-weight:800;color:var(--ink);margin-bottom:4px;}
-.reco-desc{font-size:11px;color:var(--stone);line-height:1.6;margin-bottom:12px;}
-.reco-specs{display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-bottom:12px;}
-.rs{background:var(--white);padding:6px 8px;border-radius:1px;}
-.rs-l{font-size:8px;color:var(--stone);text-transform:uppercase;letter-spacing:.1em;display:block;margin-bottom:1px;}
-.rs-v{font-size:11px;font-weight:600;color:var(--blue);}
+.reco-why{font-size:11px;color:var(--stone);line-height:1.6;margin-bottom:10px;}
+.reco-install{background:var(--white);border-radius:2px;padding:10px;margin-bottom:8px;}
+.reco-install-lbl{font-family:'Raleway',sans-serif;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin-bottom:4px;}
+.reco-install-txt{font-size:11px;color:var(--ink);line-height:1.6;}
+.reco-caveat{font-size:10px;color:var(--warn);line-height:1.5;margin-bottom:8px;padding:6px 8px;background:rgba(160,112,16,.08);border-radius:2px;}
+.reco-complement{font-size:10px;color:var(--stone);line-height:1.5;margin-bottom:12px;padding:6px 8px;border-left:2px solid var(--rule);}
 .reco-price{font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:600;color:var(--ink);margin-bottom:12px;}
 .reco-price small{font-size:12px;font-weight:400;color:var(--stone);}
-.reco-cta{width:100%;padding:11px;background:var(--ink);color:var(--white);font-family:'Raleway',sans-serif;font-size:12px;font-weight:700;border:none;border-radius:2px;cursor:pointer;transition:background .15s;}
+.reco-actions{display:flex;gap:8px;}
+.reco-cta{flex:1;padding:11px;background:var(--ink);color:var(--white);font-family:'Raleway',sans-serif;font-size:11px;font-weight:700;border:none;border-radius:2px;cursor:pointer;transition:background .15s;}
 .reco-cta:hover{background:var(--blue);}
+.reco-restart{padding:11px 14px;background:transparent;color:var(--stone);font-family:'Raleway',sans-serif;font-size:11px;font-weight:600;border:1px solid var(--rule);border-radius:2px;cursor:pointer;white-space:nowrap;transition:border-color .15s;}
+.reco-restart:hover{border-color:var(--stone);color:var(--ink);}
 
 /* ═══════════════════════════════════
    PAGE 3 — CATALOGUE
@@ -1036,11 +1056,77 @@ select.fi{cursor:pointer;}
         </div>
       </div>
 
+      <!-- ── WIZARD DE QUALIFICATION ── -->
+      <div class="quiz-box" id="quiz-box">
+        <div class="quiz-progress">
+          <div class="quiz-dot on" id="qd1"></div>
+          <div class="quiz-dot" id="qd2"></div>
+          <div class="quiz-dot" id="qd3"></div>
+        </div>
+
+        <div class="quiz-step on" id="qs1">
+          <div class="quiz-q">Qu'est-ce qui doit être protégé ?</div>
+          <div class="quiz-opts">
+            <button class="quiz-opt" onclick="quizAnswer(1,'ouverture')">
+              Ouverture(s) spécifique(s)
+              <span class="quiz-opt-sub">Porte · garage · fenêtre · accès de sous-sol · couloir</span>
+            </button>
+            <button class="quiz-opt" onclick="quizAnswer(1,'perimetre')">
+              Périmètre
+              <span class="quiz-opt-sub">Tour du bâtiment · propriété riveraine · chantier · infrastructure</span>
+            </button>
+            <button class="quiz-opt" onclick="quizAnswer(1,'urgence')">
+              Urgence — eau qui monte maintenant
+              <span class="quiz-opt-sub">Pas de préparation · solution rapide requise immédiatement</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="quiz-step" id="qs2">
+          <div class="quiz-q">Type de structure à protéger ?</div>
+          <div class="quiz-opts">
+            <button class="quiz-opt" onclick="quizAnswer(2,'maconnerie')">
+              Maçonnerie / béton
+              <span class="quiz-opt-sub">Murs béton · bloc · brique — fixation permanente possible</span>
+            </button>
+            <button class="quiz-opt" onclick="quizAnswer(2,'bois')">
+              Bois / métal / autre matériau
+              <span class="quiz-opt-sub">Cadre de bois · acier · installation sans ancrage dans la structure</span>
+            </button>
+            <button class="quiz-opt" onclick="quizAnswer(2,'temporaire')">
+              Aucune fixation — terrain ouvert
+              <span class="quiz-opt-sub">Périmètre sur sol · berge · aucune structure fixe adjacente</span>
+            </button>
+          </div>
+          <button class="quiz-back" onclick="quizBack(1)">← Retour</button>
+        </div>
+
+        <div class="quiz-step" id="qs3">
+          <div class="quiz-q">Temps disponible avant l'inondation ?</div>
+          <div class="quiz-opts">
+            <button class="quiz-opt" onclick="quizAnswer(3,'long')">
+              1 heure ou plus
+              <span class="quiz-opt-sub">Préparation possible · installation soignée</span>
+            </button>
+            <button class="quiz-opt" onclick="quizAnswer(3,'moyen')">
+              15 à 60 minutes
+              <span class="quiz-opt-sub">Temps limité · déploiement rapide requis</span>
+            </button>
+            <button class="quiz-opt" onclick="quizAnswer(3,'urgent')">
+              Moins de 15 minutes
+              <span class="quiz-opt-sub">Urgence immédiate · eau déjà présente ou imminente</span>
+            </button>
+          </div>
+          <button class="quiz-back" onclick="quizBack(2)">← Retour</button>
+        </div>
+      </div>
+
+      <!-- ── RÉSULTAT RECOMMENDATION ── -->
       <div class="reco-card" id="reco-card">
-        <div class="reco-badge" id="reco-badge">Diagnostic</div>
+        <div class="reco-badge" id="reco-badge">Recommandation personnalisée</div>
         <div class="reco-name" id="reco-name">—</div>
 
-        <!-- Engineering chain: depth → kPa → system -->
+        <!-- Engineering chain -->
         <div class="diag-chain">
           <div class="diag-chain-step">
             <div class="diag-chain-val" id="diag-depth">—</div>
@@ -1058,12 +1144,20 @@ select.fi{cursor:pointer;}
           </div>
         </div>
 
-        <!-- Mini cross-section SVG -->
         <svg id="diag-mini-svg" class="diag-mini-svg" viewBox="0 0 240 70"></svg>
 
-        <div class="reco-desc" id="reco-desc">—</div>
+        <div class="reco-why" id="reco-why">—</div>
+        <div class="reco-install" id="reco-install" style="display:none;">
+          <div class="reco-install-lbl">Installation</div>
+          <div class="reco-install-txt" id="reco-install-txt">—</div>
+        </div>
+        <div class="reco-caveat" id="reco-caveat" style="display:none;"></div>
+        <div class="reco-complement" id="reco-complement" style="display:none;"></div>
         <div class="reco-price" id="reco-price">—</div>
-        <button class="reco-cta" onclick="goToConfig()">Configurer ce système →</button>
+        <div class="reco-actions">
+          <button class="reco-cta" onclick="goToConfig()">Demander un devis →</button>
+          <button class="reco-restart" onclick="restartWizard()">Modifier</button>
+        </div>
       </div>
     </div>
 
@@ -2352,6 +2446,197 @@ function initMap() {
   leafletMap._customIcon = icon;
 }
 
+// ── RECOMMENDATION DATABASE ─────────────────────────────────────────────────
+const RECO_DB = {
+  HAMMERHEAD:{name:'HAMMERHEAD',tier:'Ouvertures — Aluminium',price:0,priceStr:'Sur devis',height:0.91,
+    why:(d,kpa)=>`Profondeur ${d} m (${kpa} kPa) — planches aluminium avec joints EPDM SureGasket™. Hauteur illimitée (stackable), largeur jusqu'à 3.6 m par module. FEMA NFIP TB3. Installation permanente dans la maçonnerie — déploiement en 10-15 min avant chaque crue.`,
+    install:'Montants U-Channel fixés dans béton ou maçonnerie (drill requis à la 1re installation). Planches glissées dans les montants de bas en haut, tightening progressif avec clé Allen.',
+    caveat:null,complement:'Ajouter SEA SPONGE pour drainer l\'infiltration résiduelle. MINNOW derrière la barrière pour absorber le seepage.'},
+  YELLOWFIN:{name:'YELLOWFIN',tier:'Ouvertures — Composite Premium',price:0,priceStr:'Sur devis',height:2.44,
+    why:(d,kpa)=>`Profondeur ${d} m (${kpa} kPa) — panneaux composite fibre de verre + cadre alu 6063-T6 anodisé + joints HDPE + hardware 316L SS. Span 3.35 m (11 pi), hauteurs 91–244 cm empilables. FEMA NFIP TB3. Idéal ouvertures larges, commerciales et institutionnelles.`,
+    install:'Chevilles drop-in ancrées dans béton/maçonnerie à la 1re pose (hammer drill). Déploiement suivant : glisser les panneaux, tightener les boulons avec clé Allen.',
+    caveat:'Surfaces de béton ou maçonnerie obligatoires — ne pas installer sur bois ou métal.',
+    complement:'SEA SPONGE pour drainage post-crue. MINNOW en complément pour les angles.'},
+  MAKO:{name:'MAKO',tier:'Ouvertures — Gonflable',price:580,priceStr:'À partir de 580 $ CAD',height:1.02,
+    why:(d,kpa)=>`Profondeur ${d} m (${kpa} kPa) — barrière gonflable PVC drop-stitch qui se pressurize dans l\'ouverture. Hauteurs 76 cm (30") ou 102 cm (40"). Aucune fixation permanente. Convient sur bois, pierre, béton, métal. Déploiement < 10 min.`,
+    install:'Déplier → partiellement gonfler → aligner dans l\'ouverture → gonfler chambre haute puis basse à 12-15 PSI → remplacer capuchons. Pompe à air incluse.',
+    caveat:'Ne pas installer sur cloisons sèches (sheetrock) ni surfaces poreuses ou paveuses. Surface lisse requise pour l\'étanchéité.',
+    complement:'SEA SPONGE pour évacuer infiltrations. MINNOW pour sceller les petits gaps.'},
+  BLUEFIN:{name:'BLUEFIN',tier:'Périmètre — Modulaire',price:0,priceStr:'Sur devis',height:2.44,
+    why:(d,kpa)=>`Profondeur ${d} m (${kpa} kPa) — mur périmètre modulaire alu 6063-T6 + noyau fibre de verre / polypropylène + joints EPDM ½" + hardware 316L SS marin. Hauteurs 91/122/183/244 cm. ~10 min/panneau à 2 personnes. Durée de vie 10+ ans.`,
+    install:'Panneaux connectés via système de loquets propriétaire — clé Allen fournie, aucun outil électrique requis. Câbles aircraft-grade disponibles pour stabilisation par vent. 73-78 kg/panneau (2 personnes obligatoires).',
+    caveat:null,complement:'MAYIM pour les courbes et périmètres irréguliers. SEA SPONGE pour le drainage post-crue.'},
+  MAYIM:{name:'MAYIM',tier:'Périmètre — Panneaux eau',price:13200,priceStr:'À partir de 13 200 $ CAD',height:1.02,
+    why:(d,kpa)=>`Profondeur ${d} m (${kpa} kPa) — panneaux L modulaires lestés par la pression de l\'eau. MB1=51 cm, MB2=76 cm, MB-MAX=102 cm. Connexion insert-lock, 3° d\'ajustement angulaire, panneaux courbes disponibles. S\'adapte aux surfaces légèrement irrégulières.`,
+    install:'Toujours connecter gauche→droite (debout derrière les barrières, L face à l\'eau). Incliner → insérer onglet mâle bas → poser → verrouiller onglet haut. L\'eau ballaste automatiquement. Ajouter MINNOW si eau monte lentement.',
+    caveat:'Ajouter ballast (MINNOW ou sacs de sable) si montée d\'eau lente — la pression hydrostatique est insuffisante au début du déploiement.',
+    complement:'Sceller aux murs avec bandes néoprène autocollantes ou film poly. BLUEFIN pour les sections droites longues.'},
+  STINGRAY:{name:'STINGRAY',tier:'Périmètre — Auto-déployant',price:950,priceStr:'À partir de 950 $ CAD',height:1.22,
+    why:(d,kpa)=>`Profondeur ${d} m (${kpa} kPa) — digue PVC mesh composite qui s\'ouvre en V automatiquement quand l\'eau remplit les poches internes. Hauteurs 51/76/122 cm. Longueurs 4.5 m ou 9 m connectables. 2 personnes, 27 m en ~20 min.`,
+    install:'Dérouler côté lesté face à l\'eau — 60 cm de dégagement derrière requis. Connecter sections par velcro industriel. Pré-déployer et maintenir ouvert (sacs de sable) si eau monte vite sans courant.',
+    caveat:'Terrain doit être nivelé et dégagé de débris, sod et roches. Sécher complètement avant rangement à l\'abri du soleil.',
+    complement:'MINNOW pour compléter aux extrémités. SEA SPONGE après la crue.'},
+  OYSTER:{name:'OYSTER',tier:'Auto-activé — Vanne hydrostatique',price:0,priceStr:'Sur devis',height:1.22,
+    why:(d,kpa)=>`Profondeur ${d} m (${kpa} kPa) — vanne auto-montante par pression hydrostatique. 4 couches : surface anti-dérapante alu, structure fonte, flottabilité inox 316L, base inox 304. Aucune électricité, aucune pile, aucune intervention. Couché pour le trafic normal.`,
+    install:'Installation surface (1-2 jours) ou encastrée/coulée dans béton (3-4 jours). Modules standard 60 cm de large — combinables pour toute largeur. Modules de remplissage 6-47 cm pour ajustement précis. Inspection annuelle + test eau selon manuel.',
+    caveat:'Installation permanente préalable obligatoire — ne pas utiliser en première urgence sans installation existante. Maintenir les drains dégagés pour éviter activation intempestive.',
+    complement:'SEA SPONGE pour drainage de l\'eau résiduelle après l\'événement.'},
+  GUPPY:{name:'GUPPY',tier:'Solutions rapides — Tubes eau',price:120,priceStr:'À partir de 120 $ CAD',height:0.61,
+    why:(d,kpa)=>`Profondeur ${d} m (${kpa} kPa) — tubes PVC mesh composite UV, antistatique, résistant aux produits chimiques. Diamètres 15/30/61 cm. Longueurs 3 à 30 m. Réutilisable — vider et rouler après usage.`,
+    install:'Dérouler à l\'endroit voulu → dévisser le bouchon de remplissage → connecter boyau d\'arrosage standard → remplir (ne pas trop remplir — laisser flexibilité) → bouchon anti-reflux. D-rings pour ancrage au sol si courant fort.',
+    caveat:'Remplissage lent pour grands formats (10h+ pour tubes 24"×100 pi). Prévoir en avance. En hiver : remplir à ¾ ou ajouter antigel VR.',
+    complement:'Empiler plusieurs tubes pour augmenter la hauteur. SEA SPONGE pour drainage après.'},
+  GUPPY_MAX:{name:'GUPPY MAX',tier:'Industriel — Tube eau grande capacité',price:3100,priceStr:'~3 100 $ CAD/section',height:0.97,
+    why:(d,kpa)=>`Profondeur ${d} m (${kpa} kPa) — 3 chambres trapézoïdales, 97 cm de protection, 9 m de long, 8 000 L d\'eau. Poids rempli ~8 000 kg. Pour grands périmètres industriels, cours d\'eau et urgences municipales.`,
+    install:'Remplissage via lance incendie 2½" (63 mm) — borne ou camion-citerne. 2 personnes. Vanne de drainage sur le côté pour retrait. Certifié EN13501-B1.',
+    caveat:'Accès obligatoire à une borne incendie ou camion-citerne. Poids rempli : ~8 000 kg — prévoir équipement de manutention pour repositionnement.',
+    complement:'Connecter plusieurs sections. SEA SPONGE pour drainage post-intervention.'},
+  SERPENT:{name:'SERPENT',tier:'Solutions rapides — Gonflable',price:2500,priceStr:'À partir de 2 500 $ CAD',height:1.02,
+    why:(d,kpa)=>`Profondeur ${d} m (${kpa} kPa) — tubes PVC mesh gonflables à 6 psi, jusqu\'à 102 cm de protection. ST1=4.5 m, ST2=9 m, sections connectables par velcro + cordes. Gonflage 8-18 min. Accessoires complets inclus.`,
+    install:'Dérouler skirting jaune côté eau → gonfler à 6 psi minimum (pompe électrique incluse) → connecter sections par velcro et corder les boucles métalliques → pieux de sol si nécessaire.',
+    caveat:'Sécher complètement avant rangement. Vérifier intégrité (patches de réparation inclus). 6 psi minimum — ne pas sous-gonfler.',
+    complement:'MINNOW pour les petites ouvertures en parallèle. SEA SPONGE après.'},
+  MINNOW:{name:'MINNOW',tier:'Solutions rapides — Sacs absorbants',price:55,priceStr:'À partir de 55 $ CAD',height:0.12,
+    why:(d,kpa)=>`Profondeur ${d} m — sacs en polyacrylate de sodium (SAP) non toxique. Absorbent ~22 kg d\'eau en 3-4 min. Légers à vide (<330 g), stockage sous vide 3+ ans. Empilables en briques pour barrières rapides.`,
+    install:'Ouvrir emballage sous vide → tremper dans eau douce 3-4 min jusqu\'à gonflement complet → empiler en briques décalées (côté long face à l\'eau). Base 2-3× la hauteur visée (ex: mur 60 cm = base 120-180 cm).',
+    caveat:'Eau douce uniquement — incompatible avec eau salée ou saumâtre. Vérifier que l\'eau disponible est douce avant activation.',
+    complement:'Utiliser derrière HAMMERHEAD, MAKO ou BLUEFIN pour absorber le seepage résiduel. Combiner avec film poly pour maximiser l\'étanchéité.'},
+  BELUGA:{name:'BELUGA',tier:'Solutions rapides — Sacs géants',price:40,priceStr:'À partir de 40 $ CAD/BG1',height:1.02,
+    why:(d,kpa)=>`Profondeur ${d} m — BG1 (91×91 cm × 102 cm H) ou BG5 concertina (4.5 m × 5 compartiments × 102 cm H). Un BG5 remplace ~750 sacs de sable. Polypropylène imperméable + perméable dos. UV 2200 h. Pour rives, chantiers, côtes.`,
+    install:'"Water Side" face à l\'eau. Remplir à l\'excavateur, chargeur frontal ou pelle. Rapprocher sans laisser de jeu — appliquer film poly aux jonctions pour meilleure étanchéité. Empiler en pyramide décalée jusqu\'à 2.75 m (avec approbation ingénieur).',
+    caveat:'Équipement lourd obligatoire pour remplissage et manutention. BG5 rempli ~15 000 kg (grue ou pelle avec élingues). BG1 rempli ~3 000 kg (chariot élévateur).',
+    complement:'SERPENT ou STINGRAY pour les zones sans accès équipement lourd. SEA SPONGE pour drainage.'},
+  SANDBAGS:{name:'SANDBAGS',tier:'Solutions rapides — Sacs de sable',price:0,priceStr:'Sur devis / palette',height:0.10,
+    why:(d,kpa)=>`Profondeur ${d} m — sacs polypropylène 35×66 cm, 6 mm d\'épaisseur, UV 1600 h. Remplir à 30 lbs (½ plein) pour permettre la conformation au sol. Universel, économique, toujours disponible.`,
+    install:'Remplir à 30 lbs (½ plein) avec pelle D-grip. Côté long face à l\'eau. Empiler en briques décalées. Base 2-3× la hauteur du mur (mur 120 cm = base 240-360 cm). Recouvrir de film poly si disponible.',
+    caveat:'Très intensif en main-d\'oeuvre : 12-15 sacs/heure à 2 personnes. Ne pas trop remplir — les sacs ne se conforment pas bien si trop durs. Ne jamais lancer — dos droit.',
+    complement:'MINNOW pour compléter rapidement. SEA SPONGE après la crue. Utiliser film poly sur le côté eau pour meilleure étanchéité.'},
+  SEA_SPONGE:{name:'SEA SPONGE',tier:'Complémentaire — Pompe de drainage',price:0,priceStr:'Sur devis',height:0,
+    why:(d,kpa)=>`Complémentaire à tout système Garrison — pompe submersible 2/3 HP, 50-170 L/min, draine jusqu\'à 1 mm résiduel. 110V/6.1A, 13 kg. Carter EPR, turbine uréthane, arbre inox 403.`,
+    install:'Brancher sur prise 110V ou génératrice → placer au point le plus bas → drainage automatique. S\'utilise après la crue, une fois la barrière en place.',
+    caveat:'Utiliser après la crue uniquement — jamais pendant. Complémentaire, pas une solution principale.',
+    complement:null}
+};
+
+// ── WIZARD QUALIFICATION ─────────────────────────────────────────────────────
+let quizAnswers = {}, lastAnalysisDepth = 0, lastAnalysisKpa = 0, lastAnalysisGc = 'var(--ok)';
+
+function quizAnswer(step, val) {
+  quizAnswers[step] = val;
+  if (step === 1 && val === 'urgence') {
+    quizAnswers[2] = 'temporaire';
+    showQuizStep(3);
+  } else if (step < 3) {
+    showQuizStep(step + 1);
+  } else {
+    buildReco();
+  }
+}
+
+function quizBack(toStep) {
+  showQuizStep(toStep);
+}
+
+function showQuizStep(n) {
+  document.querySelectorAll('.quiz-step').forEach(s => s.classList.remove('on'));
+  document.getElementById('qs' + n).classList.add('on');
+  for (let i = 1; i <= 3; i++) document.getElementById('qd' + i).classList.toggle('on', i <= n);
+}
+
+function restartWizard() {
+  quizAnswers = {};
+  document.getElementById('reco-card').classList.remove('show');
+  showQuizStep(1);
+  document.getElementById('quiz-box').classList.add('show');
+}
+
+function computeReco(d, protection, structure, delay) {
+  let primary, complement = null, caveat = null;
+
+  if (protection === 'ouverture') {
+    if (delay === 'urgent') {
+      primary = RECO_DB.MINNOW;
+      complement = 'Solution temporaire uniquement. Prévoir installation de HAMMERHEAD (maçonnerie) ou MAKO (tout support) dès que possible.';
+    } else if (structure === 'maconnerie') {
+      primary = d < 1.5 ? RECO_DB.HAMMERHEAD : RECO_DB.YELLOWFIN;
+    } else {
+      primary = RECO_DB.MAKO;
+    }
+    if (!complement) complement = 'Ajouter SEA SPONGE pour drainer les infiltrations résiduelles après la crue.';
+
+  } else if (protection === 'perimetre') {
+    if (delay === 'urgent') {
+      primary = d < 0.51 ? RECO_DB.STINGRAY : RECO_DB.MINNOW;
+      complement = 'STINGRAY si disponible et déployable en 20 min. MINNOW pour combler les gaps et ouvertures. SEA SPONGE après.';
+    } else if (delay === 'moyen') {
+      if (d < 0.76) primary = RECO_DB.STINGRAY;
+      else if (d < 1.02) primary = RECO_DB.SERPENT;
+      else primary = RECO_DB.BLUEFIN;
+      complement = 'Compléter avec MINNOW aux extrémités et autour des obstacles. SEA SPONGE pour le drainage.';
+    } else {
+      if (d < 0.51) primary = RECO_DB.STINGRAY;
+      else if (d < 1.02) primary = structure === 'temporaire' ? RECO_DB.MAYIM : RECO_DB.BLUEFIN;
+      else if (d < 2.44) primary = RECO_DB.BLUEFIN;
+      else {
+        primary = RECO_DB.BLUEFIN;
+        caveat = 'Profondeur extrême (>' + d + ' m). BLUEFIN à hauteur maximale 244 cm requis. Évaluation d\'ingénieur sur site fortement recommandée.';
+      }
+      if (!complement) complement = 'MAYIM pour les zones de périmètre avec courbes ou obstacles. SEA SPONGE pour drainage post-crue.';
+    }
+
+  } else {
+    if (delay === 'urgent') {
+      primary = RECO_DB.MINNOW;
+      complement = 'Empiler en briques décalées, base 2-3× la hauteur. Ajouter film poly côté eau. GUPPY si boyau disponible.';
+    } else if (delay === 'moyen') {
+      primary = d < 0.76 ? RECO_DB.STINGRAY : RECO_DB.SERPENT;
+      complement = 'MINNOW pour les ouvertures spécifiques en parallèle. SEA SPONGE après la crue.';
+    } else {
+      primary = d < 0.76 ? RECO_DB.STINGRAY : RECO_DB.GUPPY;
+      complement = 'MAYIM ou BLUEFIN si périmètre complet requis. MINNOW pour compléter les zones de seepage.';
+    }
+  }
+  return { primary, complement: complement || primary.complement, caveat: caveat || primary.caveat };
+}
+
+function buildReco() {
+  const d = parseFloat(lastAnalysisDepth);
+  const { primary, complement, caveat } = computeReco(d, quizAnswers[1], quizAnswers[2], quizAnswers[3]);
+
+  document.getElementById('quiz-box').classList.remove('show');
+  const card = document.getElementById('reco-card');
+  card.classList.add('show');
+
+  document.getElementById('reco-badge').textContent = 'Recommandation personnalisée';
+  document.getElementById('reco-name').textContent = primary.name;
+  document.getElementById('diag-sys').textContent = primary.name;
+
+  const whyEl = document.getElementById('reco-why');
+  whyEl.textContent = primary.why(lastAnalysisDepth, lastAnalysisKpa);
+
+  const installEl = document.getElementById('reco-install');
+  document.getElementById('reco-install-txt').textContent = primary.install;
+  installEl.style.display = 'block';
+
+  const caveatEl = document.getElementById('reco-caveat');
+  if (caveat) { caveatEl.textContent = '⚠ ' + caveat; caveatEl.style.display = 'block'; }
+  else caveatEl.style.display = 'none';
+
+  const compEl = document.getElementById('reco-complement');
+  if (complement) { compEl.textContent = '+ ' + complement; compEl.style.display = 'block'; }
+  else compEl.style.display = 'none';
+
+  const barrH = primary.height || 0.91;
+  drawDiagSection(d, barrH, lastAnalysisGc);
+
+  document.getElementById('reco-price').innerHTML = primary.price > 0
+    ? `${primary.priceStr} <small>CAD</small>`
+    : `<span style="font-size:13px;color:var(--stone)">${primary.priceStr}</span>`;
+
+  currentReco = { name: primary.name, price: primary.price };
+}
+
+// ── ANALYSE TERRAIN ──────────────────────────────────────────────────────────
 function analyzeLocation(lat, lon, name) {
   initMap();
   document.getElementById('map-placeholder').style.display = 'none';
@@ -2362,27 +2647,31 @@ function analyzeLocation(lat, lon, name) {
 
   const seed = Math.abs(Math.sin(lat * 100 + lon * 77));
   const depth = (seed * 3.2 + 0.3).toFixed(2);
-  let prodIdx = 0, zone, risk, riskClass;
   const d = parseFloat(depth);
-  // Seuils alignés sur les hauteurs réelles Garrison:
-  // HAMMERHEAD ≤ 0.91 m · MAKO ≤ 1.02 m · BLUEFIN ≤ 2.44 m · BLUEFIN (max) > 2.44 m
+  const kpa = (d * 9.81).toFixed(1);
+
+  let zone, risk, riskClass;
   if (terrainCtx === 'res') {
-    if (d < 0.91) { prodIdx=0; zone='Zone C — Faible risque'; risk='Faible'; riskClass='ok'; }
-    else if (d < 1.02) { prodIdx=1; zone='Zone B — Risque modéré'; risk='Modéré'; riskClass='warn'; }
-    else if (d < 2.44) { prodIdx=2; zone='Zone A — Risque élevé'; risk='Élevé'; riskClass='danger'; }
-    else { prodIdx=2; zone='Zone 0 — Risque extrême · évaluation requise'; risk='Extrême'; riskClass='danger'; }
+    if (d < 0.91)      { zone='Zone C — Faible risque';                        risk='Faible';       riskClass='ok'; }
+    else if (d < 1.02) { zone='Zone B — Risque modéré';                        risk='Modéré';       riskClass='warn'; }
+    else if (d < 2.44) { zone='Zone A — Risque élevé';                         risk='Élevé';        riskClass='danger'; }
+    else               { zone='Zone 0 — Risque extrême · ingénieur requis';    risk='Extrême';      riskClass='danger'; }
   } else {
-    if (d < 0.91) { prodIdx=0; zone='Protection ouverture standard'; risk='Standard'; riskClass='ok'; }
-    else if (d < 1.02) { prodIdx=1; zone='Protection périmètre modérée'; risk='Intermédiaire'; riskClass='warn'; }
-    else if (d < 2.44) { prodIdx=2; zone='Périmètre hauteur élevée'; risk='Exigeant'; riskClass='danger'; }
-    else { prodIdx=2; zone='Périmètre max · évaluation sur site requise'; risk='Urgence'; riskClass='danger'; }
+    if (d < 0.91)      { zone='Protection ouverture standard';                  risk='Standard';     riskClass='ok'; }
+    else if (d < 1.02) { zone='Périmètre modéré';                               risk='Intermédiaire';riskClass='warn'; }
+    else if (d < 2.44) { zone='Périmètre hauteur élevée';                       risk='Exigeant';     riskClass='danger'; }
+    else               { zone='Périmètre extrême · évaluation sur site';        risk='Urgence';      riskClass='danger'; }
   }
 
-  const popupLabel = terrainCtx === 'res' ? 'Profondeur d\'inondation' : 'Eau à contenir';
+  const gc = d < 1.2 ? 'var(--ok)' : d < 2 ? 'var(--warn)' : 'var(--danger)';
+  lastAnalysisDepth = depth;
+  lastAnalysisKpa = kpa;
+  lastAnalysisGc = gc;
+
   leafletMarker.bindPopup(`
     <div style="font-family:'DM Sans',sans-serif;min-width:160px;">
       <div style="font-weight:700;margin-bottom:4px;">${name}</div>
-      <div style="font-size:12px;color:#8C8680;">${popupLabel} : <strong style="color:#1F4E79;">${depth} m</strong></div>
+      <div style="font-size:12px;color:#8C8680;">${terrainCtx==='res'?'Profondeur d\'inondation':'Eau à contenir'} : <strong style="color:#1F4E79;">${depth} m</strong></div>
       <div style="font-size:12px;color:#8C8680;">${zone}</div>
     </div>
   `).openPopup();
@@ -2395,43 +2684,22 @@ function analyzeLocation(lat, lon, name) {
   const riskEl = document.getElementById('a-risk');
   riskEl.textContent = risk; riskEl.className = 'ar-v ' + riskClass;
   document.getElementById('a-depth-big').textContent = depth + ' m';
-  document.getElementById('a-depth-big').style.color = d < 1.2 ? 'var(--ok)' : d < 2 ? 'var(--warn)' : 'var(--danger)';
+  document.getElementById('a-depth-big').style.color = gc;
 
-  // Vertical gauge fill
   const pct = Math.min(100, (d / 3.5) * 100);
-  const gc = d < 1.2 ? 'var(--ok)' : d < 2 ? 'var(--warn)' : 'var(--danger)';
   const gauge = document.getElementById('a-gauge');
   gauge.style.height = '0%';
   setTimeout(() => { gauge.style.height = pct + '%'; gauge.style.background = gc; }, 50);
 
-  const prod = PRODUCTS[prodIdx];
-  currentReco = prod;
-  document.getElementById('reco-card').classList.add('show');
-  document.getElementById('reco-badge').textContent = terrainCtx === 'res' ? 'Diagnostic — protection' : 'Diagnostic — chantier';
-  document.getElementById('reco-name').textContent = prod.name;
-
-  // Engineering chain
-  const kpa = (d * 9.81).toFixed(1);
-  const barrierH = PROD_HEIGHTS[prodIdx];
   document.getElementById('diag-depth').textContent = depth + ' m';
   document.getElementById('diag-kpa').textContent = kpa;
-  document.getElementById('diag-sys').textContent = prod.name;
+  document.getElementById('diag-sys').textContent = '?';
 
-  // Mini cross-section SVG
-  drawDiagSection(d, barrierH, gc);
-
-  const extreme = d >= 2.44;
-  const recoDesc = terrainCtx === 'res'
-    ? extreme
-      ? `Profondeur estimée ${depth} m → pression ${kpa} kPa. Niveau extrême — le BLUEFIN à hauteur maximale (244 cm) est la solution Garrison la plus performante. Évaluation d'ingénierie sur site recommandée.`
-      : `Profondeur estimée ${depth} m → pression ${kpa} kPa. Le ${prod.name} est la protection recommandée : ${prod.specs.étanchéité || prod.specs.structure}.`
-    : extreme
-      ? `Eau à contenir : ${depth} m → pression ${kpa} kPa. Niveau extrême — BLUEFIN 244 cm requis. Contacter l'équipe Armadam pour une évaluation sur site.`
-      : `Eau à contenir : ${depth} m → pression ${kpa} kPa. Le ${prod.name} est le batardeau adapté à votre zone : ${prod.specs.déploiement}.`;
-  document.getElementById('reco-desc').textContent = recoDesc;
-  document.getElementById('reco-price').innerHTML = prod.price > 0
-    ? `À partir de ${prod.price.toLocaleString('fr-CA')} $ <small>CAD</small>`
-    : `<span style="font-size:13px;color:var(--stone)">Prix sur devis — contactez-nous</span>`;
+  // Reset wizard + reco card, show wizard
+  quizAnswers = {};
+  document.getElementById('reco-card').classList.remove('show');
+  showQuizStep(1);
+  document.getElementById('quiz-box').classList.add('show');
 }
 
 function drawDiagSection(depth, barrierH, color) {
