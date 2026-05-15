@@ -69,8 +69,8 @@ export function Home() {
             <div className="flex gap-10 mt-16 pt-8 border-t border-white/10">
               {[
                 { val: '14', label: 'Systèmes' },
-                { val: '24 h', label: 'Délai de réponse' },
-                { val: 'Stock', label: 'Livraison rapide' },
+                { val: '20 ans', label: "D'expertise" },
+                { val: '24 h', label: 'Réponse · Livraison rapide' },
               ].map((s, i) => (
                 <div key={i}>
                   <div className="text-3xl font-black font-['Raleway'] text-white">{s.val}</div>
