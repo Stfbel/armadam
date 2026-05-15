@@ -96,9 +96,9 @@ export function Home() {
                 Pas seulement<br />l'inondation.
               </h2>
               <p className="text-gray-400 text-lg leading-relaxed mb-8">
-                Les batardeaux Garrison protègent les ouvertures critiques, les périmètres
-                industriels, les rampes souterraines. Du résidentiel aux infrastructures
-                de transit — notre expertise couvre l'ensemble du spectre.
+                Du chantier résidentiel aux infrastructures complexes, nos batardeaux assurent
+                une gestion fiable et sécuritaire de l'eau dans les environnements les plus
+                exigeants, là où la maîtrise de l'eau est essentielle.
               </p>
               <div className="space-y-4 mb-8">
                 {[
