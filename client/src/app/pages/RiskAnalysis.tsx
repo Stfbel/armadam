@@ -129,7 +129,7 @@ const RECO_DB: Record<string, Product> = {
     name: 'SANDBAGS', tier: 'Solutions rapides — Sacs de sable', price: 0, priceStr: 'Sur devis / palette', height: 0.10,
     why: (d, kpa) => `Les sacs polypropylène 14"×26" (35–40 lbs remplis) avec protection UV intégrée. Solution universelle de base pour votre secteur à ${d.toFixed(2)} m. Disponibles à la palette.`,
     install: 'Remplir sur place. Empiler en quinconce. 14×26 pouces, protection UV intégrée polypropylène.',
-    caveat: 'Protection non certifiée — privilégier une solution FEMA/NFIP pour une protection fiable.',
+    caveat: 'Solution de base — pour une protection professionnelle durable, considérer un système Garrison adapté.',
     complement: 'À utiliser en complément d\'une barrière principale (STINGRAY, MINNOW, etc.)',
   },
   SEA_SPONGE: {
@@ -207,7 +207,7 @@ export function RiskAnalysis() {
   useEffect(() => {
     document.title = 'Évaluateur de projet — Quel batardeau ? | Armadam';
     document.querySelector('meta[name="description"]')?.setAttribute('content',
-      'Entrez votre adresse au Canada. Armadam estime la profondeur de crue et vous recommande le bon système Garrison Flood Control en 3 questions.');
+      'Évaluez votre projet de batardeau en 3 questions. Armadam vous recommande le bon système Garrison selon votre situation — résidentiel, commercial ou industriel.');
   }, []);
   const [quizStep, setQuizStep] = useState<1 | 2 | 3>(1);
   const [answers, setAnswers] = useState<Partial<QuizAnswers>>({});
@@ -228,7 +228,7 @@ export function RiskAnalysis() {
           setSuggestions(data);
           setShowSugg(data.length > 0);
         }
-      } catch { /* ignore */ }
+      } catch { setSuggestions([]); }
     }, 350);
   };
 
@@ -276,7 +276,7 @@ export function RiskAnalysis() {
           return;
         }
       }
-    } catch { /* ignore */ }
+    } catch { /* network error — address not found */ }
     setLoading(false);
   };
 

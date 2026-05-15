@@ -8,7 +8,7 @@ export function Catalog() {
   useEffect(() => {
     document.title = 'Catalogue — Batardeaux Garrison Flood Control | Armadam';
     document.querySelector('meta[name="description"]')?.setAttribute('content',
-      '14 systèmes de batardeaux certifiés FEMA/NFIP — ouvertures, périmètres, solutions automatiques et rapides. Distributeur officiel Garrison Flood Control au Canada.');
+      '14 systèmes de batardeaux Garrison — ouvertures, périmètres, solutions automatiques et rapides. Votre partenaire officiel pour tous vos projets au Canada.');
   }, []);
   const filteredProducts = activeFilter === 'Tous'
     ? products
@@ -27,8 +27,8 @@ export function Catalog() {
               Batardeaux Garrison Flood Control
             </h1>
             <p className="text-xl text-gray-600 leading-relaxed">
-              Distributeur officiel au Canada. Chaque système est certifié FEMA/NFIP,
-              fabriqué aux États-Unis, livré depuis notre stock local.
+              Votre partenaire officiel au Canada. Chaque système est fabriqué aux États-Unis
+              par Garrison et livré depuis notre stock local.
             </p>
           </div>
         </div>
@@ -108,9 +108,9 @@ export function Catalog() {
           <h2 className="text-3xl font-bold font-['Raleway'] mb-12">Pourquoi Garrison ?</h2>
           <div className="grid md:grid-cols-3 gap-8">
             {[
-              { icon: 'verified_user', title: 'Certifié FEMA/NFIP', desc: 'Systèmes conformes aux normes FM Global et FEMA. Certifications NFIP Bulletin technique 3.' },
+              { icon: 'workspace_premium', title: 'Qualité Garrison', desc: 'Systèmes fabriqués aux États-Unis, testés et éprouvés sur des centaines de projets en Amérique du Nord.' },
               { icon: 'local_shipping', title: 'Livraison Canada', desc: 'Distributeur officiel au Canada. Stock local disponible, livraison rapide partout au Canada.' },
-              { icon: 'engineering', title: 'Support technique', desc: 'Conseils professionnels pour chaque projet. Expertise en protection contre les inondations.' },
+              { icon: 'engineering', title: 'Support technique', desc: 'Conseils professionnels pour chaque projet — résidentiel, commercial ou industriel. Réponse en 24 h.' },
             ].map((item, i) => (
               <div key={i} className="flex gap-4">
                 <div className="flex-shrink-0 w-12 h-12 bg-[#1F4E79]/30 rounded-lg flex items-center justify-center">

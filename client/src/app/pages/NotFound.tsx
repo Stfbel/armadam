@@ -1,8 +1,7 @@
-import { useNavigate } from 'react-router';
+import { Link } from 'react-router';
 import { useEffect } from 'react';
 
 export function NotFound() {
-  const navigate = useNavigate();
   useEffect(() => { document.title = 'Page introuvable — Armadam'; }, []);
 
   return (
@@ -17,18 +16,18 @@ export function NotFound() {
           Retournez à l'accueil ou consultez notre catalogue.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <button
-            onClick={() => navigate('/')}
-            className="bg-[#1F4E79] hover:bg-[#2B6CB0] text-white px-8 py-4 rounded-lg font-bold font-['Raleway'] transition-all shadow-sm"
+          <Link
+            to="/"
+            className="bg-[#1F4E79] hover:bg-[#2B6CB0] text-white px-8 py-4 rounded-lg font-bold font-['Raleway'] transition-all shadow-sm text-center"
           >
             Retour à l'accueil
-          </button>
-          <button
-            onClick={() => navigate('/produits')}
-            className="bg-white hover:bg-gray-50 text-gray-900 px-8 py-4 rounded-lg font-bold font-['Raleway'] transition-all border border-gray-200 shadow-sm"
+          </Link>
+          <Link
+            to="/produits"
+            className="bg-white hover:bg-gray-50 text-gray-900 px-8 py-4 rounded-lg font-bold font-['Raleway'] transition-all border border-gray-200 shadow-sm text-center"
           >
             Voir les produits
-          </button>
+          </Link>
         </div>
       </div>
     </main>

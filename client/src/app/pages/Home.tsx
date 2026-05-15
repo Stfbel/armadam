@@ -6,9 +6,9 @@ const makoImage = '/images/mako.webp';
 
 export function Home() {
   useEffect(() => {
-    document.title = 'Armadam — Batardeaux Garrison Flood Control au Canada';
+    document.title = 'Armadam — Votre partenaire batardeaux au Canada';
     document.querySelector('meta[name="description"]')?.setAttribute('content',
-      'ARMADAM est le distributeur officiel Garrison Flood Control au Canada. Batardeaux certifiés FEMA/NFIP pour projets résidentiels, commerciaux et industriels. Devis en 24h.');
+      'Armadam, votre partenaire pour tous vos projets de batardeaux. Systèmes Garrison pour projets résidentiels, commerciaux et industriels partout au Canada. Devis en 24h.');
   }, []);
 
   return (
@@ -21,16 +21,16 @@ export function Home() {
         <div className="relative max-w-7xl mx-auto px-6 lg:px-8 py-24 lg:py-32">
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 mb-6">
-              <span className="text-sm font-medium">Distributeur officiel Garrison Flood Control</span>
+              <span className="text-sm font-medium">Votre partenaire batardeaux au Canada</span>
             </div>
 
             <h1 className="text-5xl lg:text-6xl font-bold font-['Raleway'] mb-6 leading-tight">
-              Protection contre les inondations — certifiée FEMA
+              Tous vos projets de batardeaux, livrés depuis le Canada
             </h1>
 
             <p className="text-xl text-gray-300 mb-10 leading-relaxed">
-              ARMADAM distribue les systèmes de batardeaux Garrison pour projets résidentiels,
-              commerciaux et industriels partout au Canada. Expertise, stock local, réponse en 24 h.
+              ARMADAM est votre partenaire pour chaque projet — résidentiel, commercial ou industriel.
+              Systèmes Garrison, stock local, expertise technique et réponse en 24 h.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
@@ -52,7 +52,7 @@ export function Home() {
             <div className="grid grid-cols-3 gap-8 mt-16 pt-8 border-t border-white/20">
               <div>
                 <div className="text-3xl font-bold font-['Raleway']">14</div>
-                <div className="text-sm text-gray-400 mt-1">Produits certifiés</div>
+                <div className="text-sm text-gray-400 mt-1">Systèmes Garrison</div>
               </div>
               <div>
                 <div className="text-3xl font-bold font-['Raleway']">CAN</div>
@@ -154,7 +154,7 @@ export function Home() {
                 <h3 className="text-2xl font-bold font-['Raleway'] mb-2">HAMMERHEAD</h3>
                 <p className="text-gray-600 mb-6">
                   Planches aluminium 6063-T6 dans des poteaux en U fixés à la maçonnerie.
-                  Joints SureGasket™ — certifié FEMA NFIP TB3, hauteur jusqu'à 3.6 m.
+                  Joints SureGasket™, hauteur jusqu'à 3.6 m — résidentiel et commercial.
                 </p>
                 <div className="flex items-center justify-between">
                   <div>

@@ -1,16 +1,16 @@
-import { useNavigate } from 'react-router';
+import { Link } from 'react-router';
 import { useEffect } from 'react';
 
 const VALUES = [
   {
-    icon: 'verified_user',
-    title: 'Certification avant tout',
-    body: 'Nous ne distribuons que des systèmes certifiés FEMA/NFIP. Chaque produit Garrison est testé et homologué — pas de compromis sur la protection.',
+    icon: 'workspace_premium',
+    title: 'Qualité sans compromis',
+    body: 'Nous ne distribuons que des systèmes Garrison testés et éprouvés sur le terrain. Chaque produit est sélectionné pour sa fiabilité, sa durabilité et son adéquation aux réalités canadiennes.',
   },
   {
     icon: 'engineering',
     title: 'Expertise technique',
-    body: "Notre équipe maîtrise les normes de floodproofing à sec, les calculs de pression hydrostatique et les contraintes d'installation pour chaque type de bâtiment.",
+    body: "Notre équipe maîtrise les calculs de pression hydrostatique, les contraintes d'installation et les spécifications techniques pour chaque type de bâtiment et de projet.",
   },
   {
     icon: 'local_shipping',
@@ -20,23 +20,22 @@ const VALUES = [
   {
     icon: 'support_agent',
     title: 'Accompagnement 360°',
-    body: "De l'analyse de risque à l'installation, nos experts vous guident à chaque étape. Réponse garantie sous 24 heures ouvrables.",
+    body: "De l'analyse de projet à la livraison, nos experts vous guident à chaque étape. Réponse garantie sous 24 heures ouvrables.",
   },
 ];
 
 const STEPS = [
-  { n: '01', title: 'Analyse du projet', body: 'Vous décrivez votre situation — type de bâtiment, ouvertures à protéger, niveau de risque estimé.' },
+  { n: '01', title: 'Analyse du projet', body: 'Vous décrivez votre situation — type de bâtiment, ouvertures à protéger, contraintes d\'installation.' },
   { n: '02', title: 'Recommandation', body: "Notre évaluateur ou un expert identifie le système Garrison adapté à votre cas spécifique." },
   { n: '03', title: 'Devis personnalisé', body: 'Vous recevez un devis détaillé avec les spécifications, le prix et le délai de livraison.' },
-  { n: '04', title: 'Livraison & support', body: "Le produit est livré depuis notre stock québécois. Support technique inclus pour l'installation." },
+  { n: '04', title: 'Livraison & support', body: "Le produit est livré depuis notre stock canadien. Support technique inclus pour l'installation." },
 ];
 
 export function About() {
-  const navigate = useNavigate();
   useEffect(() => {
-    document.title = 'À propos — Distributeur officiel Garrison | Armadam';
+    document.title = 'À propos — Votre partenaire batardeaux | Armadam';
     document.querySelector('meta[name="description"]')?.setAttribute('content',
-      'ARMADAM est le distributeur officiel Garrison Flood Control pour le Canada. Expertise en floodproofing, stock local, support francophone et réponse sous 24 heures.');
+      'Armadam est le distributeur officiel Garrison au Canada. Votre partenaire expert pour tous vos projets de batardeaux — résidentiel, commercial, industriel.');
   }, []);
 
   return (
@@ -49,11 +48,11 @@ export function About() {
             À propos
           </div>
           <h1 className="text-4xl lg:text-5xl font-bold font-['Raleway'] mb-6 leading-tight max-w-3xl">
-            Le spécialiste canadien en protection contre les inondations
+            Votre partenaire canadien pour tous vos projets de batardeaux
           </h1>
           <p className="text-xl text-gray-300 max-w-2xl leading-relaxed">
-            ARMADAM est le distributeur officiel Garrison Flood Control pour l'ensemble du Canada.
-            Notre mission : rendre accessible la meilleure protection certifiée FEMA pour tous les types de projets.
+            ARMADAM est le distributeur officiel Garrison pour l'ensemble du Canada.
+            Notre mission : être le partenaire de confiance pour tous vos projets — résidentiel, commercial ou industriel.
           </p>
         </div>
       </section>
@@ -63,10 +62,10 @@ export function About() {
         <div className="max-w-5xl mx-auto px-6 lg:px-8 py-12">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {[
-              { val: '14', label: 'Produits certifiés' },
+              { val: '14', label: 'Systèmes Garrison' },
               { val: 'CAN', label: 'Distribution nationale' },
               { val: '24 h', label: 'Délai de réponse' },
-              { val: '100%', label: 'Produits FEMA/NFIP' },
+              { val: '100%', label: 'Stock local Canada' },
             ].map((s, i) => (
               <div key={i} className="text-center">
                 <div className="text-4xl font-bold font-['Raleway'] text-[#1F4E79] mb-1">{s.val}</div>
@@ -89,18 +88,18 @@ export function About() {
                 Garrison Flood Control
               </h2>
               <p className="text-gray-600 leading-relaxed mb-6">
-                Garrison Flood Control est le fabricant américain de référence pour les systèmes
-                de batardeaux certifiés FEMA. Leurs produits protègent des centaines d'installations
-                critiques — hôpitaux, stations de transit, installations industrielles — aux États-Unis.
+                Garrison Flood Control est le fabricant américain de référence en systèmes de batardeaux.
+                Leurs produits équipent des centaines d'installations critiques — hôpitaux,
+                stations de transit, sites industriels — à travers l'Amérique du Nord.
               </p>
               <p className="text-gray-600 leading-relaxed">
-                En tant que distributeur exclusif au Canada, ARMADAM offre l'accès à toute la gamme
-                Garrison avec stock local, support francophone et expertise réglementaire québécoise.
+                En tant que distributeur officiel au Canada, ARMADAM offre l'accès à toute la gamme
+                Garrison avec stock local, support francophone et expertise technique complète.
               </p>
             </div>
             <div className="bg-[#111111] rounded-2xl p-8 text-white">
               <div className="text-xs text-gray-400 font-['JetBrains_Mono'] uppercase tracking-widest mb-6">
-                Certifications produits
+                Qualité produits
               </div>
               {[
                 { icon: 'verified_user', label: 'FEMA NFIP Bulletin Technique 3' },
@@ -125,7 +124,7 @@ export function About() {
           <div className="grid md:grid-cols-2 gap-8">
             {VALUES.map((v, i) => (
               <div key={i} className="flex gap-5">
-                <div className="flex-shrink-0 w-12 h-12 bg-[#1F4E79]/8 rounded-xl flex items-center justify-center">
+                <div className="flex-shrink-0 w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center">
                   <span className="material-symbols-outlined text-[#1F4E79] text-2xl">{v.icon}</span>
                 </div>
                 <div>
@@ -164,18 +163,18 @@ export function About() {
             Un expert Armadam répond sous 24 heures avec une recommandation et un devis personnalisé.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button
-              onClick={() => navigate('/contact')}
-              className="bg-white text-[#1F4E79] hover:bg-gray-50 px-8 py-4 rounded-lg font-bold font-['Raleway'] transition-all"
+            <Link
+              to="/contact"
+              className="bg-white text-[#1F4E79] hover:bg-gray-50 px-8 py-4 rounded-lg font-bold font-['Raleway'] transition-all text-center"
             >
               Nous contacter
-            </button>
-            <button
-              onClick={() => navigate('/analyse')}
-              className="bg-white/10 hover:bg-white/20 text-white px-8 py-4 rounded-lg font-bold font-['Raleway'] transition-all border border-white/20"
+            </Link>
+            <Link
+              to="/analyse"
+              className="bg-white/10 hover:bg-white/20 text-white px-8 py-4 rounded-lg font-bold font-['Raleway'] transition-all border border-white/20 text-center"
             >
               Évaluer mon projet
-            </button>
+            </Link>
           </div>
         </div>
       </section>

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Catalogue de Produits | ARMADAM</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&amp;family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&amp;family=Raleway:ital,wght@0,100..900;1,100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface": "#1c1c1a",
+                        "background": "#fcf9f6",
+                        "on-secondary": "#ffffff",
+                        "primary": "#00375e",
+                        "surface-container-low": "#f6f3f1",
+                        "on-tertiary-container": "#e9b268",
+                        "inverse-surface": "#31302f",
+                        "surface": "#fcf9f6",
+                        "tertiary-fixed-dim": "#f5bc72",
+                        "surface-container-high": "#ebe7e5",
+                        "on-primary-fixed": "#001d35",
+                        "on-primary-fixed-variant": "#184974",
+                        "secondary-fixed-dim": "#cbc6c0",
+                        "surface-container-highest": "#e5e220",
+                        "on-error-container": "#93000a",
+                        "surface-container": "#f0edeb",
+                        "on-secondary-fixed-variant": "#494642",
+                        "inverse-on-surface": "#f3f0ee",
+                        "surface-base": "#F6F5F3",
+                        "error": "#ba1a1a",
+                        "on-error": "#ffffff",
+                        "primary-fixed-dim": "#a0cafc",
+                        "on-secondary-fixed": "#1d1b18",
+                        "on-secondary-container": "#67645f",
+                        "tertiary": "#4c2e00",
+                        "on-tertiary-fixed": "#2a1800",
+                        "surface-variant": "#e5e2e0",
+                        "data-mono": "#111110",
+                        "on-tertiary-fixed-variant": "#643f00",
+                        "surface-bright": "#FDFCFA",
+                        "secondary-container": "#e8e1db",
+                        "on-primary": "#ffffff",
+                        "outline": "#72777f",
+                        "primary-fixed": "#d1e4ff",
+                        "tertiary-fixed": "#ffddb5",
+                        "secondary-fixed": "#e8e1db",
+                        "surface-dim": "#dcd9d7",
+                        "tertiary-container": "#6a4300",
+                        "error-container": "#ffdad6",
+                        "on-background": "#1c1c1a",
+                        "on-primary-container": "#95bff1",
+                        "primary-container": "#1f4e79",
+                        "inverse-primary": "#a0cafc",
+                        "on-tertiary": "#ffffff",
+                        "secondary": "#615e59",
+                        "on-surface-variant": "#42474f",
+                        "surface-tint": "#35618d",
+                        "outline-variant": "#c2c7d0",
+                        "surface-container-lowest": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "container-max": "1200px",
+                        "base": "8px",
+                        "margin-tablet": "32px",
+                        "margin-mobile": "20px",
+                        "gutter": "16px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["JetBrains Mono"],
+                        "display-lg": ["Raleway"],
+                        "headline-lg-mobile": ["Raleway"],
+                        "headline-md": ["Raleway"],
+                        "body-md": ["DM Sans"],
+                        "label-md": ["JetBrains Mono"],
+                        "headline-lg": ["Raleway"],
+                        "body-lg": ["DM Sans"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #F6F5F3;
+            color: #1c1c1a;
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+        @media (max-width: 768px) {
+            .bento-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="font-body-md text-body-md">
+<!-- Top Navigation -->
+<nav class="flex justify-between items-center px-margin-mobile h-16 w-full z-50 bg-surface/90 backdrop-blur-md border-b border-outline-variant opacity-20 fixed top-0 left-0">
+<div class="text-headline-md font-headline-md font-bold tracking-tighter text-primary">ARMADAM</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary">menu</span>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="pt-20 pb-24 px-margin-mobile max-w-screen-xl mx-auto">
+<!-- Header Section -->
+<header class="mb-10">
+<p class="font-label-sm text-label-sm text-secondary uppercase mb-2 tracking-widest">— CATALOGUE PRODUITS GARRISON</p>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary mb-4">Systèmes de protection anti-inondation.</h1>
+<p class="text-on-surface-variant font-body-md leading-relaxed max-w-md">
+                Solutions certifiées FEMA/NFIP pour la protection de vos résidences, commerces et infrastructures industrielles.
+            </p>
+</header>
+<!-- Filters (Scrollable on mobile) -->
+<div class="flex overflow-x-auto gap-2 pb-6 no-scrollbar">
+<button class="bg-primary text-on-primary px-4 py-2 font-label-md text-label-md rounded-lg whitespace-nowrap">Tous les produits</button>
+<button class="bg-surface-container-high text-secondary px-4 py-2 font-label-md text-label-md rounded-lg whitespace-nowrap hover:bg-surface-container-highest transition-all">Ouvertures</button>
+<button class="bg-surface-container-high text-secondary px-4 py-2 font-label-md text-label-md rounded-lg whitespace-nowrap hover:bg-surface-container-highest transition-all">Périmètre</button>
+<button class="bg-surface-container-high text-secondary px-4 py-2 font-label-md text-label-md rounded-lg whitespace-nowrap hover:bg-surface-container-highest transition-all">Automatique</button>
+</div>
+<!-- Product Cards (Asymmetric Grid) -->
+<section class="space-y-6">
+<!-- HAMMERHEAD -->
+<article class="bg-surface-bright border border-outline-variant/20 rounded-lg overflow-hidden group">
+<div class="aspect-[4/3] w-full bg-surface-container relative overflow-hidden">
+<img alt="Hammerhead System" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A technical, high-precision close-up of the HAMMERHEAD aluminum flood protection panels being installed on a modern warehouse loading dock. The industrial lighting is crisp and clear, highlighting the metallic texture and heavy-duty seals of the blue and silver barriers. The background is a clean, professional shipping environment with a focus on maritime safety and engineering excellence." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBloHW2JJfHMREX2m-D1oSrylAMt1ZANAp_E2tEHxELjJ2rEtPz1S0CgNPKiONT_Zy6-dprteLKuQDilibXCRSgxJh2X9nY7E8ourD0kp0vHe5Qo82i7AdkheA_nAukSJxgwASh224n0BsYW4qKN8fMgvz0fL5z6It9CAxKdVsIeafCDdDPWPoqfY9RwoT9itipjAwc-xCUOLDh_Ol_u-FF0jjXYJBgGKzUswuiYB6BLa5XXS2Kpy_YWXplaUU3-QSiZPrHjHv0SSAa"/>
+<div class="absolute top-4 left-4 bg-primary/90 text-on-primary px-3 py-1 font-label-sm text-label-sm rounded shadow-lg">OUVERTURE</div>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-2">
+<div>
+<span class="font-label-sm text-label-sm text-secondary uppercase">Résidentiel &amp; Commercial</span>
+<h2 class="font-headline-md text-headline-md text-primary mt-1">HAMMERHEAD</h2>
+</div>
+<div class="text-right">
+<span class="font-label-sm text-label-sm text-secondary">À partir de</span>
+<div class="font-label-md text-label-md text-primary">Sur devis</div>
+</div>
+</div>
+<p class="text-on-surface-variant text-body-md mb-6">Barrière stop-log en aluminium structurel 6063-T6. Joints EPDM haute performance. Déploiement manuel 'drop-in' sans outils pour des portées jusqu'à 3m (10ft).</p>
+<div class="border-t border-outline-variant/10 pt-4 flex justify-between items-center">
+<div class="flex gap-4">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm text-primary">verified</span>
+<span class="font-label-sm text-label-sm text-secondary">FEMA</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm text-primary">speed</span>
+<span class="font-label-sm text-label-sm text-secondary">15 min setup</span>
+</div>
+<div class="flex items-center gap-1"><span class="material-symbols-outlined text-sm text-primary">precision_manufacturing</span><span class="font-label-sm text-label-sm text-secondary">Aluminium 6063-T6</span></div></div>
+<span class="material-symbols-outlined text-primary group-hover:translate-x-2 transition-transform">arrow_forward</span>
+</div>
+</div>
+</article>
+<!-- MAKO -->
+<article class="bg-surface-bright border border-outline-variant/20 rounded-lg overflow-hidden group">
+<div class="aspect-[4/3] w-full bg-surface-container relative overflow-hidden">
+<img alt="Mako System" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A wide-angle landscape shot of a high-end coastal residence protected by a MAKO inflatable perimeter flood barrier. The barrier is a deep blue and grey, snakes around the property's edge near a calm river. The lighting is soft morning light, creating a serene and secure atmosphere. The architecture of the home is modern with stone and wood accents, emphasizing the reliable and premium nature of the protection system." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAvcBTUnOFz8rfH-3is6vYItbzX_p2CWXnKBBa7Dx7gVAwePneD7olv3Qql-XFb-BRHtNQGmtSZKH-G9UJGzUnkV0KhivkzIcUUjdZ6I4KYna2lqg06gcvsKzHESk5i1bRi3Kts95seTCJqJBd2_uq7Kg8L95LgRbFHqnGG6v1DTiMxSpTI8kGtw26z1civvqrh9Qt8HFUy9LX4pu483ztXLxkwbJE54rMfKHSFSwiT6CxtKKX6xY4WCyPgpHQhthocux1MSflQz48V"/>
+<div class="absolute top-4 left-4 bg-primary/90 text-on-primary px-3 py-1 font-label-sm text-label-sm rounded shadow-lg">PÉRIMÈTRE</div>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-2">
+<div>
+<span class="font-label-sm text-label-sm text-secondary uppercase">Résidentiel</span>
+<h2 class="font-headline-md text-headline-md text-primary mt-1">MAKO</h2>
+</div>
+<div class="text-right">
+<span class="font-label-sm text-label-sm text-secondary">À partir de</span>
+<div class="font-label-md text-label-md text-primary">580 $</div>
+</div>
+</div>
+<p class="text-on-surface-variant text-body-md mb-6">Mur modulaire en polyéthylène haute densité (PEHD). Système de connecteurs en T permettant des courbes à 30°. Lestage possible avec eau ou sable pour une stabilité maximale.</p>
+<div class="border-t border-outline-variant/10 pt-4 flex justify-between items-center">
+<div class="flex gap-4">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm text-primary">waves</span>
+<span class="font-label-sm text-label-sm text-secondary">76cm - 102cm</span>
+</div>
+<div class="flex items-center gap-1"><span class="material-symbols-outlined text-sm text-primary">layers</span><span class="font-label-sm text-label-sm text-secondary">PEHD Modulaire</span></div><div class="flex items-center gap-1"><span class="material-symbols-outlined text-sm text-primary">turn_slight_right</span><span class="font-label-sm text-label-sm text-secondary">Courbes à 30°</span></div></div>
+<span class="material-symbols-outlined text-primary group-hover:translate-x-2 transition-transform">arrow_forward</span>
+</div>
+</div>
+</article>
+<!-- YELLOWFIN -->
+<article class="bg-surface-bright border border-outline-variant/20 rounded-lg overflow-hidden group">
+<div class="aspect-[4/3] w-full bg-surface-container relative overflow-hidden">
+<img alt="Yellowfin System" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="An industrial-scale installation of the YELLOWFIN automatic flood barrier at a commercial facility entrance. The barrier is seen rising from a flush ground-level slot, featuring composite materials with high-visibility markings. The sky is overcast, suggesting an approaching storm, but the facility looks perfectly prepared and secure. The overall aesthetic is one of heavy-duty reliability and advanced engineering precision." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBvwC6k_nMiv0o2A7HUEWw5OsJQJgHpEdqKZWy7DlUEVKl8_0ON-KG91qUVoLPEFmlMmjUMUdpt5UBGaTpXh-DxNE-KAl32vIdL8rJeymTJIrEOrXUVMnjximQsoz1q8ruWCC8O04ZTnyTTeR9FdKYWHs4XoP-70kFTj4KDhK805njVlXkHsdQQnjvN3bLg956be0VIfF9b8Nj8kkE4xLGtlhEyqLFW3K_-x7aT14O_5NWVtd8-ZpY6oax6F9jfvuj20w-kWzpU4k7V"/>
+<div class="absolute top-4 left-4 bg-primary/90 text-on-primary px-3 py-1 font-label-sm text-label-sm rounded shadow-lg">STRUCTUREL / AUTOMATIQUE</div>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-2">
+<div>
+<span class="font-label-sm text-label-sm text-secondary uppercase">Commercial &amp; Institutionnel</span>
+<h2 class="font-headline-md text-headline-md text-primary mt-1">YELLOWFIN</h2>
+</div>
+<div class="text-right">
+<span class="font-label-sm text-label-sm text-secondary">À partir de</span>
+<div class="font-label-md text-label-md text-primary">Sur devis</div>
+</div>
+</div>
+<p class="text-on-surface-variant text-body-md mb-6">Système structurel haute résistance pour ouvertures industrielles &gt;9m (30ft). Équipé de 'Joints Actifs' à air comprimé pour une étanchéité hermétique. Certifié FM Global.</p>
+<div class="border-t border-outline-variant/10 pt-4 flex justify-between items-center">
+<div class="flex gap-4">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm text-primary">smart_toy</span>
+<span class="font-label-sm text-label-sm text-secondary">Sans intervention</span>
+</div>
+<div class="flex items-center gap-1"><span class="material-symbols-outlined text-sm text-primary">air</span><span class="font-label-sm text-label-sm text-secondary">Joints Actifs</span></div><div class="flex items-center gap-1"><span class="material-symbols-outlined text-sm text-primary">verified</span><span class="font-label-sm text-label-sm text-secondary">FM Global</span></div></div>
+<span class="material-symbols-outlined text-primary group-hover:translate-x-2 transition-transform">arrow_forward</span>
+</div>
+</div>
+</article>
+</section>
+<!-- Technical Specs Section -->
+<section class="mt-12 bg-primary p-6 rounded-lg text-on-primary shadow-sm">
+<h3 class="font-headline-md text-headline-md mb-6">Pourquoi Garrison ?</h3>
+<div class="space-y-6">
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-primary-fixed-dim text-3xl">verified_user</span>
+<div>
+<h4 class="font-label-md text-label-md font-bold mb-1">CERTIFIÉ FEMA &amp; NFIP</h4>
+<p class="text-sm opacity-80">Nos produits répondent aux normes les plus strictes de protection civile aux États-Unis et au Canada.</p>
+</div>
+</div>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-primary-fixed-dim text-3xl">local_shipping</span>
+<div>
+<h4 class="font-label-md text-label-md font-bold mb-1">STOCK LOCAL 48H</h4>
+<p class="text-sm opacity-80">Livraison rapide depuis nos entrepôts au Québec pour une réponse d'urgence efficace.</p>
+</div>
+</div>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-primary-fixed-dim text-3xl">construction</span>
+<div>
+<h4 class="font-label-md text-label-md font-bold mb-1">DURABILITÉ INDUSTRIELLE</h4>
+<p class="text-sm opacity-80">Conçus pour durer des décennies avec des matériaux résistants à la corrosion marine.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="mt-12 text-center">
+<h3 class="font-headline-md text-headline-md text-primary mb-4">Besoin d'une analyse ?</h3>
+<p class="text-on-surface-variant mb-6">Nos experts vous accompagnent pour définir le meilleur plan de protection pour vos actifs.</p>
+<button class="w-full bg-primary-container text-on-primary-container font-headline-md py-4 rounded-xl flex items-center justify-center gap-2 hover:opacity-90 transition-all active:scale-95">
+                Obtenir un devis gratuit
+                <span class="material-symbols-outlined">request_quote</span>
+</button>
+</section>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 w-full flex justify-around items-center pt-2 pb-safe px-4 bg-surface/95 backdrop-blur-lg border-t border-outline-variant opacity-20 z-50">
+<a class="flex flex-col items-center justify-center text-secondary opacity-70 py-1 px-4 hover:bg-surface-container-highest transition-all" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm">Accueil</span>
+</a>
+<a class="flex flex-col items-center justify-center text-secondary opacity-70 py-1 px-4 hover:bg-surface-container-highest transition-all" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label-sm text-label-sm">Risque</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary bg-primary-container/20 rounded-full py-1 px-4 scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">shield</span>
+<span class="font-label-sm text-label-sm">Produits</span>
+</a>
+<a class="flex flex-col items-center justify-center text-secondary opacity-70 py-1 px-4 hover:bg-surface-container-highest transition-all" href="#">
+<span class="material-symbols-outlined">grid_view</span>
+<span class="font-label-sm text-label-sm">Projets</span>
+</a>
+</nav>
+</body></html>

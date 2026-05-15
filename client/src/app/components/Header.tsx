@@ -22,19 +22,19 @@ export function Header() {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8">
-            <Link to="/" className="text-gray-700 hover:text-primary transition-colors font-medium">
+            <Link to="/" className="text-gray-700 hover:text-[#1F4E79] transition-colors font-medium">
               Accueil
             </Link>
-            <Link to="/produits" className="text-gray-700 hover:text-primary transition-colors font-medium">
+            <Link to="/produits" className="text-gray-700 hover:text-[#1F4E79] transition-colors font-medium">
               Produits
             </Link>
-            <Link to="/analyse" className="text-gray-700 hover:text-primary transition-colors font-medium">
+            <Link to="/analyse" className="text-gray-700 hover:text-[#1F4E79] transition-colors font-medium">
               Évaluateur de projet
             </Link>
-            <Link to="/apropos" className="text-gray-700 hover:text-primary transition-colors font-medium">
+            <Link to="/apropos" className="text-gray-700 hover:text-[#1F4E79] transition-colors font-medium">
               À propos
             </Link>
-            <Link to="/contact" className="text-gray-700 hover:text-primary transition-colors font-medium">
+            <Link to="/contact" className="text-gray-700 hover:text-[#1F4E79] transition-colors font-medium">
               Contact
             </Link>
           </nav>
@@ -48,10 +48,11 @@ export function Header() {
               <span className="material-symbols-outlined text-base">mail</span>
               info@armadam.com
             </a>
-            <Link to="/analyse">
-              <button className="bg-primary hover:bg-primary/90 text-white px-6 py-2.5 rounded-lg font-medium transition-all shadow-sm hover:shadow-md">
-                Évaluer un projet
-              </button>
+            <Link
+              to="/analyse"
+              className="bg-[#1F4E79] hover:bg-[#2B6CB0] text-white px-6 py-2.5 rounded-lg font-medium transition-all shadow-sm hover:shadow-md"
+            >
+              Évaluer un projet
             </Link>
           </div>
         </div>
