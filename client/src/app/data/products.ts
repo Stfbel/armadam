@@ -10,6 +10,8 @@ export interface Product {
   features: string[];
   image: string;
   specs?: Record<string, string>;
+  applications?: { icon: string; label: string }[];
+  howItWorks?: string;
 }
 
 export const products: Product[] = [
@@ -20,6 +22,15 @@ export const products: Product[] = [
     price: 'Sur devis', features: ['Aluminium 6063-T6', "Jusqu'à 3.6 m", 'Certifié FEMA/NFIP', 'SureGasket™'],
     image: '/images/hammerhead.webp',
     specs: { Matériau: 'Aluminium 6063-T6', 'Hauteur max': '3.6 m', 'Largeur max': '12 pi (144")', Certification: 'FEMA NFIP TB3', Joints: 'SureGasket™ / AlumiSeal™' },
+    applications: [
+      { icon: 'door_front', label: 'Portes résidentielles' },
+      { icon: 'window', label: 'Fenêtres & meurtrières' },
+      { icon: 'garage', label: 'Garages' },
+      { icon: 'local_shipping', label: 'Quais de chargement' },
+      { icon: 'stairs', label: 'Cages d\'escalier' },
+      { icon: 'store', label: 'Façades commerciales' },
+    ],
+    howItWorks: "Les planches aluminium 6063-T6 s'insèrent et s'empilent dans des poteaux en U fixés de façon permanente de chaque côté de l'ouverture. La pression hydrostatique de l'eau comprime les joints SureGasket™/AlumiSeal™ — plus l'eau monte, plus l'étanchéité est renforcée automatiquement.",
   },
   {
     id: 2, slug: 'mako', name: 'MAKO', category: 'Ouvertures', type: 'Résidentiel & Commercial',
@@ -28,6 +39,15 @@ export const products: Product[] = [
     price: 'À partir de 580 $ CAD', features: ['PVC drop-stitch', 'Sur mesure 108"', '2 chambres PVC', 'Sans ancrage'],
     image: '/images/mako.webp',
     specs: { Matériau: 'PVC drop-stitch', 'Largeur max': '108"', Chambres: '2 indépendantes', Modification: 'Aucune structurelle' },
+    applications: [
+      { icon: 'garage', label: 'Garages sans maçonnerie' },
+      { icon: 'door_front', label: 'Ouvertures irrégulières' },
+      { icon: 'directions_subway', label: 'Stations de transit' },
+      { icon: 'store', label: 'Devantures commerciales' },
+      { icon: 'apartment', label: 'Copropriétés' },
+      { icon: 'warehouse', label: 'Entrepôts' },
+    ],
+    howItWorks: "Les sections PVC drop-stitch se gonflent avec un compresseur standard directement dans l'ouverture. La pression interne force les tubes contre les murs et le seuil, créant une barrière étanche sans ancrage permanent ni modification structurelle.",
   },
   {
     id: 3, slug: 'yellowfin', name: 'YELLOWFIN', category: 'Ouvertures', type: 'Commercial',
@@ -36,6 +56,15 @@ export const products: Product[] = [
     price: 'Sur devis', features: ['Composite renforcé', 'Portée 3.35 m', 'Certifié FEMA TB3', 'Redéployable'],
     image: '/images/yellowfin.webp',
     specs: { Matériau: 'Fibre de verre + alu 6063-T6 + HDPE + inox 316L', Certification: 'FEMA TB3 + NFIP', Portée: '3.35 m', 'Hauteur max': '96"', Redéploiement: '~10 min/panneau' },
+    applications: [
+      { icon: 'warehouse', label: 'Grandes ouvertures industrielles' },
+      { icon: 'directions_subway', label: 'Stations de transit' },
+      { icon: 'local_hospital', label: 'Hôpitaux' },
+      { icon: 'business', label: 'Immeubles commerciaux' },
+      { icon: 'door_front', label: 'Portails larges' },
+      { icon: 'factory', label: 'Usines & installations' },
+    ],
+    howItWorks: "Les panneaux composites s'empilent dans des rails permanents installés de chaque côté de l'ouverture. La structure hybride fibre de verre + aluminium 6063-T6 + HDPE + inox 316L résiste aux pressions hydrostatiques élevées sur de grandes portées sans déformation.",
   },
   {
     id: 4, slug: 'bluefin', name: 'BLUEFIN', category: 'Périmètres', type: 'Commercial & Industriel',
@@ -44,6 +73,15 @@ export const products: Product[] = [
     price: 'Sur devis', features: ['Alu 6063-T6', '4 hauteurs', '10+ ans', 'Inox 316L'],
     image: '/images/bluefin.webp',
     specs: { Matériau: 'Alu 6063-T6 + fibre de verre honeycomb', Joints: 'EPDM ½"', Boulonnerie: 'Inox 316L', Poids: '73–78 kg/panneau', 'Durée de vie': '10+ ans', Sections: '3, 4, 6, 8 pieds' },
+    applications: [
+      { icon: 'factory', label: 'Périmètres industriels' },
+      { icon: 'local_hospital', label: 'Infrastructures critiques' },
+      { icon: 'business', label: 'Complexes commerciaux' },
+      { icon: 'directions_subway', label: 'Stations de transit' },
+      { icon: 'warehouse', label: 'Entrepôts & usines' },
+      { icon: 'electric_bolt', label: 'Centrales électriques' },
+    ],
+    howItWorks: "Les panneaux aluminium + fibre de verre honeycomb se boulonnent en séquence pour former une enceinte périmétrique fermée. Les joints EPDM ½\" compensent les irrégularités du sol et assurent l'étanchéité entre panneaux adjacents.",
   },
   {
     id: 5, slug: 'mayim', name: 'MAYIM', category: 'Périmètres', type: 'Résidentiel & Commercial',
@@ -52,6 +90,15 @@ export const products: Product[] = [
     price: 'Sur devis', features: ['Interconnectables', '3 hauteurs', 'Auto-ancré par inondation', 'Périmètre complet'],
     image: '/images/mayim.webp',
     specs: { Hauteurs: '20", 30", 40"', Connexion: 'Panneaux interconnectés', Ancrage: 'Poids de l\'eau de crue', Usage: 'Temporaire ou permanent' },
+    applications: [
+      { icon: 'fence', label: 'Périmètres temporaires' },
+      { icon: 'construction', label: 'Chantiers' },
+      { icon: 'park', label: 'Sites évolutifs' },
+      { icon: 'warehouse', label: 'Entrepôts' },
+      { icon: 'home', label: 'Résidentiel' },
+      { icon: 'store', label: 'Commerces' },
+    ],
+    howItWorks: "Les panneaux rigides en L s'interconnectent et se positionnent à sec autour de la zone à protéger. Lorsque l'inondation arrive, le poids et la pression de l'eau de crue maintiennent les panneaux fermement — aucun ancrage, aucune fondation requis.",
   },
   {
     id: 6, slug: 'stingray', name: 'STINGRAY', category: 'Périmètres', type: 'Résidentiel & Commercial',
@@ -60,6 +107,15 @@ export const products: Product[] = [
     price: 'À partir de 950 $ CAD', features: ['Auto-déploiement', '3 hauteurs', 'Activé par eau', 'Zéro opérateur'],
     image: '/images/stingray.webp',
     specs: { Hauteurs: '20", 30", 48"', Prix: 'À partir de 950 $ CAD', Matériau: 'Grille PVC + flotteurs mousse', Activation: 'Hydrostatique automatique', Opération: 'Zéro intervention humaine' },
+    applications: [
+      { icon: 'home', label: 'Résidentiel' },
+      { icon: 'store', label: 'Commerces' },
+      { icon: 'door_front', label: 'Entrées & seuils' },
+      { icon: 'garage', label: 'Allées de garage' },
+      { icon: 'fence', label: 'Périmètres légers' },
+      { icon: 'park', label: 'Accès extérieurs' },
+    ],
+    howItWorks: "La barrière en V est stockée à plat en position d'attente. Au contact de l'eau, les flotteurs mousse la soulèvent automatiquement en position verticale. Le lest métallique assure la stabilité face aux courants. Zéro opérateur, zéro énergie externe.",
   },
   {
     id: 7, slug: 'oyster', name: 'OYSTER', category: 'Automatique', type: 'Commercial & Institutionnel',
@@ -68,6 +124,15 @@ export const products: Product[] = [
     price: 'Sur devis', features: ['Hydrostatique', 'Rampes inclinées', '3 hauteurs', 'Encastré ou surface'],
     image: '/images/oyster.webp',
     specs: { Hauteurs: '24", 36", 48"', Activation: 'Pression hydrostatique', Application: 'Rampes inclinées, garages, stations transit', Installation: 'Encastrée ou surface' },
+    applications: [
+      { icon: 'garage', label: 'Rampes de stationnement' },
+      { icon: 'directions_subway', label: 'Stations de transit' },
+      { icon: 'local_hospital', label: 'Hôpitaux' },
+      { icon: 'business', label: 'Stationnements souterrains' },
+      { icon: 'warehouse', label: 'Quais inclinés' },
+      { icon: 'apartment', label: 'Copropriétés' },
+    ],
+    howItWorks: "La porte est installée de façon permanente perpendiculairement à la rampe (encastrée dans le sol ou montée en surface). La montée de l'eau de crue génère une pression hydrostatique qui active automatiquement le mécanisme de fermeture — aucune intervention humaine requise.",
   },
   {
     id: 8, slug: 'guppy', name: 'GUPPY', category: 'Périmètres', type: 'Résidentiel',
@@ -76,6 +141,15 @@ export const products: Product[] = [
     price: 'À partir de 120 $ CAD', features: ['Boyau standard', '3 diamètres', 'EN13501-B1', 'Réutilisable'],
     image: '/images/guppy.webp',
     specs: { Diamètres: '6", 12", 24"', 'Protection': '4", 10" ou 19"', Longueurs: '10 à 100 pieds', Remplissage: 'Boyau d\'arrosage standard', Certification: 'EN13501-B1', Réutilisable: 'Oui' },
+    applications: [
+      { icon: 'home', label: 'Résidentiel' },
+      { icon: 'store', label: 'Petits commerces' },
+      { icon: 'door_front', label: 'Seuils de portes' },
+      { icon: 'garage', label: 'Garages' },
+      { icon: 'fence', label: 'Périmètres légers' },
+      { icon: 'park', label: 'Jardins & terrasses' },
+    ],
+    howItWorks: "Connecter un boyau d'arrosage standard au raccord du tube et laisser remplir. Le tube se gonfle et s'aplatit contre le sol, formant une barrière étanche contre l'eau de surface. Après usage, vidanger et plier pour un rangement compact.",
   },
   {
     id: 9, slug: 'guppy-max', name: 'GUPPY MAX', category: 'Périmètres', type: 'Industriel',
@@ -84,6 +158,15 @@ export const products: Product[] = [
     price: '~3 100 $ CAD/section', features: ['102 cm hauteur', '30 pieds', 'Borne incendie', '8 000 kg/section'],
     image: '/images/guppy-max.webp',
     specs: { Hauteur: '40" (102 cm)', Longueur: '30 pieds/section', Chambres: '3 indépendantes', Capacité: '8 000 L / 8 000 kg', Remplissage: 'Borne-incendie' },
+    applications: [
+      { icon: 'factory', label: 'Sites industriels' },
+      { icon: 'warehouse', label: 'Grands entrepôts' },
+      { icon: 'business', label: 'Périmètres commerciaux' },
+      { icon: 'construction', label: 'Chantiers d\'urgence' },
+      { icon: 'local_hospital', label: 'Infrastructures critiques' },
+      { icon: 'electric_bolt', label: 'Centrales & sous-stations' },
+    ],
+    howItWorks: "Raccorder la section de 30 pieds à une borne-incendie. Les 3 chambres PVC indépendantes se remplissent pour atteindre 40\" (102 cm) de hauteur. Les sections s'enchaînent pour couvrir de grandes distances en un temps record.",
   },
   {
     id: 10, slug: 'serpent', name: 'SERPENT', category: 'Périmètres', type: 'Industriel',
@@ -92,6 +175,15 @@ export const products: Product[] = [
     price: 'À partir de 2 500 $ CAD', features: ['6 PSI', "Jusqu'à 40\"", 'Connectables', '8–18 min'],
     image: '/images/serpent.webp',
     specs: { Pression: '6 PSI', 'Hauteur max': '40"', Longueurs: '15 et 30 pieds', Connexion: 'Connectables en série', Déploiement: '8–18 min' },
+    applications: [
+      { icon: 'fence', label: 'Grands périmètres' },
+      { icon: 'warehouse', label: 'Entrepôts & usines' },
+      { icon: 'construction', label: 'Chantiers' },
+      { icon: 'local_hospital', label: 'Infrastructures critiques' },
+      { icon: 'business', label: 'Complexes commerciaux' },
+      { icon: 'electric_bolt', label: 'Installations énergétiques' },
+    ],
+    howItWorks: "Déployer le tube à plat et raccorder un compresseur standard. Le gonflage à 6 PSI prend 8–18 minutes selon la longueur. Les sections 15 et 30 pieds se raccordent pour former une enceinte continue sur de grandes distances sans ancrage.",
   },
   {
     id: 11, slug: 'minnow', name: 'MINNOW', category: 'Solutions rapides', type: 'Résidentiel & Commercial',
@@ -100,6 +192,15 @@ export const products: Product[] = [
     price: 'À partir de 55 $ CAD', features: ['Polymère hydrophile', '17–20 kg gorgé', 'Eau douce', 'Empilable'],
     image: '/images/minnow.webp',
     specs: { Poids: '~272 g sec / 17–20 kg gorgé', Formats: 'MW1 (60×40×12 cm), MW2 (40×36×12 cm)', Activation: 'Eau douce automatique', Réutilisable: 'Limité', Stockage: 'À sec, longue durée' },
+    applications: [
+      { icon: 'home', label: 'Urgence résidentielle' },
+      { icon: 'door_front', label: 'Seuils de portes' },
+      { icon: 'store', label: 'Petits commerces' },
+      { icon: 'garage', label: 'Garages' },
+      { icon: 'stairs', label: 'Cages d\'escalier' },
+      { icon: 'fence', label: 'Barrières d\'urgence' },
+    ],
+    howItWorks: "Les sacs de polymère hydrophile sont posés à sec (seulement ~272 g chacun). Au contact de l'eau douce, le polymère gonfle rapidement — chaque sac atteint 17–20 kg. Empiler plusieurs rangées pour augmenter la hauteur. Stockage à sec longue durée entre les événements.",
   },
   {
     id: 12, slug: 'beluga', name: 'BELUGA', category: 'Solutions rapides', type: 'Commercial',
@@ -108,6 +209,15 @@ export const products: Product[] = [
     price: 'À partir de 40 $ CAD/BG1', features: ['BG1 ou BG5', '102 cm hauteur', 'UV 2 200 h', 'Sable/granulats'],
     image: '/images/beluga.webp',
     specs: { Formats: 'BG1 (91×91×102 cm), BG5 (4.5 m × 102 cm)', 'Résistance UV': '2 200 h', Remplissage: 'Sable ou granulats', Usage: 'Temporaire ou permanent' },
+    applications: [
+      { icon: 'warehouse', label: 'Grandes surfaces industrielles' },
+      { icon: 'construction', label: 'Chantiers de protection' },
+      { icon: 'factory', label: 'Sites industriels' },
+      { icon: 'business', label: 'Périmètres commerciaux' },
+      { icon: 'fence', label: 'Barrières temporaires larges' },
+      { icon: 'local_shipping', label: 'Zones logistiques' },
+    ],
+    howItWorks: "Déposer le BG1 ou déployer le BG5 accordéon à plat et remplir de sable ou granulats sur place. La résistance UV 2 200 h garantit la durabilité en extérieur. Le format BG5 couvre 4.5 m d'un seul déploiement grâce à ses 5 compartiments interconnectés.",
   },
   {
     id: 13, slug: 'sandbags', name: 'SANDBAGS', category: 'Solutions rapides', type: 'Résidentiel & Commercial',
@@ -116,6 +226,15 @@ export const products: Product[] = [
     price: 'Sur devis / palette', features: ['Polypropylène', '14×26 pouces', 'Protection UV', '35–40 lbs'],
     image: '/images/sandbags.webp',
     specs: { Dimensions: '14" × 26"', Matériau: 'Polypropylène', Poids: '35–40 lbs rempli', 'Protection UV': 'Intégrée', Vente: 'Par palette' },
+    applications: [
+      { icon: 'home', label: 'Résidentiel' },
+      { icon: 'store', label: 'Commerces' },
+      { icon: 'door_front', label: 'Seuils & entrées' },
+      { icon: 'garage', label: 'Garages' },
+      { icon: 'fence', label: 'Barrières d\'urgence' },
+      { icon: 'construction', label: 'Chantiers' },
+    ],
+    howItWorks: "Remplir les sacs de sable sur place et les empiler en quinconce pour former une barrière stable. La protection UV intégrée dans le polypropylène préserve les sacs contre la dégradation solaire. Disponible en palette pour les grands projets.",
   },
   {
     id: 14, slug: 'sea-sponge', name: 'SEA SPONGE', category: 'Équipement', type: 'Commercial & Industriel',
@@ -124,6 +243,15 @@ export const products: Product[] = [
     price: 'Sur devis', features: ['2/3 HP', '50–170 L/min', 'Drain 1 mm', '13 kg'],
     image: '/images/sea-sponge.webp',
     specs: { Puissance: '2/3 HP', Débit: '50–170 L/min', Alimentation: '110V / 6.1A', Carcasse: 'EPR', 'Drainage minimum': '1 mm', Poids: '13 kg' },
+    applications: [
+      { icon: 'warehouse', label: 'Post-inondation industriel' },
+      { icon: 'home', label: 'Post-inondation résidentiel' },
+      { icon: 'business', label: 'Commerces & bureaux' },
+      { icon: 'local_hospital', label: 'Hôpitaux & bâtiments critiques' },
+      { icon: 'construction', label: 'Récupération post-sinistre' },
+      { icon: 'directions_subway', label: 'Stations & tunnels' },
+    ],
+    howItWorks: "Plonger la pompe dans la zone inondée et brancher en 110V. Son mécanisme spécial aspire l'eau jusqu'à 1 mm de profondeur — là où les pompes standard ne peuvent plus pomper. Le débit de 50–170 L/min évacue rapidement les volumes d'eau résiduels.",
   },
 ];
 

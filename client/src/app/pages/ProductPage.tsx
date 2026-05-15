@@ -54,7 +54,7 @@ export function ProductPage() {
         </div>
       </div>
 
-      {/* Hero — image + identité */}
+      {/* ── HERO — image + identité ── */}
       <section className="bg-white py-12 border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-start">
@@ -86,7 +86,7 @@ export function ProductPage() {
               {/* Accroche courte */}
               <p className="text-xl text-gray-500 mb-6 leading-relaxed">{product.shortDesc}</p>
 
-              {/* ── Tags / Caractéristiques clés ── */}
+              {/* Caractéristiques clés */}
               <div className="mb-6">
                 <div className="text-xs font-bold text-gray-400 font-['JetBrains_Mono'] uppercase tracking-widest mb-3">
                   Caractéristiques clés
@@ -103,7 +103,7 @@ export function ProductPage() {
                 </div>
               </div>
 
-              {/* ── Description ── */}
+              {/* Description */}
               <div className="mb-8">
                 <div className="text-xs font-bold text-gray-400 font-['JetBrains_Mono'] uppercase tracking-widest mb-3">
                   Description
@@ -147,7 +147,78 @@ export function ProductPage() {
         </div>
       </section>
 
-      {/* ── Fiche technique ── */}
+      {/* ── APPLICATIONS ── */}
+      {product.applications && product.applications.length > 0 && (
+        <section className="bg-white py-14 border-b border-gray-100">
+          <div className="max-w-7xl mx-auto px-6 lg:px-8">
+            <div className="mb-8">
+              <div className="text-xs font-bold text-gray-400 font-['JetBrains_Mono'] uppercase tracking-widest mb-2">
+                Utilisations typiques
+              </div>
+              <h2 className="text-2xl font-bold font-['Raleway'] text-gray-900">
+                Où utiliser le {product.name} ?
+              </h2>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+              {product.applications.map((app, i) => (
+                <div
+                  key={i}
+                  className="flex flex-col items-center gap-3 bg-gray-50 hover:bg-blue-50 border border-gray-100 hover:border-blue-200 rounded-xl p-5 text-center transition-all group"
+                >
+                  <div className="w-12 h-12 bg-white group-hover:bg-[#1F4E79]/10 rounded-xl flex items-center justify-center border border-gray-100 group-hover:border-blue-200 transition-all shadow-sm">
+                    <span className="material-symbols-outlined text-gray-500 group-hover:text-[#1F4E79] text-2xl transition-colors">
+                      {app.icon}
+                    </span>
+                  </div>
+                  <span className="text-xs font-semibold text-gray-700 group-hover:text-[#1F4E79] font-['JetBrains_Mono'] leading-tight transition-colors">
+                    {app.label}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ── COMMENT ÇA FONCTIONNE ── */}
+      {product.howItWorks && (
+        <section className="bg-[#111111] py-14 border-b border-gray-800">
+          <div className="max-w-7xl mx-auto px-6 lg:px-8">
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              <div>
+                <div className="text-xs font-bold text-[#2B6CB0] font-['JetBrains_Mono'] uppercase tracking-widest mb-3">
+                  Mécanisme
+                </div>
+                <h2 className="text-3xl font-bold font-['Raleway'] text-white mb-6">
+                  Comment ça fonctionne
+                </h2>
+                <p className="text-gray-300 text-lg leading-relaxed">
+                  {product.howItWorks}
+                </p>
+              </div>
+              <div className="grid grid-cols-1 gap-4">
+                {[
+                  { icon: 'bolt', label: 'Déploiement rapide', desc: 'Conçu pour être opérationnel en quelques minutes' },
+                  { icon: 'shield', label: 'Protection certifiée', desc: 'Conforme FEMA NFIP — testé et homologué' },
+                  { icon: 'replay', label: 'Réutilisable', desc: 'Rangement compact entre les événements d\'inondation' },
+                ].map((b, i) => (
+                  <div key={i} className="flex items-start gap-4 bg-white/5 border border-white/10 rounded-xl p-5">
+                    <div className="flex-shrink-0 w-10 h-10 bg-[#1F4E79]/30 rounded-lg flex items-center justify-center">
+                      <span className="material-symbols-outlined text-[#2B6CB0] text-xl">{b.icon}</span>
+                    </div>
+                    <div>
+                      <div className="text-white font-semibold font-['Raleway'] mb-1">{b.label}</div>
+                      <div className="text-gray-400 text-sm">{b.desc}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ── FICHE TECHNIQUE ── */}
       {product.specs && Object.keys(product.specs).length > 0 && (
         <section className="bg-gray-50 py-12 border-b border-gray-100">
           <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -172,7 +243,7 @@ export function ProductPage() {
         </section>
       )}
 
-      {/* Produits similaires */}
+      {/* ── PRODUITS SIMILAIRES ── */}
       {related.length > 0 && (
         <section className="bg-white py-12 border-b border-gray-100">
           <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -206,23 +277,32 @@ export function ProductPage() {
         </section>
       )}
 
-      {/* CTA band */}
-      <section className="bg-[#111111] text-white py-12">
+      {/* ── CTA BAND ── */}
+      <section className="bg-[#1F4E79] text-white py-14">
         <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold font-['Raleway'] mb-4">
             Prêt à protéger votre propriété ?
           </h2>
-          <p className="text-gray-400 mb-8">
+          <p className="text-white/70 mb-8 text-lg">
             Un expert Armadam vous répond sous 24 heures avec une recommandation personnalisée.
           </p>
-          <Link
-            to="/contact"
-            state={{ produit: product.name }}
-            className="inline-flex items-center gap-2 bg-[#1F4E79] hover:bg-[#2B6CB0] text-white px-8 py-4 rounded-lg font-bold font-['Raleway'] transition-all"
-          >
-            Demander un devis
-            <span className="material-symbols-outlined">arrow_forward</span>
-          </Link>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link
+              to="/contact"
+              state={{ produit: product.name }}
+              className="inline-flex items-center justify-center gap-2 bg-white text-[#1F4E79] hover:bg-gray-50 px-8 py-4 rounded-lg font-bold font-['Raleway'] transition-all"
+            >
+              Demander un devis
+              <span className="material-symbols-outlined">arrow_forward</span>
+            </Link>
+            <Link
+              to="/analyse"
+              className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white border border-white/20 px-8 py-4 rounded-lg font-bold font-['Raleway'] transition-all"
+            >
+              <span className="material-symbols-outlined text-base">search</span>
+              Évaluer mon projet
+            </Link>
+          </div>
         </div>
       </section>
     </main>
